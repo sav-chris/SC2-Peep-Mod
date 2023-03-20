@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Catalog>
+    <CTerrain id="UmojaEx3">
+        <BlendTextures index="0" value="ProtossBase1"/>
+        <BlendTextures index="3" value="EndionAiurProtoss2"/>
+        <BlendTextures index="7" value="Cybros8"/>
+        <CliffSets value="TarsonisCityCliff1"/>
+        <FogColor value="255,0,0,255"/>
+        <FogDensity value="0.700000"/>
+        <FogFalloff value="0.350000"/>
+        <FogStartingHeight value="2.000000"/>
+        <Gravity value="-6.900000"/>
+        <MinimapBrightenFactor value="1.250000"/>
+    </CTerrain>
+</Catalog>

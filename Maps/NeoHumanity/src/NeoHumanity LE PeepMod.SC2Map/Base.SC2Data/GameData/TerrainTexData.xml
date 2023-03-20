@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Catalog>
+    <CTerrainTex id="ProtossBase1">
+        <Texture value="Assets\Textures\purifierworld7.dds"/>
+        <Normalmap value="Assets\Textures\purifierworld7.dds"/>
+    </CTerrainTex>
+</Catalog>

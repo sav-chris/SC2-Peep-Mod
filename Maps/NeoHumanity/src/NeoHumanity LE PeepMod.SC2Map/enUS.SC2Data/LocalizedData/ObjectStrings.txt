@@ -1,0 +1,3 @@
+﻿Light/Name/EditorTestLight=default
+Light/Name/UmojaEx3_Low=UmojaEx3_Low
+Light/Name/UmojaEx3_Medium=UmojaEx3_Medium

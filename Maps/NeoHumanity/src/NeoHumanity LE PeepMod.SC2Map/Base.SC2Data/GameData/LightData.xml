@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Catalog>
+    <CLight id="UmojaEx3">
+        <ToDInfoArray index="0" AmbientColor="0.490196,0.490196,0.490196" OperatorHDR="4">
+            <Param index="HDRExposure" value="1.500000"/>
+            <Param index="HDREmisMultiplier" value="0.800000"/>
+            <Param index="TerrainSpecularExp" value="27.040001"/>
+            <Param index="TerrainHDRDiffuse" value="1.280000"/>
+            <Param index="TerrainHDRSpecular" value="2.000000"/>
+            <Param index="CreepSpecularExp" value="20.340000"/>
+            <Param index="CreepHDRSpecMultiplier" value="1.300000"/>
+            <Param index="ColorizationContrast" value="0.950000"/>
+            <Param index="ColorizationSaturation" value="0.000000"/>
+            <Param index="ColorizationLightness" value="0.000000"/>
+            <Param index="ColorizationBlend" value="0.100000"/>
+            <DirectionalLight index="Key">
+                <Color value="1.000000,1.000000,1.000000"/>
+                <ColorMultiplier value="1.050000"/>
+                <SpecularColor value="1.000000,1.000000,1.000000"/>
+                <SpecColorMultiplier value="1.050000"/>
+                <Direction value="0.505304,-0.523258,-0.686199"/>
+            </DirectionalLight>
+            <DirectionalLight index="Fill" Color="0.803922,0.674510,0.549020" ColorMultiplier="0.197000" Direction="-0.635080,-0.532895,-0.559193"/>
+            <DirectionalLight index="Back" Color="0.431373,0.529412,0.686275"/>
+        </ToDInfoArray>
+    </CLight>
+    <CLight id="UmojaEx3_Medium" parent="default">
+        <ToDInfoArray index="0">
+            <Id value="UmojaEx3_Medium"/>
+            <AmbientColor value="0.486275,0.509804,0.509804"/>
+            <Colorize value="1"/>
+            <UseSeparateDetailSSAO value="0"/>
+            <Param index="HDRExposure" value="1.500000"/>
+            <Param index="HDRBloomThreshold" value="1.100000"/>
+            <Param index="HDRWhitePoint" value="1.850000"/>
+            <Param index="HDRSpecMultiplier" value="0.900000"/>
+            <Param index="HDREmisMultiplier" value="0.700000"/>
+            <Param index="TerrainSpecularExp" value="14.250000"/>
+            <Param index="TerrainHDRDiffuse" value="1.500000"/>
+            <Param index="TerrainHDRSpecular" value="12.000000"/>
+            <Param index="CreepSpecularExp" value="20.000000"/>
+            <Param index="CreepHDRSpecMultiplier" value="3.000000"/>
+            <Param index="ColorizationHue" value="0.152000"/>
+            <Param index="ColorizationSaturation" value="-0.000000"/>
+            <Param index="ColorizationLightness" value="-0.000000"/>
+            <Param index="ColorizationBlend" value="0.200000"/>
+            <Param index="AOOcclusionRadius" value="0.600000"/>
+            <Param index="AONoOcclusion" value="0.600000"/>
+            <Param index="AOFullOcclusion" value="0.050000"/>
+            <Param index="AOOcclusionPower" value="2.000000"/>
+            <Param index="AODetailOcclusionRadius" value="0.020000"/>
+            <Param index="AODetailNoOcclusion" value="0.030000"/>
+            <Param index="AODetailOcclusionPower" value="16.000000"/>
+            <Param index="ShadowPenumbraSize" value="0.100000"/>
+            <DirectionalLight index="Key">
+                <Color value="0.549020,0.549020,0.584314"/>
+                <ColorMultiplier value="0.900000"/>
+                <SpecularColor value="0.529412,0.529412,0.584314"/>
+                <SpecColorMultiplier value="0.900000"/>
+                <Direction value="0.406739,0.563129,-0.719340"/>
+            </DirectionalLight>
+            <DirectionalLight index="Fill" Color="0.411765,0.509804,0.537255" ColorMultiplier="0.200000" Direction="-0.495785,0.258639,-0.829038"/>
+            <DirectionalLight index="Back" Color="0.309804,0.203922,0.309804" ColorMultiplier="0.200000" Direction="0.606812,-0.442333,-0.660395"/>
+        </ToDInfoArray>
+        <EditorCategories value="LightGroup:Tilesets"/>
+    </CLight>
+    <CLight id="UmojaEx3_Low" parent="default">
+        <ToDInfoArray index="0">
+            <Id value="UmojaEx3_Low"/>
+            <AmbientColor value="0.529412,0.529412,0.545098"/>
+            <Colorize value="1"/>
+            <UseSeparateDetailSSAO value="0"/>
+            <Param index="HDRExposure" value="1.500000"/>
+            <Param index="HDRBloomThreshold" value="1.100000"/>
+            <Param index="HDRWhitePoint" value="1.850000"/>
+            <Param index="HDRSpecMultiplier" value="0.900000"/>
+            <Param index="HDREmisMultiplier" value="0.700000"/>
+            <Param index="TerrainSpecularExp" value="14.250000"/>
+            <Param index="TerrainHDRDiffuse" value="1.800000"/>
+            <Param index="TerrainHDRSpecular" value="12.000000"/>
+            <Param index="CreepSpecularExp" value="20.000000"/>
+            <Param index="CreepHDRSpecMultiplier" value="3.000000"/>
+            <Param index="ColorizationBrightness" value="1.100000"/>
+            <Param index="ColorizationHue" value="0.152000"/>
+            <Param index="ColorizationSaturation" value="-0.000000"/>
+            <Param index="ColorizationLightness" value="-0.000000"/>
+            <Param index="ColorizationBlend" value="0.200000"/>
+            <Param index="AOOcclusionRadius" value="0.600000"/>
+            <Param index="AONoOcclusion" value="0.600000"/>
+            <Param index="AOFullOcclusion" value="0.050000"/>
+            <Param index="AOOcclusionPower" value="2.000000"/>
+            <Param index="AODetailOcclusionRadius" value="0.020000"/>
+            <Param index="AODetailNoOcclusion" value="0.030000"/>
+            <Param index="AODetailOcclusionPower" value="16.000000"/>
+            <DirectionalLight index="Key">
+                <Color value="0.549020,0.549020,0.584314"/>
+                <ColorMultiplier value="1.000000"/>
+                <SpecularColor value="0.529412,0.529412,0.584314"/>
+                <SpecColorMultiplier value="0.900000"/>
+                <Direction value="0.406739,0.563129,-0.719340"/>
+            </DirectionalLight>
+            <DirectionalLight index="Fill" Color="0.411765,0.509804,0.537255" ColorMultiplier="0.200000" Direction="-0.495785,0.258639,-0.829038"/>
+            <DirectionalLight index="Back" Color="0.309804,0.203922,0.309804" ColorMultiplier="0.200000" Direction="0.606812,-0.442333,-0.660395"/>
+        </ToDInfoArray>
+        <EditorCategories value="LightGroup:Tilesets"/>
+    </CLight>
+</Catalog>

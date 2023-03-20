@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Catalog>
+    <CModel id="DestructibleRockEx1Huge">
+        <Model value="Assets\Doodads\DestructibleDebrisHuge\DestructibleDebrisHuge.m3"/>
+        <ScaleMax value="0.900000,0.900000,0.900000"/>
+        <ScaleMin value="0.900000,0.900000,0.900000"/>
+        <TextureAppliedGroups value="niflheim"/>
+    </CModel>
+    <CModel id="ForceFieldWall">
+        <AnimSpeed value="0.100000"/>
+        <RadiusLoose value="5.000000"/>
+    </CModel>
+    <CModel id="HighYieldMineralField">
+        <Model value="Assets\Buildings\Resources\HighYieldMineralField\HighYieldMineralField_04.m3"/>
+        <Flags index="VariationPreload" value="0"/>
+        <ScaleMax value="1.000000,1.000000,2.000000"/>
+        <ScaleMin value="1.000000,1.000000,2.000000"/>
+        <Tipability value="1.000000"/>
+        <TipabilityPitchMax value="10.000000"/>
+        <TipabilityRollMax value="10.000000"/>
+        <TextureAppliedGroups value="char"/>
+        <VariationCount value="1"/>
+    </CModel>
+    <CModel id="HighYieldMineralField750">
+        <Model value="Assets\Buildings\Resources\HighYieldMineralField\HighYieldMineralField_04.m3"/>
+        <Flags index="FOW" value="0"/>
+        <ScaleMax value="1.000000,1.000000,1.500000"/>
+        <ScaleMin value="1.000000,1.000000,1.500000"/>
+        <Tipability value="1.000000"/>
+        <TipabilityPitchMax value="10.000000"/>
+        <TipabilityRollMax value="10.000000"/>
+        <VariationCount value="1"/>
+    </CModel>
+    <CModel id="HighYieldMineralFieldHigh">
+        <Model value="Assets\Buildings\Resources\HighYieldMineralField\HighYieldMineralField_04.m3"/>
+        <Flags index="VariationPreload" value="0"/>
+        <ScaleMax value="1.000000,1.000000,2.000000"/>
+        <ScaleMin value="1.000000,1.000000,2.000000"/>
+        <Tipability value="1.000000"/>
+        <TipabilityPitchMax value="10.000000"/>
+        <TipabilityRollMax value="10.000000"/>
+        <TextureAppliedGroups value="char"/>
+        <VariationCount value="1"/>
+    </CModel>
+    <CModel id="KorhalSkyScrapersLarge">
+        <Occlusion value="None"/>
+    </CModel>
+    <CModel id="Korhal_Runway">
+        <Flags index="FOW" value="0"/>
+        <RadiusLoose value="15.000000"/>
+    </CModel>
+    <CModel id="Korhal_SpacePort_BigPlane">
+        <Flags index="FOW" value="0"/>
+        <RadiusLoose value="15.000000"/>
+    </CModel>
+    <CModel id="MineralField450">
+        <ScaleMax value="1.000000,1.000000,2.000000"/>
+        <ScaleMin value="1.000000,1.000000,2.000000"/>
+    </CModel>
+    <CModel id="ProtossFireMedium"/>
+    <CModel id="Rocks2x2NonConjoined">
+        <Model value="Assets\Doodads\KorhalSkyScrapers\KorhalSkyScrapers_06.m3"/>
+        <Flags index="ShowCreepEngulfmentEvenOnLow" value="1"/>
+        <ScaleMax value="0.750000,0.750000,0.500000"/>
+        <ScaleMin value="0.750000,0.750000,0.500000"/>
+        <SelectionRadius value="1.750000"/>
+    </CModel>
+    <CModel id="SpaceDockPowerLines">
+        <Flags index="FOW" value="0"/>
+        <Flags index="ShowCreepEngulfmentEvenOnLow" value="1"/>
+        <Flags index="VariationPreload" value="1"/>
+        <RadiusLoose value="4.000000"/>
+        <AnimSpeed value="0.750000"/>
+    </CModel>
+    <CModel id="UmojanLabWallPanel1High">
+        <Flags index="FOW" value="0"/>
+    </CModel>
+    <CModel id="VespeneGeyser">
+        <TextureAppliedGroups value="typhon"/>
+        <Model value="Assets\Buildings\Resources\VespeneGeyser_Ex2\VespeneGeyser_Ex2.m3"/>
+    </CModel>
+    <CModel id="VespeneGeyserHigh">
+        <TextureAppliedGroups value="typhon"/>
+        <Model value="Assets\Buildings\Resources\VespeneGeyser_Ex2\VespeneGeyser_Ex2.m3"/>
+        <!--PausedParticleSystemBehavior value="PauseEmissionRate"\-->
+    </CModel>
+</Catalog>

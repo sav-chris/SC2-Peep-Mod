@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Preload>
+<Actor id="SYSTEM_ActorConfig"/>
+<Actor id="LightOmniBlueLarge"/>
+<Actor id="LightOmniRed"/>
+<Actor id="LightOmniYellow"/>
+<Actor id="LightOmniYellowLarge"/>
+<Actor id="CompoundMansion_Banister" Variations="0,6,7,10"/>
+<Actor id="CompoundMansion_Grates" Variations="3"/>
+<Actor id="CompoundSewers_FuelingPipes" Variations="5"/>
+<Actor id="CompoundSewers_Trashes" Variations="6"/>
+<Actor id="Elsecaro_Small_Rock" Variations="0"/>
+<Actor id="GenericSpacePipes" Variations="7"/>
+<Actor id="InvisibleWalkablePlatform16x16"/>
+<Actor id="InvisibleWalkablePlatform4x4"/>
+<Actor id="KorhalSkyScrapersLarge" Variations="1"/>
+<Actor id="KorhalTopiary" Variations="0,1,2,3"/>
+<Actor id="Korhal_GuardTower"/>
+<Actor id="Korhal_Platform_GrimeSplats" Variations="0"/>
+<Actor id="Korhal_Runway" Variations="0,1,2,3,4,5,6,7"/>
+<Actor id="Korhal_SpacePort_BigPlane"/>
+<Actor id="Korhal_SpacePort_Cone" Variations="0"/>
+<Actor id="Korhal_SpacePort_ControlTower" Variations="0,1"/>
+<Actor id="Korhal_SpacePort_SmallPlane" Variations="0,1,2"/>
+<Actor id="MilitaryFenceDiagonal" Variations="1"/>
+<Actor id="PortCity_Bench" Variations="0,1,3"/>
+<Actor id="PortCity_Cargo" Variations="0,3,7,14,15"/>
+<Actor id="PortCity_Fountain"/>
+<Actor id="PortCity_Garden_PlantsTopiary" Variations="9"/>
+<Actor id="PortCity_Signage" Variations="9,12"/>
+<Actor id="PortCity_StreetSigns" Variations="1,10"/>
+<Actor id="PortZionBarrelPhysics"/>
+<Actor id="SnowRefinery_Terran_Pipes" Variations="5"/>
+<Actor id="SpaceDockPowerLines" Variations="0,1"/>
+<Actor id="StarshipCurtain" Variations="1"/>
+<Actor id="TarSludge_BakedSplat"/>
+<Actor id="Tarsonis_BuildingWall_Blockers" Variations="0,1"/>
+<Actor id="Tarsonis_Building_Decor" Variations="5"/>
+<Actor id="Tarsonis_Ornate_Door" Variations="2"/>
+<Actor id="Tarsonis_Sidewalk_Corner" Variations="7"/>
+<Actor id="Tarsonis_Sidewalk_Straight" Variations="4,7,9"/>
+<Actor id="Tarsonis_WoodTrim" Variations="2,8"/>
+<Actor id="UmojanLabCrates" Variations="0,1,3"/>
+<Actor id="UmojanLabGlassWallPanel" Variations="0,1"/>
+<Actor id="UmojanLabPillar1High" Variations="0,1"/>
+<Actor id="UmojanLabPillar2High" Variations="1,2,3"/>
+<Actor id="UmojanLabTramParked"/>
+<Actor id="UmojanLabWallPanel1High" Variations="0,2"/>
+<Actor id="UmojanLabWallPanel2High" Variations="0,4"/>
+<Actor id="UmojanLabZergCrates" Variations="1"/>
+<Actor id="BraxisAlphaTallSign" Variations="8"/>
+<Actor id="CityBuilding" Variations="0,1,2,4,5,6,7,8,9,10"/>
+<Actor id="ExhaustPipes" Variations="0,7"/>
+<Actor id="FireMedium"/>
+<Actor id="KorhalBuilding" Variations="0,1,2,3,5,6,8,9"/>
+<Actor id="LandingLights" Variations="0"/>
+<Actor id="PipesStack" Variations="1"/>
+<Actor id="UlnarCurtain"/>
+<Actor id="SpacePlatformGroundDecals" Variations="12"/>
+<Actor id="SpacePlatformSign" Variations="0,1,2,3,4,7,9"/>
+<Actor id="CivilianCars" Variations="2,4,5,6"/>
+<Actor id="Logo_LeaguePrimary"/>
+<Actor id="Logo_LeagueSecondary"/>
+<Actor id="Logo_PlayerPrimary"/>
+<Terrain id="UmojaEx3"/>
+<Unit id="RichMineralField750"/>
+<Unit id="XelNagaTower"/>
+<Unit id="InhibitorZoneMedium"/>
+<Unit id="RichVespeneGeyser"/>
+<Unit id="Rocks2x2NonConjoined"/>
+<Unit id="MineralField" Variations="0,1,4,6,8,9"/>
+<Unit id="MineralField750" Variations="0,1,2,3,5,6,7,8,9"/>
+<Unit id="VespeneGeyser"/>
+<Unit id="UnbuildablePlatesDestructible" Variations="4"/>
+<Unit id="CollapsibleTerranTowerDiagonal"/>
+<Unit id="ProtossVespeneGeyser"/>
+<Unit id="DestructibleRockEx1DiagonalHugeBLUR"/>
+<Unit id="LabMineralField" Variations="3,4,7"/>
+<Unit id="LabMineralField750" Variations="2,4,7"/>
+<Unit id="PurifierVespeneGeyser"/>
+<Unit id="PurifierMineralField" Variations="1,4,5,7,9"/>
+<Unit id="PurifierMineralField750" Variations="2,6"/>
+</Preload>
