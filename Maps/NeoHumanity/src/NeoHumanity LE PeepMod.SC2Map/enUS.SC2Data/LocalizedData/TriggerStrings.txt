@@ -1,2 +1,1 @@
-﻿Trigger/Name/66634129=Melee Initialization
-Trigger/Name/76C7B1AE=Melee Initialization
+﻿Trigger/Name/76C7B1AE=Melee Initialization
