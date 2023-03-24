@@ -2,3 +2,4 @@
 DocInfo/DescShort=Any
 DocInfo/Name=Just Another StarCraft II Mod
 Param/Value/lib_1B69CECC_0268C865=Displaying this debug message
+Param/Value/lib_1B69CECC_1F8147D0=Show My Debug Message

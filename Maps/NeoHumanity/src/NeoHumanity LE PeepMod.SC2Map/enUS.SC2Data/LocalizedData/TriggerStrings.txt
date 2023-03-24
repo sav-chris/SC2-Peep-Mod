@@ -1,1 +1,2 @@
 ﻿Trigger/Name/76C7B1AE=Melee Initialization
+Trigger/Name/CD8E8E4A=Reference Trigger
