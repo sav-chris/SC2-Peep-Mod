@@ -4,15 +4,19 @@
         <Item Type="Trigger" Id="CD8E8E4A"/>
     </Root>
     <Element Type="Trigger" Id="CD8E8E4A">
+        <Event Type="FunctionCall" Id="DCD052F1"/>
         <Action Type="Comment" Id="F32B22E1"/>
-        <Action Type="FunctionCall" Id="ABC3A0BC"/>
+        <Action Type="FunctionCall" Id="809179E9"/>
+    </Element>
+    <Element Type="FunctionCall" Id="DCD052F1">
+        <FunctionDef Type="FunctionDef" Library="Ntve" Id="00000120"/>
     </Element>
     <Element Type="Comment" Id="F32B22E1">
         <Comment>
             It seems this just needs to be referenced to cause the Mod triggeres to be imported, perhaps there is a nicer way to do this?
         </Comment>
     </Element>
-    <Element Type="FunctionCall" Id="ABC3A0BC">
+    <Element Type="FunctionCall" Id="809179E9">
         <FunctionDef Type="FunctionDef" Library="1B69CECC" Id="97EAEA23"/>
     </Element>
 </TriggerData>

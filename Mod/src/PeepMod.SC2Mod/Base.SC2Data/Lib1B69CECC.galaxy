@@ -1,0 +1,849 @@
+include "TriggerLibs/NativeLib"
+
+include "Lib1B69CECC_h"
+
+//--------------------------------------------------------------------------------------------------
+// Library: PeepMod Library
+//--------------------------------------------------------------------------------------------------
+// External Library Initialization
+void lib1B69CECC_InitLibraries () {
+    libNtve_InitVariables();
+}
+
+// Variable Initialization
+bool lib1B69CECC_InitVariables_completed = false;
+
+void lib1B69CECC_InitVariables () {
+    if (lib1B69CECC_InitVariables_completed) {
+        return;
+    }
+
+    lib1B69CECC_InitVariables_completed = true;
+
+    lib1B69CECC_gv_ui_menu = c_invalidDialogControlId;
+    lib1B69CECC_gv_ui_play = c_invalidDialogControlId;
+    lib1B69CECC_gv_ui_playpanel = c_invalidDialogControlId;
+    lib1B69CECC_gv_ui_play_race = c_invalidDialogControlId;
+    lib1B69CECC_gv_ui_play_league = c_invalidDialogControlId;
+    lib1B69CECC_gv_ui_play_confirm = c_invalidDialogControlId;
+    lib1B69CECC_gv_ui_play_cancel = c_invalidDialogControlId;
+    lib1B69CECC_gv_ui_help = c_invalidDialogControlId;
+    lib1B69CECC_gv_lobbyModal = c_invalidDialogId;
+    lib1B69CECC_gv_lobbyListBox = c_invalidDialogControlId;
+    lib1B69CECC_gv_theLobby.lv_players = PlayerGroupEmpty();
+}
+
+// Functions
+void lib1B69CECC_gf_Assert (bool lp_statement, text lp_assertionname, text lp_errormessage) {
+    // Automatic Variable Declarations
+    // Implementation
+    if ((lp_statement == true)) {
+        TriggerDebugOutput(1, (lp_assertionname + StringExternal("Param/Value/lib_1B69CECC_29FB0C40")), true);
+    }
+    else {
+        TriggerDebugOutput(1, lp_errormessage, true);
+    }
+}
+
+void lib1B69CECC_gf_test_Choose_Players_From_Lobby () {
+    // Variable Declarations
+    int lv_aPlayer;
+    playergroup lv_lobby;
+    playergroup lv_players;
+
+    // Automatic Variable Declarations
+    // Variable Initialization
+    lv_lobby = PlayerGroupEmpty();
+    lv_players = PlayerGroupEmpty();
+
+    // Implementation
+    lv_lobby = PlayerGroupEmpty();
+    PlayerGroupAdd(lv_lobby, 4);
+    PlayerGroupAdd(lv_lobby, 7);
+    PlayerGroupAdd(lv_lobby, 3);
+    PlayerGroupAdd(lv_lobby, 12);
+    PlayerGroupAdd(lv_lobby, 8);
+    PlayerGroupAdd(lv_lobby, 10);
+    lv_players = lib1B69CECC_gf_ChoosePlayersFromLobby(lv_lobby);
+    lib1B69CECC_gf_Assert((PlayerGroupCount(lv_players) == 2), StringExternal("Param/Value/lib_1B69CECC_158EBFD7"), StringExternal("Param/Value/lib_1B69CECC_DECA5D45"));
+}
+
+void lib1B69CECC_gf_test_Choose_Observers_From_Lobby () {
+    // Variable Declarations
+    int lv_aPlayer;
+    playergroup lv_lobby;
+    playergroup lv_players;
+    playergroup lv_observers;
+    playergroup lv_intersect;
+
+    // Automatic Variable Declarations
+    // Variable Initialization
+    lv_lobby = PlayerGroupEmpty();
+    lv_players = PlayerGroupEmpty();
+    lv_observers = PlayerGroupEmpty();
+    lv_intersect = PlayerGroupEmpty();
+
+    // Implementation
+    lv_lobby = PlayerGroupEmpty();
+    PlayerGroupAdd(lv_lobby, 4);
+    PlayerGroupAdd(lv_lobby, 7);
+    PlayerGroupAdd(lv_lobby, 3);
+    PlayerGroupAdd(lv_lobby, 12);
+    PlayerGroupAdd(lv_lobby, 8);
+    PlayerGroupAdd(lv_lobby, 10);
+    lv_players = lib1B69CECC_gf_ChoosePlayersFromLobby(lv_lobby);
+    lv_observers = lib1B69CECC_gf_ChooseObserversFromLobby(lv_lobby, lv_players);
+    lib1B69CECC_gf_Assert((PlayerGroupCount(lv_observers) == 4), StringExternal("Param/Value/lib_1B69CECC_8512A993"), StringExternal("Param/Value/lib_1B69CECC_92097C58"));
+    lv_intersect = libNtve_gf_IntersectionOfPlayerGroups(lv_players, lv_observers);
+    lib1B69CECC_gf_Assert((PlayerGroupCount(lv_intersect) == 0), StringExternal("Param/Value/lib_1B69CECC_A17D4CBC"), StringExternal("Param/Value/lib_1B69CECC_61B75788"));
+}
+
+void lib1B69CECC_gf_test_compute_player_race_key () {
+    // Variable Declarations
+    string lv_race_key;
+
+    // Automatic Variable Declarations
+    // Variable Initialization
+    lv_race_key = "";
+
+    // Implementation
+    lv_race_key = lib1B69CECC_gf_compute_player_race_key(1);
+    lib1B69CECC_gf_Assert(StringEqual(lv_race_key, "race_player_1", c_stringCase), StringExternal("Param/Value/lib_1B69CECC_B6025F4F"), StringExternal("Param/Value/lib_1B69CECC_2F1BA268"));
+    lv_race_key = lib1B69CECC_gf_compute_player_race_key(5);
+    lib1B69CECC_gf_Assert(StringEqual(lv_race_key, "race_player_5", c_stringCase), StringExternal("Param/Value/lib_1B69CECC_0060E0E8"), StringExternal("Param/Value/lib_1B69CECC_65046665"));
+}
+
+void lib1B69CECC_gf_test_race_integer_conversion () {
+    // Automatic Variable Declarations
+    // Implementation
+    lib1B69CECC_gf_Assert((lib1B69CECC_gf_compute_race_from_index(lib1B69CECC_gf_compute_race_index("Neut")) == "Neut"), StringExternal("Param/Value/lib_1B69CECC_866ECC49"), StringExternal("Param/Value/lib_1B69CECC_B7AA3D44"));
+    lib1B69CECC_gf_Assert((lib1B69CECC_gf_compute_race_from_index(lib1B69CECC_gf_compute_race_index("Terr")) == "Terr"), StringExternal("Param/Value/lib_1B69CECC_D063B6AD"), StringExternal("Param/Value/lib_1B69CECC_8C525690"));
+    lib1B69CECC_gf_Assert((lib1B69CECC_gf_compute_race_from_index(lib1B69CECC_gf_compute_race_index("Zerg")) == "Zerg"), StringExternal("Param/Value/lib_1B69CECC_6EE314B4"), StringExternal("Param/Value/lib_1B69CECC_7C40F074"));
+    lib1B69CECC_gf_Assert((lib1B69CECC_gf_compute_race_from_index(lib1B69CECC_gf_compute_race_index("Prot")) == "Prot"), StringExternal("Param/Value/lib_1B69CECC_FC9B2791"), StringExternal("Param/Value/lib_1B69CECC_4FB89260"));
+    lib1B69CECC_gf_Assert((lib1B69CECC_gf_compute_race_from_index(lib1B69CECC_gf_compute_race_index("Gen")) == "Gen"), StringExternal("Param/Value/lib_1B69CECC_65B515D1"), StringExternal("Param/Value/lib_1B69CECC_798D7B2A"));
+    lib1B69CECC_gf_Assert((lib1B69CECC_gf_compute_race_from_index(lib1B69CECC_gf_compute_race_index("Xayi")) == "Xayi"), StringExternal("Param/Value/lib_1B69CECC_F7F7FFB8"), StringExternal("Param/Value/lib_1B69CECC_E156BCB8"));
+    lib1B69CECC_gf_Assert((lib1B69CECC_gf_compute_race_from_index(lib1B69CECC_gf_compute_race_index("Keir")) == "Keir"), StringExternal("Param/Value/lib_1B69CECC_11BD8736"), StringExternal("Param/Value/lib_1B69CECC_316FD8E1"));
+}
+
+string lib1B69CECC_gf_chose_race (int lp_race_index) {
+    // Variable Declarations
+    string lv_race;
+    int lv_new_idx;
+
+    // Automatic Variable Declarations
+    int autoBDC9761C_val;
+
+    // Variable Initialization
+
+    // Implementation
+    lv_new_idx = lp_race_index;
+    if ((lp_race_index == 1)) {
+        lv_new_idx = RandomInt(2, 7);
+    }
+
+    if ((lp_race_index > 7)) {
+        lv_new_idx = RandomInt(2, 7);
+    }
+
+    autoBDC9761C_val = lv_new_idx;
+    if (autoBDC9761C_val == 2) {
+        lv_race = "Terr";
+    }
+    else if (autoBDC9761C_val == 3) {
+        lv_race = "Zerg";
+    }
+    else if (autoBDC9761C_val == 4) {
+        lv_race = "Prot";
+    }
+    else if (autoBDC9761C_val == 5) {
+        lv_race = "Gen";
+    }
+    else if (autoBDC9761C_val == 6) {
+        lv_race = "Xayi";
+    }
+    else if (autoBDC9761C_val == 7) {
+        lv_race = "Keir";
+    }
+    else {
+        lv_race = "Gen";
+    }
+    return lv_race;
+}
+
+void lib1B69CECC_gf_InitialisePlayer (int lp_player, string lp_startlocation) {
+    // Variable Declarations
+    int lv_race_index;
+    string lv_race_key;
+    string lv_race;
+
+    // Automatic Variable Declarations
+    // Variable Initialization
+    lv_race_key = "";
+
+    // Implementation
+    lv_race_key = lib1B69CECC_gf_compute_player_race_key(lp_player);
+    lv_race_index = DataTableGetInt(true, lv_race_key);
+    lv_race = lib1B69CECC_gf_chose_race(lv_race_index);
+    PlayerSetRace(lp_player, lv_race);
+    MeleeInitResourcesForPlayer(lp_player, lv_race);
+    MeleeInitUnitsForPlayer(lp_player, lv_race, PointFromName(lp_startlocation));
+}
+
+void lib1B69CECC_gf_InitialiseGame (playergroup lp_lobby_Players) {
+    int init_i;
+
+    // Variable Declarations
+    playergroup lv_players;
+    playergroup lv_observers;
+    string[3] lv_start_locations;
+    int lv_aPlayer;
+    int lv_idx;
+
+    // Automatic Variable Declarations
+    playergroup autoEF8BA5EB_g;
+
+    // Variable Initialization
+    lv_players = PlayerGroupEmpty();
+    lv_observers = PlayerGroupEmpty();
+    for (init_i = 0; init_i <= 2; init_i += 1) {
+        lv_start_locations[init_i] = "";
+    }
+
+    // Implementation
+    lv_start_locations[0] = lib1B69CECC_gv_sTARTLOCATION_1;
+    lv_start_locations[1] = lib1B69CECC_gv_sTARTLOCATION_2;
+    lv_players = lib1B69CECC_gf_ChoosePlayersFromLobby(lp_lobby_Players);
+    lv_observers = lib1B69CECC_gf_ChooseObserversFromLobby(lp_lobby_Players, lv_players);
+    lv_idx = 0;
+    autoEF8BA5EB_g = lv_players;
+    lv_aPlayer = -1;
+    while (true) {
+        lv_aPlayer = PlayerGroupNextPlayer(autoEF8BA5EB_g, lv_aPlayer);
+        if (lv_aPlayer < 0) { break; }
+        lib1B69CECC_gf_InitialisePlayer(lv_aPlayer, lv_start_locations[lv_idx]);
+        lv_idx = (lv_idx + 1);
+    }
+    libNtve_gf_SetPlayerGroupAlliance(lv_players, libNtve_ge_AllianceSetting_Enemy);
+    lib1B69CECC_gf_HideLobby(lib1B69CECC_gv_lobbyModal);
+    lib1B69CECC_gf_EnableObserverUI(lv_observers);
+    lib1B69CECC_gf_EnablePlayerUI(lv_players);
+}
+
+playergroup lib1B69CECC_gf_ChoosePlayersFromLobby (playergroup lp_lobby) {
+    // Variable Declarations
+    playergroup lv_players;
+    int lv_player1;
+    int lv_player2;
+    playergroup lv_temp;
+
+    // Automatic Variable Declarations
+    // Variable Initialization
+    lv_players = PlayerGroupEmpty();
+    lv_temp = PlayerGroupEmpty();
+
+    // Implementation
+    lv_temp = PlayerGroupCopy(lp_lobby);
+    lv_player1 = PlayerGroupPlayer(lp_lobby, RandomInt(1, PlayerGroupCount(lp_lobby)));
+    PlayerGroupRemove(lv_temp, lv_player1);
+    lv_player2 = PlayerGroupPlayer(lv_temp, RandomInt(1, PlayerGroupCount(lv_temp)));
+    PlayerGroupAdd(lv_players, lv_player1);
+    PlayerGroupAdd(lv_players, lv_player2);
+    return lv_players;
+}
+
+playergroup lib1B69CECC_gf_ChooseObserversFromLobby (playergroup lp_lobby, playergroup lp_players) {
+    // Variable Declarations
+    playergroup lv_observers;
+
+    // Automatic Variable Declarations
+    // Variable Initialization
+    lv_observers = PlayerGroupEmpty();
+
+    // Implementation
+    lv_observers = PlayerGroupCopy(lp_lobby);
+    libNtve_gf_RemovePlayerGroupFromPlayerGroup(lp_players, lv_observers);
+    return lv_observers;
+}
+
+void lib1B69CECC_gf_InitialiseLobby () {
+    // Variable Declarations
+    int lv_intPlayer;
+
+    // Automatic Variable Declarations
+    // Variable Initialization
+
+    // Implementation
+    lib1B69CECC_gf_EnableLobbyUI();
+    lib1B69CECC_gf_ClearLobby();
+    lib1B69CECC_gf_ShowLobbyUI();
+}
+
+void lib1B69CECC_gf_EnableLobbyUI () {
+    // Variable Declarations
+    int lv_intPlayer;
+
+    // Automatic Variable Declarations
+    // Variable Initialization
+
+    // Implementation
+    UISetMode(PlayerGroupAll(), c_uiModeFullscreen, c_transitionDurationImmediate);
+    UISetFrameVisible(PlayerGroupAll(), c_syncFrameTypeResourcePanel, false);
+    UISetFrameVisible(PlayerGroupAll(), c_syncFrameTypeSupply, false);
+}
+
+void lib1B69CECC_gf_EnablePlayerUI (playergroup lp_players) {
+    // Variable Declarations
+    int lv_aPlayer;
+
+    // Automatic Variable Declarations
+    // Variable Initialization
+
+    // Implementation
+    UISetMode(lp_players, c_uiModeConsole, c_transitionDurationImmediate);
+    UISetFrameVisible(lp_players, c_syncFrameTypeResourcePanel, true);
+    UISetFrameVisible(lp_players, c_syncFrameTypeSupply, true);
+    VisEnable(c_visTypeFog, true);
+    DialogControlSetVisible(lib1B69CECC_gv_ui_menu, lp_players, false);
+    DialogControlSetVisible(lib1B69CECC_gv_ui_playpanel, lp_players, false);
+}
+
+void lib1B69CECC_gf_EnableObserverUI (playergroup lp_players) {
+    // Variable Declarations
+    int lv_aPlayer;
+
+    // Automatic Variable Declarations
+    playergroup auto1D4FE5A6_g;
+
+    // Variable Initialization
+
+    // Implementation
+    UISetMode(lp_players, c_uiModeFullscreen, c_transitionDurationImmediate);
+    auto1D4FE5A6_g = lp_players;
+    lv_aPlayer = -1;
+    while (true) {
+        lv_aPlayer = PlayerGroupNextPlayer(auto1D4FE5A6_g, lv_aPlayer);
+        if (lv_aPlayer < 0) { break; }
+        VisRevealArea(lv_aPlayer, RegionEntireMap(), 0.0, false);
+    }
+}
+
+void lib1B69CECC_gf_InitialisePlayDialog () {
+    // Automatic Variable Declarations
+    // Implementation
+    DialogControlHookupStandard(c_triggerControlTypePanel, "UIContainer/FullscreenUpperContainer/PeepPlayPanel");
+    lib1B69CECC_gv_ui_playpanel = DialogControlLastCreated();
+    DialogControlHookupStandard(c_triggerControlTypePanel, "UIContainer/FullscreenUpperContainer/PeepMenuPanel");
+    lib1B69CECC_gv_ui_menu = DialogControlLastCreated();
+    DialogControlHookupStandard(c_triggerControlTypeButton, "UIContainer/FullscreenUpperContainer/PeepMenuPanel/Play");
+    lib1B69CECC_gv_ui_play = DialogControlLastCreated();
+    DialogControlHookupStandard(c_triggerControlTypePulldown, "UIContainer/FullscreenUpperContainer/PeepPlayPanel/Race");
+    lib1B69CECC_gv_ui_play_race = DialogControlLastCreated();
+    DialogControlHookupStandard(c_triggerControlTypePulldown, "UIContainer/FullscreenUpperContainer/PeepPlayPanel/League");
+    lib1B69CECC_gv_ui_play_league = DialogControlLastCreated();
+    DialogControlHookupStandard(c_triggerControlTypeButton, "UIContainer/FullscreenUpperContainer/PeepPlayPanel/Confirm");
+    lib1B69CECC_gv_ui_play_confirm = DialogControlLastCreated();
+    DialogControlHookupStandard(c_triggerControlTypeButton, "UIContainer/FullscreenUpperContainer/PeepPlayPanel/Cancel");
+    lib1B69CECC_gv_ui_play_cancel = DialogControlLastCreated();
+    DialogControlHookupStandard(c_triggerControlTypeButton, "UIContainer/FullscreenUpperContainer/PeepMenuPanel/Help");
+    lib1B69CECC_gv_ui_help = DialogControlLastCreated();
+    DialogControlAddItem(lib1B69CECC_gv_ui_play_race, PlayerGroupAll(), StringExternal("Param/Value/lib_1B69CECC_5DE344B1"));
+    DialogControlAddItem(lib1B69CECC_gv_ui_play_race, PlayerGroupAll(), StringExternal("Param/Value/lib_1B69CECC_E5DCA431"));
+    DialogControlAddItem(lib1B69CECC_gv_ui_play_race, PlayerGroupAll(), StringExternal("Param/Value/lib_1B69CECC_F2C43C1F"));
+    DialogControlAddItem(lib1B69CECC_gv_ui_play_race, PlayerGroupAll(), StringExternal("Param/Value/lib_1B69CECC_47AED35E"));
+    DialogControlAddItem(lib1B69CECC_gv_ui_play_race, PlayerGroupAll(), StringExternal("Param/Value/lib_1B69CECC_C874B829"));
+    DialogControlAddItem(lib1B69CECC_gv_ui_play_race, PlayerGroupAll(), StringExternal("Param/Value/lib_1B69CECC_5F50D4B5"));
+    DialogControlAddItem(lib1B69CECC_gv_ui_play_race, PlayerGroupAll(), StringExternal("Param/Value/lib_1B69CECC_3578C5FD"));
+    DialogControlSelectItem(lib1B69CECC_gv_ui_play_race, PlayerGroupAll(), 1);
+    DialogControlAddItem(lib1B69CECC_gv_ui_play_league, PlayerGroupAll(), StringExternal("Param/Value/lib_1B69CECC_299A8AD4"));
+    DialogControlAddItem(lib1B69CECC_gv_ui_play_league, PlayerGroupAll(), StringExternal("Param/Value/lib_1B69CECC_DD98C82C"));
+    DialogControlAddItem(lib1B69CECC_gv_ui_play_league, PlayerGroupAll(), StringExternal("Param/Value/lib_1B69CECC_6DF26637"));
+    DialogControlAddItem(lib1B69CECC_gv_ui_play_league, PlayerGroupAll(), StringExternal("Param/Value/lib_1B69CECC_1E84688D"));
+    DialogControlAddItem(lib1B69CECC_gv_ui_play_league, PlayerGroupAll(), StringExternal("Param/Value/lib_1B69CECC_A7679ABE"));
+    DialogControlAddItem(lib1B69CECC_gv_ui_play_league, PlayerGroupAll(), StringExternal("Param/Value/lib_1B69CECC_0BF87976"));
+    DialogControlAddItem(lib1B69CECC_gv_ui_play_league, PlayerGroupAll(), StringExternal("Param/Value/lib_1B69CECC_AC5D4CE7"));
+    DialogControlAddItem(lib1B69CECC_gv_ui_play_league, PlayerGroupAll(), StringExternal("Param/Value/lib_1B69CECC_8C125C91"));
+    DialogControlSelectItem(lib1B69CECC_gv_ui_play_league, PlayerGroupAll(), 1);
+}
+
+void lib1B69CECC_gf_HidePlayDialog () {
+    // Automatic Variable Declarations
+}
+
+void lib1B69CECC_gf_HideLobby (int lp_theLobby) {
+    // Automatic Variable Declarations
+    // Implementation
+    DialogSetVisible(lp_theLobby, PlayerGroupAll(), false);
+}
+
+void lib1B69CECC_gf_RefreshLobby (structref<lib1B69CECC_gs_Lobby> lp_lobbyModel) {
+    // Variable Declarations
+    int lv_player;
+
+    // Automatic Variable Declarations
+    playergroup auto2DE13D9F_g;
+
+    // Variable Initialization
+
+    // Implementation
+    DialogControlRemoveAllItems(lib1B69CECC_gv_lobbyListBox, PlayerGroupAll());
+    auto2DE13D9F_g = lp_lobbyModel.lv_players;
+    lv_player = -1;
+    while (true) {
+        lv_player = PlayerGroupNextPlayer(auto2DE13D9F_g, lv_player);
+        if (lv_player < 0) { break; }
+        DialogControlAddItem(lib1B69CECC_gv_lobbyListBox, PlayerGroupAll(), PlayerName(lv_player));
+    }
+}
+
+void lib1B69CECC_gf_ShowLobbyUI () {
+    // Variable Declarations
+    const int lv_sPACEMARGIN = 50;
+    const int lv_lOBBY_WIDTH = 700;
+    const int lv_lOBBY_HEIGHT = 1000;
+
+    // Automatic Variable Declarations
+    // Variable Initialization
+
+    // Implementation
+    DialogCreate(lv_lOBBY_WIDTH, lv_lOBBY_HEIGHT, c_anchorTopLeft, 500, 100, true);
+    lib1B69CECC_gv_lobbyModal = DialogLastCreated();
+    DialogControlCreate(DialogLastCreated(), c_triggerControlTypeListBox);
+    lib1B69CECC_gv_lobbyListBox = DialogControlLastCreated();
+    DialogControlSetSize(DialogControlLastCreated(), PlayerGroupAll(), (lv_lOBBY_WIDTH - (2 * lv_sPACEMARGIN)), (lv_lOBBY_HEIGHT - (2 * lv_sPACEMARGIN)));
+    DialogControlSetPosition(DialogControlLastCreated(), PlayerGroupAll(), c_anchorTopLeft, lv_sPACEMARGIN, lv_sPACEMARGIN);
+    DialogSetVisible(DialogLastCreated(), PlayerGroupAll(), true);
+}
+
+string lib1B69CECC_gf_compute_player_race_key (int lp_player) {
+    // Automatic Variable Declarations
+    // Implementation
+    return ("race_player_" + IntToString(lp_player));
+}
+
+int lib1B69CECC_gf_compute_race_index (string lp_race) {
+    // Automatic Variable Declarations
+    string auto76A18448_val;
+
+    // Implementation
+    auto76A18448_val = lp_race;
+    if (auto76A18448_val == "Neut") {
+        return 1;
+    }
+    else if (auto76A18448_val == "Terr") {
+        return 2;
+    }
+    else if (auto76A18448_val == "Zerg") {
+        return 3;
+    }
+    else if (auto76A18448_val == "Prot") {
+        return 4;
+    }
+    else if (auto76A18448_val == "Gen") {
+        return 5;
+    }
+    else if (auto76A18448_val == "Xayi") {
+        return 6;
+    }
+    else if (auto76A18448_val == "Keir") {
+        return 7;
+    }
+    else {
+        return 1;
+    }
+}
+
+string lib1B69CECC_gf_compute_race_from_index (int lp_race_index) {
+    // Automatic Variable Declarations
+    int auto0B0EF7CF_val;
+
+    // Implementation
+    auto0B0EF7CF_val = lp_race_index;
+    if (auto0B0EF7CF_val == 1) {
+        return "Neut";
+    }
+    else if (auto0B0EF7CF_val == 2) {
+        return "Terr";
+    }
+    else if (auto0B0EF7CF_val == 3) {
+        return "Zerg";
+    }
+    else if (auto0B0EF7CF_val == 4) {
+        return "Prot";
+    }
+    else if (auto0B0EF7CF_val == 5) {
+        return "Gen";
+    }
+    else if (auto0B0EF7CF_val == 6) {
+        return "Xayi";
+    }
+    else if (auto0B0EF7CF_val == 7) {
+        return "Keir";
+    }
+    else {
+        return "Neut";
+    }
+}
+
+void lib1B69CECC_gf_LeaveLobby (int lp_thePlayer, structref<lib1B69CECC_gs_Lobby> lp_thisLobby) {
+    // Automatic Variable Declarations
+    // Implementation
+    PlayerGroupRemove(lp_thisLobby.lv_players, lp_thePlayer);
+}
+
+void lib1B69CECC_gf_ClearLobby () {
+    // Automatic Variable Declarations
+    // Implementation
+    PlayerGroupClear(lib1B69CECC_gv_theLobby.lv_players);
+}
+
+void lib1B69CECC_gf_JoinLobby (int lp_thePlayer, structref<lib1B69CECC_gs_Lobby> lp_thisLobby) {
+    // Automatic Variable Declarations
+    // Implementation
+    PlayerGroupAdd(lp_thisLobby.lv_players, lp_thePlayer);
+}
+
+void lib1B69CECC_gf_DependencyMessage () {
+    // Automatic Variable Declarations
+    // Implementation
+    TriggerDebugOutput(1, StringExternal("Param/Value/lib_1B69CECC_1F8147D0"), true);
+}
+
+// Triggers
+//--------------------------------------------------------------------------------------------------
+// Trigger: run all test cases trigger
+//--------------------------------------------------------------------------------------------------
+bool lib1B69CECC_gt_runalltestcasestrigger_Func (bool testConds, bool runActions) {
+    // Automatic Variable Declarations
+    // Actions
+    if (!runActions) {
+        return true;
+    }
+
+    TriggerDebugSetTypeFile(1, "TriggerDebug.txt");
+    lib1B69CECC_gf_test_Choose_Players_From_Lobby();
+    lib1B69CECC_gf_test_Choose_Observers_From_Lobby();
+    lib1B69CECC_gf_test_compute_player_race_key();
+    lib1B69CECC_gf_test_race_integer_conversion();
+    return true;
+}
+
+//--------------------------------------------------------------------------------------------------
+void lib1B69CECC_gt_runalltestcasestrigger_Init () {
+    lib1B69CECC_gt_runalltestcasestrigger = TriggerCreate("lib1B69CECC_gt_runalltestcasestrigger_Func");
+    TriggerAddEventChatMessage(lib1B69CECC_gt_runalltestcasestrigger, c_playerAny, "-Run Unit Tests", true);
+}
+
+//--------------------------------------------------------------------------------------------------
+// Trigger: Add AI Trigger
+//--------------------------------------------------------------------------------------------------
+bool lib1B69CECC_gt_AddAITrigger_Func (bool testConds, bool runActions) {
+    // Automatic Variable Declarations
+    // Actions
+    if (!runActions) {
+        return true;
+    }
+
+    DataTableSetInt(true, lib1B69CECC_gf_compute_player_race_key(lib1B69CECC_gv_aIPlayer_1), lib1B69CECC_gf_compute_race_index("Gen"));
+    lib1B69CECC_gf_JoinLobby(lib1B69CECC_gv_aIPlayer_1, lib1B69CECC_gv_theLobby);
+    lib1B69CECC_gf_RefreshLobby(lib1B69CECC_gv_theLobby);
+    return true;
+}
+
+//--------------------------------------------------------------------------------------------------
+void lib1B69CECC_gt_AddAITrigger_Init () {
+    lib1B69CECC_gt_AddAITrigger = TriggerCreate("lib1B69CECC_gt_AddAITrigger_Func");
+    TriggerAddEventChatMessage(lib1B69CECC_gt_AddAITrigger, c_playerAny, "-AI Player", true);
+}
+
+//--------------------------------------------------------------------------------------------------
+// Trigger: Add AI Trigger 2
+//--------------------------------------------------------------------------------------------------
+bool lib1B69CECC_gt_AddAITrigger2_Func (bool testConds, bool runActions) {
+    // Automatic Variable Declarations
+    // Actions
+    if (!runActions) {
+        return true;
+    }
+
+    DataTableSetInt(true, lib1B69CECC_gf_compute_player_race_key(lib1B69CECC_gv_aIPlayer_2), lib1B69CECC_gf_compute_race_index("Zerg"));
+    lib1B69CECC_gf_JoinLobby(lib1B69CECC_gv_aIPlayer_2, lib1B69CECC_gv_theLobby);
+    lib1B69CECC_gf_RefreshLobby(lib1B69CECC_gv_theLobby);
+    return true;
+}
+
+//--------------------------------------------------------------------------------------------------
+void lib1B69CECC_gt_AddAITrigger2_Init () {
+    lib1B69CECC_gt_AddAITrigger2 = TriggerCreate("lib1B69CECC_gt_AddAITrigger2_Func");
+    TriggerAddEventChatMessage(lib1B69CECC_gt_AddAITrigger2, c_playerAny, "-AI Player 2", true);
+}
+
+//--------------------------------------------------------------------------------------------------
+// Trigger: Start Game Trigger
+//--------------------------------------------------------------------------------------------------
+bool lib1B69CECC_gt_StartGameTrigger_Func (bool testConds, bool runActions) {
+    // Automatic Variable Declarations
+    // Actions
+    if (!runActions) {
+        return true;
+    }
+
+    lib1B69CECC_gf_InitialiseGame(lib1B69CECC_gv_theLobby.lv_players);
+    return true;
+}
+
+//--------------------------------------------------------------------------------------------------
+void lib1B69CECC_gt_StartGameTrigger_Init () {
+    lib1B69CECC_gt_StartGameTrigger = TriggerCreate("lib1B69CECC_gt_StartGameTrigger_Func");
+    TriggerAddEventChatMessage(lib1B69CECC_gt_StartGameTrigger, c_playerAny, "-Start Game", true);
+}
+
+//--------------------------------------------------------------------------------------------------
+// Trigger: Testing Notes Trigger
+//--------------------------------------------------------------------------------------------------
+bool lib1B69CECC_gt_TestingNotesTrigger_Func (bool testConds, bool runActions) {
+    // Variable Declarations
+    playergroup lv_observers;
+    playergroup lv_players;
+    int lv_player1;
+    int lv_player2;
+
+    // Automatic Variable Declarations
+    // Variable Initialization
+    lv_observers = PlayerGroupEmpty();
+    lv_players = PlayerGroupEmpty();
+
+    // Actions
+    if (!runActions) {
+        return true;
+    }
+
+    lv_players = PlayerGroupEmpty();
+    if ((PlayerGroupCount(lib1B69CECC_gv_theLobby.lv_players) >= 2)) {
+        lv_player1 = PlayerGroupPlayer(lib1B69CECC_gv_theLobby.lv_players, RandomInt(1, PlayerGroupCount(lib1B69CECC_gv_theLobby.lv_players)));
+        PlayerGroupRemove(lib1B69CECC_gv_theLobby.lv_players, lv_player1);
+        lv_player2 = PlayerGroupPlayer(lib1B69CECC_gv_theLobby.lv_players, RandomInt(1, PlayerGroupCount(lib1B69CECC_gv_theLobby.lv_players)));
+        PlayerGroupRemove(lib1B69CECC_gv_theLobby.lv_players, lv_player2);
+        PlayerGroupAdd(lv_players, lv_player1);
+        PlayerGroupAdd(lv_players, lv_player2);
+        MeleeInitResourcesForPlayer(lv_player1, PlayerRace(lv_player1));
+        MeleeInitResourcesForPlayer(lv_player2, PlayerRace(lv_player2));
+        MeleeInitUnitsForPlayer(lv_player1, PlayerRace(lv_player1), PointFromName("Start Location 001"));
+        MeleeInitUnitsForPlayer(lv_player2, PlayerRace(lv_player2), PointFromName("Start Location 002"));
+        libNtve_gf_SetAlliance(lv_player1, lv_player2, libNtve_ge_AllianceSetting_Enemy);
+    }
+
+    if ((PlayerGroupCount(lib1B69CECC_gv_theLobby.lv_players) == 1)) {
+        lv_player1 = PlayerGroupPlayer(lib1B69CECC_gv_theLobby.lv_players, RandomInt(1, PlayerGroupCount(lib1B69CECC_gv_theLobby.lv_players)));
+        PlayerGroupRemove(lib1B69CECC_gv_theLobby.lv_players, lv_player1);
+        PlayerGroupAdd(lv_players, lv_player1);
+        MeleeInitResourcesForPlayer(lv_player1, PlayerRace(lv_player1));
+        MeleeInitUnitsForPlayer(lv_player1, PlayerRace(lv_player1), PointFromName("Start Location 001"));
+        MeleeInitUnitsForPlayer(lib1B69CECC_gv_aIPlayer_1, "Zerg", PointFromName("Start Location 002"));
+        libNtve_gf_SetAlliance(lv_player1, lib1B69CECC_gv_aIPlayer_1, libNtve_ge_AllianceSetting_Enemy);
+    }
+
+    lib1B69CECC_gf_HideLobby(lib1B69CECC_gv_lobbyModal);
+    lv_observers = PlayerGroupCopy(PlayerGroupAll());
+    libNtve_gf_RemovePlayerGroupFromPlayerGroup(lv_players, lv_observers);
+    lib1B69CECC_gf_EnableObserverUI(lv_observers);
+    lib1B69CECC_gf_EnablePlayerUI(lv_players);
+    MeleeInitAI();
+    return true;
+}
+
+//--------------------------------------------------------------------------------------------------
+void lib1B69CECC_gt_TestingNotesTrigger_Init () {
+    lib1B69CECC_gt_TestingNotesTrigger = TriggerCreate("lib1B69CECC_gt_TestingNotesTrigger_Func");
+    TriggerAddEventChatMessage(lib1B69CECC_gt_TestingNotesTrigger, c_playerAny, "-Testing Stuff", true);
+}
+
+//--------------------------------------------------------------------------------------------------
+// Trigger: Click Help
+//--------------------------------------------------------------------------------------------------
+bool lib1B69CECC_gt_ClickHelp_Func (bool testConds, bool runActions) {
+    // Automatic Variable Declarations
+    // Conditions
+    if (testConds) {
+        if (!((EventDialogControl() == lib1B69CECC_gv_ui_help))) {
+            return false;
+        }
+    }
+
+    // Actions
+    if (!runActions) {
+        return true;
+    }
+
+    HelpPanelDisplayPage(PlayerGroupAll(), c_helpPanelPageTutorials);
+    return true;
+}
+
+//--------------------------------------------------------------------------------------------------
+void lib1B69CECC_gt_ClickHelp_Init () {
+    lib1B69CECC_gt_ClickHelp = TriggerCreate("lib1B69CECC_gt_ClickHelp_Func");
+    TriggerAddEventDialogControl(lib1B69CECC_gt_ClickHelp, c_playerAny, c_invalidDialogControlId, c_triggerControlEventTypeClick);
+}
+
+//--------------------------------------------------------------------------------------------------
+// Trigger: Click Cancel
+//--------------------------------------------------------------------------------------------------
+bool lib1B69CECC_gt_ClickCancel_Func (bool testConds, bool runActions) {
+    // Automatic Variable Declarations
+    // Conditions
+    if (testConds) {
+        if (!((EventDialogControl() == lib1B69CECC_gv_ui_play_cancel))) {
+            return false;
+        }
+    }
+
+    // Actions
+    if (!runActions) {
+        return true;
+    }
+
+    lib1B69CECC_gf_LeaveLobby(EventPlayer(), lib1B69CECC_gv_theLobby);
+    lib1B69CECC_gf_RefreshLobby(lib1B69CECC_gv_theLobby);
+    return true;
+}
+
+//--------------------------------------------------------------------------------------------------
+void lib1B69CECC_gt_ClickCancel_Init () {
+    lib1B69CECC_gt_ClickCancel = TriggerCreate("lib1B69CECC_gt_ClickCancel_Func");
+    TriggerAddEventDialogControl(lib1B69CECC_gt_ClickCancel, c_playerAny, c_invalidDialogControlId, c_triggerControlEventTypeClick);
+}
+
+//--------------------------------------------------------------------------------------------------
+// Trigger: Click Confirm
+//--------------------------------------------------------------------------------------------------
+bool lib1B69CECC_gt_ClickConfirm_Func (bool testConds, bool runActions) {
+    // Automatic Variable Declarations
+    // Conditions
+    if (testConds) {
+        if (!((EventDialogControl() == lib1B69CECC_gv_ui_play_confirm))) {
+            return false;
+        }
+    }
+
+    // Actions
+    if (!runActions) {
+        return true;
+    }
+
+    TriggerDebugOutput(1, IntToText(0), true);
+    lib1B69CECC_gf_JoinLobby(EventPlayer(), lib1B69CECC_gv_theLobby);
+    lib1B69CECC_gf_RefreshLobby(lib1B69CECC_gv_theLobby);
+    return true;
+}
+
+//--------------------------------------------------------------------------------------------------
+void lib1B69CECC_gt_ClickConfirm_Init () {
+    lib1B69CECC_gt_ClickConfirm = TriggerCreate("lib1B69CECC_gt_ClickConfirm_Func");
+    TriggerAddEventDialogControl(lib1B69CECC_gt_ClickConfirm, c_playerAny, c_invalidDialogControlId, c_triggerControlEventTypeClick);
+}
+
+//--------------------------------------------------------------------------------------------------
+// Trigger: Race Selected
+//--------------------------------------------------------------------------------------------------
+bool lib1B69CECC_gt_RaceSelected_Func (bool testConds, bool runActions) {
+    // Variable Declarations
+    int lv_raceIndex;
+    const int lv_rANDOM_INDEX = 0;
+    const int lv_tERRAN_INDEX = 1;
+    const int lv_zERG_INDEX = 2;
+    const int lv_pROTOSS_INDEX = 3;
+    const int lv_gENETRON_INDEX = 4;
+    const int lv_xAYID_INDEX = 5;
+    const int lv_kEIRON_INDEX = 6;
+
+    // Automatic Variable Declarations
+    // Variable Initialization
+
+    // Conditions
+    if (testConds) {
+        if (!((EventDialogControl() == lib1B69CECC_gv_ui_play_race))) {
+            return false;
+        }
+    }
+
+    // Actions
+    if (!runActions) {
+        return true;
+    }
+
+    lv_raceIndex = DialogControlGetSelectedItem(lib1B69CECC_gv_ui_play_race, EventPlayer());
+    DataTableSetInt(true, lib1B69CECC_gf_compute_player_race_key(EventPlayer()), lv_raceIndex);
+    return true;
+}
+
+//--------------------------------------------------------------------------------------------------
+void lib1B69CECC_gt_RaceSelected_Init () {
+    lib1B69CECC_gt_RaceSelected = TriggerCreate("lib1B69CECC_gt_RaceSelected_Func");
+    TriggerAddEventDialogControl(lib1B69CECC_gt_RaceSelected, c_playerAny, c_invalidDialogControlId, c_triggerControlEventTypeSelectionChanged);
+}
+
+//--------------------------------------------------------------------------------------------------
+// Trigger: Melee Initialization
+//--------------------------------------------------------------------------------------------------
+bool lib1B69CECC_gt_MeleeInitialization_Func (bool testConds, bool runActions) {
+    // Variable Declarations
+    int lv_aPlayer;
+
+    // Automatic Variable Declarations
+    playergroup auto37407480_g;
+
+    // Variable Initialization
+
+    // Actions
+    if (!runActions) {
+        return true;
+    }
+
+    auto37407480_g = PlayerGroupAll();
+    lv_aPlayer = -1;
+    while (true) {
+        lv_aPlayer = PlayerGroupNextPlayer(auto37407480_g, lv_aPlayer);
+        if (lv_aPlayer < 0) { break; }
+        DataTableSetInt(true, lib1B69CECC_gf_compute_player_race_key(lv_aPlayer), lib1B69CECC_gf_compute_race_index("Neut"));
+    }
+    lib1B69CECC_gf_InitialisePlayDialog();
+    lib1B69CECC_gf_InitialiseLobby();
+    GameSetSpeedValue(c_gameSpeedFaster);
+    return true;
+}
+
+//--------------------------------------------------------------------------------------------------
+void lib1B69CECC_gt_MeleeInitialization_Init () {
+    lib1B69CECC_gt_MeleeInitialization = TriggerCreate("lib1B69CECC_gt_MeleeInitialization_Func");
+    TriggerAddEventMapInit(lib1B69CECC_gt_MeleeInitialization);
+}
+
+void lib1B69CECC_InitTriggers () {
+    lib1B69CECC_gt_runalltestcasestrigger_Init();
+    lib1B69CECC_gt_AddAITrigger_Init();
+    lib1B69CECC_gt_AddAITrigger2_Init();
+    lib1B69CECC_gt_StartGameTrigger_Init();
+    lib1B69CECC_gt_TestingNotesTrigger_Init();
+    lib1B69CECC_gt_ClickHelp_Init();
+    lib1B69CECC_gt_ClickCancel_Init();
+    lib1B69CECC_gt_ClickConfirm_Init();
+    lib1B69CECC_gt_RaceSelected_Init();
+    lib1B69CECC_gt_MeleeInitialization_Init();
+}
+
+//--------------------------------------------------------------------------------------------------
+// Library Initialization
+//--------------------------------------------------------------------------------------------------
+bool lib1B69CECC_InitLib_completed = false;
+
+void lib1B69CECC_InitLib () {
+    if (lib1B69CECC_InitLib_completed) {
+        return;
+    }
+
+    lib1B69CECC_InitLib_completed = true;
+
+    lib1B69CECC_InitLibraries();
+    lib1B69CECC_InitVariables();
+    lib1B69CECC_InitTriggers();
+}
+

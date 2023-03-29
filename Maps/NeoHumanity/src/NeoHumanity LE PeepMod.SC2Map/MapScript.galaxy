@@ -5,12 +5,14 @@
 // Name:   NeoHumanity LE
 // 
 //==================================================================================================
+include "TriggerLibs/NativeLib"
 include "Lib1B69CECC"
 
 //--------------------------------------------------------------------------------------------------
 // Library Initialization
 //--------------------------------------------------------------------------------------------------
 void InitLibs () {
+    libNtve_InitLib();
     lib1B69CECC_InitLib();
 }
 
@@ -36,6 +38,7 @@ bool gt_ReferenceTrigger_Func (bool testConds, bool runActions) {
 //--------------------------------------------------------------------------------------------------
 void gt_ReferenceTrigger_Init () {
     gt_ReferenceTrigger = TriggerCreate("gt_ReferenceTrigger_Func");
+    TriggerAddEventMapInit(gt_ReferenceTrigger);
 }
 
 //--------------------------------------------------------------------------------------------------
