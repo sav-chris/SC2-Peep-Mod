@@ -6,12 +6,14 @@
 // 
 //==================================================================================================
 include "TriggerLibs/NativeLib"
+include "Lib1B69CECC"
 
 //--------------------------------------------------------------------------------------------------
 // Library Initialization
 //--------------------------------------------------------------------------------------------------
 void InitLibs () {
     libNtve_InitLib();
+    lib1B69CECC_InitLib();
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -24,6 +26,12 @@ trigger gt_ReferenceTrigger;
 //--------------------------------------------------------------------------------------------------
 bool gt_ReferenceTrigger_Func (bool testConds, bool runActions) {
     // Automatic Variable Declarations
+    // Actions
+    if (!runActions) {
+        return true;
+    }
+
+    lib1B69CECC_gf_DependencyMessage();
     return true;
 }
 

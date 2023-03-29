@@ -1,0 +1,13 @@
+include "TriggerLibs/natives"
+
+//--------------------------------------------------------------------------------------------------
+// Library: PeepMod Library
+//--------------------------------------------------------------------------------------------------
+// Function Declarations
+void lib1B69CECC_gf_StartMatch ();
+void lib1B69CECC_gf_DependencyMessage ();
+void lib1B69CECC_gf_ShowPlayDialog ();
+
+// Trigger Declarations
+trigger lib1B69CECC_gt_MeleeInitialization;
+

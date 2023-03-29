@@ -1,0 +1,105 @@
+include "TriggerLibs/NativeLib"
+
+include "Lib1B69CECC_h"
+
+//--------------------------------------------------------------------------------------------------
+// Library: PeepMod Library
+//--------------------------------------------------------------------------------------------------
+// External Library Initialization
+void lib1B69CECC_InitLibraries () {
+    libNtve_InitVariables();
+}
+
+// Functions
+void lib1B69CECC_gf_StartMatch () {
+    // Automatic Variable Declarations
+    // Implementation
+    MeleeInitResources();
+    MeleeInitUnits();
+    MeleeInitAI();
+    MeleeInitOptions();
+}
+
+void lib1B69CECC_gf_DependencyMessage () {
+    // Automatic Variable Declarations
+    // Implementation
+    TriggerDebugOutput(1, StringExternal("Param/Value/lib_1B69CECC_1F8147D0"), true);
+}
+
+void lib1B69CECC_gf_ShowPlayDialog () {
+    // Variable Declarations
+    int lv_intPlayer;
+    int lv_intIndex;
+
+    // Automatic Variable Declarations
+    playergroup auto5B1A6993_g;
+
+    // Variable Initialization
+
+    // Implementation
+    UISetMode(PlayerGroupAll(), c_uiModeFullscreen, c_transitionDurationImmediate);
+    auto5B1A6993_g = PlayerGroupAll();
+    lv_intPlayer = -1;
+    while (true) {
+        lv_intPlayer = PlayerGroupNextPlayer(auto5B1A6993_g, lv_intPlayer);
+        if (lv_intPlayer < 0) { break; }
+        VisRevealArea(lv_intPlayer, RegionEntireMap(), 0.0, false);
+    }
+    DialogCreate(330, 280, c_anchorTopLeft, 100, 100, true);
+    libNtve_gf_CreateDialogItemButton(DialogLastCreated(), 250, 100, c_anchorTop, 0, 35, StringExternal("Param/Value/lib_1B69CECC_958C5F35"), StringExternal("Param/Value/lib_1B69CECC_D48F50DA"), "");
+    DialogControlCreate(DialogLastCreated(), c_triggerControlTypePulldown);
+    DialogControlSetPosition(DialogControlLastCreated(), PlayerGroupAll(), c_anchorBottom, 0, 89);
+    DialogControlAddItem(DialogControlLastCreated(), PlayerGroupAll(), StringExternal("Param/Value/lib_1B69CECC_64B93A33"));
+    DialogControlAddItem(DialogControlLastCreated(), PlayerGroupAll(), StringExternal("Param/Value/lib_1B69CECC_AF8D3445"));
+    DialogControlAddItem(DialogControlLastCreated(), PlayerGroupAll(), StringExternal("Param/Value/lib_1B69CECC_87144AC7"));
+    DialogControlAddItem(DialogControlLastCreated(), PlayerGroupAll(), StringExternal("Param/Value/lib_1B69CECC_C439EBE7"));
+    DialogControlAddItem(DialogControlLastCreated(), PlayerGroupAll(), StringExternal("Param/Value/lib_1B69CECC_CBA04E74"));
+    DialogControlAddItem(DialogControlLastCreated(), PlayerGroupAll(), StringExternal("Param/Value/lib_1B69CECC_795FAFD6"));
+    DialogControlAddItem(DialogControlLastCreated(), PlayerGroupAll(), StringExternal("Param/Value/lib_1B69CECC_90B1A995"));
+    libNtve_gf_SetDialogItemTooltip(DialogControlLastCreated(), StringExternal("Param/Value/lib_1B69CECC_B6CD232B"), PlayerGroupAll());
+    DialogControlSelectItem(DialogControlLastCreated(), PlayerGroupAll(), 1);
+    DialogSetVisible(DialogLastCreated(), PlayerGroupAll(), true);
+}
+
+// Triggers
+//--------------------------------------------------------------------------------------------------
+// Trigger: Melee Initialization
+//--------------------------------------------------------------------------------------------------
+bool lib1B69CECC_gt_MeleeInitialization_Func (bool testConds, bool runActions) {
+    // Automatic Variable Declarations
+    // Actions
+    if (!runActions) {
+        return true;
+    }
+
+    TriggerDebugOutput(1, StringExternal("Param/Value/lib_1B69CECC_0268C865"), true);
+    lib1B69CECC_gf_ShowPlayDialog();
+    return true;
+}
+
+//--------------------------------------------------------------------------------------------------
+void lib1B69CECC_gt_MeleeInitialization_Init () {
+    lib1B69CECC_gt_MeleeInitialization = TriggerCreate("lib1B69CECC_gt_MeleeInitialization_Func");
+    TriggerAddEventMapInit(lib1B69CECC_gt_MeleeInitialization);
+}
+
+void lib1B69CECC_InitTriggers () {
+    lib1B69CECC_gt_MeleeInitialization_Init();
+}
+
+//--------------------------------------------------------------------------------------------------
+// Library Initialization
+//--------------------------------------------------------------------------------------------------
+bool lib1B69CECC_InitLib_completed = false;
+
+void lib1B69CECC_InitLib () {
+    if (lib1B69CECC_InitLib_completed) {
+        return;
+    }
+
+    lib1B69CECC_InitLib_completed = true;
+
+    lib1B69CECC_InitLibraries();
+    lib1B69CECC_InitTriggers();
+}
+
