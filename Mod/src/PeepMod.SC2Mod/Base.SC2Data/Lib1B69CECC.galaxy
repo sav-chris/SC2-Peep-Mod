@@ -26,25 +26,30 @@ void lib1B69CECC_gf_DependencyMessage () {
     TriggerDebugOutput(1, StringExternal("Param/Value/lib_1B69CECC_1F8147D0"), true);
 }
 
-void lib1B69CECC_gf_ShowPlayDialog () {
+void lib1B69CECC_gf_InitialiseLobby () {
     // Variable Declarations
     int lv_intPlayer;
-    int lv_intIndex;
 
     // Automatic Variable Declarations
-    playergroup auto5B1A6993_g;
+    playergroup autoD28C61DC_g;
 
     // Variable Initialization
 
     // Implementation
     UISetMode(PlayerGroupAll(), c_uiModeFullscreen, c_transitionDurationImmediate);
-    auto5B1A6993_g = PlayerGroupAll();
+    autoD28C61DC_g = PlayerGroupAll();
     lv_intPlayer = -1;
     while (true) {
-        lv_intPlayer = PlayerGroupNextPlayer(auto5B1A6993_g, lv_intPlayer);
+        lv_intPlayer = PlayerGroupNextPlayer(autoD28C61DC_g, lv_intPlayer);
         if (lv_intPlayer < 0) { break; }
         VisRevealArea(lv_intPlayer, RegionEntireMap(), 0.0, false);
     }
+    lib1B69CECC_gf_ShowPlayDialog();
+}
+
+void lib1B69CECC_gf_ShowPlayDialog () {
+    // Automatic Variable Declarations
+    // Implementation
     DialogCreate(330, 280, c_anchorTopLeft, 100, 100, true);
     libNtve_gf_CreateDialogItemButton(DialogLastCreated(), 250, 100, c_anchorTop, 0, 35, StringExternal("Param/Value/lib_1B69CECC_958C5F35"), StringExternal("Param/Value/lib_1B69CECC_D48F50DA"), "");
     DialogControlCreate(DialogLastCreated(), c_triggerControlTypePulldown);
@@ -73,7 +78,7 @@ bool lib1B69CECC_gt_MeleeInitialization_Func (bool testConds, bool runActions) {
     }
 
     TriggerDebugOutput(1, StringExternal("Param/Value/lib_1B69CECC_0268C865"), true);
-    lib1B69CECC_gf_ShowPlayDialog();
+    lib1B69CECC_gf_InitialiseLobby();
     return true;
 }
 

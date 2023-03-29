@@ -1,7 +1,7 @@
 ﻿FunctionDef/Name/lib_1B69CECC_27E5ACD8=Show Play Dialog
 FunctionDef/Name/lib_1B69CECC_43EB00ED=Start Match
 FunctionDef/Name/lib_1B69CECC_97EAEA23=Dependency Message
+FunctionDef/Name/lib_1B69CECC_F0EB4796=Initialise Lobby
 Library/Name/1B69CECC=PeepMod Library
 Trigger/Name/lib_1B69CECC_1666B268=Melee Initialization
-Variable/Name/lib_1B69CECC_1DA9C556=intPlayer
-Variable/Name/lib_1B69CECC_38365F56=intIndex
+Variable/Name/lib_1B69CECC_B4B404EB=intPlayer
