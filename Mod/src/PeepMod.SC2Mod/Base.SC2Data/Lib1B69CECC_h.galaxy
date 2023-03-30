@@ -3,12 +3,26 @@ include "TriggerLibs/natives"
 //--------------------------------------------------------------------------------------------------
 // Library: PeepMod Library
 //--------------------------------------------------------------------------------------------------
+// Structures
+struct lib1B69CECC_gs_Lobby {
+    int lv_players;
+};
+
+// Variable Declarations
+int lib1B69CECC_gv_playButton;
+
 // Function Declarations
+void lib1B69CECC_gf_InitialiseLobby ();
+void lib1B69CECC_gf_ShowLobby ();
+void lib1B69CECC_gf_ShowPlayDialog ();
+void lib1B69CECC_gf_JoinLobby (playergroup lp_thePlayer, playergroup lp_theLobby);
 void lib1B69CECC_gf_StartMatch ();
 void lib1B69CECC_gf_DependencyMessage ();
-void lib1B69CECC_gf_InitialiseLobby ();
-void lib1B69CECC_gf_ShowPlayDialog ();
 
 // Trigger Declarations
+trigger lib1B69CECC_gt_ClickPlayTrigger;
 trigger lib1B69CECC_gt_MeleeInitialization;
+
+// Library Initialization
+void lib1B69CECC_InitVariables ();
 

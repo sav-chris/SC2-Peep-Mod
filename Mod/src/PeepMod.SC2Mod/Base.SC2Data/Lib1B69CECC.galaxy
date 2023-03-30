@@ -10,22 +10,20 @@ void lib1B69CECC_InitLibraries () {
     libNtve_InitVariables();
 }
 
+// Variable Initialization
+bool lib1B69CECC_InitVariables_completed = false;
+
+void lib1B69CECC_InitVariables () {
+    if (lib1B69CECC_InitVariables_completed) {
+        return;
+    }
+
+    lib1B69CECC_InitVariables_completed = true;
+
+    lib1B69CECC_gv_playButton = c_invalidDialogControlId;
+}
+
 // Functions
-void lib1B69CECC_gf_StartMatch () {
-    // Automatic Variable Declarations
-    // Implementation
-    MeleeInitResources();
-    MeleeInitUnits();
-    MeleeInitAI();
-    MeleeInitOptions();
-}
-
-void lib1B69CECC_gf_DependencyMessage () {
-    // Automatic Variable Declarations
-    // Implementation
-    TriggerDebugOutput(1, StringExternal("Param/Value/lib_1B69CECC_1F8147D0"), true);
-}
-
 void lib1B69CECC_gf_InitialiseLobby () {
     // Variable Declarations
     int lv_intPlayer;
@@ -44,14 +42,42 @@ void lib1B69CECC_gf_InitialiseLobby () {
         if (lv_intPlayer < 0) { break; }
         VisRevealArea(lv_intPlayer, RegionEntireMap(), 0.0, false);
     }
+    UISetFrameVisible(PlayerGroupAll(), c_syncFrameTypeResourcePanel, false);
+    UISetFrameVisible(PlayerGroupAll(), c_syncFrameTypeSupply, false);
     lib1B69CECC_gf_ShowPlayDialog();
+    lib1B69CECC_gf_ShowLobby();
+}
+
+void lib1B69CECC_gf_ShowLobby () {
+    // Variable Declarations
+    const int lv_sPACEMARGIN = 50;
+    const int lv_lOBBY_WIDTH = 700;
+    const int lv_lOBBY_HEIGHT = 1000;
+
+    // Automatic Variable Declarations
+    // Variable Initialization
+
+    // Implementation
+    DialogCreate(lv_lOBBY_WIDTH, lv_lOBBY_HEIGHT, c_anchorTopLeft, 500, 100, true);
+    DialogControlCreate(DialogLastCreated(), c_triggerControlTypeListBox);
+    DialogControlSetSize(DialogControlLastCreated(), PlayerGroupAll(), (lv_lOBBY_WIDTH - (2 * lv_sPACEMARGIN)), (lv_lOBBY_HEIGHT - (2 * lv_sPACEMARGIN)));
+    DialogControlSetPosition(DialogControlLastCreated(), PlayerGroupAll(), c_anchorTopLeft, lv_sPACEMARGIN, lv_sPACEMARGIN);
+    DialogSetVisible(DialogLastCreated(), PlayerGroupAll(), true);
+    DialogControlAddItem(DialogControlLastCreated(), PlayerGroupAll(), StringExternal("Param/Value/lib_1B69CECC_EE792CC1"));
 }
 
 void lib1B69CECC_gf_ShowPlayDialog () {
+    // Variable Declarations
+    const int lv_pLAYMODAL_WIDTH = 330;
+    const int lv_pLAYMODAL_HEIGHT = 280;
+
     // Automatic Variable Declarations
+    // Variable Initialization
+
     // Implementation
-    DialogCreate(330, 280, c_anchorTopLeft, 100, 100, true);
+    DialogCreate(lv_pLAYMODAL_WIDTH, lv_pLAYMODAL_HEIGHT, c_anchorTopLeft, 100, 100, true);
     libNtve_gf_CreateDialogItemButton(DialogLastCreated(), 250, 100, c_anchorTop, 0, 35, StringExternal("Param/Value/lib_1B69CECC_958C5F35"), StringExternal("Param/Value/lib_1B69CECC_D48F50DA"), "");
+    lib1B69CECC_gv_playButton = DialogControlLastCreated();
     DialogControlCreate(DialogLastCreated(), c_triggerControlTypePulldown);
     DialogControlSetPosition(DialogControlLastCreated(), PlayerGroupAll(), c_anchorBottom, 0, 89);
     DialogControlAddItem(DialogControlLastCreated(), PlayerGroupAll(), StringExternal("Param/Value/lib_1B69CECC_64B93A33"));
@@ -66,7 +92,70 @@ void lib1B69CECC_gf_ShowPlayDialog () {
     DialogSetVisible(DialogLastCreated(), PlayerGroupAll(), true);
 }
 
+void lib1B69CECC_gf_JoinLobby (playergroup lp_thePlayer, playergroup lp_theLobby) {
+    // Variable Declarations
+    int lv_aPlayer;
+
+    // Automatic Variable Declarations
+    playergroup autoB5E7F2E4_g;
+
+    // Variable Initialization
+
+    // Implementation
+    libNtve_gf_AddPlayerGroupToPlayerGroup(lp_thePlayer, lp_theLobby);
+    autoB5E7F2E4_g = lp_theLobby;
+    lv_aPlayer = -1;
+    while (true) {
+        lv_aPlayer = PlayerGroupNextPlayer(autoB5E7F2E4_g, lv_aPlayer);
+        if (lv_aPlayer < 0) { break; }
+        TriggerDebugOutput(1, PlayerName(EventPlayer()), true);
+    }
+}
+
+void lib1B69CECC_gf_StartMatch () {
+    // Automatic Variable Declarations
+    // Implementation
+    MeleeInitResources();
+    MeleeInitUnits();
+    MeleeInitAI();
+    MeleeInitOptions();
+}
+
+void lib1B69CECC_gf_DependencyMessage () {
+    // Automatic Variable Declarations
+    // Implementation
+    TriggerDebugOutput(1, StringExternal("Param/Value/lib_1B69CECC_1F8147D0"), true);
+}
+
 // Triggers
+//--------------------------------------------------------------------------------------------------
+// Trigger: ClickPlayTrigger
+//--------------------------------------------------------------------------------------------------
+bool lib1B69CECC_gt_ClickPlayTrigger_Func (bool testConds, bool runActions) {
+    // Automatic Variable Declarations
+    // Conditions
+    if (testConds) {
+        if (!((EventDialogControl() == lib1B69CECC_gv_playButton))) {
+            return false;
+        }
+    }
+
+    // Actions
+    if (!runActions) {
+        return true;
+    }
+
+    TriggerDebugOutput(1, IntToText(EventPlayer()), true);
+    TriggerDebugOutput(1, StringExternal("Param/Value/lib_1B69CECC_30AC973C"), true);
+    return true;
+}
+
+//--------------------------------------------------------------------------------------------------
+void lib1B69CECC_gt_ClickPlayTrigger_Init () {
+    lib1B69CECC_gt_ClickPlayTrigger = TriggerCreate("lib1B69CECC_gt_ClickPlayTrigger_Func");
+    TriggerAddEventDialogControl(lib1B69CECC_gt_ClickPlayTrigger, c_playerAny, c_invalidDialogControlId, c_triggerControlEventTypeClick);
+}
+
 //--------------------------------------------------------------------------------------------------
 // Trigger: Melee Initialization
 //--------------------------------------------------------------------------------------------------
@@ -89,6 +178,7 @@ void lib1B69CECC_gt_MeleeInitialization_Init () {
 }
 
 void lib1B69CECC_InitTriggers () {
+    lib1B69CECC_gt_ClickPlayTrigger_Init();
     lib1B69CECC_gt_MeleeInitialization_Init();
 }
 
@@ -105,6 +195,7 @@ void lib1B69CECC_InitLib () {
     lib1B69CECC_InitLib_completed = true;
 
     lib1B69CECC_InitLibraries();
+    lib1B69CECC_InitVariables();
     lib1B69CECC_InitTriggers();
 }
 
