@@ -1,1 +1,220 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<Desc>
+
+    <Frame type="Button" name="ScionPeepMenuButton">
+        <Width val="52"/>
+        <Height val="52"/>
+        <DisplayType val="ImageLayer"/>
+        <ClickSound val="@UI_ActionButtonSelect"/>
+        <NormalImage val="NormalImage"/>
+        <HoverImage val="HoverImage"/>
+
+        <Frame type="Image" name="NormalImage">
+            <Anchor relative="$parent"/>
+            <LayerCount val="4"/>
+            <Texture val="Assets\Textures\ui_battlenet_glues_bluebuttons_largeup.dds" layer="0"/>
+            <Texture val="Assets\Textures\ui_battlenet_glues_bluebuttons_largedown.dds" layer="1"/>
+            <Texture val="Assets\Textures\ui_battlenet_glues_bluebuttons_largeselected.dds" layer="2"/>
+            <Texture val="Assets\Textures\ui_battlenet_glues_bluebuttons_largedisabled.dds" layer="3"/>
+            <TextureType val="NineSlice"/>
+        </Frame>
+
+        <Frame type="Image" name="HoverImage">
+            <Anchor relative="$parent"/>
+            <LayerCount val="4"/>
+            <Texture val="Assets\Textures\ui_battlenet_glues_bluebuttons_largeover.dds" layer="0"/>
+            <Texture val="Assets\Textures\ui_battlenet_glues_bluebuttons_largedown.dds" layer="1"/>
+            <Texture val="Assets\Textures\ui_battlenet_glues_bluebuttons_largeselected.dds" layer="2"/>
+            <Texture val="Assets\Textures\ui_battlenet_glues_bluebuttons_largedisabled.dds" layer="3"/>
+            <TextureType val="NineSlice"/>
+        </Frame>
+
+        <Frame type="Image" name="FaceImage">
+            <Anchor relative="$parent"/>
+            <AdjustmentColor val="176,255,176"/>
+            <ColorAdjustMode val="Colorize"/>
+        </Frame>
+
+    </Frame>
+
+    <Frame type="Button" name="ScionPeepLeagueButton">
+        <Width val="52"/>
+        <Height val="52"/>
+        <DisplayType val="ImageLayer"/>
+        <ClickSound val="@UI_ActionButtonSelect"/>
+        <NormalImage val="NormalImage"/>
+        <HoverImage val="HoverImage"/>
+
+        <Frame type="Image" name="NormalImage">
+            <Anchor relative="$parent"/>
+            <LayerCount val="4"/>
+            <Texture val="Assets\Textures\ui_console_minimapbutton_normal_defaultterran.dds" layer="0"/>
+            <Texture val="Assets\Textures\ui_console_minimapbutton_pressed_defaultterran.dds" layer="1"/>
+            <Texture val="Assets\Textures\ui_console_minimapbutton_selected_defaultterran.dds" layer="2"/>
+            <Texture val="Assets\Textures\ui_console_minimapbutton_disabled_defaultterran.dds" layer="3"/>
+            <TextureType val="NineSlice"/>
+        </Frame>
+
+        <Frame type="Image" name="HoverImage">
+            <Anchor relative="$parent"/>
+            <LayerCount val="4"/>
+            <Texture val="Assets\Textures\ui_console_minimapbutton_hover_defaultterran.dds" layer="0"/>
+            <Texture val="Assets\Textures\ui_console_minimapbutton_pressed_defaultterran.dds" layer="1"/>
+            <Texture val="Assets\Textures\ui_console_minimapbutton_selected_defaultterran.dds" layer="2"/>
+            <Texture val="Assets\Textures\ui_console_minimapbutton_disabled_defaultterran.dds" layer="3"/>
+            <TextureType val="NineSlice"/>
+        </Frame>
+
+        <Frame type="Image" name="FaceImage">
+            <Anchor side="Bottom" relative="$parent" pos="Max" offset="-5"/>
+            <Anchor side="Left" relative="$parent" pos="Min" offset="5"/>
+            <Anchor side="Right" relative="$parent" pos="Max" offset="-5"/>
+            <Anchor side="Top" relative="$parent" pos="Min" offset="5"/>
+        </Frame>
+
+    </Frame>
+
+    <Frame type="Frame" name="GameUI/UIContainer/FullscreenUpperContainer" file="GameUI">
+
+        <Frame type="Frame" name="PeepMenuPanel" template="StandardBattlenetTemplates/StandardSmallPanelTemplate">
+            <Anchor side="Left" relative="$parent" pos="Min" offset="-50"/>
+            <Anchor side="Top" relative="$parent" pos="Min" offset="-72"/>
+            <Width val="700"/>
+            <Height val="168"/>
+
+            <Frame type="Button" name="Play" template="StandardBattlenetTemplates/BattlenetMediumButtonTemplate">
+                <Anchor side="Left" relative="$parent" pos="Min" offset="54"/>
+                <Anchor side="Top" relative="$parent" pos="Min" offset="72"/>
+                <Width val="150"/>
+                <Frame type="Label" name="Label">
+                    <Text val="PLAY"/>
+                </Frame>
+
+                <Animation name="Toggle">
+                    <Event event="OnClick" action="ToggleDirection,Play"/>
+                     
+                    <Controller type="Property" property="Toggled" end="Pause">
+                        <Key type="Property" time="0" value="True"/>
+                        <Key type="Property" time="0" value="False"/>
+                    </Controller>
+                </Animation>
+
+            </Frame>
+
+            <Frame type="Button" name="Options" template="StandardBattlenetTemplates/BattlenetMediumButtonTemplate">
+                <Anchor side="Left" relative="$parent/Play" pos="Max" offset="0"/>
+                <Anchor side="Top" relative="$parent/Play" pos="Min" offset="0"/>
+                <Width val="150"/>
+                <Frame type="Label" name="Label">
+                    <Text val="OPTIONS"/>
+                </Frame>
+            </Frame>
+
+            <Frame type="Button" name="Chat" template="StandardBattlenetTemplates/BattlenetMediumButtonTemplate">
+                <Anchor side="Left" relative="$parent/Options" pos="Max" offset="0"/>
+                <Anchor side="Top" relative="$parent/Options" pos="Min" offset="0"/>
+                <Width val="150"/>
+                <Frame type="Label" name="Label">
+                    <Text val="CHAT LOG"/>
+                </Frame>
+            </Frame>
+
+            <Frame type="Button" name="Help" template="StandardBattlenetTemplates/BattlenetMediumButtonTemplate">
+                <Anchor side="Left" relative="$parent/Chat" pos="Max" offset="0"/>
+                <Anchor side="Top" relative="$parent/Chat" pos="Min" offset="0"/>
+                <Width val="150"/>
+                <Frame type="Label" name="Label">
+                    <Text val="HELP"/>
+                </Frame>
+            </Frame>
+
+        </Frame>
+
+        <Frame type="Frame" name="PeepPlayPanel" template="StandardBattlenetTemplates/StandardSmallPanelTemplate">
+            <Anchor side="Left" relative="$parent/PeepMenuPanel" pos="Min" offset="0"/>
+            <Anchor side="Top" relative="$parent/PeepMenuPanel" pos="Max" offset="-64"/>
+            <Width val="362"/>
+            <Height val="300"/>
+
+            <StateGroup name="PanelVisibilityToggle">
+                <DefaultState val="NotVisible"/>
+                
+                <State name="Visible">
+                    <When type="Property" frame="$parent/PeepMenuPanel/Play" Toggled="False"/>
+                    <Action type="SetProperty" frame="$this" Visible="False"/>
+                </State>
+            
+                <State name="NotVisible">
+                    <When type="Property" frame="$parent/PeepMenuPanel/Play" Toggled="True"/>
+                    <Action type="SetProperty" frame="$this" Visible="True"/>
+                </State>
+            </StateGroup>
+
+            <Frame type="Pulldown" name="Race" template="StandardBattlenetTemplates/StandardBattlenetPulldownTemplate">
+                <Anchor side="Left" relative="$parent" pos="Min" offset="10"/>
+                <Anchor side="Right" relative="$parent" pos="Max" offset="0"/>
+                <Anchor side="Top" relative="$parent" pos="Min" offset="64"/>
+            </Frame>
+
+            <Frame type="Pulldown" name="League" template="StandardBattlenetTemplates/StandardBattlenetPulldownTemplate">
+                <Anchor side="Left" relative="$parent/Race" pos="Min" offset="0"/>
+                <Anchor side="Right" relative="$parent/Race" pos="Max" offset="0"/>
+                <Anchor side="Top" relative="$parent/Race" pos="Max" offset="12"/>
+            </Frame>
+
+            <Frame type="Button" name="Confirm" template="StandardBattlenetTemplates/BattlenetStandardAlternateMediumButtonTemplate">
+                <Anchor side="Left" relative="$parent/League" pos="Min" offset="0"/>
+                <Anchor side="Right" relative="$parent/League" pos="Max" offset="0"/>
+                <Anchor side="Top" relative="$parent/League" pos="Max" offset="12"/>
+                <Frame type="Label" name="Label">
+                    <Text val="CONFIRM"/>
+                </Frame>
+
+                <Animation name="Confirm">
+                    <Event event="OnClick" action="Reset,Play"/>
+
+                    <Controller type="Property" property="Visible" end="Pause">
+                        <Key type="Property" time="0" value="False"/>
+                    </Controller>
+                </Animation>
+
+            </Frame>
+
+            <Frame type="Button" name="Cancel" template="StandardBattlenetTemplates/BattlenetStandardMediumButtonTemplate">
+                <Anchor side="Left" relative="$parent/League" pos="Min" offset="0"/>
+                <Anchor side="Right" relative="$parent/League" pos="Max" offset="0"/>
+                <Anchor side="Top" relative="$parent/League" pos="Max" offset="12"/>
+                <Frame type="Label" name="Label">
+                    <Text val="CANCEL"/>
+                </Frame>
+
+                <StateGroup name="PanelVisibilityToggle">
+                    <DefaultState val="NotVisible"/>
+                    
+                    <State name="Visible">
+                        <When type="Property" frame="$parent/Confirm" Visible="False"/>
+                        <Action type="SetProperty" frame="$this" Visible="True"/>
+                    </State>
+                
+                    <State name="NotVisible">
+                        <When type="Property" frame="$parent/Confirm" Visible="True"/>
+                        <Action type="SetProperty" frame="$this" Visible="False"/>
+                    </State>
+                </StateGroup>
+
+                <Animation name="Cancel">
+                    <Event event="OnClick" action="Reset,Play"/>
+
+                    <Controller type="Property" property="Visible" end="Pause" frame="$parent/Confirm">
+                        <Key type="Property" time="0" value="True"/>
+                    </Controller>
+                </Animation>
+
+            </Frame>
+
+        </Frame>
+
+
+    </Frame>
+
+</Desc>
