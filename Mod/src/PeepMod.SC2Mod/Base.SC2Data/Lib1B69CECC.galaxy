@@ -21,9 +21,32 @@ void lib1B69CECC_InitVariables () {
     lib1B69CECC_InitVariables_completed = true;
 
     lib1B69CECC_gv_playButton = c_invalidDialogControlId;
+    lib1B69CECC_gv_raceDropDown = c_invalidDialogControlId;
+    lib1B69CECC_gv_lobbyListBox = c_invalidDialogControlId;
+    lib1B69CECC_gv_theLobby.lv_players = PlayerGroupEmpty();
 }
 
 // Functions
+void lib1B69CECC_gf_DisplayLobby (structref<lib1B69CECC_gs_Lobby> lp_lobbyModel) {
+    // Variable Declarations
+    int lv_player;
+
+    // Automatic Variable Declarations
+    playergroup auto2DE13D9F_g;
+
+    // Variable Initialization
+
+    // Implementation
+    DialogControlRemoveAllItems(lib1B69CECC_gv_lobbyListBox, PlayerGroupAll());
+    auto2DE13D9F_g = lp_lobbyModel.lv_players;
+    lv_player = -1;
+    while (true) {
+        lv_player = PlayerGroupNextPlayer(auto2DE13D9F_g, lv_player);
+        if (lv_player < 0) { break; }
+        DialogControlAddItem(lib1B69CECC_gv_lobbyListBox, PlayerGroupAll(), PlayerName(lv_player));
+    }
+}
+
 void lib1B69CECC_gf_InitialiseLobby () {
     // Variable Declarations
     int lv_intPlayer;
@@ -44,6 +67,7 @@ void lib1B69CECC_gf_InitialiseLobby () {
     }
     UISetFrameVisible(PlayerGroupAll(), c_syncFrameTypeResourcePanel, false);
     UISetFrameVisible(PlayerGroupAll(), c_syncFrameTypeSupply, false);
+    lib1B69CECC_gf_ClearLoby();
     lib1B69CECC_gf_ShowPlayDialog();
     lib1B69CECC_gf_ShowLobby();
 }
@@ -60,10 +84,10 @@ void lib1B69CECC_gf_ShowLobby () {
     // Implementation
     DialogCreate(lv_lOBBY_WIDTH, lv_lOBBY_HEIGHT, c_anchorTopLeft, 500, 100, true);
     DialogControlCreate(DialogLastCreated(), c_triggerControlTypeListBox);
+    lib1B69CECC_gv_lobbyListBox = DialogControlLastCreated();
     DialogControlSetSize(DialogControlLastCreated(), PlayerGroupAll(), (lv_lOBBY_WIDTH - (2 * lv_sPACEMARGIN)), (lv_lOBBY_HEIGHT - (2 * lv_sPACEMARGIN)));
     DialogControlSetPosition(DialogControlLastCreated(), PlayerGroupAll(), c_anchorTopLeft, lv_sPACEMARGIN, lv_sPACEMARGIN);
     DialogSetVisible(DialogLastCreated(), PlayerGroupAll(), true);
-    DialogControlAddItem(DialogControlLastCreated(), PlayerGroupAll(), StringExternal("Param/Value/lib_1B69CECC_EE792CC1"));
 }
 
 void lib1B69CECC_gf_ShowPlayDialog () {
@@ -79,6 +103,7 @@ void lib1B69CECC_gf_ShowPlayDialog () {
     libNtve_gf_CreateDialogItemButton(DialogLastCreated(), 250, 100, c_anchorTop, 0, 35, StringExternal("Param/Value/lib_1B69CECC_958C5F35"), StringExternal("Param/Value/lib_1B69CECC_D48F50DA"), "");
     lib1B69CECC_gv_playButton = DialogControlLastCreated();
     DialogControlCreate(DialogLastCreated(), c_triggerControlTypePulldown);
+    lib1B69CECC_gv_raceDropDown = DialogControlLastCreated();
     DialogControlSetPosition(DialogControlLastCreated(), PlayerGroupAll(), c_anchorBottom, 0, 89);
     DialogControlAddItem(DialogControlLastCreated(), PlayerGroupAll(), StringExternal("Param/Value/lib_1B69CECC_64B93A33"));
     DialogControlAddItem(DialogControlLastCreated(), PlayerGroupAll(), StringExternal("Param/Value/lib_1B69CECC_AF8D3445"));
@@ -92,24 +117,16 @@ void lib1B69CECC_gf_ShowPlayDialog () {
     DialogSetVisible(DialogLastCreated(), PlayerGroupAll(), true);
 }
 
-void lib1B69CECC_gf_JoinLobby (playergroup lp_thePlayer, playergroup lp_theLobby) {
-    // Variable Declarations
-    int lv_aPlayer;
-
+void lib1B69CECC_gf_ClearLoby () {
     // Automatic Variable Declarations
-    playergroup autoB5E7F2E4_g;
-
-    // Variable Initialization
-
     // Implementation
-    libNtve_gf_AddPlayerGroupToPlayerGroup(lp_thePlayer, lp_theLobby);
-    autoB5E7F2E4_g = lp_theLobby;
-    lv_aPlayer = -1;
-    while (true) {
-        lv_aPlayer = PlayerGroupNextPlayer(autoB5E7F2E4_g, lv_aPlayer);
-        if (lv_aPlayer < 0) { break; }
-        TriggerDebugOutput(1, PlayerName(EventPlayer()), true);
-    }
+    PlayerGroupClear(lib1B69CECC_gv_theLobby.lv_players);
+}
+
+void lib1B69CECC_gf_JoinLobby (int lp_thePlayer, structref<lib1B69CECC_gs_Lobby> lp_thisLobby) {
+    // Automatic Variable Declarations
+    // Implementation
+    PlayerGroupAdd(lp_thisLobby.lv_players, lp_thePlayer);
 }
 
 void lib1B69CECC_gf_StartMatch () {
@@ -145,8 +162,8 @@ bool lib1B69CECC_gt_ClickPlayTrigger_Func (bool testConds, bool runActions) {
         return true;
     }
 
-    TriggerDebugOutput(1, IntToText(EventPlayer()), true);
-    TriggerDebugOutput(1, StringExternal("Param/Value/lib_1B69CECC_30AC973C"), true);
+    lib1B69CECC_gf_JoinLobby(EventPlayer(), lib1B69CECC_gv_theLobby);
+    lib1B69CECC_gf_DisplayLobby(lib1B69CECC_gv_theLobby);
     return true;
 }
 
@@ -166,7 +183,6 @@ bool lib1B69CECC_gt_MeleeInitialization_Func (bool testConds, bool runActions) {
         return true;
     }
 
-    TriggerDebugOutput(1, StringExternal("Param/Value/lib_1B69CECC_0268C865"), true);
     lib1B69CECC_gf_InitialiseLobby();
     return true;
 }
