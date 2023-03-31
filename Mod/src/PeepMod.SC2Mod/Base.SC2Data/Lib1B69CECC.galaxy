@@ -20,6 +20,11 @@ void lib1B69CECC_InitVariables () {
 
     lib1B69CECC_InitVariables_completed = true;
 
+    lib1B69CECC_gv_ui_leader = c_invalidDialogControlId;
+    lib1B69CECC_gv_ui_play_race = c_invalidDialogControlId;
+    lib1B69CECC_gv_ui_play_league = c_invalidDialogControlId;
+    lib1B69CECC_gv_ui_play_confirm = c_invalidDialogControlId;
+    lib1B69CECC_gv_ui_play_cancel = c_invalidDialogControlId;
     lib1B69CECC_gv_playButton = c_invalidDialogControlId;
     lib1B69CECC_gv_raceDropDown = c_invalidDialogControlId;
     lib1B69CECC_gv_lobbyListBox = c_invalidDialogControlId;
@@ -117,6 +122,42 @@ void lib1B69CECC_gf_ShowPlayDialog () {
     DialogSetVisible(DialogLastCreated(), PlayerGroupAll(), true);
 }
 
+void lib1B69CECC_gf_InitialiseMenu () {
+    // Automatic Variable Declarations
+    // Implementation
+    DialogControlHookupStandard(c_triggerControlTypePulldown, "UIContainer/FullscreenUpperContainer/PeepPlayPanel/Race");
+    lib1B69CECC_gv_ui_play_race = DialogControlLastCreated();
+    DialogControlHookupStandard(c_triggerControlTypePulldown, "UIContainer/FullscreenUpperContainer/PeepPlayPanel/League");
+    lib1B69CECC_gv_ui_play_league = DialogControlLastCreated();
+    DialogControlHookupStandard(c_triggerControlTypePulldown, "UIContainer/FullscreenUpperContainer/PeepPlayPanel/Confirm");
+    lib1B69CECC_gv_ui_play_confirm = DialogControlLastCreated();
+    DialogControlHookupStandard(c_triggerControlTypePulldown, "UIContainer/FullscreenUpperContainer/PeepPlayPanel/Cancel");
+    lib1B69CECC_gv_ui_play_cancel = DialogControlLastCreated();
+    DialogControlAddItem(lib1B69CECC_gv_ui_play_race, PlayerGroupAll(), StringExternal("Param/Value/lib_1B69CECC_DBC583AC"));
+    DialogControlAddItem(lib1B69CECC_gv_ui_play_race, PlayerGroupAll(), StringExternal("Param/Value/lib_1B69CECC_69B8275C"));
+    DialogControlAddItem(lib1B69CECC_gv_ui_play_race, PlayerGroupAll(), StringExternal("Param/Value/lib_1B69CECC_43CAC50C"));
+    DialogControlAddItem(lib1B69CECC_gv_ui_play_race, PlayerGroupAll(), StringExternal("Param/Value/lib_1B69CECC_913C9F19"));
+    DialogControlAddItem(lib1B69CECC_gv_ui_play_race, PlayerGroupAll(), StringExternal("Param/Value/lib_1B69CECC_D78E4A14"));
+    DialogControlAddItem(lib1B69CECC_gv_ui_play_race, PlayerGroupAll(), StringExternal("Param/Value/lib_1B69CECC_E916A8E4"));
+    DialogControlAddItem(lib1B69CECC_gv_ui_play_race, PlayerGroupAll(), StringExternal("Param/Value/lib_1B69CECC_A28B358F"));
+    DialogControlSelectItem(lib1B69CECC_gv_ui_play_race, PlayerGroupAll(), 1);
+    DialogControlAddItem(lib1B69CECC_gv_ui_play_league, PlayerGroupAll(), StringExternal("Param/Value/lib_1B69CECC_299A8AD4"));
+    DialogControlAddItem(lib1B69CECC_gv_ui_play_league, PlayerGroupAll(), StringExternal("Param/Value/lib_1B69CECC_DD98C82C"));
+    DialogControlAddItem(lib1B69CECC_gv_ui_play_league, PlayerGroupAll(), StringExternal("Param/Value/lib_1B69CECC_6DF26637"));
+    DialogControlAddItem(lib1B69CECC_gv_ui_play_league, PlayerGroupAll(), StringExternal("Param/Value/lib_1B69CECC_1E84688D"));
+    DialogControlAddItem(lib1B69CECC_gv_ui_play_league, PlayerGroupAll(), StringExternal("Param/Value/lib_1B69CECC_A7679ABE"));
+    DialogControlAddItem(lib1B69CECC_gv_ui_play_league, PlayerGroupAll(), StringExternal("Param/Value/lib_1B69CECC_0BF87976"));
+    DialogControlAddItem(lib1B69CECC_gv_ui_play_league, PlayerGroupAll(), StringExternal("Param/Value/lib_1B69CECC_AC5D4CE7"));
+    DialogControlAddItem(lib1B69CECC_gv_ui_play_league, PlayerGroupAll(), StringExternal("Param/Value/lib_1B69CECC_8C125C91"));
+    DialogControlSelectItem(lib1B69CECC_gv_ui_play_league, PlayerGroupAll(), 1);
+}
+
+void lib1B69CECC_gf_LeaveLobby (int lp_thePlayer, structref<lib1B69CECC_gs_Lobby> lp_thisLobby) {
+    // Automatic Variable Declarations
+    // Implementation
+    PlayerGroupRemove(lp_thisLobby.lv_players, lp_thePlayer);
+}
+
 void lib1B69CECC_gf_ClearLoby () {
     // Automatic Variable Declarations
     // Implementation
@@ -183,6 +224,7 @@ bool lib1B69CECC_gt_MeleeInitialization_Func (bool testConds, bool runActions) {
         return true;
     }
 
+    lib1B69CECC_gf_InitialiseMenu();
     lib1B69CECC_gf_InitialiseLobby();
     return true;
 }
