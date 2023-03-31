@@ -54,6 +54,38 @@ void lib1B69CECC_gf_InitialiseLobby () {
     lib1B69CECC_gf_ShowLobby();
 }
 
+void lib1B69CECC_gf_InitialiseMenu () {
+    // Automatic Variable Declarations
+    // Implementation
+    DialogControlHookupStandard(c_triggerControlTypePulldown, "UIContainer/FullscreenUpperContainer/PeepPlayPanel/Race");
+    lib1B69CECC_gv_ui_play_race = DialogControlLastCreated();
+    DialogControlHookupStandard(c_triggerControlTypePulldown, "UIContainer/FullscreenUpperContainer/PeepPlayPanel/League");
+    lib1B69CECC_gv_ui_play_league = DialogControlLastCreated();
+    DialogControlHookupStandard(c_triggerControlTypeButton, "UIContainer/FullscreenUpperContainer/PeepPlayPanel/Confirm");
+    lib1B69CECC_gv_ui_play_confirm = DialogControlLastCreated();
+    DialogControlHookupStandard(c_triggerControlTypeButton, "UIContainer/FullscreenUpperContainer/PeepPlayPanel/Cancel");
+    lib1B69CECC_gv_ui_play_cancel = DialogControlLastCreated();
+    DialogControlHookupStandard(c_triggerControlTypeButton, "UIContainer/FullscreenUpperContainer/PeepMenuPanel/Help");
+    lib1B69CECC_gv_ui_help = DialogControlLastCreated();
+    DialogControlAddItem(lib1B69CECC_gv_ui_play_race, PlayerGroupAll(), StringExternal("Param/Value/lib_1B69CECC_DBC583AC"));
+    DialogControlAddItem(lib1B69CECC_gv_ui_play_race, PlayerGroupAll(), StringExternal("Param/Value/lib_1B69CECC_69B8275C"));
+    DialogControlAddItem(lib1B69CECC_gv_ui_play_race, PlayerGroupAll(), StringExternal("Param/Value/lib_1B69CECC_43CAC50C"));
+    DialogControlAddItem(lib1B69CECC_gv_ui_play_race, PlayerGroupAll(), StringExternal("Param/Value/lib_1B69CECC_913C9F19"));
+    DialogControlAddItem(lib1B69CECC_gv_ui_play_race, PlayerGroupAll(), StringExternal("Param/Value/lib_1B69CECC_D78E4A14"));
+    DialogControlAddItem(lib1B69CECC_gv_ui_play_race, PlayerGroupAll(), StringExternal("Param/Value/lib_1B69CECC_E916A8E4"));
+    DialogControlAddItem(lib1B69CECC_gv_ui_play_race, PlayerGroupAll(), StringExternal("Param/Value/lib_1B69CECC_A28B358F"));
+    DialogControlSelectItem(lib1B69CECC_gv_ui_play_race, PlayerGroupAll(), 1);
+    DialogControlAddItem(lib1B69CECC_gv_ui_play_league, PlayerGroupAll(), StringExternal("Param/Value/lib_1B69CECC_299A8AD4"));
+    DialogControlAddItem(lib1B69CECC_gv_ui_play_league, PlayerGroupAll(), StringExternal("Param/Value/lib_1B69CECC_DD98C82C"));
+    DialogControlAddItem(lib1B69CECC_gv_ui_play_league, PlayerGroupAll(), StringExternal("Param/Value/lib_1B69CECC_6DF26637"));
+    DialogControlAddItem(lib1B69CECC_gv_ui_play_league, PlayerGroupAll(), StringExternal("Param/Value/lib_1B69CECC_1E84688D"));
+    DialogControlAddItem(lib1B69CECC_gv_ui_play_league, PlayerGroupAll(), StringExternal("Param/Value/lib_1B69CECC_A7679ABE"));
+    DialogControlAddItem(lib1B69CECC_gv_ui_play_league, PlayerGroupAll(), StringExternal("Param/Value/lib_1B69CECC_0BF87976"));
+    DialogControlAddItem(lib1B69CECC_gv_ui_play_league, PlayerGroupAll(), StringExternal("Param/Value/lib_1B69CECC_AC5D4CE7"));
+    DialogControlAddItem(lib1B69CECC_gv_ui_play_league, PlayerGroupAll(), StringExternal("Param/Value/lib_1B69CECC_8C125C91"));
+    DialogControlSelectItem(lib1B69CECC_gv_ui_play_league, PlayerGroupAll(), 1);
+}
+
 void lib1B69CECC_gf_DisplayLobby (structref<lib1B69CECC_gs_Lobby> lp_lobbyModel) {
     // Variable Declarations
     int lv_player;
@@ -92,38 +124,6 @@ void lib1B69CECC_gf_ShowLobby () {
     DialogSetVisible(DialogLastCreated(), PlayerGroupAll(), true);
 }
 
-void lib1B69CECC_gf_InitialiseMenu () {
-    // Automatic Variable Declarations
-    // Implementation
-    DialogControlHookupStandard(c_triggerControlTypePulldown, "UIContainer/FullscreenUpperContainer/PeepPlayPanel/Race");
-    lib1B69CECC_gv_ui_play_race = DialogControlLastCreated();
-    DialogControlHookupStandard(c_triggerControlTypePulldown, "UIContainer/FullscreenUpperContainer/PeepPlayPanel/League");
-    lib1B69CECC_gv_ui_play_league = DialogControlLastCreated();
-    DialogControlHookupStandard(c_triggerControlTypeButton, "UIContainer/FullscreenUpperContainer/PeepPlayPanel/Confirm");
-    lib1B69CECC_gv_ui_play_confirm = DialogControlLastCreated();
-    DialogControlHookupStandard(c_triggerControlTypeButton, "UIContainer/FullscreenUpperContainer/PeepPlayPanel/Cancel");
-    lib1B69CECC_gv_ui_play_cancel = DialogControlLastCreated();
-    DialogControlHookupStandard(c_triggerControlTypeButton, "UIContainer/FullscreenUpperContainer/PeepMenuPanel/Help");
-    lib1B69CECC_gv_ui_help = DialogControlLastCreated();
-    DialogControlAddItem(lib1B69CECC_gv_ui_play_race, PlayerGroupAll(), StringExternal("Param/Value/lib_1B69CECC_DBC583AC"));
-    DialogControlAddItem(lib1B69CECC_gv_ui_play_race, PlayerGroupAll(), StringExternal("Param/Value/lib_1B69CECC_69B8275C"));
-    DialogControlAddItem(lib1B69CECC_gv_ui_play_race, PlayerGroupAll(), StringExternal("Param/Value/lib_1B69CECC_43CAC50C"));
-    DialogControlAddItem(lib1B69CECC_gv_ui_play_race, PlayerGroupAll(), StringExternal("Param/Value/lib_1B69CECC_913C9F19"));
-    DialogControlAddItem(lib1B69CECC_gv_ui_play_race, PlayerGroupAll(), StringExternal("Param/Value/lib_1B69CECC_D78E4A14"));
-    DialogControlAddItem(lib1B69CECC_gv_ui_play_race, PlayerGroupAll(), StringExternal("Param/Value/lib_1B69CECC_E916A8E4"));
-    DialogControlAddItem(lib1B69CECC_gv_ui_play_race, PlayerGroupAll(), StringExternal("Param/Value/lib_1B69CECC_A28B358F"));
-    DialogControlSelectItem(lib1B69CECC_gv_ui_play_race, PlayerGroupAll(), 1);
-    DialogControlAddItem(lib1B69CECC_gv_ui_play_league, PlayerGroupAll(), StringExternal("Param/Value/lib_1B69CECC_299A8AD4"));
-    DialogControlAddItem(lib1B69CECC_gv_ui_play_league, PlayerGroupAll(), StringExternal("Param/Value/lib_1B69CECC_DD98C82C"));
-    DialogControlAddItem(lib1B69CECC_gv_ui_play_league, PlayerGroupAll(), StringExternal("Param/Value/lib_1B69CECC_6DF26637"));
-    DialogControlAddItem(lib1B69CECC_gv_ui_play_league, PlayerGroupAll(), StringExternal("Param/Value/lib_1B69CECC_1E84688D"));
-    DialogControlAddItem(lib1B69CECC_gv_ui_play_league, PlayerGroupAll(), StringExternal("Param/Value/lib_1B69CECC_A7679ABE"));
-    DialogControlAddItem(lib1B69CECC_gv_ui_play_league, PlayerGroupAll(), StringExternal("Param/Value/lib_1B69CECC_0BF87976"));
-    DialogControlAddItem(lib1B69CECC_gv_ui_play_league, PlayerGroupAll(), StringExternal("Param/Value/lib_1B69CECC_AC5D4CE7"));
-    DialogControlAddItem(lib1B69CECC_gv_ui_play_league, PlayerGroupAll(), StringExternal("Param/Value/lib_1B69CECC_8C125C91"));
-    DialogControlSelectItem(lib1B69CECC_gv_ui_play_league, PlayerGroupAll(), 1);
-}
-
 void lib1B69CECC_gf_LeaveLobby (int lp_thePlayer, structref<lib1B69CECC_gs_Lobby> lp_thisLobby) {
     // Automatic Variable Declarations
     // Implementation
@@ -158,6 +158,26 @@ void lib1B69CECC_gf_DependencyMessage () {
 }
 
 // Triggers
+//--------------------------------------------------------------------------------------------------
+// Trigger: Add AI Trigger
+//--------------------------------------------------------------------------------------------------
+bool lib1B69CECC_gt_AddAITrigger_Func (bool testConds, bool runActions) {
+    // Automatic Variable Declarations
+    // Actions
+    if (!runActions) {
+        return true;
+    }
+
+    TriggerDebugOutput(1, StringExternal("Param/Value/lib_1B69CECC_3BDD1A50"), true);
+    return true;
+}
+
+//--------------------------------------------------------------------------------------------------
+void lib1B69CECC_gt_AddAITrigger_Init () {
+    lib1B69CECC_gt_AddAITrigger = TriggerCreate("lib1B69CECC_gt_AddAITrigger_Func");
+    TriggerAddEventChatMessage(lib1B69CECC_gt_AddAITrigger, c_playerAny, "-AI Player", true);
+}
+
 //--------------------------------------------------------------------------------------------------
 // Trigger: Click Help
 //--------------------------------------------------------------------------------------------------
@@ -243,6 +263,72 @@ void lib1B69CECC_gt_ClickConfirm_Init () {
 }
 
 //--------------------------------------------------------------------------------------------------
+// Trigger: Race Selected
+//--------------------------------------------------------------------------------------------------
+bool lib1B69CECC_gt_RaceSelected_Func (bool testConds, bool runActions) {
+    // Variable Declarations
+    int lv_raceIndex;
+    const int lv_rANDOM_INDEX = 0;
+    const int lv_pROTOSS_INDEX = 1;
+    const int lv_tERRAN_INDEX = 2;
+    const int lv_zERG_INDEX = 3;
+    const int lv_gENETRON_INDEX = 4;
+    const int lv_kEIRON_INDEX = 5;
+    const int lv_xAYID_INDEX = 6;
+
+    // Automatic Variable Declarations
+    int auto21E8C4F5_val;
+
+    // Variable Initialization
+
+    // Conditions
+    if (testConds) {
+        if (!((EventDialogControl() == lib1B69CECC_gv_ui_play_race))) {
+            return false;
+        }
+    }
+
+    // Actions
+    if (!runActions) {
+        return true;
+    }
+
+    lv_raceIndex = DialogControlGetSelectedItem(lib1B69CECC_gv_ui_play_race, EventPlayer());
+    auto21E8C4F5_val = lv_raceIndex;
+    if (auto21E8C4F5_val == lv_rANDOM_INDEX) {
+        PlayerSetRace(EventPlayer(), "Neut");
+    }
+    else if (auto21E8C4F5_val == lv_pROTOSS_INDEX) {
+        PlayerSetRace(EventPlayer(), "Prot");
+    }
+    else if (auto21E8C4F5_val == lv_tERRAN_INDEX) {
+        PlayerSetRace(EventPlayer(), "Terr");
+    }
+    else if (auto21E8C4F5_val == lv_zERG_INDEX) {
+        PlayerSetRace(EventPlayer(), "Zerg");
+    }
+    else if (auto21E8C4F5_val == lv_gENETRON_INDEX) {
+        PlayerSetRace(EventPlayer(), "Gen");
+    }
+    else if (auto21E8C4F5_val == lv_kEIRON_INDEX) {
+        PlayerSetRace(EventPlayer(), "Keir");
+    }
+    else if (auto21E8C4F5_val == lv_xAYID_INDEX) {
+        PlayerSetRace(EventPlayer(), "Xayi");
+    }
+    else {
+        PlayerSetRace(EventPlayer(), "Neut");
+    }
+    return true;
+}
+
+//--------------------------------------------------------------------------------------------------
+void lib1B69CECC_gt_RaceSelected_Init () {
+    lib1B69CECC_gt_RaceSelected = TriggerCreate("lib1B69CECC_gt_RaceSelected_Func");
+    TriggerAddEventDialogControl(lib1B69CECC_gt_RaceSelected, c_playerAny, c_invalidDialogControlId, c_triggerControlEventTypeSelectionChanged);
+}
+
+//--------------------------------------------------------------------------------------------------
 // Trigger: Melee Initialization
 //--------------------------------------------------------------------------------------------------
 bool lib1B69CECC_gt_MeleeInitialization_Func (bool testConds, bool runActions) {
@@ -264,9 +350,11 @@ void lib1B69CECC_gt_MeleeInitialization_Init () {
 }
 
 void lib1B69CECC_InitTriggers () {
+    lib1B69CECC_gt_AddAITrigger_Init();
     lib1B69CECC_gt_ClickHelp_Init();
     lib1B69CECC_gt_ClickCancel_Init();
     lib1B69CECC_gt_ClickConfirm_Init();
+    lib1B69CECC_gt_RaceSelected_Init();
     lib1B69CECC_gt_MeleeInitialization_Init();
 }
 
