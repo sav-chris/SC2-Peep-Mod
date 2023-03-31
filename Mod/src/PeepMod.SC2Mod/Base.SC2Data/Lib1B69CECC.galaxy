@@ -30,26 +30,6 @@ void lib1B69CECC_InitVariables () {
 }
 
 // Functions
-void lib1B69CECC_gf_DisplayLobby (structref<lib1B69CECC_gs_Lobby> lp_lobbyModel) {
-    // Variable Declarations
-    int lv_player;
-
-    // Automatic Variable Declarations
-    playergroup auto2DE13D9F_g;
-
-    // Variable Initialization
-
-    // Implementation
-    DialogControlRemoveAllItems(lib1B69CECC_gv_lobbyListBox, PlayerGroupAll());
-    auto2DE13D9F_g = lp_lobbyModel.lv_players;
-    lv_player = -1;
-    while (true) {
-        lv_player = PlayerGroupNextPlayer(auto2DE13D9F_g, lv_player);
-        if (lv_player < 0) { break; }
-        DialogControlAddItem(lib1B69CECC_gv_lobbyListBox, PlayerGroupAll(), PlayerName(lv_player));
-    }
-}
-
 void lib1B69CECC_gf_InitialiseLobby () {
     // Variable Declarations
     int lv_intPlayer;
@@ -70,8 +50,28 @@ void lib1B69CECC_gf_InitialiseLobby () {
     }
     UISetFrameVisible(PlayerGroupAll(), c_syncFrameTypeResourcePanel, false);
     UISetFrameVisible(PlayerGroupAll(), c_syncFrameTypeSupply, false);
-    lib1B69CECC_gf_ClearLoby();
+    lib1B69CECC_gf_ClearLobby();
     lib1B69CECC_gf_ShowLobby();
+}
+
+void lib1B69CECC_gf_DisplayLobby (structref<lib1B69CECC_gs_Lobby> lp_lobbyModel) {
+    // Variable Declarations
+    int lv_player;
+
+    // Automatic Variable Declarations
+    playergroup auto2DE13D9F_g;
+
+    // Variable Initialization
+
+    // Implementation
+    DialogControlRemoveAllItems(lib1B69CECC_gv_lobbyListBox, PlayerGroupAll());
+    auto2DE13D9F_g = lp_lobbyModel.lv_players;
+    lv_player = -1;
+    while (true) {
+        lv_player = PlayerGroupNextPlayer(auto2DE13D9F_g, lv_player);
+        if (lv_player < 0) { break; }
+        DialogControlAddItem(lib1B69CECC_gv_lobbyListBox, PlayerGroupAll(), PlayerName(lv_player));
+    }
 }
 
 void lib1B69CECC_gf_ShowLobby () {
@@ -130,7 +130,7 @@ void lib1B69CECC_gf_LeaveLobby (int lp_thePlayer, structref<lib1B69CECC_gs_Lobby
     PlayerGroupRemove(lp_thisLobby.lv_players, lp_thePlayer);
 }
 
-void lib1B69CECC_gf_ClearLoby () {
+void lib1B69CECC_gf_ClearLobby () {
     // Automatic Variable Declarations
     // Implementation
     PlayerGroupClear(lib1B69CECC_gv_theLobby.lv_players);
@@ -230,6 +230,7 @@ bool lib1B69CECC_gt_ClickConfirm_Func (bool testConds, bool runActions) {
         return true;
     }
 
+    TriggerDebugOutput(1, IntToText(0), true);
     lib1B69CECC_gf_JoinLobby(EventPlayer(), lib1B69CECC_gv_theLobby);
     lib1B69CECC_gf_DisplayLobby(lib1B69CECC_gv_theLobby);
     return true;
