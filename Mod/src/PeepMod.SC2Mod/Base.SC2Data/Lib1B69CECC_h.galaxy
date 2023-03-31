@@ -32,7 +32,8 @@ void lib1B69CECC_gf_StartMatch ();
 void lib1B69CECC_gf_DependencyMessage ();
 
 // Trigger Declarations
-trigger lib1B69CECC_gt_ClickPlayTrigger;
+trigger lib1B69CECC_gt_ClickCancel;
+trigger lib1B69CECC_gt_ClickConfirm;
 trigger lib1B69CECC_gt_MeleeInitialization;
 
 // Library Initialization

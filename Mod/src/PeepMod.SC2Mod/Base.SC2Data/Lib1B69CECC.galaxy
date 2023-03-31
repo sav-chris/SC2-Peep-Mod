@@ -187,13 +187,41 @@ void lib1B69CECC_gf_DependencyMessage () {
 
 // Triggers
 //--------------------------------------------------------------------------------------------------
-// Trigger: ClickPlayTrigger
+// Trigger: Click Cancel
 //--------------------------------------------------------------------------------------------------
-bool lib1B69CECC_gt_ClickPlayTrigger_Func (bool testConds, bool runActions) {
+bool lib1B69CECC_gt_ClickCancel_Func (bool testConds, bool runActions) {
     // Automatic Variable Declarations
     // Conditions
     if (testConds) {
-        if (!((EventDialogControl() == lib1B69CECC_gv_playButton))) {
+        if (!((EventDialogControl() == lib1B69CECC_gv_ui_play_cancel))) {
+            return false;
+        }
+    }
+
+    // Actions
+    if (!runActions) {
+        return true;
+    }
+
+    lib1B69CECC_gf_LeaveLobby(EventPlayer(), lib1B69CECC_gv_theLobby);
+    lib1B69CECC_gf_DisplayLobby(lib1B69CECC_gv_theLobby);
+    return true;
+}
+
+//--------------------------------------------------------------------------------------------------
+void lib1B69CECC_gt_ClickCancel_Init () {
+    lib1B69CECC_gt_ClickCancel = TriggerCreate("lib1B69CECC_gt_ClickCancel_Func");
+    TriggerAddEventDialogControl(lib1B69CECC_gt_ClickCancel, c_playerAny, c_invalidDialogControlId, c_triggerControlEventTypeClick);
+}
+
+//--------------------------------------------------------------------------------------------------
+// Trigger: Click Confirm
+//--------------------------------------------------------------------------------------------------
+bool lib1B69CECC_gt_ClickConfirm_Func (bool testConds, bool runActions) {
+    // Automatic Variable Declarations
+    // Conditions
+    if (testConds) {
+        if (!((EventDialogControl() == lib1B69CECC_gv_ui_play_confirm))) {
             return false;
         }
     }
@@ -209,9 +237,9 @@ bool lib1B69CECC_gt_ClickPlayTrigger_Func (bool testConds, bool runActions) {
 }
 
 //--------------------------------------------------------------------------------------------------
-void lib1B69CECC_gt_ClickPlayTrigger_Init () {
-    lib1B69CECC_gt_ClickPlayTrigger = TriggerCreate("lib1B69CECC_gt_ClickPlayTrigger_Func");
-    TriggerAddEventDialogControl(lib1B69CECC_gt_ClickPlayTrigger, c_playerAny, c_invalidDialogControlId, c_triggerControlEventTypeClick);
+void lib1B69CECC_gt_ClickConfirm_Init () {
+    lib1B69CECC_gt_ClickConfirm = TriggerCreate("lib1B69CECC_gt_ClickConfirm_Func");
+    TriggerAddEventDialogControl(lib1B69CECC_gt_ClickConfirm, c_playerAny, c_invalidDialogControlId, c_triggerControlEventTypeClick);
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -236,7 +264,8 @@ void lib1B69CECC_gt_MeleeInitialization_Init () {
 }
 
 void lib1B69CECC_InitTriggers () {
-    lib1B69CECC_gt_ClickPlayTrigger_Init();
+    lib1B69CECC_gt_ClickCancel_Init();
+    lib1B69CECC_gt_ClickConfirm_Init();
     lib1B69CECC_gt_MeleeInitialization_Init();
 }
 
