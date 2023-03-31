@@ -1257,7 +1257,7 @@
         </Element>
         <Element Type="Param" Id="133DBA83">
             <ParameterDef Type="ParamDef" Library="Ntve" Id="06C1424C"/>
-            <Preset Type="PresetValue" Library="Ntve" Id="B00C6C43"/>
+            <Preset Type="PresetValue" Library="Ntve" Id="74C50A96"/>
         </Element>
         <Element Type="Param" Id="AC45BEBC">
             <ParameterDef Type="ParamDef" Library="Ntve" Id="AEF92396"/>
@@ -1287,7 +1287,7 @@
         </Element>
         <Element Type="Param" Id="A0E6FC2A">
             <ParameterDef Type="ParamDef" Library="Ntve" Id="06C1424C"/>
-            <Preset Type="PresetValue" Library="Ntve" Id="B00C6C43"/>
+            <Preset Type="PresetValue" Library="Ntve" Id="74C50A96"/>
         </Element>
         <Element Type="Param" Id="4E878C0F">
             <ParameterDef Type="ParamDef" Library="Ntve" Id="AEF92396"/>

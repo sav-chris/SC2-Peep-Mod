@@ -129,9 +129,9 @@ void lib1B69CECC_gf_InitialiseMenu () {
     lib1B69CECC_gv_ui_play_race = DialogControlLastCreated();
     DialogControlHookupStandard(c_triggerControlTypePulldown, "UIContainer/FullscreenUpperContainer/PeepPlayPanel/League");
     lib1B69CECC_gv_ui_play_league = DialogControlLastCreated();
-    DialogControlHookupStandard(c_triggerControlTypePulldown, "UIContainer/FullscreenUpperContainer/PeepPlayPanel/Confirm");
+    DialogControlHookupStandard(c_triggerControlTypeButton, "UIContainer/FullscreenUpperContainer/PeepPlayPanel/Confirm");
     lib1B69CECC_gv_ui_play_confirm = DialogControlLastCreated();
-    DialogControlHookupStandard(c_triggerControlTypePulldown, "UIContainer/FullscreenUpperContainer/PeepPlayPanel/Cancel");
+    DialogControlHookupStandard(c_triggerControlTypeButton, "UIContainer/FullscreenUpperContainer/PeepPlayPanel/Cancel");
     lib1B69CECC_gv_ui_play_cancel = DialogControlLastCreated();
     DialogControlAddItem(lib1B69CECC_gv_ui_play_race, PlayerGroupAll(), StringExternal("Param/Value/lib_1B69CECC_DBC583AC"));
     DialogControlAddItem(lib1B69CECC_gv_ui_play_race, PlayerGroupAll(), StringExternal("Param/Value/lib_1B69CECC_69B8275C"));
