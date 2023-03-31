@@ -20,13 +20,11 @@ void lib1B69CECC_InitVariables () {
 
     lib1B69CECC_InitVariables_completed = true;
 
-    lib1B69CECC_gv_ui_leader = c_invalidDialogControlId;
     lib1B69CECC_gv_ui_play_race = c_invalidDialogControlId;
     lib1B69CECC_gv_ui_play_league = c_invalidDialogControlId;
     lib1B69CECC_gv_ui_play_confirm = c_invalidDialogControlId;
     lib1B69CECC_gv_ui_play_cancel = c_invalidDialogControlId;
-    lib1B69CECC_gv_playButton = c_invalidDialogControlId;
-    lib1B69CECC_gv_raceDropDown = c_invalidDialogControlId;
+    lib1B69CECC_gv_ui_help = c_invalidDialogControlId;
     lib1B69CECC_gv_lobbyListBox = c_invalidDialogControlId;
     lib1B69CECC_gv_theLobby.lv_players = PlayerGroupEmpty();
 }
@@ -73,7 +71,6 @@ void lib1B69CECC_gf_InitialiseLobby () {
     UISetFrameVisible(PlayerGroupAll(), c_syncFrameTypeResourcePanel, false);
     UISetFrameVisible(PlayerGroupAll(), c_syncFrameTypeSupply, false);
     lib1B69CECC_gf_ClearLoby();
-    lib1B69CECC_gf_ShowPlayDialog();
     lib1B69CECC_gf_ShowLobby();
 }
 
@@ -95,33 +92,6 @@ void lib1B69CECC_gf_ShowLobby () {
     DialogSetVisible(DialogLastCreated(), PlayerGroupAll(), true);
 }
 
-void lib1B69CECC_gf_ShowPlayDialog () {
-    // Variable Declarations
-    const int lv_pLAYMODAL_WIDTH = 330;
-    const int lv_pLAYMODAL_HEIGHT = 280;
-
-    // Automatic Variable Declarations
-    // Variable Initialization
-
-    // Implementation
-    DialogCreate(lv_pLAYMODAL_WIDTH, lv_pLAYMODAL_HEIGHT, c_anchorTopLeft, 100, 100, true);
-    libNtve_gf_CreateDialogItemButton(DialogLastCreated(), 250, 100, c_anchorTop, 0, 35, StringExternal("Param/Value/lib_1B69CECC_958C5F35"), StringExternal("Param/Value/lib_1B69CECC_D48F50DA"), "");
-    lib1B69CECC_gv_playButton = DialogControlLastCreated();
-    DialogControlCreate(DialogLastCreated(), c_triggerControlTypePulldown);
-    lib1B69CECC_gv_raceDropDown = DialogControlLastCreated();
-    DialogControlSetPosition(DialogControlLastCreated(), PlayerGroupAll(), c_anchorBottom, 0, 89);
-    DialogControlAddItem(DialogControlLastCreated(), PlayerGroupAll(), StringExternal("Param/Value/lib_1B69CECC_64B93A33"));
-    DialogControlAddItem(DialogControlLastCreated(), PlayerGroupAll(), StringExternal("Param/Value/lib_1B69CECC_AF8D3445"));
-    DialogControlAddItem(DialogControlLastCreated(), PlayerGroupAll(), StringExternal("Param/Value/lib_1B69CECC_87144AC7"));
-    DialogControlAddItem(DialogControlLastCreated(), PlayerGroupAll(), StringExternal("Param/Value/lib_1B69CECC_C439EBE7"));
-    DialogControlAddItem(DialogControlLastCreated(), PlayerGroupAll(), StringExternal("Param/Value/lib_1B69CECC_CBA04E74"));
-    DialogControlAddItem(DialogControlLastCreated(), PlayerGroupAll(), StringExternal("Param/Value/lib_1B69CECC_795FAFD6"));
-    DialogControlAddItem(DialogControlLastCreated(), PlayerGroupAll(), StringExternal("Param/Value/lib_1B69CECC_90B1A995"));
-    libNtve_gf_SetDialogItemTooltip(DialogControlLastCreated(), StringExternal("Param/Value/lib_1B69CECC_B6CD232B"), PlayerGroupAll());
-    DialogControlSelectItem(DialogControlLastCreated(), PlayerGroupAll(), 1);
-    DialogSetVisible(DialogLastCreated(), PlayerGroupAll(), true);
-}
-
 void lib1B69CECC_gf_InitialiseMenu () {
     // Automatic Variable Declarations
     // Implementation
@@ -133,6 +103,8 @@ void lib1B69CECC_gf_InitialiseMenu () {
     lib1B69CECC_gv_ui_play_confirm = DialogControlLastCreated();
     DialogControlHookupStandard(c_triggerControlTypeButton, "UIContainer/FullscreenUpperContainer/PeepPlayPanel/Cancel");
     lib1B69CECC_gv_ui_play_cancel = DialogControlLastCreated();
+    DialogControlHookupStandard(c_triggerControlTypeButton, "UIContainer/FullscreenUpperContainer/PeepMenuPanel/Help");
+    lib1B69CECC_gv_ui_help = DialogControlLastCreated();
     DialogControlAddItem(lib1B69CECC_gv_ui_play_race, PlayerGroupAll(), StringExternal("Param/Value/lib_1B69CECC_DBC583AC"));
     DialogControlAddItem(lib1B69CECC_gv_ui_play_race, PlayerGroupAll(), StringExternal("Param/Value/lib_1B69CECC_69B8275C"));
     DialogControlAddItem(lib1B69CECC_gv_ui_play_race, PlayerGroupAll(), StringExternal("Param/Value/lib_1B69CECC_43CAC50C"));
@@ -186,6 +158,33 @@ void lib1B69CECC_gf_DependencyMessage () {
 }
 
 // Triggers
+//--------------------------------------------------------------------------------------------------
+// Trigger: Click Help
+//--------------------------------------------------------------------------------------------------
+bool lib1B69CECC_gt_ClickHelp_Func (bool testConds, bool runActions) {
+    // Automatic Variable Declarations
+    // Conditions
+    if (testConds) {
+        if (!((EventDialogControl() == lib1B69CECC_gv_ui_help))) {
+            return false;
+        }
+    }
+
+    // Actions
+    if (!runActions) {
+        return true;
+    }
+
+    HelpPanelDisplayPage(PlayerGroupAll(), c_helpPanelPageTutorials);
+    return true;
+}
+
+//--------------------------------------------------------------------------------------------------
+void lib1B69CECC_gt_ClickHelp_Init () {
+    lib1B69CECC_gt_ClickHelp = TriggerCreate("lib1B69CECC_gt_ClickHelp_Func");
+    TriggerAddEventDialogControl(lib1B69CECC_gt_ClickHelp, c_playerAny, c_invalidDialogControlId, c_triggerControlEventTypeClick);
+}
+
 //--------------------------------------------------------------------------------------------------
 // Trigger: Click Cancel
 //--------------------------------------------------------------------------------------------------
@@ -264,6 +263,7 @@ void lib1B69CECC_gt_MeleeInitialization_Init () {
 }
 
 void lib1B69CECC_InitTriggers () {
+    lib1B69CECC_gt_ClickHelp_Init();
     lib1B69CECC_gt_ClickCancel_Init();
     lib1B69CECC_gt_ClickConfirm_Init();
     lib1B69CECC_gt_MeleeInitialization_Init();

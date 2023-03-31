@@ -119,13 +119,20 @@
                 </Frame>
             </Frame>
 
-            <Frame type="Button" name="Help" template="StandardBattlenetTemplates/BattlenetMediumButtonTemplate">
+            <Frame type="Button" name="Help" template="StandardBattlenetTemplates/BattlenetMediumButtonTemplate" >
                 <Anchor side="Left" relative="$parent/Chat" pos="Max" offset="0"/>
                 <Anchor side="Top" relative="$parent/Chat" pos="Min" offset="0"/>
                 <Width val="150"/>
-                <Frame type="Label" name="Label">
+
+                <Frame type="Label" name="Label" >
                     <Text val="HELP"/>
                 </Frame>
+
+                <Animation name="Help">
+                    <Event event="OnClick" action="Reset,Play"/>
+
+                    
+                </Animation>
             </Frame>
 
         </Frame>
