@@ -144,15 +144,15 @@
             <Height val="300"/>
 
             <StateGroup name="PanelVisibilityToggle">
-                <DefaultState val="NotVisible"/>
+                <DefaultState val="Visible"/>
                 
                 <State name="Visible">
-                    <When type="Property" frame="$parent/PeepMenuPanel/Play" Toggled="False"/>
+                    <When type="Property" frame="$parent/PeepMenuPanel/Play" Toggled="True"/>
                     <Action type="SetProperty" frame="$this" Visible="False"/>
                 </State>
             
                 <State name="NotVisible">
-                    <When type="Property" frame="$parent/PeepMenuPanel/Play" Toggled="True"/>
+                    <When type="Property" frame="$parent/PeepMenuPanel/Play" Toggled="Flase"/>
                     <Action type="SetProperty" frame="$this" Visible="True"/>
                 </State>
             </StateGroup>
