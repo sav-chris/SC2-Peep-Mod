@@ -25,33 +25,131 @@ void lib1B69CECC_InitVariables () {
     lib1B69CECC_gv_ui_play_confirm = c_invalidDialogControlId;
     lib1B69CECC_gv_ui_play_cancel = c_invalidDialogControlId;
     lib1B69CECC_gv_ui_help = c_invalidDialogControlId;
+    lib1B69CECC_gv_lobbyModal = c_invalidDialogId;
     lib1B69CECC_gv_lobbyListBox = c_invalidDialogControlId;
     lib1B69CECC_gv_theLobby.lv_players = PlayerGroupEmpty();
 }
 
 // Functions
+void lib1B69CECC_gf_InitialiseGame () {
+    // Variable Declarations
+    int lv_player1;
+    int lv_player2;
+    playergroup lv_players;
+    playergroup lv_observers;
+    const string lv_sTARTLOCATION_1 = "Start Location 001";
+    const string lv_sTARTLOCATION_2 = "Start Location 002";
+
+    // Automatic Variable Declarations
+    // Variable Initialization
+    lv_players = PlayerGroupEmpty();
+    lv_observers = PlayerGroupEmpty();
+
+    // Implementation
+    lv_players = lib1B69CECC_gf_ChosePlayersFromLobby(lib1B69CECC_gv_theLobby.lv_players);
+    lv_observers = lib1B69CECC_gf_ChoseObserversFromLobby(lib1B69CECC_gv_theLobby.lv_players, lv_players);
+    lv_player1 = PlayerGroupPlayer(lv_players, 1);
+    lv_player2 = PlayerGroupPlayer(lv_players, 2);
+    lib1B69CECC_gf_InitialisePlayer(lv_player1, 0, lv_sTARTLOCATION_1);
+    lib1B69CECC_gf_InitialisePlayer(lv_player2, 0, lv_sTARTLOCATION_2);
+}
+
+void lib1B69CECC_gf_InitialisePlayer (int lp_player, int lp_race, string lp_startlocation) {
+    // Automatic Variable Declarations
+    // Implementation
+    MeleeInitResourcesForPlayer(lp_player, PlayerRace(lp_player));
+    MeleeInitUnitsForPlayer(lp_player, PlayerRace(lp_player), PointFromName(lp_startlocation));
+}
+
+playergroup lib1B69CECC_gf_ChosePlayersFromLobby (playergroup lp_lobby) {
+    // Variable Declarations
+    playergroup lv_players;
+    int lv_player1;
+    int lv_player2;
+
+    // Automatic Variable Declarations
+    // Variable Initialization
+    lv_players = PlayerGroupEmpty();
+
+    // Implementation
+    lv_player1 = PlayerGroupPlayer(lv_players, RandomInt(1, PlayerGroupCount(lib1B69CECC_gv_theLobby.lv_players)));
+    lv_player2 = PlayerGroupPlayer(lv_players, RandomInt(1, PlayerGroupCount(lib1B69CECC_gv_theLobby.lv_players)));
+    PlayerGroupAdd(lv_players, lv_player1);
+    return lv_players;
+}
+
+playergroup lib1B69CECC_gf_ChoseObserversFromLobby (playergroup lp_lobby, playergroup lp_players) {
+    // Variable Declarations
+    playergroup lv_observers;
+
+    // Automatic Variable Declarations
+    // Variable Initialization
+    lv_observers = PlayerGroupEmpty();
+
+    // Implementation
+    lv_observers = PlayerGroupCopy(lp_lobby);
+    libNtve_gf_RemovePlayerGroupFromPlayerGroup(lp_players, lv_observers);
+    return lv_observers;
+}
+
 void lib1B69CECC_gf_InitialiseLobby () {
     // Variable Declarations
     int lv_intPlayer;
 
     // Automatic Variable Declarations
-    playergroup autoD28C61DC_g;
+    // Variable Initialization
 
+    // Implementation
+    lib1B69CECC_gf_EnableLobbyUI();
+    lib1B69CECC_gf_ClearLobby();
+    lib1B69CECC_gf_ShowLobby();
+}
+
+void lib1B69CECC_gf_EnableLobbyUI () {
+    // Variable Declarations
+    int lv_intPlayer;
+
+    // Automatic Variable Declarations
     // Variable Initialization
 
     // Implementation
     UISetMode(PlayerGroupAll(), c_uiModeFullscreen, c_transitionDurationImmediate);
-    autoD28C61DC_g = PlayerGroupAll();
-    lv_intPlayer = -1;
-    while (true) {
-        lv_intPlayer = PlayerGroupNextPlayer(autoD28C61DC_g, lv_intPlayer);
-        if (lv_intPlayer < 0) { break; }
-        VisRevealArea(lv_intPlayer, RegionEntireMap(), 0.0, false);
-    }
     UISetFrameVisible(PlayerGroupAll(), c_syncFrameTypeResourcePanel, false);
     UISetFrameVisible(PlayerGroupAll(), c_syncFrameTypeSupply, false);
-    lib1B69CECC_gf_ClearLobby();
-    lib1B69CECC_gf_ShowLobby();
+}
+
+void lib1B69CECC_gf_EnablePlayerUI (playergroup lp_players) {
+    // Variable Declarations
+    int lv_aPlayer;
+
+    // Automatic Variable Declarations
+    // Variable Initialization
+
+    // Implementation
+    UISetMode(lp_players, c_uiModeConsole, c_transitionDurationImmediate);
+    UISetFrameVisible(lp_players, c_syncFrameTypeResourcePanel, true);
+    UISetFrameVisible(lp_players, c_syncFrameTypeSupply, true);
+    VisEnable(c_visTypeFog, true);
+}
+
+void lib1B69CECC_gf_EnableObserverUI (playergroup lp_players) {
+    // Variable Declarations
+    int lv_aPlayer;
+
+    // Automatic Variable Declarations
+    playergroup auto1D4FE5A6_g;
+
+    // Variable Initialization
+
+    // Implementation
+    UISetMode(lp_players, c_uiModeFullscreen, c_transitionDurationImmediate);
+    auto1D4FE5A6_g = lp_players;
+    lv_aPlayer = -1;
+    while (true) {
+        lv_aPlayer = PlayerGroupNextPlayer(auto1D4FE5A6_g, lv_aPlayer);
+        if (lv_aPlayer < 0) { break; }
+        VisRevealArea(lv_aPlayer, RegionEntireMap(), 0.0, false);
+    }
 }
 
 void lib1B69CECC_gf_InitialiseMenu () {
@@ -86,6 +184,12 @@ void lib1B69CECC_gf_InitialiseMenu () {
     DialogControlSelectItem(lib1B69CECC_gv_ui_play_league, PlayerGroupAll(), 1);
 }
 
+void lib1B69CECC_gf_HideLobby (int lp_theLobby) {
+    // Automatic Variable Declarations
+    // Implementation
+    DialogSetVisible(lp_theLobby, PlayerGroupAll(), false);
+}
+
 void lib1B69CECC_gf_DisplayLobby (structref<lib1B69CECC_gs_Lobby> lp_lobbyModel) {
     // Variable Declarations
     int lv_player;
@@ -117,6 +221,7 @@ void lib1B69CECC_gf_ShowLobby () {
 
     // Implementation
     DialogCreate(lv_lOBBY_WIDTH, lv_lOBBY_HEIGHT, c_anchorTopLeft, 500, 100, true);
+    lib1B69CECC_gv_lobbyModal = DialogLastCreated();
     DialogControlCreate(DialogLastCreated(), c_triggerControlTypeListBox);
     lib1B69CECC_gv_lobbyListBox = DialogControlLastCreated();
     DialogControlSetSize(DialogControlLastCreated(), PlayerGroupAll(), (lv_lOBBY_WIDTH - (2 * lv_sPACEMARGIN)), (lv_lOBBY_HEIGHT - (2 * lv_sPACEMARGIN)));
@@ -162,13 +267,53 @@ void lib1B69CECC_gf_DependencyMessage () {
 // Trigger: Add AI Trigger
 //--------------------------------------------------------------------------------------------------
 bool lib1B69CECC_gt_AddAITrigger_Func (bool testConds, bool runActions) {
+    // Variable Declarations
+    playergroup lv_observers;
+    playergroup lv_players;
+    int lv_player1;
+    int lv_player2;
+
     // Automatic Variable Declarations
+    // Variable Initialization
+    lv_observers = PlayerGroupEmpty();
+    lv_players = PlayerGroupEmpty();
+
     // Actions
     if (!runActions) {
         return true;
     }
 
-    TriggerDebugOutput(1, StringExternal("Param/Value/lib_1B69CECC_3BDD1A50"), true);
+    lv_players = PlayerGroupEmpty();
+    if ((PlayerGroupCount(lib1B69CECC_gv_theLobby.lv_players) >= 2)) {
+        lv_player1 = PlayerGroupPlayer(lib1B69CECC_gv_theLobby.lv_players, RandomInt(1, PlayerGroupCount(lib1B69CECC_gv_theLobby.lv_players)));
+        PlayerGroupRemove(lib1B69CECC_gv_theLobby.lv_players, lv_player1);
+        lv_player2 = PlayerGroupPlayer(lib1B69CECC_gv_theLobby.lv_players, RandomInt(1, PlayerGroupCount(lib1B69CECC_gv_theLobby.lv_players)));
+        PlayerGroupRemove(lib1B69CECC_gv_theLobby.lv_players, lv_player2);
+        PlayerGroupAdd(lv_players, lv_player1);
+        PlayerGroupAdd(lv_players, lv_player2);
+        MeleeInitResourcesForPlayer(lv_player1, PlayerRace(lv_player1));
+        MeleeInitResourcesForPlayer(lv_player2, PlayerRace(lv_player2));
+        MeleeInitUnitsForPlayer(lv_player1, PlayerRace(lv_player1), PointFromName("Start Location 001"));
+        MeleeInitUnitsForPlayer(lv_player2, PlayerRace(lv_player2), PointFromName("Start Location 002"));
+        libNtve_gf_SetAlliance(lv_player1, lv_player2, libNtve_ge_AllianceSetting_Enemy);
+    }
+
+    if ((PlayerGroupCount(lib1B69CECC_gv_theLobby.lv_players) == 1)) {
+        lv_player1 = PlayerGroupPlayer(lib1B69CECC_gv_theLobby.lv_players, RandomInt(1, PlayerGroupCount(lib1B69CECC_gv_theLobby.lv_players)));
+        PlayerGroupRemove(lib1B69CECC_gv_theLobby.lv_players, lv_player1);
+        PlayerGroupAdd(lv_players, lv_player1);
+        MeleeInitResourcesForPlayer(lv_player1, PlayerRace(lv_player1));
+        MeleeInitUnitsForPlayer(lv_player1, PlayerRace(lv_player1), PointFromName("Start Location 001"));
+        MeleeInitUnitsForPlayer(lib1B69CECC_gv_aIPlayer, "Zerg", PointFromName("Start Location 002"));
+        libNtve_gf_SetAlliance(lv_player1, lib1B69CECC_gv_aIPlayer, libNtve_ge_AllianceSetting_Enemy);
+    }
+
+    lib1B69CECC_gf_HideLobby(lib1B69CECC_gv_lobbyModal);
+    lv_observers = PlayerGroupCopy(PlayerGroupAll());
+    libNtve_gf_RemovePlayerGroupFromPlayerGroup(lv_players, lv_observers);
+    lib1B69CECC_gf_EnableObserverUI(lv_observers);
+    lib1B69CECC_gf_EnablePlayerUI(lv_players);
+    MeleeInitAI();
     return true;
 }
 
@@ -340,6 +485,7 @@ bool lib1B69CECC_gt_MeleeInitialization_Func (bool testConds, bool runActions) {
 
     lib1B69CECC_gf_InitialiseMenu();
     lib1B69CECC_gf_InitialiseLobby();
+    GameSetSpeedValue(c_gameSpeedFaster);
     return true;
 }
 
