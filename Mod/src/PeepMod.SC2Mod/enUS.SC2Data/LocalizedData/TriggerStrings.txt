@@ -55,7 +55,6 @@ Trigger/Name/lib_1B69CECC_121FD1D0=Add AI Trigger
 Trigger/Name/lib_1B69CECC_1666B268=Melee Initialization
 Trigger/Name/lib_1B69CECC_32AE762D=Add AI Trigger 2
 Trigger/Name/lib_1B69CECC_5D48B0C5=Testing Notes Trigger
-Trigger/Name/lib_1B69CECC_8FC9231C=RNG Trigger
 Trigger/Name/lib_1B69CECC_9844B159=Start Game Trigger
 Trigger/Name/lib_1B69CECC_9B763221=Click Cancel
 Trigger/Name/lib_1B69CECC_BF57B0A0=run all test cases trigger

@@ -553,20 +553,6 @@ void lib1B69CECC_gt_TestingNotesTrigger_Init () {
 }
 
 //--------------------------------------------------------------------------------------------------
-// Trigger: RNG Trigger
-//--------------------------------------------------------------------------------------------------
-bool lib1B69CECC_gt_RNGTrigger_Func (bool testConds, bool runActions) {
-    // Automatic Variable Declarations
-    return true;
-}
-
-//--------------------------------------------------------------------------------------------------
-void lib1B69CECC_gt_RNGTrigger_Init () {
-    lib1B69CECC_gt_RNGTrigger = TriggerCreate("lib1B69CECC_gt_RNGTrigger_Func");
-    TriggerAddEventChatMessage(lib1B69CECC_gt_RNGTrigger, c_playerAny, "-RNG", true);
-}
-
-//--------------------------------------------------------------------------------------------------
 // Trigger: Click Help
 //--------------------------------------------------------------------------------------------------
 bool lib1B69CECC_gt_ClickHelp_Func (bool testConds, bool runActions) {
@@ -718,7 +704,6 @@ void lib1B69CECC_InitTriggers () {
     lib1B69CECC_gt_AddAITrigger2_Init();
     lib1B69CECC_gt_StartGameTrigger_Init();
     lib1B69CECC_gt_TestingNotesTrigger_Init();
-    lib1B69CECC_gt_RNGTrigger_Init();
     lib1B69CECC_gt_ClickHelp_Init();
     lib1B69CECC_gt_ClickCancel_Init();
     lib1B69CECC_gt_ClickConfirm_Init();
