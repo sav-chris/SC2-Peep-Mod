@@ -116,8 +116,6 @@ void lib1B69CECC_gf_InitialiseGame (playergroup lp_lobby_Players) {
     int init_i;
 
     // Variable Declarations
-    int lv_player1;
-    int lv_player2;
     playergroup lv_players;
     playergroup lv_observers;
     string[3] lv_start_locations;
@@ -137,7 +135,6 @@ void lib1B69CECC_gf_InitialiseGame (playergroup lp_lobby_Players) {
     // Implementation
     lv_start_locations[0] = lib1B69CECC_gv_sTARTLOCATION_1;
     lv_start_locations[1] = lib1B69CECC_gv_sTARTLOCATION_2;
-    TriggerDebugOutput(1, IntToText(PlayerGroupCount(lp_lobby_Players)), true);
     lv_players = lib1B69CECC_gf_ChoosePlayersFromLobby(lp_lobby_Players);
     lv_observers = lib1B69CECC_gf_ChooseObserversFromLobby(lp_lobby_Players, lv_players);
     lv_idx = 0;
@@ -146,15 +143,12 @@ void lib1B69CECC_gf_InitialiseGame (playergroup lp_lobby_Players) {
     while (true) {
         lv_aPlayer = PlayerGroupNextPlayer(autoEF8BA5EB_g, lv_aPlayer);
         if (lv_aPlayer < 0) { break; }
-        TriggerDebugOutput(1, PlayerName(lv_aPlayer), true);
-        TriggerDebugOutput(1, IntToText(lv_aPlayer), true);
         lib1B69CECC_gf_InitialisePlayer(lv_aPlayer, lv_start_locations[lv_idx]);
         lv_idx = (lv_idx + 1);
     }
     libNtve_gf_SetPlayerGroupAlliance(lv_players, libNtve_ge_AllianceSetting_Enemy);
     lib1B69CECC_gf_HideLobby(lib1B69CECC_gv_lobbyModal);
     lib1B69CECC_gf_EnableObserverUI(lv_observers);
-    TriggerDebugOutput(1, IntToText(PlayerGroupCount(lv_players)), true);
     lib1B69CECC_gf_EnablePlayerUI(lv_players);
 }
 
@@ -203,14 +197,18 @@ playergroup lib1B69CECC_gf_ChoosePlayersFromLobby (playergroup lp_lobby) {
     playergroup lv_players;
     int lv_player1;
     int lv_player2;
+    playergroup lv_temp;
 
     // Automatic Variable Declarations
     // Variable Initialization
     lv_players = PlayerGroupEmpty();
+    lv_temp = PlayerGroupEmpty();
 
     // Implementation
+    lv_temp = PlayerGroupCopy(lp_lobby);
     lv_player1 = PlayerGroupPlayer(lp_lobby, RandomInt(1, PlayerGroupCount(lp_lobby)));
-    lv_player2 = PlayerGroupPlayer(lp_lobby, RandomInt(1, PlayerGroupCount(lp_lobby)));
+    PlayerGroupRemove(lv_temp, lv_player1);
+    lv_player2 = PlayerGroupPlayer(lv_temp, RandomInt(1, PlayerGroupCount(lv_temp)));
     PlayerGroupAdd(lv_players, lv_player1);
     PlayerGroupAdd(lv_players, lv_player2);
     return lv_players;
@@ -359,8 +357,6 @@ void lib1B69CECC_gf_DisplayLobby (structref<lib1B69CECC_gs_Lobby> lp_lobbyModel)
     while (true) {
         lv_player = PlayerGroupNextPlayer(auto2DE13D9F_g, lv_player);
         if (lv_player < 0) { break; }
-        TriggerDebugOutput(1, StringExternal("Param/Value/lib_1B69CECC_A347971F"), true);
-        TriggerDebugOutput(1, PlayerName(lv_player), true);
         DialogControlAddItem(lib1B69CECC_gv_lobbyListBox, PlayerGroupAll(), PlayerName(lv_player));
     }
 }
@@ -557,6 +553,20 @@ void lib1B69CECC_gt_TestingNotesTrigger_Init () {
 }
 
 //--------------------------------------------------------------------------------------------------
+// Trigger: RNG Trigger
+//--------------------------------------------------------------------------------------------------
+bool lib1B69CECC_gt_RNGTrigger_Func (bool testConds, bool runActions) {
+    // Automatic Variable Declarations
+    return true;
+}
+
+//--------------------------------------------------------------------------------------------------
+void lib1B69CECC_gt_RNGTrigger_Init () {
+    lib1B69CECC_gt_RNGTrigger = TriggerCreate("lib1B69CECC_gt_RNGTrigger_Func");
+    TriggerAddEventChatMessage(lib1B69CECC_gt_RNGTrigger, c_playerAny, "-RNG", true);
+}
+
+//--------------------------------------------------------------------------------------------------
 // Trigger: Click Help
 //--------------------------------------------------------------------------------------------------
 bool lib1B69CECC_gt_ClickHelp_Func (bool testConds, bool runActions) {
@@ -708,6 +718,7 @@ void lib1B69CECC_InitTriggers () {
     lib1B69CECC_gt_AddAITrigger2_Init();
     lib1B69CECC_gt_StartGameTrigger_Init();
     lib1B69CECC_gt_TestingNotesTrigger_Init();
+    lib1B69CECC_gt_RNGTrigger_Init();
     lib1B69CECC_gt_ClickHelp_Init();
     lib1B69CECC_gt_ClickCancel_Init();
     lib1B69CECC_gt_ClickConfirm_Init();

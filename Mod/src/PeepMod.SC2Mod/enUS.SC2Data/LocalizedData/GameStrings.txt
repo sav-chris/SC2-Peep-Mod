@@ -21,7 +21,6 @@ Param/Value/lib_1B69CECC_913C9F19=<img path="Assets\Textures\sc2_ui_loadingscree
 Param/Value/lib_1B69CECC_92097C58=Error: Failed to choose  observers
 Param/Value/lib_1B69CECC_A17D4CBC=Check players are not observers
 Param/Value/lib_1B69CECC_A28B358F=<img path="Assets\Textures\sc2_ui_loadingscreen_playercard_raceindicator_xayid.dds" alignment="AbsoluteMiddle" width="21" height="22"/> Xayid
-Param/Value/lib_1B69CECC_A347971F=::
 Param/Value/lib_1B69CECC_A7679ABE=<img path="Assets\Textures\ui_battlenet_glue_icons_league_platinum.dds" alignment="AbsoluteMiddle" width="22" height="22"/> Platinum
 Param/Value/lib_1B69CECC_AC5D4CE7=<img path="Assets\Textures\ui_battlenet_glue_icons_league_master.dds" alignment="AbsoluteMiddle" width="22" height="22"/> Master
 Param/Value/lib_1B69CECC_B6025F4F=Compute player race key

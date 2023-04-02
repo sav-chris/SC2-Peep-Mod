@@ -64,6 +64,7 @@ trigger lib1B69CECC_gt_AddAITrigger;
 trigger lib1B69CECC_gt_AddAITrigger2;
 trigger lib1B69CECC_gt_StartGameTrigger;
 trigger lib1B69CECC_gt_TestingNotesTrigger;
+trigger lib1B69CECC_gt_RNGTrigger;
 trigger lib1B69CECC_gt_ClickHelp;
 trigger lib1B69CECC_gt_ClickCancel;
 trigger lib1B69CECC_gt_ClickConfirm;
