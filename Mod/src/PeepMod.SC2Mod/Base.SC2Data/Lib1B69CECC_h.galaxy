@@ -6,8 +6,8 @@ include "TriggerLibs/natives"
 // Constants
 const int lib1B69CECC_gv_aIPlayer_1 = 14;
 const int lib1B69CECC_gv_aIPlayer_2 = 13;
-const string lv_sTARTLOCATION_1 = "Start Location 001";
-const string lv_sTARTLOCATION_2 = "Start Location 002";
+const string lib1B69CECC_gv_sTARTLOCATION_1 = "Start Location 001";
+const string lib1B69CECC_gv_sTARTLOCATION_2 = "Start Location 002";
 const int lib1B69CECC_gv_nO_OF_PLAYERS = 2;
 
 // Structures
@@ -29,10 +29,11 @@ lib1B69CECC_gs_Lobby lib1B69CECC_gv_theLobby;
 // Function Declarations
 void lib1B69CECC_gf_Assert (bool lp_statement, text lp_assertionname, text lp_errormessage);
 void lib1B69CECC_gf_test_Choose_Players_From_Lobby ();
-void lib1B69CECC_gf_InitialiseGame ();
+void lib1B69CECC_gf_test_Choose_Observers_From_Lobby ();
+void lib1B69CECC_gf_InitialiseGame (int lp_lobby_Players);
 void lib1B69CECC_gf_InitialisePlayer (int lp_player, int lp_race, string lp_startlocation);
-playergroup lib1B69CECC_gf_ChosePlayersFromLobby (playergroup lp_lobby);
-playergroup lib1B69CECC_gf_ChoseObserversFromLobby (playergroup lp_lobby, playergroup lp_players);
+playergroup lib1B69CECC_gf_ChoosePlayersFromLobby (playergroup lp_lobby);
+playergroup lib1B69CECC_gf_ChooseObserversFromLobby (playergroup lp_lobby, playergroup lp_players);
 void lib1B69CECC_gf_InitialiseLobby ();
 void lib1B69CECC_gf_EnableLobbyUI ();
 void lib1B69CECC_gf_EnablePlayerUI (playergroup lp_players);

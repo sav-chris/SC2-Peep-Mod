@@ -45,6 +45,7 @@ void lib1B69CECC_gf_Assert (bool lp_statement, text lp_assertionname, text lp_er
 
 void lib1B69CECC_gf_test_Choose_Players_From_Lobby () {
     // Variable Declarations
+    int lv_aPlayer;
     playergroup lv_lobby;
     playergroup lv_players;
 
@@ -61,18 +62,46 @@ void lib1B69CECC_gf_test_Choose_Players_From_Lobby () {
     PlayerGroupAdd(lv_lobby, 12);
     PlayerGroupAdd(lv_lobby, 8);
     PlayerGroupAdd(lv_lobby, 10);
-    lv_players = lib1B69CECC_gf_ChosePlayersFromLobby(lv_lobby);
+    lv_players = lib1B69CECC_gf_ChoosePlayersFromLobby(lv_lobby);
     lib1B69CECC_gf_Assert((PlayerGroupCount(lv_players) == 2), StringExternal("Param/Value/lib_1B69CECC_158EBFD7"), StringExternal("Param/Value/lib_1B69CECC_DECA5D45"));
 }
 
-void lib1B69CECC_gf_InitialiseGame () {
+void lib1B69CECC_gf_test_Choose_Observers_From_Lobby () {
+    // Variable Declarations
+    int lv_aPlayer;
+    playergroup lv_lobby;
+    playergroup lv_players;
+    playergroup lv_observers;
+    playergroup lv_intersect;
+
+    // Automatic Variable Declarations
+    // Variable Initialization
+    lv_lobby = PlayerGroupEmpty();
+    lv_players = PlayerGroupEmpty();
+    lv_observers = PlayerGroupEmpty();
+    lv_intersect = PlayerGroupEmpty();
+
+    // Implementation
+    lv_lobby = PlayerGroupEmpty();
+    PlayerGroupAdd(lv_lobby, 4);
+    PlayerGroupAdd(lv_lobby, 7);
+    PlayerGroupAdd(lv_lobby, 3);
+    PlayerGroupAdd(lv_lobby, 12);
+    PlayerGroupAdd(lv_lobby, 8);
+    PlayerGroupAdd(lv_lobby, 10);
+    lv_players = lib1B69CECC_gf_ChoosePlayersFromLobby(lv_lobby);
+    lv_observers = lib1B69CECC_gf_ChooseObserversFromLobby(lv_lobby, lv_players);
+    lib1B69CECC_gf_Assert((PlayerGroupCount(lv_observers) == 4), StringExternal("Param/Value/lib_1B69CECC_8512A993"), StringExternal("Param/Value/lib_1B69CECC_92097C58"));
+    lv_intersect = libNtve_gf_IntersectionOfPlayerGroups(lv_players, lv_observers);
+    lib1B69CECC_gf_Assert((PlayerGroupCount(lv_intersect) == 0), StringExternal("Param/Value/lib_1B69CECC_A17D4CBC"), StringExternal("Param/Value/lib_1B69CECC_61B75788"));
+}
+
+void lib1B69CECC_gf_InitialiseGame (int lp_lobby_Players) {
     // Variable Declarations
     int lv_player1;
     int lv_player2;
     playergroup lv_players;
     playergroup lv_observers;
-    const string lv_sTARTLOCATION_1 = "Start Location 001";
-    const string lv_sTARTLOCATION_2 = "Start Location 002";
 
     // Automatic Variable Declarations
     // Variable Initialization
@@ -80,12 +109,15 @@ void lib1B69CECC_gf_InitialiseGame () {
     lv_observers = PlayerGroupEmpty();
 
     // Implementation
-    lv_players = lib1B69CECC_gf_ChosePlayersFromLobby(lib1B69CECC_gv_theLobby.lv_players);
-    lv_observers = lib1B69CECC_gf_ChoseObserversFromLobby(lib1B69CECC_gv_theLobby.lv_players, lv_players);
+    TriggerDebugOutput(1, IntToText(PlayerGroupCount(lib1B69CECC_gv_theLobby.lv_players)), true);
+    lv_players = lib1B69CECC_gf_ChoosePlayersFromLobby(lib1B69CECC_gv_theLobby.lv_players);
+    lv_observers = lib1B69CECC_gf_ChooseObserversFromLobby(lib1B69CECC_gv_theLobby.lv_players, lv_players);
     lv_player1 = PlayerGroupPlayer(lv_players, 1);
     lv_player2 = PlayerGroupPlayer(lv_players, 2);
-    lib1B69CECC_gf_InitialisePlayer(lv_player1, 0, lv_sTARTLOCATION_1);
-    lib1B69CECC_gf_InitialisePlayer(lv_player2, 0, lv_sTARTLOCATION_2);
+    TriggerDebugOutput(1, PlayerName(lv_player1), true);
+    TriggerDebugOutput(1, PlayerName(lv_player2), true);
+    lib1B69CECC_gf_InitialisePlayer(lv_player1, 0, lib1B69CECC_gv_sTARTLOCATION_1);
+    lib1B69CECC_gf_InitialisePlayer(lv_player2, 0, lib1B69CECC_gv_sTARTLOCATION_2);
     lib1B69CECC_gf_HideLobby(lib1B69CECC_gv_lobbyModal);
     lib1B69CECC_gf_EnableObserverUI(lv_observers);
     lib1B69CECC_gf_EnablePlayerUI(lv_players);
@@ -98,7 +130,7 @@ void lib1B69CECC_gf_InitialisePlayer (int lp_player, int lp_race, string lp_star
     MeleeInitUnitsForPlayer(lp_player, PlayerRace(lp_player), PointFromName(lp_startlocation));
 }
 
-playergroup lib1B69CECC_gf_ChosePlayersFromLobby (playergroup lp_lobby) {
+playergroup lib1B69CECC_gf_ChoosePlayersFromLobby (playergroup lp_lobby) {
     // Variable Declarations
     playergroup lv_players;
     int lv_player1;
@@ -109,14 +141,14 @@ playergroup lib1B69CECC_gf_ChosePlayersFromLobby (playergroup lp_lobby) {
     lv_players = PlayerGroupEmpty();
 
     // Implementation
-    lv_player1 = PlayerGroupPlayer(lv_players, RandomInt(1, PlayerGroupCount(lp_lobby)));
-    lv_player2 = PlayerGroupPlayer(lv_players, RandomInt(1, PlayerGroupCount(lp_lobby)));
+    lv_player1 = PlayerGroupPlayer(lp_lobby, RandomInt(1, PlayerGroupCount(lp_lobby)));
+    lv_player2 = PlayerGroupPlayer(lp_lobby, RandomInt(1, PlayerGroupCount(lp_lobby)));
     PlayerGroupAdd(lv_players, lv_player1);
     PlayerGroupAdd(lv_players, lv_player2);
     return lv_players;
 }
 
-playergroup lib1B69CECC_gf_ChoseObserversFromLobby (playergroup lp_lobby, playergroup lp_players) {
+playergroup lib1B69CECC_gf_ChooseObserversFromLobby (playergroup lp_lobby, playergroup lp_players) {
     // Variable Declarations
     playergroup lv_observers;
 
@@ -312,6 +344,7 @@ bool lib1B69CECC_gt_runalltestcasestrigger_Func (bool testConds, bool runActions
 
     TriggerDebugSetTypeFile(1, "TriggerDebug.txt");
     lib1B69CECC_gf_test_Choose_Players_From_Lobby();
+    lib1B69CECC_gf_test_Choose_Observers_From_Lobby();
     return true;
 }
 
@@ -373,7 +406,7 @@ bool lib1B69CECC_gt_StartGameTrigger_Func (bool testConds, bool runActions) {
         return true;
     }
 
-    lib1B69CECC_gf_InitialiseGame();
+    lib1B69CECC_gf_InitialiseGame(0);
     return true;
 }
 
