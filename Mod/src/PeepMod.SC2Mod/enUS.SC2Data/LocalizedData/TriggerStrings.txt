@@ -63,6 +63,7 @@ Trigger/Name/lib_1B69CECC_E6B75ED0=Race Selected
 Variable/Name/lib_1B69CECC_040AC768=SPACEMARGIN
 Variable/Name/lib_1B69CECC_057DAACA=RANDOM_INDEX
 Variable/Name/lib_1B69CECC_07C58C9B=NO_OF_PLAYERS
+Variable/Name/lib_1B69CECC_07D8B4C3=ui_menu
 Variable/Name/lib_1B69CECC_0987CF58=ui_play_confirm
 Variable/Name/lib_1B69CECC_0F3585DE=RANDOM_INDEX
 Variable/Name/lib_1B69CECC_153AD5CA=player1

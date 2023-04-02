@@ -20,6 +20,7 @@ void lib1B69CECC_InitVariables () {
 
     lib1B69CECC_InitVariables_completed = true;
 
+    lib1B69CECC_gv_ui_menu = c_invalidDialogControlId;
     lib1B69CECC_gv_ui_play = c_invalidDialogControlId;
     lib1B69CECC_gv_ui_play_race = c_invalidDialogControlId;
     lib1B69CECC_gv_ui_play_league = c_invalidDialogControlId;
@@ -273,6 +274,7 @@ void lib1B69CECC_gf_EnablePlayerUI (playergroup lp_players) {
     UISetFrameVisible(lp_players, c_syncFrameTypeResourcePanel, true);
     UISetFrameVisible(lp_players, c_syncFrameTypeSupply, true);
     VisEnable(c_visTypeFog, true);
+    DialogControlSetVisible(lib1B69CECC_gv_ui_menu, lp_players, true);
 }
 
 void lib1B69CECC_gf_EnableObserverUI (playergroup lp_players) {
@@ -298,6 +300,8 @@ void lib1B69CECC_gf_EnableObserverUI (playergroup lp_players) {
 void lib1B69CECC_gf_InitialisePlayDialog () {
     // Automatic Variable Declarations
     // Implementation
+    DialogControlHookupStandard(c_triggerControlTypePanel, "UIContainer/FullscreenUpperContainer/PeepMenuPanel");
+    lib1B69CECC_gv_ui_menu = DialogControlLastCreated();
     DialogControlHookupStandard(c_triggerControlTypeButton, "UIContainer/FullscreenUpperContainer/PeepMenuPanel/Play");
     lib1B69CECC_gv_ui_play = DialogControlLastCreated();
     DialogControlHookupStandard(c_triggerControlTypePulldown, "UIContainer/FullscreenUpperContainer/PeepPlayPanel/Race");
@@ -651,8 +655,6 @@ bool lib1B69CECC_gt_RaceSelected_Func (bool testConds, bool runActions) {
     const int lv_kEIRON_INDEX = 6;
 
     // Automatic Variable Declarations
-    int auto21E8C4F5_val;
-
     // Variable Initialization
 
     // Conditions
@@ -669,31 +671,6 @@ bool lib1B69CECC_gt_RaceSelected_Func (bool testConds, bool runActions) {
 
     lv_raceIndex = DialogControlGetSelectedItem(lib1B69CECC_gv_ui_play_race, EventPlayer());
     DataTableSetInt(true, lib1B69CECC_gf_compute_player_race_key(EventPlayer()), lv_raceIndex);
-    auto21E8C4F5_val = lv_raceIndex;
-    if (auto21E8C4F5_val == lv_rANDOM_INDEX) {
-        PlayerSetRace(EventPlayer(), "Neut");
-    }
-    else if (auto21E8C4F5_val == lv_tERRAN_INDEX) {
-        PlayerSetRace(EventPlayer(), "Terr");
-    }
-    else if (auto21E8C4F5_val == lv_zERG_INDEX) {
-        PlayerSetRace(EventPlayer(), "Zerg");
-    }
-    else if (auto21E8C4F5_val == lv_pROTOSS_INDEX) {
-        PlayerSetRace(EventPlayer(), "Prot");
-    }
-    else if (auto21E8C4F5_val == lv_gENETRON_INDEX) {
-        PlayerSetRace(EventPlayer(), "Gen");
-    }
-    else if (auto21E8C4F5_val == lv_xAYID_INDEX) {
-        PlayerSetRace(EventPlayer(), "Xayi");
-    }
-    else if (auto21E8C4F5_val == lv_kEIRON_INDEX) {
-        PlayerSetRace(EventPlayer(), "Keir");
-    }
-    else {
-        PlayerSetRace(EventPlayer(), "Neut");
-    }
     return true;
 }
 
