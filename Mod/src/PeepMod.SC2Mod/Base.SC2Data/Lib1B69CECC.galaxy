@@ -22,6 +22,7 @@ void lib1B69CECC_InitVariables () {
 
     lib1B69CECC_gv_ui_menu = c_invalidDialogControlId;
     lib1B69CECC_gv_ui_play = c_invalidDialogControlId;
+    lib1B69CECC_gv_ui_playpanel = c_invalidDialogControlId;
     lib1B69CECC_gv_ui_play_race = c_invalidDialogControlId;
     lib1B69CECC_gv_ui_play_league = c_invalidDialogControlId;
     lib1B69CECC_gv_ui_play_confirm = c_invalidDialogControlId;
@@ -326,6 +327,7 @@ void lib1B69CECC_gf_EnablePlayerUI (playergroup lp_players) {
     UISetFrameVisible(lp_players, c_syncFrameTypeSupply, true);
     VisEnable(c_visTypeFog, true);
     DialogControlSetVisible(lib1B69CECC_gv_ui_menu, lp_players, false);
+    DialogControlSetVisible(lib1B69CECC_gv_ui_playpanel, lp_players, false);
 }
 
 void lib1B69CECC_gf_EnableObserverUI (playergroup lp_players) {
@@ -365,6 +367,8 @@ void lib1B69CECC_gf_InitialisePlayDialog () {
     lib1B69CECC_gv_ui_play_cancel = DialogControlLastCreated();
     DialogControlHookupStandard(c_triggerControlTypeButton, "UIContainer/FullscreenUpperContainer/PeepMenuPanel/Help");
     lib1B69CECC_gv_ui_help = DialogControlLastCreated();
+    DialogControlHookupStandard(c_triggerControlTypePanel, "UIContainer/FullscreenUpperContainer/PeepPlayPanel");
+    lib1B69CECC_gv_ui_playpanel = DialogControlLastCreated();
     DialogControlAddItem(lib1B69CECC_gv_ui_play_race, PlayerGroupAll(), StringExternal("Param/Value/lib_1B69CECC_5DE344B1"));
     DialogControlAddItem(lib1B69CECC_gv_ui_play_race, PlayerGroupAll(), StringExternal("Param/Value/lib_1B69CECC_E5DCA431"));
     DialogControlAddItem(lib1B69CECC_gv_ui_play_race, PlayerGroupAll(), StringExternal("Param/Value/lib_1B69CECC_F2C43C1F"));

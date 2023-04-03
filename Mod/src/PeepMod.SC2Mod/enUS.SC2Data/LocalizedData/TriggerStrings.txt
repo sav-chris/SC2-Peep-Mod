@@ -65,6 +65,7 @@ Trigger/Name/lib_1B69CECC_9B763221=Click Cancel
 Trigger/Name/lib_1B69CECC_BF57B0A0=run all test cases trigger
 Trigger/Name/lib_1B69CECC_DE9704AC=Click Help
 Trigger/Name/lib_1B69CECC_E6B75ED0=Race Selected
+Variable/Name/lib_1B69CECC_016DC970=ui_play panel
 Variable/Name/lib_1B69CECC_040AC768=SPACEMARGIN
 Variable/Name/lib_1B69CECC_07C58C9B=NO_OF_PLAYERS
 Variable/Name/lib_1B69CECC_07D8B4C3=ui_menu

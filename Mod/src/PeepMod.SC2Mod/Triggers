@@ -3589,6 +3589,7 @@
             <Item Type="FunctionDef" Library="1B69CECC" Id="042ADD15"/>
             <Item Type="Variable" Library="1B69CECC" Id="07D8B4C3"/>
             <Item Type="Variable" Library="1B69CECC" Id="8A6292D5"/>
+            <Item Type="Variable" Library="1B69CECC" Id="016DC970"/>
             <Item Type="Variable" Library="1B69CECC" Id="18CF24F2"/>
             <Item Type="Variable" Library="1B69CECC" Id="244FEBF5"/>
             <Item Type="Variable" Library="1B69CECC" Id="0987CF58"/>
@@ -3690,6 +3691,8 @@
             <FunctionCall Type="FunctionCall" Library="1B69CECC" Id="044B3E44"/>
             <FunctionCall Type="FunctionCall" Library="1B69CECC" Id="DB4DFDDD"/>
             <FunctionCall Type="FunctionCall" Library="1B69CECC" Id="736D3E15"/>
+            <FunctionCall Type="FunctionCall" Library="1B69CECC" Id="182B0CA6"/>
+            <FunctionCall Type="Comment" Library="1B69CECC" Id="FD5CC9F6"/>
         </Element>
         <Element Type="ParamDef" Id="F0D23AE7">
             <ParameterType>
@@ -3798,6 +3801,29 @@
             <ParameterDef Type="ParamDef" Library="Ntve" Id="3A302059"/>
             <Preset Type="PresetValue" Library="Ntve" Id="00000121"/>
         </Element>
+        <Element Type="FunctionCall" Id="182B0CA6">
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="E37ACA0E"/>
+            <Parameter Type="Param" Library="1B69CECC" Id="E3B920FF"/>
+            <Parameter Type="Param" Library="1B69CECC" Id="5A7A14DA"/>
+            <Parameter Type="Param" Library="1B69CECC" Id="D6DA4B14"/>
+        </Element>
+        <Element Type="Param" Id="E3B920FF">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="21F36F40"/>
+            <Variable Type="Variable" Library="1B69CECC" Id="016DC970"/>
+        </Element>
+        <Element Type="Param" Id="5A7A14DA">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="0EAACCBD"/>
+            <Parameter Type="ParamDef" Library="1B69CECC" Id="F0D23AE7"/>
+        </Element>
+        <Element Type="Param" Id="D6DA4B14">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="3A302059"/>
+            <Preset Type="PresetValue" Library="Ntve" Id="00000121"/>
+        </Element>
+        <Element Type="Comment" Id="FD5CC9F6">
+            <Comment>
+                TO DO: Test play button still works for next game
+            </Comment>
+        </Element>
         <Element Type="FunctionDef" Id="042ADD15">
             <FlagAction/>
             <Parameter Type="ParamDef" Library="1B69CECC" Id="E7C88896"/>
@@ -3903,6 +3929,15 @@
             <Value Type="Param" Library="1B69CECC" Id="A445B019"/>
         </Element>
         <Element Type="Param" Id="A445B019">
+            <Preset Type="PresetValue" Library="Ntve" Id="FAC49C47"/>
+        </Element>
+        <Element Type="Variable" Id="016DC970">
+            <VariableType>
+                <Type Value="control"/>
+            </VariableType>
+            <Value Type="Param" Library="1B69CECC" Id="AD4EC74B"/>
+        </Element>
+        <Element Type="Param" Id="AD4EC74B">
             <Preset Type="PresetValue" Library="Ntve" Id="FAC49C47"/>
         </Element>
         <Element Type="Variable" Id="18CF24F2">
@@ -4193,6 +4228,7 @@
             <Variable Type="Variable" Library="1B69CECC" Id="A24ED61B"/>
             <Event Type="FunctionCall" Library="1B69CECC" Id="B5404BAE"/>
             <Condition Type="FunctionCall" Library="1B69CECC" Id="9FBF7276"/>
+            <Action Type="Comment" Library="1B69CECC" Id="DC8F8CFB"/>
             <Action Type="FunctionCall" Library="1B69CECC" Id="7EB54493"/>
             <Action Type="FunctionCall" Library="1B69CECC" Id="01EA7E83"/>
         </Element>
@@ -4322,6 +4358,11 @@
             <ParameterDef Type="ParamDef" Library="Ntve" Id="4A15EC5F"/>
             <Variable Type="Variable" Library="1B69CECC" Id="18CF24F2"/>
         </Element>
+        <Element Type="Comment" Id="DC8F8CFB">
+            <Comment>
+                TO DO: Need to be mindful that the UI index and the race index are not the same thing. Fix this
+            </Comment>
+        </Element>
         <Element Type="FunctionCall" Id="7EB54493">
             <FunctionDef Type="FunctionDef" Library="Ntve" Id="00000136"/>
             <Parameter Type="Param" Library="1B69CECC" Id="45B7F678"/>
@@ -4396,6 +4437,8 @@
             <FunctionCall Type="FunctionCall" Library="1B69CECC" Id="AE176856"/>
             <FunctionCall Type="FunctionCall" Library="1B69CECC" Id="558228DF"/>
             <FunctionCall Type="FunctionCall" Library="1B69CECC" Id="671D707B"/>
+            <FunctionCall Type="FunctionCall" Library="1B69CECC" Id="B06D6480"/>
+            <FunctionCall Type="FunctionCall" Library="1B69CECC" Id="37D46541"/>
             <FunctionCall Type="Comment" Library="1B69CECC" Id="8F8EDEA5"/>
             <FunctionCall Type="FunctionCall" Library="1B69CECC" Id="7E2CAC76"/>
             <FunctionCall Type="FunctionCall" Library="1B69CECC" Id="BA07004E"/>
@@ -4624,6 +4667,36 @@
             <FunctionCall Type="FunctionCall" Library="1B69CECC" Id="AFC2CD74"/>
         </Element>
         <Element Type="FunctionCall" Id="AFC2CD74">
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="4AB42F83"/>
+        </Element>
+        <Element Type="FunctionCall" Id="B06D6480">
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="CC29332F"/>
+            <Parameter Type="Param" Library="1B69CECC" Id="6847C72E"/>
+            <Parameter Type="Param" Library="1B69CECC" Id="7E77FCF3"/>
+        </Element>
+        <Element Type="Param" Id="6847C72E">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="06C1424C"/>
+            <Preset Type="PresetValue" Library="Ntve" Id="67A829E2"/>
+        </Element>
+        <Element Type="Param" Id="7E77FCF3">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="AEF92396"/>
+            <Value>UIContainer/FullscreenUpperContainer/PeepPlayPanel</Value>
+            <ValueType Type="string"/>
+        </Element>
+        <Element Type="FunctionCall" Id="37D46541">
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="00000136"/>
+            <Parameter Type="Param" Library="1B69CECC" Id="7ECA4F65"/>
+            <Parameter Type="Param" Library="1B69CECC" Id="4DC0C06E"/>
+        </Element>
+        <Element Type="Param" Id="7ECA4F65">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="00000219"/>
+            <Variable Type="Variable" Library="1B69CECC" Id="016DC970"/>
+        </Element>
+        <Element Type="Param" Id="4DC0C06E">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="00000220"/>
+            <FunctionCall Type="FunctionCall" Library="1B69CECC" Id="7012A43C"/>
+        </Element>
+        <Element Type="FunctionCall" Id="7012A43C">
             <FunctionDef Type="FunctionDef" Library="Ntve" Id="4AB42F83"/>
         </Element>
         <Element Type="Comment" Id="8F8EDEA5">

@@ -18,6 +18,7 @@ struct lib1B69CECC_gs_Lobby {
 // Variable Declarations
 int lib1B69CECC_gv_ui_menu;
 int lib1B69CECC_gv_ui_play;
+int lib1B69CECC_gv_ui_playpanel;
 int lib1B69CECC_gv_ui_play_race;
 int lib1B69CECC_gv_ui_play_league;
 int lib1B69CECC_gv_ui_play_confirm;
