@@ -154,7 +154,8 @@ void lib1B69CECC_gf_InitialiseGame (playergroup lp_lobby_Players) {
 
 void lib1B69CECC_gf_InitialisePlayer (int lp_player, string lp_startlocation) {
     // Variable Declarations
-    int lv_race;
+    int lv_race_index;
+    string lv_race;
 
     // Automatic Variable Declarations
     int auto5256725C_val;
@@ -162,34 +163,37 @@ void lib1B69CECC_gf_InitialisePlayer (int lp_player, string lp_startlocation) {
     // Variable Initialization
 
     // Implementation
-    lv_race = DataTableGetInt(true, lib1B69CECC_gf_compute_player_race_key(lp_player));
-    auto5256725C_val = lv_race;
+    lv_race_index = DataTableGetInt(true, lib1B69CECC_gf_compute_player_race_key(lp_player));
+    auto5256725C_val = lv_race_index;
     if (auto5256725C_val == lib1B69CECC_gv_rANDOM_INDEX) {
-        PlayerSetRace(lp_player, "Neut");
+        lv_race = "Neut";
     }
     else if (auto5256725C_val == lib1B69CECC_gv_tERRAN_INDEX) {
-        PlayerSetRace(lp_player, "Terr");
+        lv_race = "Terr";
     }
     else if (auto5256725C_val == lib1B69CECC_gv_zERG_INDEX) {
-        PlayerSetRace(lp_player, "Zerg");
+        lv_race = "Zerg";
     }
     else if (auto5256725C_val == lib1B69CECC_gv_pROTOSS_INDEX) {
-        PlayerSetRace(lp_player, "Prot");
+        lv_race = "Prot";
     }
     else if (auto5256725C_val == lib1B69CECC_gv_gENETRON_INDEX) {
-        PlayerSetRace(lp_player, "Gen");
+        lv_race = "Gen";
     }
     else if (auto5256725C_val == lib1B69CECC_gv_xAYID_INDEX) {
-        PlayerSetRace(lp_player, "Xayi");
+        lv_race = "Xayi";
     }
     else if (auto5256725C_val == lib1B69CECC_gv_kEIRON_INDEX) {
-        PlayerSetRace(lp_player, "Keir");
+        lv_race = "Keir";
     }
     else {
-        PlayerSetRace(lp_player, "Neut");
+        lv_race = "Neut";
     }
-    MeleeInitResourcesForPlayer(lp_player, PlayerRace(lp_player));
-    MeleeInitUnitsForPlayer(lp_player, PlayerRace(lp_player), PointFromName(lp_startlocation));
+    PlayerSetRace(lp_player, lv_race);
+    TriggerDebugOutput(1, PlayerName(lp_player), true);
+    TriggerDebugOutput(1, IntToText(lv_race_index), true);
+    MeleeInitResourcesForPlayer(lp_player, lv_race);
+    MeleeInitUnitsForPlayer(lp_player, lv_race, PointFromName(lp_startlocation));
 }
 
 playergroup lib1B69CECC_gf_ChoosePlayersFromLobby (playergroup lp_lobby) {
