@@ -6,7 +6,7 @@ include "TriggerLibs/natives"
 // Constants
 const int lib1B69CECC_gv_aIPlayer_1 = 14;
 const int lib1B69CECC_gv_aIPlayer_2 = 13;
-const int lib1B69CECC_gv_jOIN_LOBBY_TIMEOUT_THRESHOLD = 3;
+const int lib1B69CECC_gv_jOIN_LOBBY_TIMEOUT_THRESHOLD = 0;
 const int lib1B69CECC_gv_lOBBY_COUNTDOWN_TIME = 10;
 const string lib1B69CECC_gv_sTARTLOCATION_1 = "Start Location 001";
 const string lib1B69CECC_gv_sTARTLOCATION_2 = "Start Location 002";
@@ -78,7 +78,6 @@ trigger lib1B69CECC_gt_AddAITrigger;
 trigger lib1B69CECC_gt_AddAITrigger2;
 trigger lib1B69CECC_gt_StartGameTrigger;
 trigger lib1B69CECC_gt_HandleTimeOut;
-trigger lib1B69CECC_gt_HandleTick;
 trigger lib1B69CECC_gt_ClickHelp;
 trigger lib1B69CECC_gt_ClickCancel;
 trigger lib1B69CECC_gt_ClickConfirm;

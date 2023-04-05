@@ -139,6 +139,8 @@ void lib1B69CECC_gf_StopTimer () {
     // Implementation
     if ((lib1B69CECC_gv_lobbyTimer.lv_isStarted == true)) {
         libNtve_gf_StopTimer(lib1B69CECC_gv_lobbyTimer.lv_timer);
+        TimerStart(lib1B69CECC_gv_lobbyTimer.lv_timer, lib1B69CECC_gv_lOBBY_COUNTDOWN_TIME, false, c_timeGame);
+        TimerPause(lib1B69CECC_gv_lobbyTimer.lv_timer, true);
     }
 
     lib1B69CECC_gv_lobbyTimer.lv_isStarted = false;
@@ -342,7 +344,6 @@ void lib1B69CECC_gf_EnableLobbyUI () {
     // Variable Initialization
 
     // Implementation
-    UISetMode(PlayerGroupAll(), c_uiModeFullscreen, c_transitionDurationImmediate);
     UISetFrameVisible(PlayerGroupAll(), c_syncFrameTypeResourcePanel, false);
     UISetFrameVisible(PlayerGroupAll(), c_syncFrameTypeSupply, false);
 }
@@ -424,14 +425,12 @@ void lib1B69CECC_gf_InitialisePlayDialog () {
 void lib1B69CECC_gf_HideTimerWindow () {
     // Automatic Variable Declarations
     // Implementation
-    TriggerDebugOutput(1, StringExternal("Param/Value/lib_1B69CECC_4C30D378"), true);
     TimerWindowShow(lib1B69CECC_gv_timerWindow, PlayerGroupAll(), false);
 }
 
 void lib1B69CECC_gf_ShowTimerWindow () {
     // Automatic Variable Declarations
     // Implementation
-    TriggerDebugOutput(1, StringExternal("Param/Value/lib_1B69CECC_5C91EDC2"), true);
     TimerWindowShow(lib1B69CECC_gv_timerWindow, PlayerGroupAll(), true);
 }
 
@@ -478,6 +477,7 @@ void lib1B69CECC_gf_ShowLobbyUI () {
     DialogControlSetSize(DialogControlLastCreated(), PlayerGroupAll(), (lv_lOBBY_WIDTH - (2 * lv_sPACEMARGIN)), (lv_lOBBY_HEIGHT - (2 * lv_sPACEMARGIN)));
     DialogControlSetPosition(DialogControlLastCreated(), PlayerGroupAll(), c_anchorTopLeft, lv_sPACEMARGIN, lv_sPACEMARGIN);
     DialogSetVisible(DialogLastCreated(), PlayerGroupAll(), true);
+    lib1B69CECC_gf_ShowTimerWindow();
 }
 
 string lib1B69CECC_gf_compute_player_race_key (int lp_player) {
@@ -700,19 +700,6 @@ void lib1B69CECC_gt_HandleTimeOut_Init () {
 }
 
 //--------------------------------------------------------------------------------------------------
-// Trigger: HandleTick
-//--------------------------------------------------------------------------------------------------
-bool lib1B69CECC_gt_HandleTick_Func (bool testConds, bool runActions) {
-    // Automatic Variable Declarations
-    return true;
-}
-
-//--------------------------------------------------------------------------------------------------
-void lib1B69CECC_gt_HandleTick_Init () {
-    lib1B69CECC_gt_HandleTick = TriggerCreate("lib1B69CECC_gt_HandleTick_Func");
-}
-
-//--------------------------------------------------------------------------------------------------
 // Trigger: Click Help
 //--------------------------------------------------------------------------------------------------
 bool lib1B69CECC_gt_ClickHelp_Func (bool testConds, bool runActions) {
@@ -856,7 +843,6 @@ bool lib1B69CECC_gt_MeleeInitialization_Func (bool testConds, bool runActions) {
     TimerPause(lib1B69CECC_gv_lobbyTimer.lv_timer, true);
     TimerWindowCreate(lib1B69CECC_gv_lobbyTimer.lv_timer, StringExternal("Param/Value/lib_1B69CECC_D7E3EE6D"), true, false);
     lib1B69CECC_gv_timerWindow = TimerWindowLastCreated();
-    TimerWindowShow(lib1B69CECC_gv_timerWindow, PlayerGroupAll(), true);
     auto37407480_g = PlayerGroupAll();
     lv_aPlayer = -1;
     while (true) {
@@ -882,7 +868,6 @@ void lib1B69CECC_InitTriggers () {
     lib1B69CECC_gt_AddAITrigger2_Init();
     lib1B69CECC_gt_StartGameTrigger_Init();
     lib1B69CECC_gt_HandleTimeOut_Init();
-    lib1B69CECC_gt_HandleTick_Init();
     lib1B69CECC_gt_ClickHelp_Init();
     lib1B69CECC_gt_ClickCancel_Init();
     lib1B69CECC_gt_ClickConfirm_Init();

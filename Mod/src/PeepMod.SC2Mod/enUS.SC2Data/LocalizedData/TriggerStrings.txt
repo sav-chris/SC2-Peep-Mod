@@ -77,7 +77,6 @@ Trigger/Name/lib_1B69CECC_3599093B=HandleTimeOut
 Trigger/Name/lib_1B69CECC_9844B159=Start Game Trigger
 Trigger/Name/lib_1B69CECC_9B763221=Click Cancel
 Trigger/Name/lib_1B69CECC_BF57B0A0=run all test cases trigger
-Trigger/Name/lib_1B69CECC_CE7FC530=HandleTick
 Trigger/Name/lib_1B69CECC_DE9704AC=Click Help
 Trigger/Name/lib_1B69CECC_E6B75ED0=Race Selected
 Variable/Name/lib_1B69CECC_00C0B78A=IsStarted
