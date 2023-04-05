@@ -13,12 +13,15 @@ Param/Value/lib_1B69CECC_2F1BA268=Invalid Race Key Computed
 Param/Value/lib_1B69CECC_316FD8E1=Race index mismatch
 Param/Value/lib_1B69CECC_3578C5FD=<img path="Assets\Textures\sc2_ui_loadingscreen_playercard_raceindicator_keir.dds" alignment="AbsoluteMiddle" width="21" height="22"/> Keiron
 Param/Value/lib_1B69CECC_47AED35E=<img path="Assets\Textures\sc2_ui_loadingscreen_playercard_raceindicator_protoss.dds" alignment="AbsoluteMiddle" width="21" height="22"/> Protoss
+Param/Value/lib_1B69CECC_4C30D378=Hiding window
 Param/Value/lib_1B69CECC_4FB89260=Race index mismatch
+Param/Value/lib_1B69CECC_5C91EDC2=Show Window!!!
 Param/Value/lib_1B69CECC_5DE344B1=<img path="Assets\Textures\sc2_ui_loadingscreen_playercard_raceindicator_random.dds" alignment="AbsoluteMiddle" width="21" height="22"/> Random
 Param/Value/lib_1B69CECC_5F50D4B5=<img path="Assets\Textures\sc2_ui_loadingscreen_playercard_raceindicator_xayid.dds" alignment="AbsoluteMiddle" width="21" height="22"/> Xayid
 Param/Value/lib_1B69CECC_61B75788=Error: Players and observers must not intersect
 Param/Value/lib_1B69CECC_65046665=Invalid Race Key Computed
 Param/Value/lib_1B69CECC_65B515D1=Test race index conversion
+Param/Value/lib_1B69CECC_6B609B4A=Show Window
 Param/Value/lib_1B69CECC_6DF26637=<img path="Assets\Textures\ui_battlenet_glue_icons_league_silver.dds" alignment="AbsoluteMiddle" width="22" height="22"/> Silver
 Param/Value/lib_1B69CECC_6EE314B4=Test race index conversion
 Param/Value/lib_1B69CECC_798D7B2A=Race index mismatch
@@ -36,6 +39,7 @@ Param/Value/lib_1B69CECC_B6025F4F=Compute player race key
 Param/Value/lib_1B69CECC_B7AA3D44=Race index mismatch
 Param/Value/lib_1B69CECC_C874B829=<img path="Assets\Textures\sc2_ui_loadingscreen_playercard_raceindicator_genetron.dds" alignment="AbsoluteMiddle" width="21" height="22"/> Genetron
 Param/Value/lib_1B69CECC_D063B6AD=Test race index conversion
+Param/Value/lib_1B69CECC_D7E3EE6D=Match starting in:
 Param/Value/lib_1B69CECC_DD98C82C=<img path="Assets\Textures\ui_battlenet_glue_icons_league_bronze.dds" alignment="AbsoluteMiddle" width="22" height="22"/> Bronze
 Param/Value/lib_1B69CECC_DECA5D45=Error: Failed to choose 2 players
 Param/Value/lib_1B69CECC_E156BCB8=Race index mismatch
