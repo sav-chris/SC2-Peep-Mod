@@ -125,6 +125,51 @@ void lib1B69CECC_gf_test_race_integer_conversion () {
     lib1B69CECC_gf_Assert((lib1B69CECC_gf_compute_race_from_index(lib1B69CECC_gf_compute_race_index("Keir")) == "Keir"), StringExternal("Param/Value/lib_1B69CECC_11BD8736"), StringExternal("Param/Value/lib_1B69CECC_316FD8E1"));
 }
 
+void lib1B69CECC_gf_InitialisePlayer (int lp_player, string lp_startlocation) {
+    // Variable Declarations
+    int lv_race_index;
+    string lv_race_key;
+    string lv_race;
+
+    // Automatic Variable Declarations
+    int auto1CA7D8C0_val;
+
+    // Variable Initialization
+    lv_race_key = "";
+
+    // Implementation
+    lv_race_key = lib1B69CECC_gf_compute_player_race_key(lp_player);
+    lv_race_index = DataTableGetInt(true, lv_race_key);
+    auto1CA7D8C0_val = lv_race_index;
+    if (auto1CA7D8C0_val == 1) {
+        lv_race = "Neut";
+    }
+    else if (auto1CA7D8C0_val == 2) {
+        lv_race = "Terr";
+    }
+    else if (auto1CA7D8C0_val == 3) {
+        lv_race = "Zerg";
+    }
+    else if (auto1CA7D8C0_val == 4) {
+        lv_race = "Prot";
+    }
+    else if (auto1CA7D8C0_val == 5) {
+        lv_race = "Gen";
+    }
+    else if (auto1CA7D8C0_val == 5) {
+        lv_race = "Xayi";
+    }
+    else if (auto1CA7D8C0_val == 6) {
+        lv_race = "Keir";
+    }
+    else {
+        lv_race = "Neut";
+    }
+    PlayerSetRace(lp_player, lv_race);
+    MeleeInitResourcesForPlayer(lp_player, lv_race);
+    MeleeInitUnitsForPlayer(lp_player, lv_race, PointFromName(lp_startlocation));
+}
+
 void lib1B69CECC_gf_InitialiseGame (playergroup lp_lobby_Players) {
     int init_i;
 
@@ -163,27 +208,6 @@ void lib1B69CECC_gf_InitialiseGame (playergroup lp_lobby_Players) {
     lib1B69CECC_gf_HideLobby(lib1B69CECC_gv_lobbyModal);
     lib1B69CECC_gf_EnableObserverUI(lv_observers);
     lib1B69CECC_gf_EnablePlayerUI(lv_players);
-}
-
-void lib1B69CECC_gf_InitialisePlayer (int lp_player, string lp_startlocation) {
-    // Variable Declarations
-    int lv_race_index;
-    string lv_race_key;
-    string lv_race;
-
-    // Automatic Variable Declarations
-    // Variable Initialization
-    lv_race_key = "";
-
-    // Implementation
-    lv_race_key = lib1B69CECC_gf_compute_player_race_key(lp_player);
-    TriggerDebugOutput(1, (StringExternal("Param/Value/lib_1B69CECC_EF89D0DD") + StringToText(lv_race_key)), true);
-    lv_race_index = DataTableGetInt(true, lib1B69CECC_gf_compute_player_race_key(lp_player));
-    PlayerSetRace(lp_player, lib1B69CECC_gf_compute_race_from_index(lv_race_index));
-    TriggerDebugOutput(1, (StringExternal("Param/Value/lib_1B69CECC_9CE236C5") + IntToText(lv_race_index)), true);
-    TriggerDebugOutput(1, PlayerName(lp_player), true);
-    MeleeInitResourcesForPlayer(lp_player, lv_race);
-    MeleeInitUnitsForPlayer(lp_player, lv_race, PointFromName(lp_startlocation));
 }
 
 playergroup lib1B69CECC_gf_ChoosePlayersFromLobby (playergroup lp_lobby) {
@@ -405,7 +429,7 @@ int lib1B69CECC_gf_compute_race_index (string lp_race) {
         return 7;
     }
     else {
-        return 0;
+        return 1;
     }
 }
 

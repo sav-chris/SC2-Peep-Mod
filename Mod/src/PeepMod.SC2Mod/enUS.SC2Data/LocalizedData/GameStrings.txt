@@ -29,7 +29,6 @@ Param/Value/lib_1B69CECC_866ECC49=Test race index conversion
 Param/Value/lib_1B69CECC_8C125C91=<img path="Assets\Textures\ui_battlenet_glue_icons_league_grandmaster.dds" alignment="AbsoluteMiddle" width="22" height="22"/> Grand Master
 Param/Value/lib_1B69CECC_8C525690=Race index mismatch
 Param/Value/lib_1B69CECC_92097C58=Error: Failed to choose  observers
-Param/Value/lib_1B69CECC_9CE236C5=race_index: 
 Param/Value/lib_1B69CECC_A17D4CBC=Check players are not observers
 Param/Value/lib_1B69CECC_A7679ABE=<img path="Assets\Textures\ui_battlenet_glue_icons_league_platinum.dds" alignment="AbsoluteMiddle" width="22" height="22"/> Platinum
 Param/Value/lib_1B69CECC_AC5D4CE7=<img path="Assets\Textures\ui_battlenet_glue_icons_league_master.dds" alignment="AbsoluteMiddle" width="22" height="22"/> Master
@@ -41,7 +40,6 @@ Param/Value/lib_1B69CECC_DD98C82C=<img path="Assets\Textures\ui_battlenet_glue_i
 Param/Value/lib_1B69CECC_DECA5D45=Error: Failed to choose 2 players
 Param/Value/lib_1B69CECC_E156BCB8=Race index mismatch
 Param/Value/lib_1B69CECC_E5DCA431=<img path="Assets\Textures\sc2_ui_loadingscreen_playercard_raceindicator_terran.dds" alignment="AbsoluteMiddle" width="21" height="22"/> Terran
-Param/Value/lib_1B69CECC_EF89D0DD=race_key: 
 Param/Value/lib_1B69CECC_F2C43C1F=<img path="Assets\Textures\sc2_ui_loadingscreen_playercard_raceindicator_zerg.dds" alignment="AbsoluteMiddle" width="21" height="22"/> Zerg
 Param/Value/lib_1B69CECC_F7F7FFB8=Test race index conversion
 Param/Value/lib_1B69CECC_FC9B2791=Test race index conversion

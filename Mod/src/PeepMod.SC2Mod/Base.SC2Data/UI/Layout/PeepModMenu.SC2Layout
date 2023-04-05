@@ -152,7 +152,7 @@
                 </State>
             
                 <State name="NotVisible">
-                    <When type="Property" frame="$parent/PeepMenuPanel/Play" Toggled="Flase"/>
+                    <When type="Property" frame="$parent/PeepMenuPanel/Play" Toggled="False"/>
                     <Action type="SetProperty" frame="$this" Visible="True"/>
                 </State>
             </StateGroup>
