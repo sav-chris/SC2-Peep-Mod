@@ -281,6 +281,7 @@ void lib1B69CECC_gf_InitialiseGame (playergroup lp_lobby_Players) {
         lv_idx = (lv_idx + 1);
     }
     libNtve_gf_SetPlayerGroupAlliance(lv_players, libNtve_ge_AllianceSetting_Enemy);
+    libNtve_gf_SetPlayerGroupAlliance(lv_observers, libNtve_ge_AllianceSetting_Ally);
     lib1B69CECC_gf_HideTimerWindow();
     lib1B69CECC_gf_HideLobby(lib1B69CECC_gv_lobbyModal);
     lib1B69CECC_gf_EnableObserverUI(lv_observers);
