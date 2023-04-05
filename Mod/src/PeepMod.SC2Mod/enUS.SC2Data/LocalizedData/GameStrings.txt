@@ -36,6 +36,7 @@ Param/Value/lib_1B69CECC_B6025F4F=Compute player race key
 Param/Value/lib_1B69CECC_B7AA3D44=Race index mismatch
 Param/Value/lib_1B69CECC_C874B829=<img path="Assets\Textures\sc2_ui_loadingscreen_playercard_raceindicator_genetron.dds" alignment="AbsoluteMiddle" width="21" height="22"/> Genetron
 Param/Value/lib_1B69CECC_D063B6AD=Test race index conversion
+Param/Value/lib_1B69CECC_D7E3EE6D=Match starting in:
 Param/Value/lib_1B69CECC_DD98C82C=<img path="Assets\Textures\ui_battlenet_glue_icons_league_bronze.dds" alignment="AbsoluteMiddle" width="22" height="22"/> Bronze
 Param/Value/lib_1B69CECC_DECA5D45=Error: Failed to choose 2 players
 Param/Value/lib_1B69CECC_E156BCB8=Race index mismatch

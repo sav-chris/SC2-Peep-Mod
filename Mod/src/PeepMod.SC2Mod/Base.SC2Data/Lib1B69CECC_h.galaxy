@@ -6,16 +6,25 @@ include "TriggerLibs/natives"
 // Constants
 const int lib1B69CECC_gv_aIPlayer_1 = 14;
 const int lib1B69CECC_gv_aIPlayer_2 = 13;
+const int lib1B69CECC_gv_jOIN_LOBBY_TIMEOUT_THRESHOLD = 0;
+const int lib1B69CECC_gv_lOBBY_COUNTDOWN_TIME = 10;
 const string lib1B69CECC_gv_sTARTLOCATION_1 = "Start Location 001";
 const string lib1B69CECC_gv_sTARTLOCATION_2 = "Start Location 002";
 const int lib1B69CECC_gv_nO_OF_PLAYERS = 2;
 
 // Structures
+struct lib1B69CECC_gs_LobbyTimer {
+    bool lv_isStarted;
+    datetime lv_startTime;
+    timer lv_timer;
+};
+
 struct lib1B69CECC_gs_Lobby {
     playergroup lv_players;
 };
 
 // Variable Declarations
+lib1B69CECC_gs_LobbyTimer lib1B69CECC_gv_lobbyTimer;
 int lib1B69CECC_gv_ui_menu;
 int lib1B69CECC_gv_ui_play;
 int lib1B69CECC_gv_ui_playpanel;
@@ -24,6 +33,7 @@ int lib1B69CECC_gv_ui_play_league;
 int lib1B69CECC_gv_ui_play_confirm;
 int lib1B69CECC_gv_ui_play_cancel;
 int lib1B69CECC_gv_ui_help;
+int lib1B69CECC_gv_timerWindow;
 int lib1B69CECC_gv_lobbyModal;
 int lib1B69CECC_gv_lobbyListBox;
 lib1B69CECC_gs_Lobby lib1B69CECC_gv_theLobby;
@@ -34,6 +44,11 @@ void lib1B69CECC_gf_test_Choose_Players_From_Lobby ();
 void lib1B69CECC_gf_test_Choose_Observers_From_Lobby ();
 void lib1B69CECC_gf_test_compute_player_race_key ();
 void lib1B69CECC_gf_test_race_integer_conversion ();
+int lib1B69CECC_gf_time_remaining (structref<lib1B69CECC_gs_LobbyTimer> lp_theLobbyTimer);
+void lib1B69CECC_gf_StopTimer ();
+void lib1B69CECC_gf_StartTimer ();
+bool lib1B69CECC_gf_IsLobbyAvailable (structref<lib1B69CECC_gs_LobbyTimer> lp_theLobbyTimer);
+bool lib1B69CECC_gf_IsEnoughPlayersToStart ();
 string lib1B69CECC_gf_chose_race (int lp_race_index);
 void lib1B69CECC_gf_InitialisePlayer (int lp_player, string lp_startlocation);
 void lib1B69CECC_gf_InitialiseGame (playergroup lp_lobby_Players);
@@ -44,7 +59,8 @@ void lib1B69CECC_gf_EnableLobbyUI ();
 void lib1B69CECC_gf_EnablePlayerUI (playergroup lp_players);
 void lib1B69CECC_gf_EnableObserverUI (playergroup lp_players);
 void lib1B69CECC_gf_InitialisePlayDialog ();
-void lib1B69CECC_gf_HidePlayDialog ();
+void lib1B69CECC_gf_HideTimerWindow ();
+void lib1B69CECC_gf_ShowTimerWindow ();
 void lib1B69CECC_gf_HideLobby (int lp_theLobby);
 void lib1B69CECC_gf_RefreshLobby (structref<lib1B69CECC_gs_Lobby> lp_lobbyModel);
 void lib1B69CECC_gf_ShowLobbyUI ();
@@ -61,7 +77,7 @@ trigger lib1B69CECC_gt_runalltestcasestrigger;
 trigger lib1B69CECC_gt_AddAITrigger;
 trigger lib1B69CECC_gt_AddAITrigger2;
 trigger lib1B69CECC_gt_StartGameTrigger;
-trigger lib1B69CECC_gt_TestingNotesTrigger;
+trigger lib1B69CECC_gt_HandleTimeOut;
 trigger lib1B69CECC_gt_ClickHelp;
 trigger lib1B69CECC_gt_ClickCancel;
 trigger lib1B69CECC_gt_ClickConfirm;
