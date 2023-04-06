@@ -778,10 +778,15 @@ void lib1B69CECC_gt_StartGameTrigger_Init () {
 //--------------------------------------------------------------------------------------------------
 bool lib1B69CECC_gt_DetectVictory_Func (bool testConds, bool runActions) {
     // Variable Declarations
+    bool lv_restartLobby;
+    unit lv_aUnit;
     int lv_aPlayer;
 
     // Automatic Variable Declarations
     playergroup auto1B4FB753_g;
+    playergroup auto7B8BABCF_g;
+    unitgroup auto0E9348F4_g;
+    int auto0E9348F4_u;
 
     // Variable Initialization
 
@@ -797,19 +802,39 @@ bool lib1B69CECC_gt_DetectVictory_Func (bool testConds, bool runActions) {
         return true;
     }
 
+    lv_restartLobby = false;
     auto1B4FB753_g = lib1B69CECC_gv_pLAYERS;
     lv_aPlayer = -1;
     while (true) {
         lv_aPlayer = PlayerGroupNextPlayer(auto1B4FB753_g, lv_aPlayer);
         if (lv_aPlayer < 0) { break; }
         if ((UnitGroupCount(UnitGroup(null, lv_aPlayer, RegionEntireMap(), UnitFilter((1 << c_targetFilterStructure) | (1 << c_targetFilterPreventDefeat), 0, (1 << c_targetFilterMissile), (1 << (c_targetFilterDead - 32)) | (1 << (c_targetFilterHidden - 32))), 0), c_unitCountAlive) == 0)) {
-            TriggerDebugOutput(1, StringExternal("Param/Value/lib_1B69CECC_8038B1A0"), true);
-            TriggerDebugOutput(1, (StringExternal("Param/Value/lib_1B69CECC_3BD5CCFF") + PlayerName(lv_aPlayer)), true);
+            SoundPlay(SoundLink("CommandCenter_Movement2", -1), PlayerGroupAll(), 100.0, 0.0);
             lib1B69CECC_gf_StopVictoryDetection();
-            lib1B69CECC_gf_InitialiseLobby();
+            lv_restartLobby = true;
         }
 
     }
+    auto7B8BABCF_g = lib1B69CECC_gv_pLAYERS;
+    lv_aPlayer = -1;
+    while (true) {
+        lv_aPlayer = PlayerGroupNextPlayer(auto7B8BABCF_g, lv_aPlayer);
+        if (lv_aPlayer < 0) { break; }
+        if ((lv_restartLobby == true)) {
+            auto0E9348F4_g = UnitGroupFilterPlayer(UnitGroup(null, lv_aPlayer, RegionEntireMap(), UnitFilter(0, 0, (1 << c_targetFilterAlly) | (1 << c_targetFilterNeutral) | (1 << c_targetFilterEnemy) | (1 << c_targetFilterRawResource) | (1 << c_targetFilterHarvestableResource) | (1 << c_targetFilterUncommandable), (1 << (c_targetFilterDead - 32))), 0), lv_aPlayer, 0);
+            auto0E9348F4_u = UnitGroupCount(auto0E9348F4_g, c_unitCountAll);
+            for (;; auto0E9348F4_u -= 1) {
+                lv_aUnit = UnitGroupUnitFromEnd(auto0E9348F4_g, auto0E9348F4_u);
+                if (lv_aUnit == null) { break; }
+                UnitKill(lv_aUnit);
+            }
+        }
+
+    }
+    if ((lv_restartLobby == true)) {
+        lib1B69CECC_gf_InitialiseLobby();
+    }
+
     return true;
 }
 
