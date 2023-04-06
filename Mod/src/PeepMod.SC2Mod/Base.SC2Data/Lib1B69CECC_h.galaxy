@@ -55,6 +55,7 @@ void lib1B69CECC_gf_InitialiseGame (playergroup lp_lobby_Players);
 playergroup lib1B69CECC_gf_ChoosePlayersFromLobby (playergroup lp_lobby);
 playergroup lib1B69CECC_gf_ChooseObserversFromLobby (playergroup lp_lobby, playergroup lp_players);
 void lib1B69CECC_gf_InitialiseLobby ();
+void lib1B69CECC_gf_DisableResourceTrading ();
 void lib1B69CECC_gf_InitialisePlayDialog ();
 void lib1B69CECC_gf_EnableLobbyUI ();
 void lib1B69CECC_gf_HideTimerWindow ();
