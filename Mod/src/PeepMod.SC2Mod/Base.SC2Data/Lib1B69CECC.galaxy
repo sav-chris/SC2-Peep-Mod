@@ -152,10 +152,14 @@ void lib1B69CECC_gf_InitialiseRaceSelections () {
 
 void lib1B69CECC_gf_StartVictoryDetection () {
     // Automatic Variable Declarations
+    // Implementation
+    lib1B69CECC_gv_dETECT_VICTORY = true;
 }
 
 void lib1B69CECC_gf_StopVictoryDetection () {
     // Automatic Variable Declarations
+    // Implementation
+    lib1B69CECC_gv_dETECT_VICTORY = false;
 }
 
 void lib1B69CECC_gf_HandleVictory () {
@@ -954,12 +958,12 @@ bool lib1B69CECC_gt_MeleeInitialization_Func (bool testConds, bool runActions) {
         return true;
     }
 
+    GameSetSpeedValue(c_gameSpeedFaster);
+    lib1B69CECC_gf_DisableResourceTrading();
     lib1B69CECC_gf_InitialiseRaceSelections();
     lib1B69CECC_gf_InitialiseLobbyTimer();
     lib1B69CECC_gf_InitialisePlayDialog();
     lib1B69CECC_gf_InitialiseLobby();
-    GameSetSpeedValue(c_gameSpeedFaster);
-    lib1B69CECC_gf_DisableResourceTrading();
     return true;
 }
 

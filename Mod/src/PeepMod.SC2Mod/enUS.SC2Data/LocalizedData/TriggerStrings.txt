@@ -146,6 +146,7 @@ Variable/Name/lib_1B69CECC_B31A5D23=lobbyTimer
 Variable/Name/lib_1B69CECC_B4B404EB=intPlayer
 Variable/Name/lib_1B69CECC_B6700DB8=bPlayer 2
 Variable/Name/lib_1B69CECC_BDA25476=intPlayer
+Variable/Name/lib_1B69CECC_C0316F79=DETECT_VICTORY
 Variable/Name/lib_1B69CECC_C2249D66=ui_play_cancel
 Variable/Name/lib_1B69CECC_C43E6E7D=temp
 Variable/Name/lib_1B69CECC_D5077E68=aPlayer

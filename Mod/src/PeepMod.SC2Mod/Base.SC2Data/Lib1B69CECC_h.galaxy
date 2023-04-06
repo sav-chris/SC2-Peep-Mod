@@ -24,6 +24,7 @@ struct lib1B69CECC_gs_Lobby {
 };
 
 // Variable Declarations
+bool lib1B69CECC_gv_dETECT_VICTORY;
 timer lib1B69CECC_gv_tmrDetectVictory;
 playergroup lib1B69CECC_gv_pLAYERS;
 playergroup lib1B69CECC_gv_oBSERVERS;
