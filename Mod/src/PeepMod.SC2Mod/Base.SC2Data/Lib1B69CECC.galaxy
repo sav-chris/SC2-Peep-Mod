@@ -270,7 +270,7 @@ void lib1B69CECC_gf_InitialiseGame (playergroup lp_lobby_Players) {
     lv_start_locations[0] = lib1B69CECC_gv_sTARTLOCATION_1;
     lv_start_locations[1] = lib1B69CECC_gv_sTARTLOCATION_2;
     lv_players = lib1B69CECC_gf_ChoosePlayersFromLobby(lp_lobby_Players);
-    lv_observers = lib1B69CECC_gf_ChooseObserversFromLobby(lp_lobby_Players, lv_players);
+    lv_observers = lib1B69CECC_gf_ChooseObserversFromLobby(PlayerGroupAll(), lv_players);
     lv_idx = 0;
     autoEF8BA5EB_g = lv_players;
     lv_aPlayer = -1;
@@ -284,7 +284,7 @@ void lib1B69CECC_gf_InitialiseGame (playergroup lp_lobby_Players) {
     libNtve_gf_SetPlayerGroupAlliance(lv_observers, libNtve_ge_AllianceSetting_Ally);
     lib1B69CECC_gf_HideTimerWindow();
     lib1B69CECC_gf_HideLobby(lib1B69CECC_gv_lobbyModal);
-    lib1B69CECC_gf_EnableObserverUI(lv_observers);
+    lib1B69CECC_gf_EnableObserverUI(lv_observers, lv_players);
     lib1B69CECC_gf_EnablePlayerUI(lv_players);
 }
 
@@ -337,54 +337,6 @@ void lib1B69CECC_gf_InitialiseLobby () {
     lib1B69CECC_gf_ShowLobbyUI();
 }
 
-void lib1B69CECC_gf_EnableLobbyUI () {
-    // Variable Declarations
-    int lv_intPlayer;
-
-    // Automatic Variable Declarations
-    // Variable Initialization
-
-    // Implementation
-    UISetFrameVisible(PlayerGroupAll(), c_syncFrameTypeResourcePanel, false);
-    UISetFrameVisible(PlayerGroupAll(), c_syncFrameTypeSupply, false);
-}
-
-void lib1B69CECC_gf_EnablePlayerUI (playergroup lp_players) {
-    // Variable Declarations
-    int lv_aPlayer;
-
-    // Automatic Variable Declarations
-    // Variable Initialization
-
-    // Implementation
-    UISetMode(lp_players, c_uiModeConsole, c_transitionDurationImmediate);
-    UISetFrameVisible(lp_players, c_syncFrameTypeResourcePanel, true);
-    UISetFrameVisible(lp_players, c_syncFrameTypeSupply, true);
-    VisEnable(c_visTypeFog, true);
-    DialogControlSetVisible(lib1B69CECC_gv_ui_menu, lp_players, false);
-    DialogControlSetVisible(lib1B69CECC_gv_ui_playpanel, lp_players, false);
-}
-
-void lib1B69CECC_gf_EnableObserverUI (playergroup lp_players) {
-    // Variable Declarations
-    int lv_aPlayer;
-
-    // Automatic Variable Declarations
-    playergroup auto1D4FE5A6_g;
-
-    // Variable Initialization
-
-    // Implementation
-    UISetMode(lp_players, c_uiModeFullscreen, c_transitionDurationImmediate);
-    auto1D4FE5A6_g = lp_players;
-    lv_aPlayer = -1;
-    while (true) {
-        lv_aPlayer = PlayerGroupNextPlayer(auto1D4FE5A6_g, lv_aPlayer);
-        if (lv_aPlayer < 0) { break; }
-        VisRevealArea(lv_aPlayer, RegionEntireMap(), 0.0, false);
-    }
-}
-
 void lib1B69CECC_gf_InitialisePlayDialog () {
     // Automatic Variable Declarations
     // Implementation
@@ -421,6 +373,18 @@ void lib1B69CECC_gf_InitialisePlayDialog () {
     DialogControlAddItem(lib1B69CECC_gv_ui_play_league, PlayerGroupAll(), StringExternal("Param/Value/lib_1B69CECC_AC5D4CE7"));
     DialogControlAddItem(lib1B69CECC_gv_ui_play_league, PlayerGroupAll(), StringExternal("Param/Value/lib_1B69CECC_8C125C91"));
     DialogControlSelectItem(lib1B69CECC_gv_ui_play_league, PlayerGroupAll(), 1);
+}
+
+void lib1B69CECC_gf_EnableLobbyUI () {
+    // Variable Declarations
+    int lv_intPlayer;
+
+    // Automatic Variable Declarations
+    // Variable Initialization
+
+    // Implementation
+    UISetFrameVisible(PlayerGroupAll(), c_syncFrameTypeResourcePanel, false);
+    UISetFrameVisible(PlayerGroupAll(), c_syncFrameTypeSupply, false);
 }
 
 void lib1B69CECC_gf_HideTimerWindow () {
@@ -479,6 +443,51 @@ void lib1B69CECC_gf_ShowLobbyUI () {
     DialogControlSetPosition(DialogControlLastCreated(), PlayerGroupAll(), c_anchorTopLeft, lv_sPACEMARGIN, lv_sPACEMARGIN);
     DialogSetVisible(DialogLastCreated(), PlayerGroupAll(), true);
     lib1B69CECC_gf_ShowTimerWindow();
+}
+
+void lib1B69CECC_gf_EnablePlayerUI (playergroup lp_players) {
+    // Variable Declarations
+    int lv_aPlayer;
+
+    // Automatic Variable Declarations
+    // Variable Initialization
+
+    // Implementation
+    UISetMode(lp_players, c_uiModeConsole, c_transitionDurationImmediate);
+    UISetFrameVisible(lp_players, c_syncFrameTypeResourcePanel, true);
+    UISetFrameVisible(lp_players, c_syncFrameTypeSupply, true);
+    VisEnable(c_visTypeFog, true);
+    DialogControlSetVisible(lib1B69CECC_gv_ui_menu, lp_players, false);
+    DialogControlSetVisible(lib1B69CECC_gv_ui_playpanel, lp_players, false);
+}
+
+void lib1B69CECC_gf_EnableObserverUI (playergroup lp_observers, playergroup lp_players) {
+    // Variable Declarations
+    int lv_aObserver;
+    int lv_aPlayer;
+
+    // Automatic Variable Declarations
+    playergroup auto1D4FE5A6_g;
+    playergroup autoFF2D6FA4_g;
+
+    // Variable Initialization
+
+    // Implementation
+    DialogControlSetVisible(lib1B69CECC_gv_ui_menu, lp_observers, false);
+    DialogControlSetVisible(lib1B69CECC_gv_ui_playpanel, lp_observers, false);
+    auto1D4FE5A6_g = lp_observers;
+    lv_aObserver = -1;
+    while (true) {
+        lv_aObserver = PlayerGroupNextPlayer(auto1D4FE5A6_g, lv_aObserver);
+        if (lv_aObserver < 0) { break; }
+        autoFF2D6FA4_g = lp_players;
+        lv_aPlayer = -1;
+        while (true) {
+            lv_aPlayer = PlayerGroupNextPlayer(autoFF2D6FA4_g, lv_aPlayer);
+            if (lv_aPlayer < 0) { break; }
+            libNtve_gf_SetAllianceOneWay(lv_aPlayer, lv_aObserver, libNtve_ge_AllianceSetting_AllyWithSharedVision);
+        }
+    }
 }
 
 string lib1B69CECC_gf_compute_player_race_key (int lp_player) {
