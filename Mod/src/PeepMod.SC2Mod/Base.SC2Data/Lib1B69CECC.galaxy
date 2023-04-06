@@ -832,6 +832,7 @@ bool lib1B69CECC_gt_DetectVictory_Func (bool testConds, bool runActions) {
 
     }
     if ((lv_restartLobby == true)) {
+        SoundPlay(SoundLink("CommandCenter_Movement2", -1), PlayerGroupAll(), 100.0, 0.0);
         lib1B69CECC_gf_InitialiseLobby();
     }
 

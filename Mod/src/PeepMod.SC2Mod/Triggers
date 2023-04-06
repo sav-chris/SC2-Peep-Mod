@@ -1713,6 +1713,7 @@
             <Condition Type="FunctionCall" Library="1B69CECC" Id="4CEC36AA"/>
             <Action Type="FunctionCall" Library="1B69CECC" Id="87E20BE1"/>
             <Action Type="FunctionCall" Library="1B69CECC" Id="1B4FB753"/>
+            <Action Type="Comment" Library="1B69CECC" Id="F2204AE7"/>
             <Action Type="FunctionCall" Library="1B69CECC" Id="7B8BABCF"/>
             <Action Type="FunctionCall" Library="1B69CECC" Id="345EDCD4"/>
         </Element>
@@ -1816,7 +1817,6 @@
             <SubFunctionType Type="SubFuncType" Library="Ntve" Id="DF50D5F0"/>
             <FunctionCall Type="FunctionCall" Library="1B69CECC" Id="F4892615"/>
             <FunctionCall Type="FunctionCall" Library="1B69CECC" Id="98D47362"/>
-            <FunctionCall Type="Comment" Library="1B69CECC" Id="1BBAB2DD"/>
             <FunctionCall Type="Comment" Library="1B69CECC" Id="6916859C"/>
             <FunctionCall Type="FunctionCall" Library="1B69CECC" Id="7E9C1F7E"/>
             <FunctionCall Type="FunctionCall" Library="1B69CECC" Id="DFBDE1E3"/>
@@ -1853,12 +1853,6 @@
         </Element>
         <Element Type="FunctionCall" Id="98D47362">
             <FunctionDef Type="FunctionDef" Library="1B69CECC" Id="5EFB4F46"/>
-            <SubFunctionType Type="SubFuncType" Library="Ntve" Id="00000004"/>
-        </Element>
-        <Element Type="Comment" Id="1BBAB2DD">
-            <Comment>
-                Kill all units
-            </Comment>
             <SubFunctionType Type="SubFuncType" Library="Ntve" Id="00000004"/>
         </Element>
         <Element Type="Comment" Id="6916859C">
@@ -1946,6 +1940,11 @@
             <ParameterDef Type="ParamDef" Library="Ntve" Id="4A15EC5F"/>
             <Value>0</Value>
             <ValueType Type="int"/>
+        </Element>
+        <Element Type="Comment" Id="F2204AE7">
+            <Comment>
+                TO DO: Consider refactoring
+            </Comment>
         </Element>
         <Element Type="FunctionCall" Id="7B8BABCF">
             <FunctionDef Type="FunctionDef" Library="Ntve" Id="B525B112"/>
@@ -2063,8 +2062,39 @@
         </Element>
         <Element Type="FunctionCall" Id="345EDCD4">
             <FunctionDef Type="FunctionDef" Library="Ntve" Id="00000137"/>
+            <FunctionCall Type="FunctionCall" Library="1B69CECC" Id="D7C84F82"/>
             <FunctionCall Type="FunctionCall" Library="1B69CECC" Id="A3B7D7A9"/>
             <FunctionCall Type="FunctionCall" Library="1B69CECC" Id="8E65CF2C"/>
+        </Element>
+        <Element Type="FunctionCall" Id="D7C84F82">
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="8457B54F"/>
+            <SubFunctionType Type="SubFuncType" Library="Ntve" Id="00000004"/>
+            <Parameter Type="Param" Library="1B69CECC" Id="E372C5D8"/>
+            <Parameter Type="Param" Library="1B69CECC" Id="64A6C6A5"/>
+            <Parameter Type="Param" Library="1B69CECC" Id="E221EA17"/>
+            <Parameter Type="Param" Library="1B69CECC" Id="4612E236"/>
+        </Element>
+        <Element Type="Param" Id="E372C5D8">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="84EA661D"/>
+            <FunctionCall Type="FunctionCall" Library="1B69CECC" Id="3E4B843D"/>
+        </Element>
+        <Element Type="FunctionCall" Id="3E4B843D">
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="00000192"/>
+        </Element>
+        <Element Type="Param" Id="64A6C6A5">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="0FA3973D"/>
+            <Value>100.0</Value>
+            <ValueType Type="fixed"/>
+        </Element>
+        <Element Type="Param" Id="E221EA17">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="9941E9D8"/>
+            <Value>0.0</Value>
+            <ValueType Type="fixed"/>
+        </Element>
+        <Element Type="Param" Id="4612E236">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="43998727"/>
+            <Value>CommandCenter_Movement2</Value>
+            <ValueType Type="soundlink"/>
         </Element>
         <Element Type="FunctionCall" Id="A3B7D7A9">
             <FunctionDef Type="FunctionDef" Library="1B69CECC" Id="F0EB4796"/>
