@@ -47,6 +47,7 @@ FunctionDef/Name/lib_1B69CECC_C4AAA43E=HideTimerWindow
 FunctionDef/Name/lib_1B69CECC_C6AFB767=Disable Resource Trading
 FunctionDef/Name/lib_1B69CECC_E6BB6032=Choose Observers From Lobby
 FunctionDef/Name/lib_1B69CECC_E96300FA=Enable Player UI
+FunctionDef/Name/lib_1B69CECC_E9B4E17E=Start New Lobby Screen
 FunctionDef/Name/lib_1B69CECC_ECC169C8=StopTimer
 FunctionDef/Name/lib_1B69CECC_F0EB4796=Initialise Lobby
 FunctionDef/Name/lib_1B69CECC_FBF39338=LeaveLobby
