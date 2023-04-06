@@ -337,6 +337,40 @@ void lib1B69CECC_gf_InitialiseLobby () {
     lib1B69CECC_gf_ShowLobbyUI();
 }
 
+void lib1B69CECC_gf_DisableResourceTrading () {
+    // Variable Declarations
+    int lv_aPlayer;
+    int lv_bPlayer2;
+
+    // Automatic Variable Declarations
+    playergroup autoA9BF1F9F_g;
+    playergroup auto01013A5D_g;
+
+    // Variable Initialization
+
+    // Implementation
+    UISetFrameVisible(PlayerGroupAll(), c_syncFrameTypeResourcePanel, false);
+    UISetFrameVisible(PlayerGroupAll(), c_syncFrameTypeTeamResourceButton, false);
+    UISetResourceTradingAllowed(c_resourceTypeMinerals, false);
+    UISetResourceTradingAllowed(c_resourceTypeVespene, false);
+    autoA9BF1F9F_g = PlayerGroupAll();
+    lv_aPlayer = -1;
+    while (true) {
+        lv_aPlayer = PlayerGroupNextPlayer(autoA9BF1F9F_g, lv_aPlayer);
+        if (lv_aPlayer < 0) { break; }
+        auto01013A5D_g = PlayerGroupAll();
+        lv_bPlayer2 = -1;
+        while (true) {
+            lv_bPlayer2 = PlayerGroupNextPlayer(auto01013A5D_g, lv_bPlayer2);
+            if (lv_bPlayer2 < 0) { break; }
+            if ((lv_aPlayer != lv_bPlayer2)) {
+                PlayerSetAlliance(lv_aPlayer, c_allianceIdSpend, lv_bPlayer2, false);
+            }
+
+        }
+    }
+}
+
 void lib1B69CECC_gf_InitialisePlayDialog () {
     // Automatic Variable Declarations
     // Implementation
@@ -863,6 +897,7 @@ bool lib1B69CECC_gt_MeleeInitialization_Func (bool testConds, bool runActions) {
     lib1B69CECC_gf_InitialisePlayDialog();
     lib1B69CECC_gf_InitialiseLobby();
     GameSetSpeedValue(c_gameSpeedFaster);
+    lib1B69CECC_gf_DisableResourceTrading();
     return true;
 }
 
