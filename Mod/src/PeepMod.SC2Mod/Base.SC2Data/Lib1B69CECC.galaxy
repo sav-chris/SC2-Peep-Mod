@@ -20,6 +20,9 @@ void lib1B69CECC_InitVariables () {
 
     lib1B69CECC_InitVariables_completed = true;
 
+    lib1B69CECC_gv_tmrDetectVictory = TimerCreate();
+    lib1B69CECC_gv_pLAYERS = PlayerGroupEmpty();
+    lib1B69CECC_gv_oBSERVERS = PlayerGroupEmpty();
     lib1B69CECC_gv_lobbyTimer.lv_startTime = CurrentDateTimeGet();
     lib1B69CECC_gv_lobbyTimer.lv_timer = TimerCreate();
     lib1B69CECC_gv_ui_menu = c_invalidDialogControlId;
@@ -126,6 +129,48 @@ void lib1B69CECC_gf_test_race_integer_conversion () {
     lib1B69CECC_gf_Assert((lib1B69CECC_gf_compute_race_from_index(lib1B69CECC_gf_compute_race_index("Gen")) == "Gen"), StringExternal("Param/Value/lib_1B69CECC_65B515D1"), StringExternal("Param/Value/lib_1B69CECC_798D7B2A"));
     lib1B69CECC_gf_Assert((lib1B69CECC_gf_compute_race_from_index(lib1B69CECC_gf_compute_race_index("Xayi")) == "Xayi"), StringExternal("Param/Value/lib_1B69CECC_F7F7FFB8"), StringExternal("Param/Value/lib_1B69CECC_E156BCB8"));
     lib1B69CECC_gf_Assert((lib1B69CECC_gf_compute_race_from_index(lib1B69CECC_gf_compute_race_index("Keir")) == "Keir"), StringExternal("Param/Value/lib_1B69CECC_11BD8736"), StringExternal("Param/Value/lib_1B69CECC_316FD8E1"));
+}
+
+void lib1B69CECC_gf_InitialiseRaceSelections () {
+    // Variable Declarations
+    int lv_aPlayer;
+
+    // Automatic Variable Declarations
+    playergroup auto37407480_g;
+
+    // Variable Initialization
+
+    // Implementation
+    auto37407480_g = PlayerGroupAll();
+    lv_aPlayer = -1;
+    while (true) {
+        lv_aPlayer = PlayerGroupNextPlayer(auto37407480_g, lv_aPlayer);
+        if (lv_aPlayer < 0) { break; }
+        DataTableSetInt(true, lib1B69CECC_gf_compute_player_race_key(lv_aPlayer), lib1B69CECC_gf_compute_race_index("Neut"));
+    }
+}
+
+void lib1B69CECC_gf_StartVictoryDetection () {
+    // Automatic Variable Declarations
+}
+
+void lib1B69CECC_gf_StopVictoryDetection () {
+    // Automatic Variable Declarations
+}
+
+void lib1B69CECC_gf_HandleVictory () {
+    // Automatic Variable Declarations
+    // Implementation
+    SoundPlay(SoundLink("CommandCenter_Movement2", -1), PlayerGroupAll(), 100.0, 0.0);
+}
+
+void lib1B69CECC_gf_InitialiseLobbyTimer () {
+    // Automatic Variable Declarations
+    // Implementation
+    TimerStart(lib1B69CECC_gv_lobbyTimer.lv_timer, lib1B69CECC_gv_lOBBY_COUNTDOWN_TIME, false, c_timeGame);
+    TimerPause(lib1B69CECC_gv_lobbyTimer.lv_timer, true);
+    TimerWindowCreate(lib1B69CECC_gv_lobbyTimer.lv_timer, StringExternal("Param/Value/lib_1B69CECC_D7E3EE6D"), true, false);
+    lib1B69CECC_gv_timerWindow = TimerWindowLastCreated();
 }
 
 int lib1B69CECC_gf_time_remaining (structref<lib1B69CECC_gs_LobbyTimer> lp_theLobbyTimer) {
@@ -250,8 +295,6 @@ void lib1B69CECC_gf_InitialiseGame (playergroup lp_lobby_Players) {
     int init_i;
 
     // Variable Declarations
-    playergroup lv_players;
-    playergroup lv_observers;
     string[3] lv_start_locations;
     int lv_aPlayer;
     int lv_idx;
@@ -260,8 +303,6 @@ void lib1B69CECC_gf_InitialiseGame (playergroup lp_lobby_Players) {
     playergroup autoEF8BA5EB_g;
 
     // Variable Initialization
-    lv_players = PlayerGroupEmpty();
-    lv_observers = PlayerGroupEmpty();
     for (init_i = 0; init_i <= 2; init_i += 1) {
         lv_start_locations[init_i] = "";
     }
@@ -269,10 +310,10 @@ void lib1B69CECC_gf_InitialiseGame (playergroup lp_lobby_Players) {
     // Implementation
     lv_start_locations[0] = lib1B69CECC_gv_sTARTLOCATION_1;
     lv_start_locations[1] = lib1B69CECC_gv_sTARTLOCATION_2;
-    lv_players = lib1B69CECC_gf_ChoosePlayersFromLobby(lp_lobby_Players);
-    lv_observers = lib1B69CECC_gf_ChooseObserversFromLobby(PlayerGroupAll(), lv_players);
+    lib1B69CECC_gv_pLAYERS = lib1B69CECC_gf_ChoosePlayersFromLobby(lp_lobby_Players);
+    lib1B69CECC_gv_oBSERVERS = lib1B69CECC_gf_ChooseObserversFromLobby(PlayerGroupAll(), lib1B69CECC_gv_pLAYERS);
     lv_idx = 0;
-    autoEF8BA5EB_g = lv_players;
+    autoEF8BA5EB_g = lib1B69CECC_gv_pLAYERS;
     lv_aPlayer = -1;
     while (true) {
         lv_aPlayer = PlayerGroupNextPlayer(autoEF8BA5EB_g, lv_aPlayer);
@@ -280,12 +321,12 @@ void lib1B69CECC_gf_InitialiseGame (playergroup lp_lobby_Players) {
         lib1B69CECC_gf_InitialisePlayer(lv_aPlayer, lv_start_locations[lv_idx]);
         lv_idx = (lv_idx + 1);
     }
-    libNtve_gf_SetPlayerGroupAlliance(lv_players, libNtve_ge_AllianceSetting_Enemy);
-    libNtve_gf_SetPlayerGroupAlliance(lv_observers, libNtve_ge_AllianceSetting_Ally);
+    libNtve_gf_SetPlayerGroupAlliance(lib1B69CECC_gv_pLAYERS, libNtve_ge_AllianceSetting_Enemy);
+    libNtve_gf_SetPlayerGroupAlliance(lib1B69CECC_gv_oBSERVERS, libNtve_ge_AllianceSetting_Ally);
     lib1B69CECC_gf_HideTimerWindow();
     lib1B69CECC_gf_HideLobby(lib1B69CECC_gv_lobbyModal);
-    lib1B69CECC_gf_EnableObserverUI(lv_observers, lv_players);
-    lib1B69CECC_gf_EnablePlayerUI(lv_players);
+    lib1B69CECC_gf_EnableObserverUI(lib1B69CECC_gv_oBSERVERS, lib1B69CECC_gv_pLAYERS);
+    lib1B69CECC_gf_EnablePlayerUI(lib1B69CECC_gv_pLAYERS);
 }
 
 playergroup lib1B69CECC_gf_ChoosePlayersFromLobby (playergroup lp_lobby) {
@@ -723,6 +764,43 @@ void lib1B69CECC_gt_StartGameTrigger_Init () {
 }
 
 //--------------------------------------------------------------------------------------------------
+// Trigger: Detect Victory
+//--------------------------------------------------------------------------------------------------
+bool lib1B69CECC_gt_DetectVictory_Func (bool testConds, bool runActions) {
+    // Variable Declarations
+    int lv_aPlayer;
+
+    // Automatic Variable Declarations
+    playergroup auto1B4FB753_g;
+
+    // Variable Initialization
+
+    // Actions
+    if (!runActions) {
+        return true;
+    }
+
+    auto1B4FB753_g = lib1B69CECC_gv_pLAYERS;
+    lv_aPlayer = -1;
+    while (true) {
+        lv_aPlayer = PlayerGroupNextPlayer(auto1B4FB753_g, lv_aPlayer);
+        if (lv_aPlayer < 0) { break; }
+        if ((UnitGroupCount(UnitGroup(null, lv_aPlayer, RegionEntireMap(), UnitFilter((1 << c_targetFilterStructure) | (1 << c_targetFilterPreventDefeat), 0, (1 << c_targetFilterMissile), (1 << (c_targetFilterDead - 32)) | (1 << (c_targetFilterHidden - 32))), 0), c_unitCountAlive) == 0)) {
+            TriggerDebugOutput(1, StringExternal("Param/Value/lib_1B69CECC_8038B1A0"), true);
+            TriggerDebugOutput(1, (StringExternal("Param/Value/lib_1B69CECC_3BD5CCFF") + PlayerName(lv_aPlayer)), true);
+        }
+
+    }
+    return true;
+}
+
+//--------------------------------------------------------------------------------------------------
+void lib1B69CECC_gt_DetectVictory_Init () {
+    lib1B69CECC_gt_DetectVictory = TriggerCreate("lib1B69CECC_gt_DetectVictory_Func");
+    TriggerAddEventTimePeriodic(lib1B69CECC_gt_DetectVictory, 5.0, c_timeGame);
+}
+
+//--------------------------------------------------------------------------------------------------
 // Trigger: HandleTimeOut 
 //--------------------------------------------------------------------------------------------------
 bool lib1B69CECC_gt_HandleTimeOut_Func (bool testConds, bool runActions) {
@@ -870,30 +948,14 @@ void lib1B69CECC_gt_RaceSelected_Init () {
 // Trigger: Melee Initialization
 //--------------------------------------------------------------------------------------------------
 bool lib1B69CECC_gt_MeleeInitialization_Func (bool testConds, bool runActions) {
-    // Variable Declarations
-    int lv_aPlayer;
-
     // Automatic Variable Declarations
-    playergroup auto37407480_g;
-
-    // Variable Initialization
-
     // Actions
     if (!runActions) {
         return true;
     }
 
-    TimerStart(lib1B69CECC_gv_lobbyTimer.lv_timer, lib1B69CECC_gv_lOBBY_COUNTDOWN_TIME, false, c_timeGame);
-    TimerPause(lib1B69CECC_gv_lobbyTimer.lv_timer, true);
-    TimerWindowCreate(lib1B69CECC_gv_lobbyTimer.lv_timer, StringExternal("Param/Value/lib_1B69CECC_D7E3EE6D"), true, false);
-    lib1B69CECC_gv_timerWindow = TimerWindowLastCreated();
-    auto37407480_g = PlayerGroupAll();
-    lv_aPlayer = -1;
-    while (true) {
-        lv_aPlayer = PlayerGroupNextPlayer(auto37407480_g, lv_aPlayer);
-        if (lv_aPlayer < 0) { break; }
-        DataTableSetInt(true, lib1B69CECC_gf_compute_player_race_key(lv_aPlayer), lib1B69CECC_gf_compute_race_index("Neut"));
-    }
+    lib1B69CECC_gf_InitialiseRaceSelections();
+    lib1B69CECC_gf_InitialiseLobbyTimer();
     lib1B69CECC_gf_InitialisePlayDialog();
     lib1B69CECC_gf_InitialiseLobby();
     GameSetSpeedValue(c_gameSpeedFaster);
@@ -912,6 +974,7 @@ void lib1B69CECC_InitTriggers () {
     lib1B69CECC_gt_AddAITrigger_Init();
     lib1B69CECC_gt_AddAITrigger2_Init();
     lib1B69CECC_gt_StartGameTrigger_Init();
+    lib1B69CECC_gt_DetectVictory_Init();
     lib1B69CECC_gt_HandleTimeOut_Init();
     lib1B69CECC_gt_ClickHelp_Init();
     lib1B69CECC_gt_ClickCancel_Init();
