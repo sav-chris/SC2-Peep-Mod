@@ -55,6 +55,7 @@ void lib1B69CECC_gf_RecordStartingMapFeatures ();
 void lib1B69CECC_gf_ResetGas ();
 void lib1B69CECC_gf_ResetMinerals ();
 void lib1B69CECC_gf_InitialiseRaceSelections ();
+void lib1B69CECC_gf_KillAllPlayerUnits ();
 void lib1B69CECC_gf_ResetGame ();
 void lib1B69CECC_gf_StartVictoryDetection ();
 void lib1B69CECC_gf_StopVictoryDetection ();

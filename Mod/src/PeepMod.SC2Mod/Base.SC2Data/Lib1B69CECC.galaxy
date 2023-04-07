@@ -320,9 +320,38 @@ void lib1B69CECC_gf_InitialiseRaceSelections () {
     }
 }
 
+void lib1B69CECC_gf_KillAllPlayerUnits () {
+    // Variable Declarations
+    unit lv_aUnit;
+    int lv_aPlayer;
+
+    // Automatic Variable Declarations
+    playergroup autoF7FB8F78_g;
+    unitgroup auto950C134E_g;
+    int auto950C134E_u;
+
+    // Variable Initialization
+
+    // Implementation
+    autoF7FB8F78_g = lib1B69CECC_gv_pLAYERS;
+    lv_aPlayer = -1;
+    while (true) {
+        lv_aPlayer = PlayerGroupNextPlayer(autoF7FB8F78_g, lv_aPlayer);
+        if (lv_aPlayer < 0) { break; }
+        auto950C134E_g = UnitGroupFilterPlayer(UnitGroup(null, lv_aPlayer, RegionEntireMap(), UnitFilter(0, 0, (1 << c_targetFilterAlly) | (1 << c_targetFilterNeutral) | (1 << c_targetFilterEnemy) | (1 << c_targetFilterRawResource) | (1 << c_targetFilterUncommandable), (1 << (c_targetFilterDead - 32))), 0), lv_aPlayer, 0);
+        auto950C134E_u = UnitGroupCount(auto950C134E_g, c_unitCountAll);
+        for (;; auto950C134E_u -= 1) {
+            lv_aUnit = UnitGroupUnitFromEnd(auto950C134E_g, auto950C134E_u);
+            if (lv_aUnit == null) { break; }
+            UnitKill(lv_aUnit);
+        }
+    }
+}
+
 void lib1B69CECC_gf_ResetGame () {
     // Automatic Variable Declarations
     // Implementation
+    lib1B69CECC_gf_KillAllPlayerUnits();
     lib1B69CECC_gf_ResetGas();
     lib1B69CECC_gf_ResetMinerals();
     lib1B69CECC_gf_InitialiseLobby();
@@ -1040,9 +1069,6 @@ bool lib1B69CECC_gt_DetectVictory_Func (bool testConds, bool runActions) {
 
     // Automatic Variable Declarations
     playergroup autoA6D6F3A3_g;
-    playergroup autoA530C2C5_g;
-    unitgroup auto54E53BBA_g;
-    int auto54E53BBA_u;
 
     // Variable Initialization
 
@@ -1068,22 +1094,6 @@ bool lib1B69CECC_gt_DetectVictory_Func (bool testConds, bool runActions) {
             SoundPlay(SoundLink("CommandCenter_Movement2", -1), PlayerGroupAll(), 100.0, 0.0);
             lib1B69CECC_gf_StopVictoryDetection();
             lv_restartLobby = true;
-        }
-
-    }
-    autoA530C2C5_g = lib1B69CECC_gv_pLAYERS;
-    lv_aPlayer = -1;
-    while (true) {
-        lv_aPlayer = PlayerGroupNextPlayer(autoA530C2C5_g, lv_aPlayer);
-        if (lv_aPlayer < 0) { break; }
-        if ((lv_restartLobby == true)) {
-            auto54E53BBA_g = UnitGroupFilterPlayer(UnitGroup(null, lv_aPlayer, RegionEntireMap(), UnitFilter(0, 0, (1 << c_targetFilterAlly) | (1 << c_targetFilterNeutral) | (1 << c_targetFilterEnemy) | (1 << c_targetFilterRawResource) | (1 << c_targetFilterUncommandable), (1 << (c_targetFilterDead - 32))), 0), lv_aPlayer, 0);
-            auto54E53BBA_u = UnitGroupCount(auto54E53BBA_g, c_unitCountAll);
-            for (;; auto54E53BBA_u -= 1) {
-                lv_aUnit = UnitGroupUnitFromEnd(auto54E53BBA_g, auto54E53BBA_u);
-                if (lv_aUnit == null) { break; }
-                UnitKill(lv_aUnit);
-            }
         }
 
     }
