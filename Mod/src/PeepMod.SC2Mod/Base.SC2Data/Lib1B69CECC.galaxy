@@ -1216,13 +1216,6 @@ void lib1B69CECC_gt_ClickConfirm_Init () {
 bool lib1B69CECC_gt_RaceSelected_Func (bool testConds, bool runActions) {
     // Variable Declarations
     int lv_raceIndex;
-    const int lv_rANDOM_INDEX = 0;
-    const int lv_tERRAN_INDEX = 1;
-    const int lv_zERG_INDEX = 2;
-    const int lv_pROTOSS_INDEX = 3;
-    const int lv_gENETRON_INDEX = 4;
-    const int lv_xAYID_INDEX = 5;
-    const int lv_kEIRON_INDEX = 6;
 
     // Automatic Variable Declarations
     // Variable Initialization

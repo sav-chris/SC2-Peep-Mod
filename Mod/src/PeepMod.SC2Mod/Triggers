@@ -1859,7 +1859,6 @@
             <Variable Type="Variable" Library="1B69CECC" Id="637FCE1B"/>
             <Variable Type="Variable" Library="1B69CECC" Id="64EE47DA"/>
             <FunctionCall Type="FunctionCall" Library="1B69CECC" Id="2A765CDC"/>
-            <FunctionCall Type="Comment" Library="1B69CECC" Id="7A9B18F5"/>
             <FunctionCall Type="FunctionCall" Library="1B69CECC" Id="41BAF3D9"/>
         </Element>
         <Element Type="Variable" Id="1F7E2EBE">
@@ -2143,11 +2142,6 @@
         <Element Type="Param" Id="CF59EF7D">
             <ParameterDef Type="ParamDef" Library="1B69CECC" Id="027D678B"/>
             <Variable Type="Variable" Library="1B69CECC" Id="09665E72"/>
-        </Element>
-        <Element Type="Comment" Id="7A9B18F5">
-            <Comment>
-                TO DO: Use constants
-            </Comment>
         </Element>
         <Element Type="FunctionCall" Id="41BAF3D9">
             <FunctionDef Type="FunctionDef" Library="Ntve" Id="F1C17BBA"/>
@@ -7178,7 +7172,6 @@
             <FunctionCall Type="FunctionCall" Library="1B69CECC" Id="DB4DFDDD"/>
             <FunctionCall Type="FunctionCall" Library="1B69CECC" Id="736D3E15"/>
             <FunctionCall Type="FunctionCall" Library="1B69CECC" Id="182B0CA6"/>
-            <FunctionCall Type="Comment" Library="1B69CECC" Id="FD5CC9F6"/>
         </Element>
         <Element Type="ParamDef" Id="F0D23AE7">
             <ParameterType>
@@ -7304,11 +7297,6 @@
         <Element Type="Param" Id="D6DA4B14">
             <ParameterDef Type="ParamDef" Library="Ntve" Id="3A302059"/>
             <Preset Type="PresetValue" Library="Ntve" Id="00000121"/>
-        </Element>
-        <Element Type="Comment" Id="FD5CC9F6">
-            <Comment>
-                TO DO: Test play button still works for next game
-            </Comment>
         </Element>
         <Element Type="Category" Id="FCC36B1F">
             <Item Type="Variable" Library="1B69CECC" Id="07D8B4C3"/>
@@ -7597,13 +7585,6 @@
         </Element>
         <Element Type="Trigger" Id="E6B75ED0">
             <Variable Type="Variable" Library="1B69CECC" Id="2166B8DA"/>
-            <Variable Type="Variable" Library="1B69CECC" Id="0F3585DE"/>
-            <Variable Type="Variable" Library="1B69CECC" Id="FC6B090B"/>
-            <Variable Type="Variable" Library="1B69CECC" Id="654BB79A"/>
-            <Variable Type="Variable" Library="1B69CECC" Id="9EB76CC6"/>
-            <Variable Type="Variable" Library="1B69CECC" Id="2A06ABDA"/>
-            <Variable Type="Variable" Library="1B69CECC" Id="994B4BC7"/>
-            <Variable Type="Variable" Library="1B69CECC" Id="A24ED61B"/>
             <Event Type="FunctionCall" Library="1B69CECC" Id="B5404BAE"/>
             <Condition Type="FunctionCall" Library="1B69CECC" Id="9FBF7276"/>
             <Action Type="Comment" Library="1B69CECC" Id="DC8F8CFB"/>
@@ -7618,83 +7599,6 @@
         </Element>
         <Element Type="Param" Id="512E06B7">
             <Value>0</Value>
-            <ValueType Type="int"/>
-        </Element>
-        <Element Type="Variable" Id="0F3585DE">
-            <VariableType>
-                <Type Value="int"/>
-                <Constant/>
-            </VariableType>
-            <Value Type="Param" Library="1B69CECC" Id="9772FE67"/>
-        </Element>
-        <Element Type="Param" Id="9772FE67">
-            <Value>0</Value>
-            <ValueType Type="int"/>
-        </Element>
-        <Element Type="Variable" Id="FC6B090B">
-            <VariableType>
-                <Type Value="int"/>
-                <Constant/>
-            </VariableType>
-            <Value Type="Param" Library="1B69CECC" Id="EB24B6F1"/>
-        </Element>
-        <Element Type="Param" Id="EB24B6F1">
-            <Value>1</Value>
-            <ValueType Type="int"/>
-        </Element>
-        <Element Type="Variable" Id="654BB79A">
-            <VariableType>
-                <Type Value="int"/>
-                <Constant/>
-            </VariableType>
-            <Value Type="Param" Library="1B69CECC" Id="17F5D9E2"/>
-        </Element>
-        <Element Type="Param" Id="17F5D9E2">
-            <Value>2</Value>
-            <ValueType Type="int"/>
-        </Element>
-        <Element Type="Variable" Id="9EB76CC6">
-            <VariableType>
-                <Type Value="int"/>
-                <Constant/>
-            </VariableType>
-            <Value Type="Param" Library="1B69CECC" Id="A03F42F3"/>
-        </Element>
-        <Element Type="Param" Id="A03F42F3">
-            <Value>3</Value>
-            <ValueType Type="int"/>
-        </Element>
-        <Element Type="Variable" Id="2A06ABDA">
-            <VariableType>
-                <Type Value="int"/>
-                <Constant/>
-            </VariableType>
-            <Value Type="Param" Library="1B69CECC" Id="0D4C4AC1"/>
-        </Element>
-        <Element Type="Param" Id="0D4C4AC1">
-            <Value>4</Value>
-            <ValueType Type="int"/>
-        </Element>
-        <Element Type="Variable" Id="994B4BC7">
-            <VariableType>
-                <Type Value="int"/>
-                <Constant/>
-            </VariableType>
-            <Value Type="Param" Library="1B69CECC" Id="C4668479"/>
-        </Element>
-        <Element Type="Param" Id="C4668479">
-            <Value>5</Value>
-            <ValueType Type="int"/>
-        </Element>
-        <Element Type="Variable" Id="A24ED61B">
-            <VariableType>
-                <Type Value="int"/>
-                <Constant/>
-            </VariableType>
-            <Value Type="Param" Library="1B69CECC" Id="BAA7ED5D"/>
-        </Element>
-        <Element Type="Param" Id="BAA7ED5D">
-            <Value>6</Value>
             <ValueType Type="int"/>
         </Element>
         <Element Type="FunctionCall" Id="B5404BAE">
@@ -7738,7 +7642,7 @@
         </Element>
         <Element Type="Comment" Id="DC8F8CFB">
             <Comment>
-                TO DO: Need to be mindful that the UI index and the race index are not the same thing. Fix this
+                Need to be mindful that the UI index and the race index are not the same thing. 
             </Comment>
         </Element>
         <Element Type="FunctionCall" Id="7EB54493">
