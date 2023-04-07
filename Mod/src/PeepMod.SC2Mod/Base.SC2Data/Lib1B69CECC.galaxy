@@ -783,10 +783,10 @@ bool lib1B69CECC_gt_DetectVictory_Func (bool testConds, bool runActions) {
     int lv_aPlayer;
 
     // Automatic Variable Declarations
-    playergroup auto1B4FB753_g;
-    playergroup auto7B8BABCF_g;
-    unitgroup auto0E9348F4_g;
-    int auto0E9348F4_u;
+    playergroup autoA6D6F3A3_g;
+    playergroup autoA530C2C5_g;
+    unitgroup auto54E53BBA_g;
+    int auto54E53BBA_u;
 
     // Variable Initialization
 
@@ -803,10 +803,10 @@ bool lib1B69CECC_gt_DetectVictory_Func (bool testConds, bool runActions) {
     }
 
     lv_restartLobby = false;
-    auto1B4FB753_g = lib1B69CECC_gv_pLAYERS;
+    autoA6D6F3A3_g = lib1B69CECC_gv_pLAYERS;
     lv_aPlayer = -1;
     while (true) {
-        lv_aPlayer = PlayerGroupNextPlayer(auto1B4FB753_g, lv_aPlayer);
+        lv_aPlayer = PlayerGroupNextPlayer(autoA6D6F3A3_g, lv_aPlayer);
         if (lv_aPlayer < 0) { break; }
         if ((UnitGroupCount(UnitGroup(null, lv_aPlayer, RegionEntireMap(), UnitFilter((1 << c_targetFilterStructure) | (1 << c_targetFilterPreventDefeat), 0, (1 << c_targetFilterMissile), (1 << (c_targetFilterDead - 32)) | (1 << (c_targetFilterHidden - 32))), 0), c_unitCountAlive) == 0)) {
             SoundPlay(SoundLink("CommandCenter_Movement2", -1), PlayerGroupAll(), 100.0, 0.0);
@@ -815,16 +815,16 @@ bool lib1B69CECC_gt_DetectVictory_Func (bool testConds, bool runActions) {
         }
 
     }
-    auto7B8BABCF_g = lib1B69CECC_gv_pLAYERS;
+    autoA530C2C5_g = lib1B69CECC_gv_pLAYERS;
     lv_aPlayer = -1;
     while (true) {
-        lv_aPlayer = PlayerGroupNextPlayer(auto7B8BABCF_g, lv_aPlayer);
+        lv_aPlayer = PlayerGroupNextPlayer(autoA530C2C5_g, lv_aPlayer);
         if (lv_aPlayer < 0) { break; }
         if ((lv_restartLobby == true)) {
-            auto0E9348F4_g = UnitGroupFilterPlayer(UnitGroup(null, lv_aPlayer, RegionEntireMap(), UnitFilter(0, 0, (1 << c_targetFilterAlly) | (1 << c_targetFilterNeutral) | (1 << c_targetFilterEnemy) | (1 << c_targetFilterRawResource) | (1 << c_targetFilterHarvestableResource) | (1 << c_targetFilterUncommandable), (1 << (c_targetFilterDead - 32))), 0), lv_aPlayer, 0);
-            auto0E9348F4_u = UnitGroupCount(auto0E9348F4_g, c_unitCountAll);
-            for (;; auto0E9348F4_u -= 1) {
-                lv_aUnit = UnitGroupUnitFromEnd(auto0E9348F4_g, auto0E9348F4_u);
+            auto54E53BBA_g = UnitGroupFilterPlayer(UnitGroup(null, lv_aPlayer, RegionEntireMap(), UnitFilter(0, 0, (1 << c_targetFilterAlly) | (1 << c_targetFilterNeutral) | (1 << c_targetFilterEnemy) | (1 << c_targetFilterRawResource) | (1 << c_targetFilterHarvestableResource) | (1 << c_targetFilterUncommandable), (1 << (c_targetFilterDead - 32))), 0), lv_aPlayer, 0);
+            auto54E53BBA_u = UnitGroupCount(auto54E53BBA_g, c_unitCountAll);
+            for (;; auto54E53BBA_u -= 1) {
+                lv_aUnit = UnitGroupUnitFromEnd(auto54E53BBA_g, auto54E53BBA_u);
                 if (lv_aUnit == null) { break; }
                 UnitKill(lv_aUnit);
             }
@@ -842,7 +842,7 @@ bool lib1B69CECC_gt_DetectVictory_Func (bool testConds, bool runActions) {
 //--------------------------------------------------------------------------------------------------
 void lib1B69CECC_gt_DetectVictory_Init () {
     lib1B69CECC_gt_DetectVictory = TriggerCreate("lib1B69CECC_gt_DetectVictory_Func");
-    TriggerAddEventTimePeriodic(lib1B69CECC_gt_DetectVictory, 5.0, c_timeGame);
+    TriggerAddEventUnitDied(lib1B69CECC_gt_DetectVictory, null);
 }
 
 //--------------------------------------------------------------------------------------------------
