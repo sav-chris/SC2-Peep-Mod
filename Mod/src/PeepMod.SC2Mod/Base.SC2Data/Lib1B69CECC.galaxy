@@ -137,6 +137,7 @@ void lib1B69CECC_gf_RecordStartingMapFeatures () {
     fixed lv_facing;
     int lv_index;
     string lv_mineral_field_key;
+    int lv_mineral_quantity;
 
     // Automatic Variable Declarations
     unitgroup autoC836BB47_g;
@@ -152,15 +153,14 @@ void lib1B69CECC_gf_RecordStartingMapFeatures () {
     for (;; autoC836BB47_u -= 1) {
         autoC836BB47_var = UnitGroupUnitFromEnd(autoC836BB47_g, autoC836BB47_u);
         if (autoC836BB47_var == null) { break; }
-        if ((UnitGetType(autoC836BB47_var) == "VespeneGeyser")) {
-        }
-
-        if (((UnitGetType(autoC836BB47_var) == "BattleStationMineralField") || (UnitGetType(autoC836BB47_var) == "BattleStationMineralField750") || (UnitGetType(autoC836BB47_var) == "LabMineralField750") || (UnitGetType(autoC836BB47_var) == "LabMineralField") || (UnitGetType(autoC836BB47_var) == "MineralField") || (UnitGetType(autoC836BB47_var) == "MineralField450") || (UnitGetType(autoC836BB47_var) == "MineralField750") || (UnitGetType(autoC836BB47_var) == "MineralFieldOpaque900") || (UnitGetType(autoC836BB47_var) == "MineralFieldOpaque") || (UnitGetType(autoC836BB47_var) == "PurifierMineralField") || (UnitGetType(autoC836BB47_var) == "PurifierMineralField750"))) {
+        if ((lib1B69CECC_gf_is_mineral_field(autoC836BB47_var) == true)) {
             lv_pos = UnitGetPosition(autoC836BB47_var);
             lv_facing = UnitGetFacing(autoC836BB47_var);
             lv_index = (lv_index + 1);
             lv_mineral_field_key = lib1B69CECC_gf_compute_mineral_field_key(lv_index);
             DataTableSetPoint(true, lv_mineral_field_key, lv_pos);
+            lv_mineral_quantity = UnitGetPropertyInt(autoC836BB47_var, c_unitPropResources, c_unitPropCurrent);
+            DataTableSetInt(true, lib1B69CECC_gf_compute_mineral_quantity_key(lv_index), lv_mineral_quantity);
         }
 
         if (((UnitGetType(autoC836BB47_var) == "PurifierRichMineralField") || (UnitGetType(autoC836BB47_var) == "PurifierRichMineralField750") || (UnitGetType(autoC836BB47_var) == "RichMineralField") || (UnitGetType(autoC836BB47_var) == "RichMineralField750"))) {
@@ -201,24 +201,36 @@ void lib1B69CECC_gf_ResetMinerals () {
     point lv_pos;
     int lv_mineral_field_count;
     int lv_index;
+    int lv_mineral_quantity;
 
     // Automatic Variable Declarations
+    unitgroup auto68AF3500_g;
+    int auto68AF3500_u;
+    unit auto68AF3500_var;
     int auto0E57139E_ae;
     const int auto0E57139E_ai = 1;
 
     // Variable Initialization
 
     // Implementation
+    auto68AF3500_g = UnitGroup(null, c_playerAny, RegionEntireMap(), UnitFilter((1 << c_targetFilterHarvestableResource), 0, 0, 0), 0);
+    auto68AF3500_u = UnitGroupCount(auto68AF3500_g, c_unitCountAll);
+    for (;; auto68AF3500_u -= 1) {
+        auto68AF3500_var = UnitGroupUnitFromEnd(auto68AF3500_g, auto68AF3500_u);
+        if (auto68AF3500_var == null) { break; }
+        if (((UnitGetType(auto68AF3500_var) == "BattleStationMineralField") || (UnitGetType(auto68AF3500_var) == "BattleStationMineralField750") || (UnitGetType(auto68AF3500_var) == "LabMineralField750") || (UnitGetType(auto68AF3500_var) == "LabMineralField") || (UnitGetType(auto68AF3500_var) == "MineralField") || (UnitGetType(auto68AF3500_var) == "MineralField450") || (UnitGetType(auto68AF3500_var) == "MineralField750") || (UnitGetType(auto68AF3500_var) == "MineralFieldOpaque900") || (UnitGetType(auto68AF3500_var) == "MineralFieldOpaque") || (UnitGetType(auto68AF3500_var) == "PurifierMineralField") || (UnitGetType(auto68AF3500_var) == "PurifierMineralField750"))) {
+            UnitRemove(auto68AF3500_var);
+        }
+
+    }
     lv_mineral_field_count = DataTableGetInt(true, lv_mineral_field_count_key);
     auto0E57139E_ae = lv_mineral_field_count;
     lv_index = 1;
     for ( ; ( (auto0E57139E_ai >= 0 && lv_index <= auto0E57139E_ae) || (auto0E57139E_ai < 0 && lv_index >= auto0E57139E_ae) ) ; lv_index += auto0E57139E_ai ) {
         lv_pos = DataTableGetPoint(true, lib1B69CECC_gf_compute_mineral_field_key(lv_index));
-        if (true) {
-        }
-
+        lv_mineral_quantity = DataTableGetInt(true, lib1B69CECC_gf_compute_mineral_quantity_key(lv_index));
         UnitCreate(1, "MineralField", c_unitCreateIgnorePlacement, 0, lv_pos, 0.0);
-        UnitSetPropertyFixed(UnitLastCreated(), c_unitPropResources, 5000.0);
+        UnitSetPropertyFixed(UnitLastCreated(), c_unitPropResources, lv_mineral_quantity);
     }
 }
 
@@ -482,6 +494,17 @@ void lib1B69CECC_gf_InitialiseLobby () {
     lib1B69CECC_gf_ShowLobbyUI();
 }
 
+bool lib1B69CECC_gf_is_mineral_field (unit lp_unit) {
+    // Automatic Variable Declarations
+    // Implementation
+    if (((UnitGetType(lp_unit) == "BattleStationMineralField") || (UnitGetType(lp_unit) == "BattleStationMineralField750") || (UnitGetType(lp_unit) == "LabMineralField750") || (UnitGetType(lp_unit) == "LabMineralField") || (UnitGetType(lp_unit) == "MineralField") || (UnitGetType(lp_unit) == "MineralField450") || (UnitGetType(lp_unit) == "MineralField750") || (UnitGetType(lp_unit) == "MineralFieldOpaque900") || (UnitGetType(lp_unit) == "MineralFieldOpaque") || (UnitGetType(lp_unit) == "PurifierMineralField") || (UnitGetType(lp_unit) == "PurifierMineralField750"))) {
+        return true;
+    }
+    else {
+        return false;
+    }
+}
+
 string lib1B69CECC_gf_compute_player_race_key (int lp_player) {
     // Automatic Variable Declarations
     // Implementation
@@ -492,6 +515,12 @@ string lib1B69CECC_gf_compute_mineral_field_key (int lp_mineralIndex) {
     // Automatic Variable Declarations
     // Implementation
     return ("mineral_field_" + IntToString(lp_mineralIndex));
+}
+
+string lib1B69CECC_gf_compute_mineral_quantity_key (int lp_mineralIndex) {
+    // Automatic Variable Declarations
+    // Implementation
+    return ("mineral_quantity_" + IntToString(lp_mineralIndex));
 }
 
 int lib1B69CECC_gf_compute_race_index (string lp_race) {
