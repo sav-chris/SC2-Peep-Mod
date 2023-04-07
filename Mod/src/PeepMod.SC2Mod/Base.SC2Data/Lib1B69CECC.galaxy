@@ -349,6 +349,38 @@ void lib1B69CECC_gf_DisableResourceTrading () {
     }
 }
 
+void lib1B69CECC_gf_CleanUpCreep () {
+    // Automatic Variable Declarations
+    // Implementation
+    CreepModify(RegionGetCenter(RegionEntireMap()), 50000.0, false, false);
+}
+
+void lib1B69CECC_gf_ResetFogofWar () {
+    // Automatic Variable Declarations
+    playergroup autoEE90B737_g;
+    int autoEE90B737_var;
+    playergroup autoB07B4D9F_g;
+    int autoB07B4D9F_var;
+
+    // Implementation
+    Wait(0.1, c_timeGame);
+    autoEE90B737_g = PlayerGroupAll();
+    autoEE90B737_var = -1;
+    while (true) {
+        autoEE90B737_var = PlayerGroupNextPlayer(autoEE90B737_g, autoEE90B737_var);
+        if (autoEE90B737_var < 0) { break; }
+        VisRevealArea(autoEE90B737_var, RegionEntireMap(), 0.1, false);
+    }
+    Wait(0.2, c_timeGame);
+    autoB07B4D9F_g = PlayerGroupAll();
+    autoB07B4D9F_var = -1;
+    while (true) {
+        autoB07B4D9F_var = PlayerGroupNextPlayer(autoB07B4D9F_g, autoB07B4D9F_var);
+        if (autoB07B4D9F_var < 0) { break; }
+        VisExploreArea(autoB07B4D9F_var, RegionEntireMap(), false, false);
+    }
+}
+
 void lib1B69CECC_gf_CleanUpPlayersAndObservers () {
     // Automatic Variable Declarations
     // Implementation
@@ -390,7 +422,9 @@ void lib1B69CECC_gf_ResetGame () {
     lib1B69CECC_gf_KillAllPlayerUnits();
     lib1B69CECC_gf_ResetGas();
     lib1B69CECC_gf_ResetMinerals();
+    lib1B69CECC_gf_CleanUpCreep();
     lib1B69CECC_gf_CleanUpPlayersAndObservers();
+    lib1B69CECC_gf_ResetFogofWar();
     lib1B69CECC_gf_InitialiseLobby();
 }
 
@@ -1080,7 +1114,7 @@ bool lib1B69CECC_gt_CleanUpWhenPlayerLeaves_Func (bool testConds, bool runAction
 //--------------------------------------------------------------------------------------------------
 void lib1B69CECC_gt_CleanUpWhenPlayerLeaves_Init () {
     lib1B69CECC_gt_CleanUpWhenPlayerLeaves = TriggerCreate("lib1B69CECC_gt_CleanUpWhenPlayerLeaves_Func");
-    TriggerAddEventPlayerLeft(lib1B69CECC_gt_CleanUpWhenPlayerLeaves, c_playerAny, c_gameResultVictory);
+    TriggerAddEventPlayerLeft(lib1B69CECC_gt_CleanUpWhenPlayerLeaves, c_playerAny, c_gameResultUndecided);
 }
 
 //--------------------------------------------------------------------------------------------------
