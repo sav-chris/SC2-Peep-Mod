@@ -131,8 +131,28 @@ void lib1B69CECC_gf_test_race_integer_conversion () {
     lib1B69CECC_gf_Assert((lib1B69CECC_gf_compute_race_from_index(lib1B69CECC_gf_compute_race_index("Keir")) == "Keir"), StringExternal("Param/Value/lib_1B69CECC_11BD8736"), StringExternal("Param/Value/lib_1B69CECC_316FD8E1"));
 }
 
-void lib1B69CECC_gf_StartNewLobbyScreen () {
+void lib1B69CECC_gf_ResetGas () {
+    // Variable Declarations
+    unit lv_unit;
+
     // Automatic Variable Declarations
+    unitgroup autoCAA5C055_g;
+    int autoCAA5C055_u;
+
+    // Variable Initialization
+
+    // Implementation
+    autoCAA5C055_g = UnitGroup(null, c_playerAny, RegionEntireMap(), UnitFilter((1 << c_targetFilterHarvestableResource), 0, (1 << c_targetFilterMissile), (1 << (c_targetFilterDead - 32)) | (1 << (c_targetFilterHidden - 32))), 0);
+    autoCAA5C055_u = UnitGroupCount(autoCAA5C055_g, c_unitCountAll);
+    for (;; autoCAA5C055_u -= 1) {
+        lv_unit = UnitGroupUnitFromEnd(autoCAA5C055_g, autoCAA5C055_u);
+        if (lv_unit == null) { break; }
+        if (((UnitGetType(lv_unit) == "VespeneGeyser") || (UnitGetType(lv_unit) == "ProtossVespeneGeyser") || (UnitGetType(lv_unit) == "PurifierVespeneGeyser") || (UnitGetType(lv_unit) == "ShakurasVespeneGeyser") || (UnitGetType(lv_unit) == "SpacePlatformGeyser") || (UnitGetType(lv_unit) == "RichVespeneGeyser"))) {
+            TriggerDebugOutput(1, StringExternal("Param/Value/lib_1B69CECC_E9B83434"), true);
+            UnitSetPropertyFixed(lv_unit, c_unitPropResources, 5000.0);
+        }
+
+    }
 }
 
 void lib1B69CECC_gf_InitialiseRaceSelections () {
@@ -152,6 +172,13 @@ void lib1B69CECC_gf_InitialiseRaceSelections () {
         if (lv_aPlayer < 0) { break; }
         DataTableSetInt(true, lib1B69CECC_gf_compute_player_race_key(lv_aPlayer), lib1B69CECC_gf_compute_race_index("Neut"));
     }
+}
+
+void lib1B69CECC_gf_ResetGame () {
+    // Automatic Variable Declarations
+    // Implementation
+    lib1B69CECC_gf_ResetGas();
+    lib1B69CECC_gf_InitialiseLobby();
 }
 
 void lib1B69CECC_gf_StartVictoryDetection () {
@@ -855,7 +882,7 @@ bool lib1B69CECC_gt_DetectVictory_Func (bool testConds, bool runActions) {
         lv_aPlayer = PlayerGroupNextPlayer(autoA530C2C5_g, lv_aPlayer);
         if (lv_aPlayer < 0) { break; }
         if ((lv_restartLobby == true)) {
-            auto54E53BBA_g = UnitGroupFilterPlayer(UnitGroup(null, lv_aPlayer, RegionEntireMap(), UnitFilter(0, 0, (1 << c_targetFilterAlly) | (1 << c_targetFilterNeutral) | (1 << c_targetFilterEnemy) | (1 << c_targetFilterRawResource) | (1 << c_targetFilterHarvestableResource) | (1 << c_targetFilterUncommandable), (1 << (c_targetFilterDead - 32))), 0), lv_aPlayer, 0);
+            auto54E53BBA_g = UnitGroupFilterPlayer(UnitGroup(null, lv_aPlayer, RegionEntireMap(), UnitFilter(0, 0, (1 << c_targetFilterAlly) | (1 << c_targetFilterNeutral) | (1 << c_targetFilterEnemy) | (1 << c_targetFilterRawResource) | (1 << c_targetFilterUncommandable), (1 << (c_targetFilterDead - 32))), 0), lv_aPlayer, 0);
             auto54E53BBA_u = UnitGroupCount(auto54E53BBA_g, c_unitCountAll);
             for (;; auto54E53BBA_u -= 1) {
                 lv_aUnit = UnitGroupUnitFromEnd(auto54E53BBA_g, auto54E53BBA_u);
@@ -867,7 +894,7 @@ bool lib1B69CECC_gt_DetectVictory_Func (bool testConds, bool runActions) {
     }
     if ((lv_restartLobby == true)) {
         SoundPlay(SoundLink("CommandCenter_Movement2", -1), PlayerGroupAll(), 100.0, 0.0);
-        lib1B69CECC_gf_InitialiseLobby();
+        lib1B69CECC_gf_ResetGame();
     }
 
     return true;
