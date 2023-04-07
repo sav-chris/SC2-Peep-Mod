@@ -131,6 +131,47 @@ void lib1B69CECC_gf_test_race_integer_conversion () {
     lib1B69CECC_gf_Assert((lib1B69CECC_gf_compute_race_from_index(lib1B69CECC_gf_compute_race_index("Keir")) == "Keir"), StringExternal("Param/Value/lib_1B69CECC_11BD8736"), StringExternal("Param/Value/lib_1B69CECC_316FD8E1"));
 }
 
+void lib1B69CECC_gf_RecordStartingMapFeatures () {
+    // Variable Declarations
+    point lv_pos;
+    fixed lv_facing;
+    int lv_index;
+    string lv_mineral_field_key;
+
+    // Automatic Variable Declarations
+    unitgroup autoC836BB47_g;
+    int autoC836BB47_u;
+    unit autoC836BB47_var;
+
+    // Variable Initialization
+    lv_mineral_field_key = "";
+
+    // Implementation
+    autoC836BB47_g = UnitGroup(null, c_playerAny, RegionEntireMap(), UnitFilter((1 << c_targetFilterHarvestableResource), 0, 0, 0), 0);
+    autoC836BB47_u = UnitGroupCount(autoC836BB47_g, c_unitCountAll);
+    for (;; autoC836BB47_u -= 1) {
+        autoC836BB47_var = UnitGroupUnitFromEnd(autoC836BB47_g, autoC836BB47_u);
+        if (autoC836BB47_var == null) { break; }
+        if ((UnitGetType(autoC836BB47_var) == "VespeneGeyser")) {
+        }
+
+        if (((UnitGetType(autoC836BB47_var) == "BattleStationMineralField") || (UnitGetType(autoC836BB47_var) == "BattleStationMineralField750") || (UnitGetType(autoC836BB47_var) == "LabMineralField750") || (UnitGetType(autoC836BB47_var) == "LabMineralField") || (UnitGetType(autoC836BB47_var) == "MineralField") || (UnitGetType(autoC836BB47_var) == "MineralField450") || (UnitGetType(autoC836BB47_var) == "MineralField750") || (UnitGetType(autoC836BB47_var) == "MineralFieldOpaque900") || (UnitGetType(autoC836BB47_var) == "MineralFieldOpaque") || (UnitGetType(autoC836BB47_var) == "PurifierMineralField") || (UnitGetType(autoC836BB47_var) == "PurifierMineralField750"))) {
+            lv_pos = UnitGetPosition(autoC836BB47_var);
+            lv_facing = UnitGetFacing(autoC836BB47_var);
+            lv_index = (lv_index + 1);
+            lv_mineral_field_key = lib1B69CECC_gf_compute_mineral_field_key(lv_index);
+            DataTableSetPoint(true, lv_mineral_field_key, lv_pos);
+        }
+
+        if (((UnitGetType(autoC836BB47_var) == "PurifierRichMineralField") || (UnitGetType(autoC836BB47_var) == "PurifierRichMineralField750") || (UnitGetType(autoC836BB47_var) == "RichMineralField") || (UnitGetType(autoC836BB47_var) == "RichMineralField750"))) {
+            lv_pos = UnitGetPosition(autoC836BB47_var);
+            lv_facing = UnitGetFacing(autoC836BB47_var);
+        }
+
+    }
+    DataTableSetInt(true, "mineral_field_count", lv_index);
+}
+
 void lib1B69CECC_gf_ResetGas () {
     // Variable Declarations
     unit lv_unit;
@@ -151,6 +192,33 @@ void lib1B69CECC_gf_ResetGas () {
             UnitSetPropertyFixed(lv_unit, c_unitPropResources, 5000.0);
         }
 
+    }
+}
+
+void lib1B69CECC_gf_ResetMinerals () {
+    // Variable Declarations
+    const string lv_mineral_field_count_key = "mineral_field_count";
+    point lv_pos;
+    int lv_mineral_field_count;
+    int lv_index;
+
+    // Automatic Variable Declarations
+    int auto0E57139E_ae;
+    const int auto0E57139E_ai = 1;
+
+    // Variable Initialization
+
+    // Implementation
+    lv_mineral_field_count = DataTableGetInt(true, lv_mineral_field_count_key);
+    auto0E57139E_ae = lv_mineral_field_count;
+    lv_index = 1;
+    for ( ; ( (auto0E57139E_ai >= 0 && lv_index <= auto0E57139E_ae) || (auto0E57139E_ai < 0 && lv_index >= auto0E57139E_ae) ) ; lv_index += auto0E57139E_ai ) {
+        lv_pos = DataTableGetPoint(true, lib1B69CECC_gf_compute_mineral_field_key(lv_index));
+        if (true) {
+        }
+
+        UnitCreate(1, "MineralField", c_unitCreateIgnorePlacement, 0, lv_pos, 0.0);
+        UnitSetPropertyFixed(UnitLastCreated(), c_unitPropResources, 5000.0);
     }
 }
 
@@ -177,6 +245,7 @@ void lib1B69CECC_gf_ResetGame () {
     // Automatic Variable Declarations
     // Implementation
     lib1B69CECC_gf_ResetGas();
+    lib1B69CECC_gf_ResetMinerals();
     lib1B69CECC_gf_InitialiseLobby();
 }
 
@@ -413,6 +482,82 @@ void lib1B69CECC_gf_InitialiseLobby () {
     lib1B69CECC_gf_ShowLobbyUI();
 }
 
+string lib1B69CECC_gf_compute_player_race_key (int lp_player) {
+    // Automatic Variable Declarations
+    // Implementation
+    return ("race_player_" + IntToString(lp_player));
+}
+
+string lib1B69CECC_gf_compute_mineral_field_key (int lp_mineralIndex) {
+    // Automatic Variable Declarations
+    // Implementation
+    return ("mineral_field_" + IntToString(lp_mineralIndex));
+}
+
+int lib1B69CECC_gf_compute_race_index (string lp_race) {
+    // Automatic Variable Declarations
+    string auto76A18448_val;
+
+    // Implementation
+    auto76A18448_val = lp_race;
+    if (auto76A18448_val == "Neut") {
+        return 1;
+    }
+    else if (auto76A18448_val == "Terr") {
+        return 2;
+    }
+    else if (auto76A18448_val == "Zerg") {
+        return 3;
+    }
+    else if (auto76A18448_val == "Prot") {
+        return 4;
+    }
+    else if (auto76A18448_val == "Gen") {
+        return 5;
+    }
+    else if (auto76A18448_val == "Xayi") {
+        return 6;
+    }
+    else if (auto76A18448_val == "Keir") {
+        return 7;
+    }
+    else {
+        return 1;
+    }
+}
+
+string lib1B69CECC_gf_compute_race_from_index (int lp_race_index) {
+    // Automatic Variable Declarations
+    int auto0B0EF7CF_val;
+
+    // Implementation
+    auto0B0EF7CF_val = lp_race_index;
+    if (auto0B0EF7CF_val == 1) {
+        return "Neut";
+    }
+    else if (auto0B0EF7CF_val == 2) {
+        return "Terr";
+    }
+    else if (auto0B0EF7CF_val == 3) {
+        return "Zerg";
+    }
+    else if (auto0B0EF7CF_val == 4) {
+        return "Prot";
+    }
+    else if (auto0B0EF7CF_val == 5) {
+        return "Gen";
+    }
+    else if (auto0B0EF7CF_val == 6) {
+        return "Xayi";
+    }
+    else if (auto0B0EF7CF_val == 7) {
+        return "Keir";
+    }
+    else {
+        return "Neut";
+    }
+}
+
 void lib1B69CECC_gf_DisableResourceTrading () {
     // Variable Declarations
     int lv_aPlayer;
@@ -598,76 +743,6 @@ void lib1B69CECC_gf_EnableObserverUI (playergroup lp_observers, playergroup lp_p
             if (lv_aPlayer < 0) { break; }
             libNtve_gf_SetAllianceOneWay(lv_aPlayer, lv_aObserver, libNtve_ge_AllianceSetting_AllyWithSharedVision);
         }
-    }
-}
-
-string lib1B69CECC_gf_compute_player_race_key (int lp_player) {
-    // Automatic Variable Declarations
-    // Implementation
-    return ("race_player_" + IntToString(lp_player));
-}
-
-int lib1B69CECC_gf_compute_race_index (string lp_race) {
-    // Automatic Variable Declarations
-    string auto76A18448_val;
-
-    // Implementation
-    auto76A18448_val = lp_race;
-    if (auto76A18448_val == "Neut") {
-        return 1;
-    }
-    else if (auto76A18448_val == "Terr") {
-        return 2;
-    }
-    else if (auto76A18448_val == "Zerg") {
-        return 3;
-    }
-    else if (auto76A18448_val == "Prot") {
-        return 4;
-    }
-    else if (auto76A18448_val == "Gen") {
-        return 5;
-    }
-    else if (auto76A18448_val == "Xayi") {
-        return 6;
-    }
-    else if (auto76A18448_val == "Keir") {
-        return 7;
-    }
-    else {
-        return 1;
-    }
-}
-
-string lib1B69CECC_gf_compute_race_from_index (int lp_race_index) {
-    // Automatic Variable Declarations
-    int auto0B0EF7CF_val;
-
-    // Implementation
-    auto0B0EF7CF_val = lp_race_index;
-    if (auto0B0EF7CF_val == 1) {
-        return "Neut";
-    }
-    else if (auto0B0EF7CF_val == 2) {
-        return "Terr";
-    }
-    else if (auto0B0EF7CF_val == 3) {
-        return "Zerg";
-    }
-    else if (auto0B0EF7CF_val == 4) {
-        return "Prot";
-    }
-    else if (auto0B0EF7CF_val == 5) {
-        return "Gen";
-    }
-    else if (auto0B0EF7CF_val == 6) {
-        return "Xayi";
-    }
-    else if (auto0B0EF7CF_val == 7) {
-        return "Keir";
-    }
-    else {
-        return "Neut";
     }
 }
 
@@ -1062,6 +1137,7 @@ bool lib1B69CECC_gt_MeleeInitialization_Func (bool testConds, bool runActions) {
     GameSetSpeedValue(c_gameSpeedFaster);
     lib1B69CECC_gf_DisableResourceTrading();
     lib1B69CECC_gf_InitialiseRaceSelections();
+    lib1B69CECC_gf_RecordStartingMapFeatures();
     lib1B69CECC_gf_InitialiseLobbyTimer();
     lib1B69CECC_gf_InitialisePlayDialog();
     lib1B69CECC_gf_InitialiseLobby();

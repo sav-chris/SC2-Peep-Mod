@@ -7,6 +7,7 @@ Param/Value/lib_1B69CECC_11BD8736=Test race index conversion
 Param/Value/lib_1B69CECC_158EBFD7=Check 2 players are chosen
 Param/Value/lib_1B69CECC_1E84688D=<img path="Assets\Textures\ui_battlenet_glue_icons_league_gold.dds" alignment="AbsoluteMiddle" width="22" height="22"/> Gold
 Param/Value/lib_1B69CECC_1F8147D0=Show My Debug Message
+Param/Value/lib_1B69CECC_22651FC6=Found Something!!!
 Param/Value/lib_1B69CECC_299A8AD4=<img path="Assets\Textures\ui_battlenet_glue_icons_league_unranked.dds" alignment="AbsoluteMiddle" width="22" height="22"/> Unranked
 Param/Value/lib_1B69CECC_29FB0C40= Passed
 Param/Value/lib_1B69CECC_2F1BA268=Invalid Race Key Computed
@@ -26,6 +27,7 @@ Param/Value/lib_1B69CECC_79FAD5F2=Test Foo Bar : Race
 Param/Value/lib_1B69CECC_7C40F074=Race index mismatch
 Param/Value/lib_1B69CECC_8512A993=Check 4 observers are chosen
 Param/Value/lib_1B69CECC_866ECC49=Test race index conversion
+Param/Value/lib_1B69CECC_8B87FC2A=mineral_field_count: 
 Param/Value/lib_1B69CECC_8C125C91=<img path="Assets\Textures\ui_battlenet_glue_icons_league_grandmaster.dds" alignment="AbsoluteMiddle" width="22" height="22"/> Grand Master
 Param/Value/lib_1B69CECC_8C525690=Race index mismatch
 Param/Value/lib_1B69CECC_92097C58=Error: Failed to choose  observers
