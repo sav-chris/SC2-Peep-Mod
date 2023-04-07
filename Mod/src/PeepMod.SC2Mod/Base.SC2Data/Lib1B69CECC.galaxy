@@ -1111,6 +1111,8 @@ bool lib1B69CECC_gt_HandleTimeOut_Func (bool testConds, bool runActions) {
 
     lib1B69CECC_gf_StopTimer();
     lib1B69CECC_gf_InitialiseGame(lib1B69CECC_gv_theLobby.lv_players);
+    DialogControlSetVisible(lib1B69CECC_gv_ui_play_confirm, PlayerGroupAll(), true);
+    DialogControlSetVisible(lib1B69CECC_gv_ui_play_cancel, PlayerGroupAll(), false);
     return true;
 }
 

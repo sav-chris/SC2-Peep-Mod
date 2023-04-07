@@ -1520,6 +1520,7 @@
             <Variable Type="Variable" Library="1B69CECC" Id="DE3224A4"/>
         </Element>
         <Element Type="Category" Id="D0D45F53">
+            <Item Type="Comment" Library="1B69CECC" Id="F53DED49"/>
             <Item Type="FunctionDef" Library="1B69CECC" Id="B1CBA66B"/>
             <Item Type="FunctionDef" Library="1B69CECC" Id="B7EFE120"/>
             <Item Type="FunctionDef" Library="1B69CECC" Id="C475C5B7"/>
@@ -1529,6 +1530,11 @@
             <Item Type="FunctionDef" Library="1B69CECC" Id="3ACE5E0D"/>
             <Item Type="Category" Library="1B69CECC" Id="87834A63"/>
             <Item Type="Category" Library="1B69CECC" Id="D1FBC5FB"/>
+        </Element>
+        <Element Type="Comment" Id="F53DED49">
+            <Comment>
+                These 2 functions very similar, could be refactored?
+            </Comment>
         </Element>
         <Element Type="FunctionDef" Id="B1CBA66B">
             <FlagAction/>
@@ -4422,6 +4428,8 @@
             <Event Type="FunctionCall" Library="1B69CECC" Id="576ED980"/>
             <Action Type="FunctionCall" Library="1B69CECC" Id="390701D6"/>
             <Action Type="FunctionCall" Library="1B69CECC" Id="B5DA9AB0"/>
+            <Action Type="FunctionCall" Library="1B69CECC" Id="B945DD9A"/>
+            <Action Type="FunctionCall" Library="1B69CECC" Id="78B367CD"/>
         </Element>
         <Element Type="FunctionCall" Id="576ED980">
             <FunctionDef Type="FunctionDef" Library="Ntve" Id="00000049"/>
@@ -4449,6 +4457,48 @@
         </Element>
         <Element Type="Param" Id="12497061">
             <Variable Type="Variable" Library="1B69CECC" Id="DE3224A4"/>
+        </Element>
+        <Element Type="FunctionCall" Id="B945DD9A">
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="E37ACA0E"/>
+            <Parameter Type="Param" Library="1B69CECC" Id="402A9007"/>
+            <Parameter Type="Param" Library="1B69CECC" Id="B1AA5548"/>
+            <Parameter Type="Param" Library="1B69CECC" Id="3F65C2A2"/>
+        </Element>
+        <Element Type="Param" Id="402A9007">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="21F36F40"/>
+            <Variable Type="Variable" Library="1B69CECC" Id="0987CF58"/>
+        </Element>
+        <Element Type="Param" Id="B1AA5548">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="0EAACCBD"/>
+            <FunctionCall Type="FunctionCall" Library="1B69CECC" Id="2ED33707"/>
+        </Element>
+        <Element Type="FunctionCall" Id="2ED33707">
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="00000192"/>
+        </Element>
+        <Element Type="Param" Id="3F65C2A2">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="3A302059"/>
+            <Preset Type="PresetValue" Library="Ntve" Id="00000120"/>
+        </Element>
+        <Element Type="FunctionCall" Id="78B367CD">
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="E37ACA0E"/>
+            <Parameter Type="Param" Library="1B69CECC" Id="599E4135"/>
+            <Parameter Type="Param" Library="1B69CECC" Id="168F49BE"/>
+            <Parameter Type="Param" Library="1B69CECC" Id="96579BCE"/>
+        </Element>
+        <Element Type="Param" Id="599E4135">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="21F36F40"/>
+            <Variable Type="Variable" Library="1B69CECC" Id="C2249D66"/>
+        </Element>
+        <Element Type="Param" Id="168F49BE">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="0EAACCBD"/>
+            <FunctionCall Type="FunctionCall" Library="1B69CECC" Id="4B34A65F"/>
+        </Element>
+        <Element Type="FunctionCall" Id="4B34A65F">
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="00000192"/>
+        </Element>
+        <Element Type="Param" Id="96579BCE">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="3A302059"/>
+            <Preset Type="PresetValue" Library="Ntve" Id="00000121"/>
         </Element>
         <Element Type="FunctionDef" Id="C09C6FC6">
             <FlagCall/>
@@ -5725,6 +5775,7 @@
             <FunctionDef Type="FunctionDef" Library="1B69CECC" Id="7D8DD229"/>
         </Element>
         <Element Type="Category" Id="BB7EC55C">
+            <Item Type="Comment" Library="1B69CECC" Id="751953D8"/>
             <Item Type="FunctionDef" Library="1B69CECC" Id="9CD93AE9"/>
             <Item Type="FunctionDef" Library="1B69CECC" Id="49198F5C"/>
             <Item Type="FunctionDef" Library="1B69CECC" Id="36C82135"/>
@@ -5734,6 +5785,11 @@
             <Item Type="FunctionDef" Library="1B69CECC" Id="C932414F"/>
             <Item Type="FunctionDef" Library="1B69CECC" Id="756D43C4"/>
             <Item Type="FunctionDef" Library="1B69CECC" Id="888C71BA"/>
+        </Element>
+        <Element Type="Comment" Id="751953D8">
+            <Comment>
+                Some similar funtions in here, could be refactored?
+            </Comment>
         </Element>
         <Element Type="FunctionDef" Id="9CD93AE9">
             <FlagCall/>
