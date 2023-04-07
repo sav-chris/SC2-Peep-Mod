@@ -48,6 +48,7 @@ FunctionDef/Name/lib_1B69CECC_BE156E72=time_remaining
 FunctionDef/Name/lib_1B69CECC_BE5DF252=Initialise Game
 FunctionDef/Name/lib_1B69CECC_C09C6FC6=IsEnoughPlayersToStart
 FunctionDef/Name/lib_1B69CECC_C290BB0B=ClearLobby
+FunctionDef/Name/lib_1B69CECC_C475C5B7=Delete All Mineral Fields
 FunctionDef/Name/lib_1B69CECC_C4AAA43E=HideTimerWindow
 FunctionDef/Name/lib_1B69CECC_C6AFB767=Disable Resource Trading
 FunctionDef/Name/lib_1B69CECC_E28C1E67=Reset Game
