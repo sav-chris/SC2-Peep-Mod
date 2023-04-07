@@ -8,7 +8,6 @@
 <Race id="Gen"/>
 <Race id="Xayi"/>
 <Race id="Keir"/>
-<Sound id="CommandCenter_Movement2"/>
 <Unit id="RichMineralField"/>
 <Unit id="MineralField"/>
 </Preload>

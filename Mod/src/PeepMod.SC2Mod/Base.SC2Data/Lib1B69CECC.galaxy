@@ -349,6 +349,13 @@ void lib1B69CECC_gf_DisableResourceTrading () {
     }
 }
 
+void lib1B69CECC_gf_CleanUpPlayersAndObservers () {
+    // Automatic Variable Declarations
+    // Implementation
+    lib1B69CECC_gv_pLAYERS = PlayerGroupEmpty();
+    lib1B69CECC_gv_oBSERVERS = PlayerGroupEmpty();
+}
+
 void lib1B69CECC_gf_KillAllPlayerUnits () {
     // Variable Declarations
     unit lv_aUnit;
@@ -383,6 +390,7 @@ void lib1B69CECC_gf_ResetGame () {
     lib1B69CECC_gf_KillAllPlayerUnits();
     lib1B69CECC_gf_ResetGas();
     lib1B69CECC_gf_ResetMinerals();
+    lib1B69CECC_gf_CleanUpPlayersAndObservers();
     lib1B69CECC_gf_InitialiseLobby();
 }
 
@@ -396,12 +404,6 @@ void lib1B69CECC_gf_StopVictoryDetection () {
     // Automatic Variable Declarations
     // Implementation
     lib1B69CECC_gv_DETECT_VICTORY = false;
-}
-
-void lib1B69CECC_gf_HandleVictory () {
-    // Automatic Variable Declarations
-    // Implementation
-    SoundPlay(SoundLink("CommandCenter_Movement2", -1), PlayerGroupAll(), 100.0, 0.0);
 }
 
 void lib1B69CECC_gf_InitialiseLobbyTimer () {
@@ -1020,6 +1022,34 @@ void lib1B69CECC_gt_StartGameTrigger_Init () {
 }
 
 //--------------------------------------------------------------------------------------------------
+// Trigger: Detect GG
+//--------------------------------------------------------------------------------------------------
+bool lib1B69CECC_gt_DetectGG_Func (bool testConds, bool runActions) {
+    // Automatic Variable Declarations
+    // Conditions
+    if (testConds) {
+        if (!((PlayerGroupHasPlayer(lib1B69CECC_gv_pLAYERS, EventPlayer()) == true))) {
+            return false;
+        }
+    }
+
+    // Actions
+    if (!runActions) {
+        return true;
+    }
+
+    TriggerDebugOutput(1, StringExternal("Param/Value/lib_1B69CECC_3A1A2DE5"), true);
+    return true;
+}
+
+//--------------------------------------------------------------------------------------------------
+void lib1B69CECC_gt_DetectGG_Init () {
+    lib1B69CECC_gt_DetectGG = TriggerCreate("lib1B69CECC_gt_DetectGG_Func");
+    TriggerAddEventChatMessage(lib1B69CECC_gt_DetectGG, c_playerAny, "gg", true);
+    TriggerAddEventChatMessage(lib1B69CECC_gt_DetectGG, c_playerAny, "GG", true);
+}
+
+//--------------------------------------------------------------------------------------------------
 // Trigger: Clean Up When Player Leaves
 //--------------------------------------------------------------------------------------------------
 bool lib1B69CECC_gt_CleanUpWhenPlayerLeaves_Func (bool testConds, bool runActions) {
@@ -1274,6 +1304,7 @@ void lib1B69CECC_InitTriggers () {
     lib1B69CECC_gt_AddAITrigger_Init();
     lib1B69CECC_gt_AddAITrigger2_Init();
     lib1B69CECC_gt_StartGameTrigger_Init();
+    lib1B69CECC_gt_DetectGG_Init();
     lib1B69CECC_gt_CleanUpWhenPlayerLeaves_Init();
     lib1B69CECC_gt_DetectVictory_Init();
     lib1B69CECC_gt_HandleTimeOut_Init();
