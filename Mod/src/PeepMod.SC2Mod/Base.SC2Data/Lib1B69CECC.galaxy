@@ -774,6 +774,40 @@ void lib1B69CECC_gt_StartGameTrigger_Init () {
 }
 
 //--------------------------------------------------------------------------------------------------
+// Trigger: Clean Up When Player Leaves
+//--------------------------------------------------------------------------------------------------
+bool lib1B69CECC_gt_CleanUpWhenPlayerLeaves_Func (bool testConds, bool runActions) {
+    // Variable Declarations
+    unit lv_unit;
+
+    // Automatic Variable Declarations
+    unitgroup auto5DC909E3_g;
+    int auto5DC909E3_u;
+
+    // Variable Initialization
+
+    // Actions
+    if (!runActions) {
+        return true;
+    }
+
+    auto5DC909E3_g = UnitGroupFilterPlayer(UnitGroup(null, EventPlayer(), RegionEntireMap(), UnitFilter(0, 0, (1 << c_targetFilterAlly) | (1 << c_targetFilterNeutral) | (1 << c_targetFilterEnemy) | (1 << c_targetFilterRawResource) | (1 << c_targetFilterHarvestableResource) | (1 << c_targetFilterUncommandable), (1 << (c_targetFilterDead - 32))), 0), EventPlayer(), 0);
+    auto5DC909E3_u = UnitGroupCount(auto5DC909E3_g, c_unitCountAll);
+    for (;; auto5DC909E3_u -= 1) {
+        lv_unit = UnitGroupUnitFromEnd(auto5DC909E3_g, auto5DC909E3_u);
+        if (lv_unit == null) { break; }
+        UnitKill(lv_unit);
+    }
+    return true;
+}
+
+//--------------------------------------------------------------------------------------------------
+void lib1B69CECC_gt_CleanUpWhenPlayerLeaves_Init () {
+    lib1B69CECC_gt_CleanUpWhenPlayerLeaves = TriggerCreate("lib1B69CECC_gt_CleanUpWhenPlayerLeaves_Func");
+    TriggerAddEventPlayerLeft(lib1B69CECC_gt_CleanUpWhenPlayerLeaves, c_playerAny, c_gameResultVictory);
+}
+
+//--------------------------------------------------------------------------------------------------
 // Trigger: Detect Victory
 //--------------------------------------------------------------------------------------------------
 bool lib1B69CECC_gt_DetectVictory_Func (bool testConds, bool runActions) {
@@ -1019,6 +1053,7 @@ void lib1B69CECC_InitTriggers () {
     lib1B69CECC_gt_AddAITrigger_Init();
     lib1B69CECC_gt_AddAITrigger2_Init();
     lib1B69CECC_gt_StartGameTrigger_Init();
+    lib1B69CECC_gt_CleanUpWhenPlayerLeaves_Init();
     lib1B69CECC_gt_DetectVictory_Init();
     lib1B69CECC_gt_HandleTimeOut_Init();
     lib1B69CECC_gt_ClickHelp_Init();
