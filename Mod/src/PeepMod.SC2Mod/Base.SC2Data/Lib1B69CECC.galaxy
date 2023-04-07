@@ -804,13 +804,15 @@ void lib1B69CECC_gf_ShowLobbyUI () {
     // Variable Declarations
     const int lv_sPACEMARGIN = 50;
     const int lv_lOBBY_WIDTH = 700;
-    const int lv_lOBBY_HEIGHT = 1000;
+    const int lv_lOBBY_HEIGHT = 800;
+    const int lv_lOBBY_X = 600;
+    const int lv_lOBBY_Y = 100;
 
     // Automatic Variable Declarations
     // Variable Initialization
 
     // Implementation
-    DialogCreate(lv_lOBBY_WIDTH, lv_lOBBY_HEIGHT, c_anchorTopLeft, 500, 100, true);
+    DialogCreate(lv_lOBBY_WIDTH, lv_lOBBY_HEIGHT, c_anchorTopLeft, lv_lOBBY_X, lv_lOBBY_Y, true);
     lib1B69CECC_gv_lobbyModal = DialogLastCreated();
     DialogControlCreate(DialogLastCreated(), c_triggerControlTypeListBox);
     lib1B69CECC_gv_lobbyListBox = DialogControlLastCreated();
