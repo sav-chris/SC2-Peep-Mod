@@ -1573,7 +1573,7 @@
         </Element>
         <Element Type="Param" Id="909CC6A7">
             <ParameterDef Type="ParamDef" Library="Ntve" Id="00000695"/>
-            <Value>HarvestableResource;Missile,Dead,Hidden</Value>
+            <Value>RawResource;Missile,Dead,Hidden</Value>
             <ValueType Type="unitfilter"/>
         </Element>
         <Element Type="Param" Id="C23BA724">
@@ -1587,28 +1587,15 @@
         <Element Type="FunctionCall" Id="CF3AD208">
             <FunctionDef Type="FunctionDef" Library="Ntve" Id="00000137"/>
             <SubFunctionType Type="SubFuncType" Library="Ntve" Id="00000007"/>
-            <FunctionCall Type="FunctionCall" Library="1B69CECC" Id="AC444468"/>
+            <FunctionCall Type="Comment" Library="1B69CECC" Id="41C5B504"/>
             <FunctionCall Type="FunctionCall" Library="1B69CECC" Id="20BEDBA3"/>
             <FunctionCall Type="FunctionCall" Library="1B69CECC" Id="26C31840"/>
         </Element>
-        <Element Type="FunctionCall" Id="AC444468">
-            <FunctionDef Type="FunctionDef" Library="Ntve" Id="00000118"/>
+        <Element Type="Comment" Id="41C5B504">
+            <Comment>
+                Any geyser that maxes out at 2250 gas will just have 2250 gas
+            </Comment>
             <SubFunctionType Type="SubFuncType" Library="Ntve" Id="00000004"/>
-            <Parameter Type="Param" Library="1B69CECC" Id="8C8AA073"/>
-            <Parameter Type="Param" Library="1B69CECC" Id="B4B503A0"/>
-            <Parameter Type="Param" Library="1B69CECC" Id="E9B83434"/>
-        </Element>
-        <Element Type="Param" Id="8C8AA073">
-            <ParameterDef Type="ParamDef" Library="Ntve" Id="C3CF50B0"/>
-            <Preset Type="PresetValue" Library="Ntve" Id="AEB4446D"/>
-        </Element>
-        <Element Type="Param" Id="B4B503A0">
-            <ParameterDef Type="ParamDef" Library="Ntve" Id="00000187"/>
-            <Preset Type="PresetValue" Library="Ntve" Id="00000071"/>
-        </Element>
-        <Element Type="Param" Id="E9B83434">
-            <ParameterDef Type="ParamDef" Library="Ntve" Id="00000186"/>
-            <ValueType Type="text"/>
         </Element>
         <Element Type="FunctionCall" Id="20BEDBA3">
             <FunctionDef Type="FunctionDef" Library="Ntve" Id="00000087"/>

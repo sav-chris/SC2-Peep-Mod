@@ -142,13 +142,12 @@ void lib1B69CECC_gf_ResetGas () {
     // Variable Initialization
 
     // Implementation
-    autoCAA5C055_g = UnitGroup(null, c_playerAny, RegionEntireMap(), UnitFilter((1 << c_targetFilterHarvestableResource), 0, (1 << c_targetFilterMissile), (1 << (c_targetFilterDead - 32)) | (1 << (c_targetFilterHidden - 32))), 0);
+    autoCAA5C055_g = UnitGroup(null, c_playerAny, RegionEntireMap(), UnitFilter((1 << c_targetFilterRawResource), 0, (1 << c_targetFilterMissile), (1 << (c_targetFilterDead - 32)) | (1 << (c_targetFilterHidden - 32))), 0);
     autoCAA5C055_u = UnitGroupCount(autoCAA5C055_g, c_unitCountAll);
     for (;; autoCAA5C055_u -= 1) {
         lv_unit = UnitGroupUnitFromEnd(autoCAA5C055_g, autoCAA5C055_u);
         if (lv_unit == null) { break; }
         if (((UnitGetType(lv_unit) == "VespeneGeyser") || (UnitGetType(lv_unit) == "ProtossVespeneGeyser") || (UnitGetType(lv_unit) == "PurifierVespeneGeyser") || (UnitGetType(lv_unit) == "ShakurasVespeneGeyser") || (UnitGetType(lv_unit) == "SpacePlatformGeyser") || (UnitGetType(lv_unit) == "RichVespeneGeyser"))) {
-            TriggerDebugOutput(1, StringExternal("Param/Value/lib_1B69CECC_E9B83434"), true);
             UnitSetPropertyFixed(lv_unit, c_unitPropResources, 5000.0);
         }
 
