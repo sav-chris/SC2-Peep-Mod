@@ -11,6 +11,8 @@ const int lib1B69CECC_gv_lOBBY_COUNTDOWN_TIME = 10;
 const string lib1B69CECC_gv_sTARTLOCATION_1 = "Start Location 001";
 const string lib1B69CECC_gv_sTARTLOCATION_2 = "Start Location 002";
 const int lib1B69CECC_gv_nO_OF_PLAYERS = 2;
+const string lib1B69CECC_gv_rICH_MINERAL_FIELD_COUNT_KEY = "rich_mineral_field_count";
+const string lib1B69CECC_gv_mINERAL_FIELD_COUNT_KEY = "mineral_field_count";
 
 // Structures
 struct lib1B69CECC_gs_LobbyTimer {

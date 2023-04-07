@@ -1850,8 +1850,7 @@
         </Element>
         <Element Type="Param" Id="06607D28">
             <ParameterDef Type="ParamDef" Library="Ntve" Id="EACCC6EF"/>
-            <Value>mineral_field_count</Value>
-            <ValueType Type="string"/>
+            <Variable Type="Variable" Library="1B69CECC" Id="B3C399A1"/>
         </Element>
         <Element Type="FunctionDef" Id="B7EFE120">
             <FlagAction/>
@@ -2166,8 +2165,7 @@
         </Element>
         <Element Type="Param" Id="1F189EF4">
             <ParameterDef Type="ParamDef" Library="Ntve" Id="EACCC6EF"/>
-            <Value>rich_mineral_field_count</Value>
-            <ValueType Type="string"/>
+            <Variable Type="Variable" Library="1B69CECC" Id="E1441B54"/>
         </Element>
         <Element Type="FunctionDef" Id="C475C5B7">
             <FlagAction/>
@@ -2656,7 +2654,6 @@
         <Element Type="FunctionDef" Id="BA5F605C">
             <FlagAction/>
             <Variable Type="Variable" Library="1B69CECC" Id="D0505ED8"/>
-            <Variable Type="Variable" Library="1B69CECC" Id="10FEA16F"/>
             <Variable Type="Variable" Library="1B69CECC" Id="4A298723"/>
             <Variable Type="Variable" Library="1B69CECC" Id="32B9CED4"/>
             <Variable Type="Variable" Library="1B69CECC" Id="13BC1D86"/>
@@ -2679,17 +2676,6 @@
         </Element>
         <Element Type="Param" Id="2A5C45B9">
             <Value>mineral_field_count</Value>
-            <ValueType Type="string"/>
-        </Element>
-        <Element Type="Variable" Id="10FEA16F">
-            <VariableType>
-                <Type Value="string"/>
-                <Constant/>
-            </VariableType>
-            <Value Type="Param" Library="1B69CECC" Id="2B56220B"/>
-        </Element>
-        <Element Type="Param" Id="2B56220B">
-            <Value>rich_mineral_field_count</Value>
             <ValueType Type="string"/>
         </Element>
         <Element Type="Variable" Id="4A298723">
@@ -2960,7 +2946,7 @@
         </Element>
         <Element Type="Param" Id="147CE6C9">
             <ParameterDef Type="ParamDef" Library="Ntve" Id="7A93D947"/>
-            <Variable Type="Variable" Library="1B69CECC" Id="10FEA16F"/>
+            <Variable Type="Variable" Library="1B69CECC" Id="E1441B54"/>
         </Element>
         <Element Type="FunctionCall" Id="F8F96ABC">
             <FunctionDef Type="FunctionDef" Library="Ntve" Id="66474248"/>
@@ -9085,6 +9071,8 @@
             <Item Type="Variable" Library="1B69CECC" Id="9C0F543A"/>
             <Item Type="Variable" Library="1B69CECC" Id="21FA5B44"/>
             <Item Type="Variable" Library="1B69CECC" Id="07C58C9B"/>
+            <Item Type="Variable" Library="1B69CECC" Id="E1441B54"/>
+            <Item Type="Variable" Library="1B69CECC" Id="B3C399A1"/>
         </Element>
         <Element Type="Variable" Id="720956E2">
             <VariableType>
@@ -9140,6 +9128,28 @@
         <Element Type="Param" Id="768BFD06">
             <Value>2</Value>
             <ValueType Type="int"/>
+        </Element>
+        <Element Type="Variable" Id="E1441B54">
+            <VariableType>
+                <Type Value="string"/>
+                <Constant/>
+            </VariableType>
+            <Value Type="Param" Library="1B69CECC" Id="39A77A22"/>
+        </Element>
+        <Element Type="Param" Id="39A77A22">
+            <Value>rich_mineral_field_count</Value>
+            <ValueType Type="string"/>
+        </Element>
+        <Element Type="Variable" Id="B3C399A1">
+            <VariableType>
+                <Type Value="string"/>
+                <Constant/>
+            </VariableType>
+            <Value Type="Param" Library="1B69CECC" Id="03BE49DB"/>
+        </Element>
+        <Element Type="Param" Id="03BE49DB">
+            <Value>mineral_field_count</Value>
+            <ValueType Type="string"/>
         </Element>
         <Element Type="Category" Id="67E4BED7">
             <Item Type="FunctionDef" Library="1B69CECC" Id="FBF39338"/>
