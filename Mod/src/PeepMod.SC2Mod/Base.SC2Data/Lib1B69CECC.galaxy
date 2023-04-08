@@ -1324,7 +1324,9 @@ bool lib1B69CECC_gt_ClickYes_Func (bool testConds, bool runActions) {
         return true;
     }
 
-    TriggerDebugOutput(1, StringExternal("Param/Value/lib_1B69CECC_9F493702"), true);
+    lib1B69CECC_gf_StopVictoryDetection();
+    lib1B69CECC_gf_ResetGame();
+    lib1B69CECC_gf_HideGGMenu();
     return true;
 }
 

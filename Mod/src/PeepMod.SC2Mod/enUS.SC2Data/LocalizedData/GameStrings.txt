@@ -32,7 +32,6 @@ Param/Value/lib_1B69CECC_866ECC49=Test race index conversion
 Param/Value/lib_1B69CECC_8C125C91=<img path="Assets\Textures\ui_battlenet_glue_icons_league_grandmaster.dds" alignment="AbsoluteMiddle" width="22" height="22"/> Grand Master
 Param/Value/lib_1B69CECC_8C525690=Race index mismatch
 Param/Value/lib_1B69CECC_92097C58=Error: Failed to choose  observers
-Param/Value/lib_1B69CECC_9F493702=Yes
 Param/Value/lib_1B69CECC_A17D4CBC=Check players are not observers
 Param/Value/lib_1B69CECC_A7679ABE=<img path="Assets\Textures\ui_battlenet_glue_icons_league_platinum.dds" alignment="AbsoluteMiddle" width="22" height="22"/> Platinum
 Param/Value/lib_1B69CECC_AC5D4CE7=<img path="Assets\Textures\ui_battlenet_glue_icons_league_master.dds" alignment="AbsoluteMiddle" width="22" height="22"/> Master

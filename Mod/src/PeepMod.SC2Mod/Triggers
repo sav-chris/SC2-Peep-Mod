@@ -13011,7 +13011,9 @@
         <Element Type="Trigger" Id="D5240A6E">
             <Event Type="FunctionCall" Library="1B69CECC" Id="95939481"/>
             <Condition Type="FunctionCall" Library="1B69CECC" Id="6496E5D7"/>
-            <Action Type="FunctionCall" Library="1B69CECC" Id="699A1FBE"/>
+            <Action Type="FunctionCall" Library="1B69CECC" Id="FE0E8E54"/>
+            <Action Type="FunctionCall" Library="1B69CECC" Id="1915AAB6"/>
+            <Action Type="FunctionCall" Library="1B69CECC" Id="33E35840"/>
         </Element>
         <Element Type="FunctionCall" Id="95939481">
             <FunctionDef Type="FunctionDef" Library="Ntve" Id="B5222B7D"/>
@@ -13052,23 +13054,14 @@
             <ParameterDef Type="ParamDef" Library="Ntve" Id="4A15EC5F"/>
             <Variable Type="Variable" Library="1B69CECC" Id="96153B53"/>
         </Element>
-        <Element Type="FunctionCall" Id="699A1FBE">
-            <FunctionDef Type="FunctionDef" Library="Ntve" Id="00000118"/>
-            <Parameter Type="Param" Library="1B69CECC" Id="5E8306FB"/>
-            <Parameter Type="Param" Library="1B69CECC" Id="92AA4289"/>
-            <Parameter Type="Param" Library="1B69CECC" Id="9F493702"/>
+        <Element Type="FunctionCall" Id="FE0E8E54">
+            <FunctionDef Type="FunctionDef" Library="1B69CECC" Id="5EFB4F46"/>
         </Element>
-        <Element Type="Param" Id="5E8306FB">
-            <ParameterDef Type="ParamDef" Library="Ntve" Id="C3CF50B0"/>
-            <Preset Type="PresetValue" Library="Ntve" Id="AEB4446D"/>
+        <Element Type="FunctionCall" Id="1915AAB6">
+            <FunctionDef Type="FunctionDef" Library="1B69CECC" Id="E28C1E67"/>
         </Element>
-        <Element Type="Param" Id="92AA4289">
-            <ParameterDef Type="ParamDef" Library="Ntve" Id="00000187"/>
-            <Preset Type="PresetValue" Library="Ntve" Id="00000071"/>
-        </Element>
-        <Element Type="Param" Id="9F493702">
-            <ParameterDef Type="ParamDef" Library="Ntve" Id="00000186"/>
-            <ValueType Type="text"/>
+        <Element Type="FunctionCall" Id="33E35840">
+            <FunctionDef Type="FunctionDef" Library="1B69CECC" Id="8AC421ED"/>
         </Element>
         <Element Type="Trigger" Id="23C0277E">
             <Event Type="FunctionCall" Library="1B69CECC" Id="7B3B2FC3"/>
