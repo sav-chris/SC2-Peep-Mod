@@ -15,7 +15,6 @@ Param/Value/lib_1B69CECC_29FB0C40= Passed
 Param/Value/lib_1B69CECC_2F1BA268=Invalid Race Key Computed
 Param/Value/lib_1B69CECC_316FD8E1=Race index mismatch
 Param/Value/lib_1B69CECC_3578C5FD=<img path="Assets\Textures\sc2_ui_loadingscreen_playercard_raceindicator_keir.dds" alignment="AbsoluteMiddle" width="21" height="22"/> Keiron
-Param/Value/lib_1B69CECC_3A1A2DE5=Detected GG!!!
 Param/Value/lib_1B69CECC_47AED35E=<img path="Assets\Textures\sc2_ui_loadingscreen_playercard_raceindicator_protoss.dds" alignment="AbsoluteMiddle" width="21" height="22"/> Protoss
 Param/Value/lib_1B69CECC_4FB89260=Race index mismatch
 Param/Value/lib_1B69CECC_5DE344B1=<img path="Assets\Textures\sc2_ui_loadingscreen_playercard_raceindicator_random.dds" alignment="AbsoluteMiddle" width="21" height="22"/> Random
