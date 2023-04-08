@@ -5,8 +5,11 @@ Param/Value/lib_1B69CECC_0060E0E8=Compute player race key
 Param/Value/lib_1B69CECC_0BF87976=<img path="Assets\Textures\ui_battlenet_glue_icons_league_diamond.dds" alignment="AbsoluteMiddle" width="22" height="22"/> Diamond
 Param/Value/lib_1B69CECC_11BD8736=Test race index conversion
 Param/Value/lib_1B69CECC_158EBFD7=Check 2 players are chosen
+Param/Value/lib_1B69CECC_17918F27=Reset Tech:
+Param/Value/lib_1B69CECC_1A177398=Reset Tech:
 Param/Value/lib_1B69CECC_1E84688D=<img path="Assets\Textures\ui_battlenet_glue_icons_league_gold.dds" alignment="AbsoluteMiddle" width="22" height="22"/> Gold
 Param/Value/lib_1B69CECC_1F8147D0=Show My Debug Message
+Param/Value/lib_1B69CECC_25C178B8=Reset Tech:
 Param/Value/lib_1B69CECC_299A8AD4=<img path="Assets\Textures\ui_battlenet_glue_icons_league_unranked.dds" alignment="AbsoluteMiddle" width="22" height="22"/> Unranked
 Param/Value/lib_1B69CECC_29FB0C40= Passed
 Param/Value/lib_1B69CECC_2F1BA268=Invalid Race Key Computed
@@ -30,12 +33,14 @@ Param/Value/lib_1B69CECC_866ECC49=Test race index conversion
 Param/Value/lib_1B69CECC_8C125C91=<img path="Assets\Textures\ui_battlenet_glue_icons_league_grandmaster.dds" alignment="AbsoluteMiddle" width="22" height="22"/> Grand Master
 Param/Value/lib_1B69CECC_8C525690=Race index mismatch
 Param/Value/lib_1B69CECC_92097C58=Error: Failed to choose  observers
+Param/Value/lib_1B69CECC_9F493702=Yes
 Param/Value/lib_1B69CECC_A17D4CBC=Check players are not observers
 Param/Value/lib_1B69CECC_A7679ABE=<img path="Assets\Textures\ui_battlenet_glue_icons_league_platinum.dds" alignment="AbsoluteMiddle" width="22" height="22"/> Platinum
 Param/Value/lib_1B69CECC_AC5D4CE7=<img path="Assets\Textures\ui_battlenet_glue_icons_league_master.dds" alignment="AbsoluteMiddle" width="22" height="22"/> Master
 Param/Value/lib_1B69CECC_B6025F4F=Compute player race key
 Param/Value/lib_1B69CECC_B7AA3D44=Race index mismatch
 Param/Value/lib_1B69CECC_C874B829=<img path="Assets\Textures\sc2_ui_loadingscreen_playercard_raceindicator_genetron.dds" alignment="AbsoluteMiddle" width="21" height="22"/> Genetron
+Param/Value/lib_1B69CECC_CBC263A8=Reset Tech:
 Param/Value/lib_1B69CECC_D063B6AD=Test race index conversion
 Param/Value/lib_1B69CECC_D7E3EE6D=Match starting in:
 Param/Value/lib_1B69CECC_DD98C82C=<img path="Assets\Textures\ui_battlenet_glue_icons_league_bronze.dds" alignment="AbsoluteMiddle" width="22" height="22"/> Bronze

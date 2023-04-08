@@ -1,0 +1,60 @@
+include "TriggerLibs/natives"
+
+bool ResetTech()
+{
+    string lv_itInstance;
+    string lv_itDisabler;
+    string lv_itUpgrade;
+    int lv_itPlayer;
+    string userType_eventsTable;
+    int index;
+    playergroup player_group;
+    int upgradeCount;
+
+
+    upgradeCount = UserDataFieldCount("Upgrade");
+    TriggerDebugOutput(1, StringToText("Upgrade Count: "), true);
+    TriggerDebugOutput(1, StringToText(IntToString(upgradeCount)), true);
+
+    userType_eventsTable = "SCEvent_Events"; //libLbty_gv_starCraftEventsEventTable;
+    
+    TriggerDebugOutput(1, StringToText(IntToString(UserDataInstanceCount("SCEvent_Events"))), true);
+
+
+
+    index = 1;
+    //for ( ; index <= UserDataInstanceCount(userType_eventsTable) ; index += 1 ) 
+    for ( ; index <= UserDataInstanceCount(userType_eventsTable) ; index += 1 ) 
+    {
+        //lv_itInstance = UserDataInstance(userType_eventsTable, index);
+        lv_itInstance = UserDataInstance(userType_eventsTable, index);
+        //lv_itUpgrade = UserDataGetGameLink(libLbty_gv_starCraftEventsEventTable, lv_itInstance, "Upgrade", 1);
+        //lv_itUpgrade = UserDataGetGameLink(userType_eventsTable, lv_itInstance, "Upgrade", 1);
+        lv_itUpgrade = UserDataGetGameLink(userType_eventsTable, lv_itInstance, "Upgrade", 1);
+
+        TriggerDebugOutput(1, StringToText(lv_itUpgrade), true);
+        TriggerDebugOutput(1, StringToText("Foo"), true);
+
+        
+        if ((CatalogEntryIsValid(c_gameCatalogUpgrade, lv_itDisabler) == true)) 
+        {
+            continue;
+        }
+
+        if ((CatalogEntryIsValid(c_gameCatalogUpgrade, lv_itUpgrade) == true)) 
+        {
+            player_group = PlayerGroupActive();
+            lv_itPlayer = -1;
+            while (true) 
+            {
+                lv_itPlayer = PlayerGroupNextPlayer(player_group, lv_itPlayer);
+                if (lv_itPlayer < 0) { break; }
+
+                libNtve_gf_SetUpgradeLevelForPlayer(lv_itPlayer, lv_itUpgrade, 0);
+                //TechTreeUpgradeAddLevel(lv_itPlayer, lv_itUpgrade, 1);
+            }
+        }
+    }
+    return true;
+    
+}
