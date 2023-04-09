@@ -160,6 +160,13 @@ void lib1B69CECC_gf_test_reset_tech () {
 
 }
 
+void lib1B69CECC_gf_ResetRevealStatus () {
+    // Automatic Variable Declarations
+    // Implementation
+    lib1B69CECC_gv_rEVEALED_PLAYERS = PlayerGroupEmpty();
+    DialogControlSetVisible(lib1B69CECC_gv_ui_reveal, PlayerGroupAll(), false);
+}
+
 bool lib1B69CECC_gf_is_town_centre (unit lp_unit) {
     // Automatic Variable Declarations
     // Implementation
@@ -647,6 +654,7 @@ void lib1B69CECC_gf_ResetGame () {
     lib1B69CECC_gf_CleanUpPlayersAndObservers();
     lib1B69CECC_gf_ResetFogofWar();
     lib1B69CECC_gf_ResetTechFunction();
+    lib1B69CECC_gf_ResetRevealStatus();
     lib1B69CECC_gf_InitialiseLobby();
 }
 

@@ -30,6 +30,7 @@ FunctionDef/Name/lib_1B69CECC_1538D56B=ResetTech
 FunctionDef/Name/lib_1B69CECC_1AB753D2=compute_mineral_field_key
 FunctionDef/Name/lib_1B69CECC_1C08208C=chose_race
 FunctionDef/Name/lib_1B69CECC_219AED67=Start Victory Detection
+FunctionDef/Name/lib_1B69CECC_227AD134=Reset Reveal Status
 FunctionDef/Name/lib_1B69CECC_25DC2589=test_Choose_Players_From_Lobby
 FunctionDef/Name/lib_1B69CECC_26592579=Reset Gas
 FunctionDef/Name/lib_1B69CECC_28354F69=test_compute_player_race_key
