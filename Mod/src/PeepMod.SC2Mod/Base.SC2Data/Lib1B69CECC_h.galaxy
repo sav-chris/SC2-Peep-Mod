@@ -15,6 +15,12 @@ const string lib1B69CECC_gv_rICH_MINERAL_FIELD_COUNT_KEY = "rich_mineral_field_c
 const string lib1B69CECC_gv_mINERAL_FIELD_COUNT_KEY = "mineral_field_count";
 
 // Structures
+struct lib1B69CECC_gs_RevealTimerRecord {
+    int lv_time_left;
+    timer lv_reveal_timer;
+    int lv_player;
+};
+
 struct lib1B69CECC_gs_LobbyTimer {
     bool lv_isStarted;
     datetime lv_startTime;
@@ -26,7 +32,8 @@ struct lib1B69CECC_gs_Lobby {
 };
 
 // Variable Declarations
-timer lib1B69CECC_gv_reveal_timer;
+lib1B69CECC_gs_RevealTimerRecord[3] lib1B69CECC_gv_reveal_timer_record;
+playergroup lib1B69CECC_gv_rEVEALED_PLAYERS;
 bool lib1B69CECC_gv_DETECT_VICTORY;
 timer lib1B69CECC_gv_tmrDetectVictory;
 playergroup lib1B69CECC_gv_pLAYERS;
@@ -57,6 +64,9 @@ void lib1B69CECC_gf_test_Choose_Observers_From_Lobby ();
 void lib1B69CECC_gf_test_compute_player_race_key ();
 void lib1B69CECC_gf_test_race_integer_conversion ();
 void lib1B69CECC_gf_test_reset_tech ();
+bool lib1B69CECC_gf_IsPlayeralreadyinrecord (int lp_player);
+void lib1B69CECC_gf_StartRevealTimerCountdown (int lp_player, int lp_index);
+void lib1B69CECC_gf_StartRevealTimer (int lp_player);
 bool lib1B69CECC_gf_ShouldPlayerBeRevealed (int lp_player);
 void lib1B69CECC_gf_RecordBlueMineralsonMap ();
 void lib1B69CECC_gf_RecordRichMineralsonMap ();
@@ -123,7 +133,8 @@ trigger lib1B69CECC_gt_AddAITrigger2;
 trigger lib1B69CECC_gt_StartGameTrigger;
 trigger lib1B69CECC_gt_ResetTechTrigger;
 trigger lib1B69CECC_gt_RevealDialogTrigger;
-trigger lib1B69CECC_gt_RevealTrigger;
+trigger lib1B69CECC_gt_RevealCountdownTrigger;
+trigger lib1B69CECC_gt_DetectRevealTrigger;
 trigger lib1B69CECC_gt_DetectGG;
 trigger lib1B69CECC_gt_CleanUpWhenPlayerLeaves;
 trigger lib1B69CECC_gt_DetectVictory;
