@@ -130,15 +130,13 @@
 
                 <Animation name="Help">
                     <Event event="OnClick" action="Reset,Play"/>
-
-                    
                 </Animation>
             </Frame>
 
         </Frame>
 
         <Frame type="Frame" name="PeepPlayPanel" template="StandardBattlenetTemplates/StandardSmallPanelTemplate">
-            <Anchor side="Left" relative="$parent/PeepMenuPanel" pos="Min" offset="0"/>
+            <Anchor side="Left" relative="$parent/PeepMenuPanel" pos="Min" offset="20"/>
             <Anchor side="Top" relative="$parent/PeepMenuPanel" pos="Max" offset="-64"/>
             <Width val="362"/>
             <Height val="300"/>

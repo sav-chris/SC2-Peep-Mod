@@ -14,14 +14,28 @@ void lib1B69CECC_InitLibraries () {
 bool lib1B69CECC_InitVariables_completed = false;
 
 void lib1B69CECC_InitVariables () {
+    int init_i;
+
     if (lib1B69CECC_InitVariables_completed) {
         return;
     }
 
     lib1B69CECC_InitVariables_completed = true;
 
+    for (init_i = 0; init_i <= 2; init_i += 1) {
+        lib1B69CECC_gv_reveal_timer_record[init_i].lv_time_left = 30;
+    }
+    lib1B69CECC_gv_rEVEALED_PLAYERS = PlayerGroupEmpty();
+    lib1B69CECC_gv_tmrDetectVictory = TimerCreate();
+    lib1B69CECC_gv_pLAYERS = PlayerGroupEmpty();
+    lib1B69CECC_gv_oBSERVERS = PlayerGroupEmpty();
     lib1B69CECC_gv_lobbyTimer.lv_startTime = CurrentDateTimeGet();
     lib1B69CECC_gv_lobbyTimer.lv_timer = TimerCreate();
+    lib1B69CECC_gv_ui_reveal = c_invalidDialogControlId;
+    lib1B69CECC_gv_ui_reveal_label = c_invalidDialogControlId;
+    lib1B69CECC_gv_ui_gg_menu = c_invalidDialogControlId;
+    lib1B69CECC_gv_ui_gg_menuyes = c_invalidDialogControlId;
+    lib1B69CECC_gv_ui_gg_menuno = c_invalidDialogControlId;
     lib1B69CECC_gv_ui_menu = c_invalidDialogControlId;
     lib1B69CECC_gv_ui_play = c_invalidDialogControlId;
     lib1B69CECC_gv_ui_playpanel = c_invalidDialogControlId;
@@ -126,6 +140,712 @@ void lib1B69CECC_gf_test_race_integer_conversion () {
     lib1B69CECC_gf_Assert((lib1B69CECC_gf_compute_race_from_index(lib1B69CECC_gf_compute_race_index("Gen")) == "Gen"), StringExternal("Param/Value/lib_1B69CECC_65B515D1"), StringExternal("Param/Value/lib_1B69CECC_798D7B2A"));
     lib1B69CECC_gf_Assert((lib1B69CECC_gf_compute_race_from_index(lib1B69CECC_gf_compute_race_index("Xayi")) == "Xayi"), StringExternal("Param/Value/lib_1B69CECC_F7F7FFB8"), StringExternal("Param/Value/lib_1B69CECC_E156BCB8"));
     lib1B69CECC_gf_Assert((lib1B69CECC_gf_compute_race_from_index(lib1B69CECC_gf_compute_race_index("Keir")) == "Keir"), StringExternal("Param/Value/lib_1B69CECC_11BD8736"), StringExternal("Param/Value/lib_1B69CECC_316FD8E1"));
+}
+
+void lib1B69CECC_gf_ResetRevealStatus () {
+    // Automatic Variable Declarations
+    // Implementation
+    lib1B69CECC_gv_rEVEALED_PLAYERS = PlayerGroupEmpty();
+    DialogControlSetVisible(lib1B69CECC_gv_ui_reveal, PlayerGroupAll(), false);
+}
+
+bool lib1B69CECC_gf_is_town_centre (unit lp_unit) {
+    // Automatic Variable Declarations
+    // Implementation
+    if (((UnitGetType(lp_unit) == "Nexus") || (UnitGetType(lp_unit) == "CommandCenter") || (UnitGetType(lp_unit) == "CommandCenterFlying") || (UnitGetType(lp_unit) == "OrbitalCommand") || (UnitGetType(lp_unit) == "OrbitalCommandFlying") || (UnitGetType(lp_unit) == "PlanetaryFortress") || (UnitGetType(lp_unit) == "Hatchery") || (UnitGetType(lp_unit) == "Lair") || (UnitGetType(lp_unit) == "Hive") || (UnitGetType(lp_unit) == "Citadel") || (UnitGetType(lp_unit) == "CitadelCharged") || (UnitGetType(lp_unit) == "ScavengerNest"))) {
+        return true;
+    }
+    else {
+        return false;
+    }
+}
+
+void lib1B69CECC_gf_reveal_player (int lp_player) {
+    // Automatic Variable Declarations
+    unitgroup auto74BDC69E_g;
+    int auto74BDC69E_u;
+    unit auto74BDC69E_var;
+    playergroup autoCB52BE8A_g;
+    int autoCB52BE8A_var;
+
+    // Implementation
+    auto74BDC69E_g = UnitGroup(null, lp_player, RegionEntireMap(), UnitFilter((1 << c_targetFilterStructure), 0, (1 << c_targetFilterMissile), (1 << (c_targetFilterDead - 32)) | (1 << (c_targetFilterHidden - 32))), 0);
+    auto74BDC69E_u = UnitGroupCount(auto74BDC69E_g, c_unitCountAll);
+    for (;; auto74BDC69E_u -= 1) {
+        auto74BDC69E_var = UnitGroupUnitFromEnd(auto74BDC69E_g, auto74BDC69E_u);
+        if (auto74BDC69E_var == null) { break; }
+        autoCB52BE8A_g = lib1B69CECC_gv_pLAYERS;
+        autoCB52BE8A_var = -1;
+        while (true) {
+            autoCB52BE8A_var = PlayerGroupNextPlayer(autoCB52BE8A_g, autoCB52BE8A_var);
+            if (autoCB52BE8A_var < 0) { break; }
+            libNtve_gf_ShareVisionofUnit(auto74BDC69E_var, true, autoCB52BE8A_var);
+        }
+    }
+}
+
+void lib1B69CECC_gf_unreveal_player (int lp_player) {
+    // Automatic Variable Declarations
+    unitgroup autoC27FBB8C_g;
+    int autoC27FBB8C_u;
+    unit autoC27FBB8C_var;
+    playergroup autoC24D79B9_g;
+    int autoC24D79B9_var;
+
+    // Implementation
+    autoC27FBB8C_g = UnitGroup(null, lp_player, RegionEntireMap(), UnitFilter((1 << c_targetFilterStructure), 0, (1 << c_targetFilterMissile), (1 << (c_targetFilterDead - 32)) | (1 << (c_targetFilterHidden - 32))), 0);
+    autoC27FBB8C_u = UnitGroupCount(autoC27FBB8C_g, c_unitCountAll);
+    for (;; autoC27FBB8C_u -= 1) {
+        autoC27FBB8C_var = UnitGroupUnitFromEnd(autoC27FBB8C_g, autoC27FBB8C_u);
+        if (autoC27FBB8C_var == null) { break; }
+        autoC24D79B9_g = lib1B69CECC_gv_pLAYERS;
+        autoC24D79B9_var = -1;
+        while (true) {
+            autoC24D79B9_var = PlayerGroupNextPlayer(autoC24D79B9_g, autoC24D79B9_var);
+            if (autoC24D79B9_var < 0) { break; }
+            libNtve_gf_ShareVisionofUnit(autoC27FBB8C_var, false, autoC24D79B9_var);
+        }
+    }
+}
+
+int lib1B69CECC_gf_find_index_of_player (int lp_player) {
+    // Variable Declarations
+    bool lv_found;
+    int lv_index;
+    const int lv_mAX_INDEX = 2;
+
+    // Automatic Variable Declarations
+    // Variable Initialization
+    lv_index = 1;
+
+    // Implementation
+    while ((lv_index <= lv_mAX_INDEX) && (lv_found == false)) {
+        if ((lib1B69CECC_gv_reveal_timer_record[lv_index].lv_player == lp_player)) {
+            lv_found = true;
+        }
+        else {
+            lv_index = (lv_index + 1);
+        }
+    }
+    return MinI(lv_index, lv_mAX_INDEX);
+}
+
+bool lib1B69CECC_gf_IsPlayeralreadyinrecord (int lp_player) {
+    // Automatic Variable Declarations
+    // Implementation
+    if ((PlayerGroupHasPlayer(lib1B69CECC_gv_rEVEALED_PLAYERS, lp_player) == true)) {
+        return true;
+    }
+    else {
+        return false;
+    }
+}
+
+void lib1B69CECC_gf_StartRevealTimerCountdown (int lp_player, int lp_index) {
+    // Variable Declarations
+    const int lv_cOUNTDOWN = 30;
+
+    // Automatic Variable Declarations
+    // Variable Initialization
+
+    // Implementation
+    lib1B69CECC_gv_reveal_timer_record[lp_index].lv_player = lp_player;
+    lib1B69CECC_gv_reveal_timer_record[lp_index].lv_time_left = lv_cOUNTDOWN;
+}
+
+void lib1B69CECC_gf_StartRevealTimer (int lp_player) {
+    // Variable Declarations
+    int lv_index;
+
+    // Automatic Variable Declarations
+    const int auto04E38670_ae = 2;
+    const int auto04E38670_ai = 1;
+    const int auto58B6EE0C_ae = 2;
+    const int auto58B6EE0C_ai = 1;
+
+    // Variable Initialization
+
+    // Implementation
+    if ((lib1B69CECC_gf_IsPlayeralreadyinrecord(lp_player) == true)) {
+        lv_index = 1;
+        for ( ; ( (auto58B6EE0C_ai >= 0 && lv_index <= auto58B6EE0C_ae) || (auto58B6EE0C_ai < 0 && lv_index >= auto58B6EE0C_ae) ) ; lv_index += auto58B6EE0C_ai ) {
+            if ((lib1B69CECC_gv_reveal_timer_record[lv_index].lv_player == lp_player)) {
+                lib1B69CECC_gf_StartRevealTimerCountdown(lp_player, lv_index);
+            }
+
+        }
+    }
+    else {
+        lv_index = 1;
+        for ( ; ( (auto04E38670_ai >= 0 && lv_index <= auto04E38670_ae) || (auto04E38670_ai < 0 && lv_index >= auto04E38670_ae) ) ; lv_index += auto04E38670_ai ) {
+            if ((PlayerGroupHasPlayer(lib1B69CECC_gv_rEVEALED_PLAYERS, lib1B69CECC_gv_reveal_timer_record[lv_index].lv_player) == false)) {
+                lib1B69CECC_gf_StartRevealTimerCountdown(lp_player, lv_index);
+            }
+
+        }
+    }
+}
+
+bool lib1B69CECC_gf_ShouldPlayerBeRevealed (int lp_player) {
+    // Variable Declarations
+    unitgroup lv_units;
+
+    // Automatic Variable Declarations
+    unitgroup auto1E5E3B26_g;
+    int auto1E5E3B26_u;
+    unit auto1E5E3B26_var;
+
+    // Variable Initialization
+    lv_units = UnitGroupEmpty();
+
+    // Implementation
+    lv_units = UnitGroup(null, lp_player, RegionEntireMap(), UnitFilter(0, 0, (1 << c_targetFilterMissile), (1 << (c_targetFilterDead - 32)) | (1 << (c_targetFilterHidden - 32))), 0);
+    auto1E5E3B26_g = lv_units;
+    auto1E5E3B26_u = UnitGroupCount(auto1E5E3B26_g, c_unitCountAll);
+    for (;; auto1E5E3B26_u -= 1) {
+        auto1E5E3B26_var = UnitGroupUnitFromEnd(auto1E5E3B26_g, auto1E5E3B26_u);
+        if (auto1E5E3B26_var == null) { break; }
+        if ((!(((UnitGetType(auto1E5E3B26_var) == "CommandCenter") || (UnitGetType(auto1E5E3B26_var) == "CommandCenterFlying") || (UnitGetType(auto1E5E3B26_var) == "OrbitalCommand") || (UnitGetType(auto1E5E3B26_var) == "OrbitalCommandFlying") || (UnitGetType(auto1E5E3B26_var) == "PlanetaryFortress") || (UnitGetType(auto1E5E3B26_var) == "Hatchery") || (UnitGetType(auto1E5E3B26_var) == "Lair") || (UnitGetType(auto1E5E3B26_var) == "Hive") || (UnitGetType(auto1E5E3B26_var) == "Nexus") || (UnitGetType(auto1E5E3B26_var) == "ProcessingCore") || (UnitGetType(auto1E5E3B26_var) == "ScavengerNest") || (UnitGetType(auto1E5E3B26_var) == "Citadel") || (UnitGetType(auto1E5E3B26_var) == "CitadelCharged"))))) {
+            UnitGroupRemove(lv_units, auto1E5E3B26_var);
+        }
+
+    }
+    return (UnitGroupCount(lv_units, c_unitCountAlive) == 0);
+}
+
+void lib1B69CECC_gf_RecordBlueMineralsonMap () {
+    // Variable Declarations
+    point lv_pos;
+    int lv_index;
+    string lv_mineral_field_key;
+    int lv_mineral_quantity;
+
+    // Automatic Variable Declarations
+    unitgroup autoF132B118_g;
+    int autoF132B118_u;
+    unit autoF132B118_var;
+
+    // Variable Initialization
+    lv_mineral_field_key = "";
+
+    // Implementation
+    autoF132B118_g = UnitGroup(null, c_playerAny, RegionEntireMap(), UnitFilter((1 << c_targetFilterHarvestableResource), 0, 0, 0), 0);
+    autoF132B118_u = UnitGroupCount(autoF132B118_g, c_unitCountAll);
+    for (;; autoF132B118_u -= 1) {
+        autoF132B118_var = UnitGroupUnitFromEnd(autoF132B118_g, autoF132B118_u);
+        if (autoF132B118_var == null) { break; }
+        if ((lib1B69CECC_gf_is_mineral_field(autoF132B118_var) == true)) {
+            lv_pos = UnitGetPosition(autoF132B118_var);
+            lv_index = (lv_index + 1);
+            lv_mineral_field_key = lib1B69CECC_gf_compute_mineral_field_key(lv_index);
+            DataTableSetPoint(true, lv_mineral_field_key, lv_pos);
+            lv_mineral_quantity = UnitGetPropertyInt(autoF132B118_var, c_unitPropResources, c_unitPropCurrent);
+            DataTableSetInt(true, lib1B69CECC_gf_compute_mineral_quantity_key(lv_index), lv_mineral_quantity);
+        }
+
+    }
+    DataTableSetInt(true, lib1B69CECC_gv_mINERAL_FIELD_COUNT_KEY, lv_index);
+}
+
+void lib1B69CECC_gf_RecordRichMineralsonMap () {
+    // Variable Declarations
+    point lv_pos;
+    int lv_index;
+    string lv_mineral_field_key;
+    int lv_mineral_quantity;
+
+    // Automatic Variable Declarations
+    unitgroup auto2A765CDC_g;
+    int auto2A765CDC_u;
+    unit auto2A765CDC_var;
+
+    // Variable Initialization
+    lv_mineral_field_key = "";
+
+    // Implementation
+    auto2A765CDC_g = UnitGroup(null, c_playerAny, RegionEntireMap(), UnitFilter((1 << c_targetFilterHarvestableResource), 0, 0, 0), 0);
+    auto2A765CDC_u = UnitGroupCount(auto2A765CDC_g, c_unitCountAll);
+    for (;; auto2A765CDC_u -= 1) {
+        auto2A765CDC_var = UnitGroupUnitFromEnd(auto2A765CDC_g, auto2A765CDC_u);
+        if (auto2A765CDC_var == null) { break; }
+        if ((lib1B69CECC_gf_is_rich_mineral_field(auto2A765CDC_var) == true)) {
+            lv_pos = UnitGetPosition(auto2A765CDC_var);
+            lv_index = (lv_index + 1);
+            lv_mineral_field_key = lib1B69CECC_gf_compute_mineral_field_key(lv_index);
+            DataTableSetPoint(true, lv_mineral_field_key, lv_pos);
+            lv_mineral_quantity = UnitGetPropertyInt(auto2A765CDC_var, c_unitPropResources, c_unitPropCurrent);
+            DataTableSetInt(true, lib1B69CECC_gf_compute_mineral_quantity_key(lv_index), lv_mineral_quantity);
+        }
+
+    }
+    DataTableSetInt(true, lib1B69CECC_gv_rICH_MINERAL_FIELD_COUNT_KEY, lv_index);
+}
+
+void lib1B69CECC_gf_DeleteAllMineralFields () {
+    // Automatic Variable Declarations
+    unitgroup auto68AF3500_g;
+    int auto68AF3500_u;
+    unit auto68AF3500_var;
+
+    // Implementation
+    auto68AF3500_g = UnitGroup(null, c_playerAny, RegionEntireMap(), UnitFilter((1 << c_targetFilterHarvestableResource), 0, 0, 0), 0);
+    auto68AF3500_u = UnitGroupCount(auto68AF3500_g, c_unitCountAll);
+    for (;; auto68AF3500_u -= 1) {
+        auto68AF3500_var = UnitGroupUnitFromEnd(auto68AF3500_g, auto68AF3500_u);
+        if (auto68AF3500_var == null) { break; }
+        if (((lib1B69CECC_gf_is_rich_mineral_field(auto68AF3500_var) == true) || (lib1B69CECC_gf_is_mineral_field(auto68AF3500_var) == true))) {
+            UnitRemove(auto68AF3500_var);
+        }
+
+    }
+}
+
+void lib1B69CECC_gf_RecordStartingMapFeatures () {
+    // Variable Declarations
+    point lv_pos;
+    fixed lv_facing;
+    int lv_index;
+    string lv_mineral_field_key;
+    int lv_mineral_quantity;
+
+    // Automatic Variable Declarations
+    // Variable Initialization
+    lv_mineral_field_key = "";
+
+    // Implementation
+    lib1B69CECC_gf_RecordBlueMineralsonMap();
+    lib1B69CECC_gf_RecordRichMineralsonMap();
+}
+
+void lib1B69CECC_gf_ResetGas () {
+    // Variable Declarations
+    unit lv_unit;
+
+    // Automatic Variable Declarations
+    unitgroup autoCAA5C055_g;
+    int autoCAA5C055_u;
+
+    // Variable Initialization
+
+    // Implementation
+    autoCAA5C055_g = UnitGroup(null, c_playerAny, RegionEntireMap(), UnitFilter((1 << c_targetFilterRawResource), 0, (1 << c_targetFilterMissile), (1 << (c_targetFilterDead - 32)) | (1 << (c_targetFilterHidden - 32))), 0);
+    autoCAA5C055_u = UnitGroupCount(autoCAA5C055_g, c_unitCountAll);
+    for (;; autoCAA5C055_u -= 1) {
+        lv_unit = UnitGroupUnitFromEnd(autoCAA5C055_g, autoCAA5C055_u);
+        if (lv_unit == null) { break; }
+        if (((UnitGetType(lv_unit) == "VespeneGeyser") || (UnitGetType(lv_unit) == "ProtossVespeneGeyser") || (UnitGetType(lv_unit) == "PurifierVespeneGeyser") || (UnitGetType(lv_unit) == "ShakurasVespeneGeyser") || (UnitGetType(lv_unit) == "SpacePlatformGeyser") || (UnitGetType(lv_unit) == "RichVespeneGeyser"))) {
+            UnitSetPropertyFixed(lv_unit, c_unitPropResources, 5000.0);
+        }
+
+    }
+}
+
+void lib1B69CECC_gf_ResetMinerals () {
+    // Variable Declarations
+    const string lv_mineral_field_count_key = "mineral_field_count";
+    point lv_pos;
+    int lv_mineral_field_count;
+    int lv_index;
+    int lv_mineral_quantity;
+
+    // Automatic Variable Declarations
+    int auto0E57139E_ae;
+    const int auto0E57139E_ai = 1;
+    int autoF8F96ABC_ae;
+    const int autoF8F96ABC_ai = 1;
+
+    // Variable Initialization
+
+    // Implementation
+    lib1B69CECC_gf_DeleteAllMineralFields();
+    lv_mineral_field_count = DataTableGetInt(true, lv_mineral_field_count_key);
+    auto0E57139E_ae = lv_mineral_field_count;
+    lv_index = 1;
+    for ( ; ( (auto0E57139E_ai >= 0 && lv_index <= auto0E57139E_ae) || (auto0E57139E_ai < 0 && lv_index >= auto0E57139E_ae) ) ; lv_index += auto0E57139E_ai ) {
+        lv_pos = DataTableGetPoint(true, lib1B69CECC_gf_compute_mineral_field_key(lv_index));
+        lv_mineral_quantity = DataTableGetInt(true, lib1B69CECC_gf_compute_mineral_quantity_key(lv_index));
+        UnitCreate(1, "MineralField", c_unitCreateIgnorePlacement, 0, lv_pos, 0.0);
+        UnitSetPropertyFixed(UnitLastCreated(), c_unitPropResources, lv_mineral_quantity);
+    }
+    lv_mineral_field_count = DataTableGetInt(true, lib1B69CECC_gv_rICH_MINERAL_FIELD_COUNT_KEY);
+    autoF8F96ABC_ae = lv_mineral_field_count;
+    lv_index = 1;
+    for ( ; ( (autoF8F96ABC_ai >= 0 && lv_index <= autoF8F96ABC_ae) || (autoF8F96ABC_ai < 0 && lv_index >= autoF8F96ABC_ae) ) ; lv_index += autoF8F96ABC_ai ) {
+        lv_pos = DataTableGetPoint(true, lib1B69CECC_gf_compute_rich_mineral_field_key(lv_index));
+        lv_mineral_quantity = DataTableGetInt(true, lib1B69CECC_gf_compute_rich_mineral_quantity_key(lv_index));
+        UnitCreate(1, "RichMineralField", c_unitCreateIgnorePlacement, 0, lv_pos, 0.0);
+        UnitSetPropertyFixed(UnitLastCreated(), c_unitPropResources, lv_mineral_quantity);
+    }
+}
+
+void lib1B69CECC_gf_InitialiseRaceSelections () {
+    // Variable Declarations
+    int lv_aPlayer;
+
+    // Automatic Variable Declarations
+    playergroup auto37407480_g;
+
+    // Variable Initialization
+
+    // Implementation
+    auto37407480_g = PlayerGroupAll();
+    lv_aPlayer = -1;
+    while (true) {
+        lv_aPlayer = PlayerGroupNextPlayer(auto37407480_g, lv_aPlayer);
+        if (lv_aPlayer < 0) { break; }
+        DataTableSetInt(true, lib1B69CECC_gf_compute_player_race_key(lv_aPlayer), lib1B69CECC_gf_compute_race_index("Neut"));
+    }
+}
+
+void lib1B69CECC_gf_ResetFogofWar () {
+    // Automatic Variable Declarations
+    playergroup autoEE90B737_g;
+    int autoEE90B737_var;
+    playergroup autoB07B4D9F_g;
+    int autoB07B4D9F_var;
+
+    // Implementation
+    Wait(0.1, c_timeGame);
+    autoEE90B737_g = PlayerGroupAll();
+    autoEE90B737_var = -1;
+    while (true) {
+        autoEE90B737_var = PlayerGroupNextPlayer(autoEE90B737_g, autoEE90B737_var);
+        if (autoEE90B737_var < 0) { break; }
+        VisRevealArea(autoEE90B737_var, RegionEntireMap(), 0.1, false);
+    }
+    Wait(0.2, c_timeGame);
+    autoB07B4D9F_g = PlayerGroupAll();
+    autoB07B4D9F_var = -1;
+    while (true) {
+        autoB07B4D9F_var = PlayerGroupNextPlayer(autoB07B4D9F_g, autoB07B4D9F_var);
+        if (autoB07B4D9F_var < 0) { break; }
+        VisExploreArea(autoB07B4D9F_var, RegionEntireMap(), false, false);
+    }
+}
+
+void lib1B69CECC_gf_DisableResourceTrading () {
+    // Variable Declarations
+    int lv_aPlayer;
+    int lv_bPlayer2;
+
+    // Automatic Variable Declarations
+    playergroup autoA9BF1F9F_g;
+    playergroup auto01013A5D_g;
+
+    // Variable Initialization
+
+    // Implementation
+    UISetFrameVisible(PlayerGroupAll(), c_syncFrameTypeResourcePanel, false);
+    UISetFrameVisible(PlayerGroupAll(), c_syncFrameTypeTeamResourceButton, false);
+    UISetResourceTradingAllowed(c_resourceTypeMinerals, false);
+    UISetResourceTradingAllowed(c_resourceTypeVespene, false);
+    autoA9BF1F9F_g = PlayerGroupAll();
+    lv_aPlayer = -1;
+    while (true) {
+        lv_aPlayer = PlayerGroupNextPlayer(autoA9BF1F9F_g, lv_aPlayer);
+        if (lv_aPlayer < 0) { break; }
+        auto01013A5D_g = PlayerGroupAll();
+        lv_bPlayer2 = -1;
+        while (true) {
+            lv_bPlayer2 = PlayerGroupNextPlayer(auto01013A5D_g, lv_bPlayer2);
+            if (lv_bPlayer2 < 0) { break; }
+            if ((lv_aPlayer != lv_bPlayer2)) {
+                PlayerSetAlliance(lv_aPlayer, c_allianceIdSpend, lv_bPlayer2, false);
+            }
+
+        }
+    }
+}
+
+void lib1B69CECC_gf_ResetTechFunction () {
+    // Variable Declarations
+    int lv_intPlayer;
+
+    // Automatic Variable Declarations
+    playergroup auto7B21BD26_g;
+
+    // Variable Initialization
+
+    // Implementation
+    auto7B21BD26_g = PlayerGroupAll();
+    lv_intPlayer = -1;
+    while (true) {
+        lv_intPlayer = PlayerGroupNextPlayer(auto7B21BD26_g, lv_intPlayer);
+        if (lv_intPlayer < 0) { break; }
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "ProtossAirArmorsLevel3", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "ProtossAirArmorsLevel2", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "ProtossAirArmorsLevel1", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "ProtossGroundArmorsLevel3", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "ProtossGroundArmorsLevel2", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "ProtossGroundArmorsLevel1", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "ProtossShieldsLevel3", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "ProtossShieldsLevel2", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "ProtossShieldsLevel1", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "TerranBuildingArmor", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "TerranInfantryArmorsLevel3", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "TerranInfantryArmorsLevel2", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "TerranInfantryArmorsLevel1", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "TerranVehicleAndShipArmorsLevel3", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "TerranVehicleAndShipArmorsLevel2", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "TerranVehicleAndShipArmorsLevel1", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "ZergFlyerArmorsLevel3", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "ZergFlyerArmorsLevel2", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "ZergFlyerArmorsLevel1", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "ZergGroundArmorsLevel3", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "ZergGroundArmorsLevel2", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "ZergGroundArmorsLevel1", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "ProtossAirWeaponsLevel3", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "ProtossAirWeaponsLevel2", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "ProtossAirWeaponsLevel1", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "ProtossGroundWeaponsLevel3", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "ProtossGroundWeaponsLevel2", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "ProtossGroundWeaponsLevel1", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "TerranInfantryWeaponsLevel3", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "TerranInfantryWeaponsLevel2", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "TerranInfantryWeaponsLevel1", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "TerranShipWeaponsLevel3", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "TerranShipWeaponsLevel2", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "TerranShipWeaponsLevel1", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "TerranVehicleWeaponsLevel3", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "TerranVehicleWeaponsLevel2", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "TerranVehicleWeaponsLevel1", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "TerranVehicleAndShipWeaponsLevel3", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "TerranVehicleAndShipWeaponsLevel2", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "TerranVehicleAndShipWeaponsLevel1", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "VikingJotunBoosters", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "ZergFlyerWeaponsLevel3", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "ZergFlyerWeaponsLevel2", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "ZergFlyerWeaponsLevel1", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "ZergMeleeWeaponsLevel3", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "ZergMeleeWeaponsLevel2", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "ZergMeleeWeaponsLevel1", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "ZergMissileWeaponsLevel3", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "ZergMissileWeaponsLevel2", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "ZergMissileWeaponsLevel1", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "BansheeCloak", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "PersonalCloaking", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "HighCapacityBarrels", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "PsiStormTech", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "NeuralParasite", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "InfestorPeristalsis", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "HunterSeeker", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "haltech", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "BlinkTech", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "Stimpack", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "StrikeCannons", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "WarpGateResearch", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "AbdominalFortitude", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "CentrificalHooks", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "BattlecruiserBehemothReactor", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "BattlecruiserEnableSpecializations", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "NeosteelFrame", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "Burrow", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "CarrierLaunchSpeedUpgrade", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "ExtendedThermalLance", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "GhostMoebiusReactor", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "HiSecAutoTracking", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "HighTemplarKhaydarinAmulet", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "hydraliskspeed", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "IncreasedRange", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "InfestorEnergyUpgrade", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "PunisherGrenades", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "ShieldWall", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "MedivacCaduceusReactor", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "ObserverGraviticBooster", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "overlordspeed", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "overlordtransport", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "RavenCorvidReactor", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "DurableMaterials", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "ReaperSpeed", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "GlialReconstitution", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "OrganicCarapace", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "TunnelingClaws", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "AnabolicSynthesis", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "ChitinousPlating", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "VoidRaySpeedUpgrade", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "GraviticDrive", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "Charge", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "zerglingattackspeed", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "zerglingmovementspeed", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "DrillClaws", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "HydraliskSpeedUpgrade", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "ReaperSpeed", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "LocustLifetimeIncrease", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "TransformationServos", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "MedivacCaduceusReactor", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "AdeptPiercingAttack", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "PhoenixRangeUpgrade", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "AnionPulseCrystals", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "DarkTemplarBlinkUpgrade", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "CycloneLockOnDamageUpgrade", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "LiberatorAGRangeUpgrade", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "SmartServos", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "MedivacIncreaseSpeedBoost", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "BansheeSpeed", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "EvolveGroovedSpines", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "EvolveMuscularAugments", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "hydraliskspeed", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "DiggingClaws", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "GenetronAircraftPlatingLevel1", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "GenetronAircraftPlatingLevel2", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "GenetronAircraftPlatingLevel3", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "GenetronGroundPlatingLevel1", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "GenetronGroundPlatingLevel2", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "GenetronGroundPlatingLevel3", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "GenetronAircraftWeaponsLevel1", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "GenetronAircraftWeaponsLevel2", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "GenetronAircraftWeaponsLevel3", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "GenetronHeavyWeaponsLevel1", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "GenetronHeavyWeaponsLevel2", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "GenetronHeavyWeaponsLevel3", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "GenetronLightWeaponsLevel1", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "GenetronLightWeaponsLevel2", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "GenetronLightWeaponsLevel3", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "CalibratedEngines", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "ReinforcedPlating", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "SpitfireMadcapRounds", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "BlitzerBoreanReactor", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "FixerFusionWelders", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "FixerReactiveArmor", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "PhalanxReactor", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "TrackingMunitions", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "EnhancedTargeting", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "SubterraneanSensors", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "SelffixProtocol", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "StealthSystems", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "VengeanceMissile", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "ShapedHull", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "AAMDefenseTurret", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "IntegratedOptics", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "CloakingGenerator", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "XayidFlyerCarapaceLevel1", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "XayidFlyerCarapaceLevel2", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "XayidFlyerCarapaceLevel3", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "XayidGroundCarapaceLevel1", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "XayidGroundCarapaceLevel2", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "XayidGroundCarapaceLevel3", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "XayidFlyerAttacksLevel1", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "XayidFlyerAttacksLevel2", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "XayidFlyerAttacksLevel3", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "XayidGroundAttacksLevel1", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "XayidGroundAttacksLevel2", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "XayidGroundAttacksLevel3", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "OcularAcuity", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "DexterousJoints", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "ScorpaliskMetabolics", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "PersistentSpores", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "CalcifiedHusk", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "BileDucts", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "BattleFrenzy", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "ResidualAcid", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "ProlongedSpores", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "CleavingSpores", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "RefinedExcretion", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "VolatileDischarge", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "KeironBioArmorLevel1", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "KeironBioArmorLevel2", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "KeironBioArmorLevel3", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "KeironMechArmorLevel1", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "KeironMechArmorLevel2", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "KeironMechArmorLevel3", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "KeironShieldsLevel1", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "KeironShieldsLevel2", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "KeironShieldsLevel3", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "KeironBioWeaponsLevel1", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "KeironBioWeaponsLevel2", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "KeironBioWeaponsLevel3", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "KeironMechWeaponsLevel1", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "KeironMechWeaponsLevel2", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "KeironMechWeaponsLevel3", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "ModifiedGait", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "ExaltedShield", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "LatentCharge", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "AmplifiedSphere", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "PulsarDampener", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "MeridianConvergence", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "WraithChamber", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "ShieldCompulsion", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "AnisopteraWings", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "DissonanceProjector", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "ApertureKeyhole", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "ApertureKeyhole", 0);
+    }
+}
+
+void lib1B69CECC_gf_CleanUpCreep () {
+    // Automatic Variable Declarations
+    // Implementation
+    CreepModify(RegionGetCenter(RegionEntireMap()), 50000.0, false, false);
+}
+
+void lib1B69CECC_gf_CleanUpPlayersAndObservers () {
+    // Automatic Variable Declarations
+    // Implementation
+    lib1B69CECC_gv_pLAYERS = PlayerGroupEmpty();
+    lib1B69CECC_gv_oBSERVERS = PlayerGroupEmpty();
+}
+
+void lib1B69CECC_gf_KillAllPlayerUnits () {
+    // Variable Declarations
+    unit lv_aUnit;
+    int lv_aPlayer;
+
+    // Automatic Variable Declarations
+    playergroup autoF7FB8F78_g;
+    unitgroup auto950C134E_g;
+    int auto950C134E_u;
+
+    // Variable Initialization
+
+    // Implementation
+    autoF7FB8F78_g = lib1B69CECC_gv_pLAYERS;
+    lv_aPlayer = -1;
+    while (true) {
+        lv_aPlayer = PlayerGroupNextPlayer(autoF7FB8F78_g, lv_aPlayer);
+        if (lv_aPlayer < 0) { break; }
+        auto950C134E_g = UnitGroupFilterPlayer(UnitGroup(null, lv_aPlayer, RegionEntireMap(), UnitFilter(0, 0, (1 << c_targetFilterAlly) | (1 << c_targetFilterNeutral) | (1 << c_targetFilterEnemy) | (1 << c_targetFilterRawResource) | (1 << c_targetFilterUncommandable), (1 << (c_targetFilterDead - 32))), 0), lv_aPlayer, 0);
+        auto950C134E_u = UnitGroupCount(auto950C134E_g, c_unitCountAll);
+        for (;; auto950C134E_u -= 1) {
+            lv_aUnit = UnitGroupUnitFromEnd(auto950C134E_g, auto950C134E_u);
+            if (lv_aUnit == null) { break; }
+            UnitKill(lv_aUnit);
+        }
+    }
+}
+
+void lib1B69CECC_gf_ResetGame () {
+    // Automatic Variable Declarations
+    // Implementation
+    lib1B69CECC_gf_KillAllPlayerUnits();
+    lib1B69CECC_gf_ResetGas();
+    lib1B69CECC_gf_ResetMinerals();
+    lib1B69CECC_gf_CleanUpCreep();
+    lib1B69CECC_gf_CleanUpPlayersAndObservers();
+    lib1B69CECC_gf_ResetFogofWar();
+    lib1B69CECC_gf_ResetTechFunction();
+    lib1B69CECC_gf_ResetRevealStatus();
+    lib1B69CECC_gf_InitialiseLobby();
+}
+
+void lib1B69CECC_gf_StartVictoryDetection () {
+    // Automatic Variable Declarations
+    // Implementation
+    lib1B69CECC_gv_DETECT_VICTORY = true;
+}
+
+void lib1B69CECC_gf_StopVictoryDetection () {
+    // Automatic Variable Declarations
+    // Implementation
+    lib1B69CECC_gv_DETECT_VICTORY = false;
+}
+
+void lib1B69CECC_gf_InitialiseLobbyTimer () {
+    // Automatic Variable Declarations
+    // Implementation
+    TimerStart(lib1B69CECC_gv_lobbyTimer.lv_timer, lib1B69CECC_gv_lOBBY_COUNTDOWN_TIME, false, c_timeGame);
+    TimerPause(lib1B69CECC_gv_lobbyTimer.lv_timer, true);
+    TimerWindowCreate(lib1B69CECC_gv_lobbyTimer.lv_timer, StringExternal("Param/Value/lib_1B69CECC_D7E3EE6D"), true, false);
+    lib1B69CECC_gv_timerWindow = TimerWindowLastCreated();
 }
 
 int lib1B69CECC_gf_time_remaining (structref<lib1B69CECC_gs_LobbyTimer> lp_theLobbyTimer) {
@@ -234,6 +954,10 @@ void lib1B69CECC_gf_InitialisePlayer (int lp_player, string lp_startlocation) {
     string lv_race;
 
     // Automatic Variable Declarations
+    unitgroup auto72918860_g;
+    int auto72918860_u;
+    unit auto72918860_var;
+
     // Variable Initialization
     lv_race_key = "";
 
@@ -243,15 +967,29 @@ void lib1B69CECC_gf_InitialisePlayer (int lp_player, string lp_startlocation) {
     lv_race = lib1B69CECC_gf_chose_race(lv_race_index);
     PlayerSetRace(lp_player, lv_race);
     MeleeInitResourcesForPlayer(lp_player, lv_race);
-    MeleeInitUnitsForPlayer(lp_player, lv_race, PointFromName(lp_startlocation));
+    if ((lv_race == "Zerg")) {
+        MeleeInitUnitsForPlayer(lp_player, "Zerg", PointFromName(lp_startlocation));
+        CreepModify(PointFromName(lp_startlocation), 11.5, true, false);
+        auto72918860_g = UnitGroup(null, lp_player, RegionEntireMap(), UnitFilter((1 << c_targetFilterStructure), 0, 0, 0), 0);
+        auto72918860_u = UnitGroupCount(auto72918860_g, c_unitCountAll);
+        for (;; auto72918860_u -= 1) {
+            auto72918860_var = UnitGroupUnitFromEnd(auto72918860_g, auto72918860_u);
+            if (auto72918860_var == null) { break; }
+            if ((UnitGetType(auto72918860_var) == "Hatchery")) {
+                UnitCreateEffectUnit(auto72918860_var, "SpawnMutantLarvaApplySpawnBehavior", auto72918860_var);
+            }
+
+        }
+    }
+    else {
+        MeleeInitUnitsForPlayer(lp_player, lv_race, PointFromName(lp_startlocation));
+    }
 }
 
 void lib1B69CECC_gf_InitialiseGame (playergroup lp_lobby_Players) {
     int init_i;
 
     // Variable Declarations
-    playergroup lv_players;
-    playergroup lv_observers;
     string[3] lv_start_locations;
     int lv_aPlayer;
     int lv_idx;
@@ -260,8 +998,6 @@ void lib1B69CECC_gf_InitialiseGame (playergroup lp_lobby_Players) {
     playergroup autoEF8BA5EB_g;
 
     // Variable Initialization
-    lv_players = PlayerGroupEmpty();
-    lv_observers = PlayerGroupEmpty();
     for (init_i = 0; init_i <= 2; init_i += 1) {
         lv_start_locations[init_i] = "";
     }
@@ -269,10 +1005,10 @@ void lib1B69CECC_gf_InitialiseGame (playergroup lp_lobby_Players) {
     // Implementation
     lv_start_locations[0] = lib1B69CECC_gv_sTARTLOCATION_1;
     lv_start_locations[1] = lib1B69CECC_gv_sTARTLOCATION_2;
-    lv_players = lib1B69CECC_gf_ChoosePlayersFromLobby(lp_lobby_Players);
-    lv_observers = lib1B69CECC_gf_ChooseObserversFromLobby(PlayerGroupAll(), lv_players);
+    lib1B69CECC_gv_pLAYERS = lib1B69CECC_gf_ChoosePlayersFromLobby(lp_lobby_Players);
+    lib1B69CECC_gv_oBSERVERS = lib1B69CECC_gf_ChooseObserversFromLobby(PlayerGroupAll(), lib1B69CECC_gv_pLAYERS);
     lv_idx = 0;
-    autoEF8BA5EB_g = lv_players;
+    autoEF8BA5EB_g = lib1B69CECC_gv_pLAYERS;
     lv_aPlayer = -1;
     while (true) {
         lv_aPlayer = PlayerGroupNextPlayer(autoEF8BA5EB_g, lv_aPlayer);
@@ -280,12 +1016,13 @@ void lib1B69CECC_gf_InitialiseGame (playergroup lp_lobby_Players) {
         lib1B69CECC_gf_InitialisePlayer(lv_aPlayer, lv_start_locations[lv_idx]);
         lv_idx = (lv_idx + 1);
     }
-    libNtve_gf_SetPlayerGroupAlliance(lv_players, libNtve_ge_AllianceSetting_Enemy);
-    libNtve_gf_SetPlayerGroupAlliance(lv_observers, libNtve_ge_AllianceSetting_Ally);
+    libNtve_gf_SetPlayerGroupAlliance(lib1B69CECC_gv_pLAYERS, libNtve_ge_AllianceSetting_Enemy);
+    libNtve_gf_SetPlayerGroupAlliance(lib1B69CECC_gv_oBSERVERS, libNtve_ge_AllianceSetting_Ally);
     lib1B69CECC_gf_HideTimerWindow();
     lib1B69CECC_gf_HideLobby(lib1B69CECC_gv_lobbyModal);
-    lib1B69CECC_gf_EnableObserverUI(lv_observers, lv_players);
-    lib1B69CECC_gf_EnablePlayerUI(lv_players);
+    lib1B69CECC_gf_EnableObserverUI(lib1B69CECC_gv_oBSERVERS, lib1B69CECC_gv_pLAYERS);
+    lib1B69CECC_gf_EnablePlayerUI(lib1B69CECC_gv_pLAYERS);
+    lib1B69CECC_gf_StartVictoryDetection();
 }
 
 playergroup lib1B69CECC_gf_ChoosePlayersFromLobby (playergroup lp_lobby) {
@@ -337,190 +1074,25 @@ void lib1B69CECC_gf_InitialiseLobby () {
     lib1B69CECC_gf_ShowLobbyUI();
 }
 
-void lib1B69CECC_gf_DisableResourceTrading () {
-    // Variable Declarations
-    int lv_aPlayer;
-    int lv_bPlayer2;
-
+bool lib1B69CECC_gf_is_mineral_field (unit lp_unit) {
     // Automatic Variable Declarations
-    playergroup autoA9BF1F9F_g;
-    playergroup auto01013A5D_g;
-
-    // Variable Initialization
-
     // Implementation
-    UISetFrameVisible(PlayerGroupAll(), c_syncFrameTypeResourcePanel, false);
-    UISetFrameVisible(PlayerGroupAll(), c_syncFrameTypeTeamResourceButton, false);
-    UISetResourceTradingAllowed(c_resourceTypeMinerals, false);
-    UISetResourceTradingAllowed(c_resourceTypeVespene, false);
-    autoA9BF1F9F_g = PlayerGroupAll();
-    lv_aPlayer = -1;
-    while (true) {
-        lv_aPlayer = PlayerGroupNextPlayer(autoA9BF1F9F_g, lv_aPlayer);
-        if (lv_aPlayer < 0) { break; }
-        auto01013A5D_g = PlayerGroupAll();
-        lv_bPlayer2 = -1;
-        while (true) {
-            lv_bPlayer2 = PlayerGroupNextPlayer(auto01013A5D_g, lv_bPlayer2);
-            if (lv_bPlayer2 < 0) { break; }
-            if ((lv_aPlayer != lv_bPlayer2)) {
-                PlayerSetAlliance(lv_aPlayer, c_allianceIdSpend, lv_bPlayer2, false);
-            }
-
-        }
+    if (((UnitGetType(lp_unit) == "BattleStationMineralField") || (UnitGetType(lp_unit) == "BattleStationMineralField750") || (UnitGetType(lp_unit) == "LabMineralField750") || (UnitGetType(lp_unit) == "LabMineralField") || (UnitGetType(lp_unit) == "MineralField") || (UnitGetType(lp_unit) == "MineralField450") || (UnitGetType(lp_unit) == "MineralField750") || (UnitGetType(lp_unit) == "MineralFieldOpaque900") || (UnitGetType(lp_unit) == "MineralFieldOpaque") || (UnitGetType(lp_unit) == "PurifierMineralField") || (UnitGetType(lp_unit) == "PurifierMineralField750"))) {
+        return true;
+    }
+    else {
+        return false;
     }
 }
 
-void lib1B69CECC_gf_InitialisePlayDialog () {
+bool lib1B69CECC_gf_is_rich_mineral_field (unit lp_unit) {
     // Automatic Variable Declarations
     // Implementation
-    DialogControlHookupStandard(c_triggerControlTypePanel, "UIContainer/FullscreenUpperContainer/PeepPlayPanel");
-    lib1B69CECC_gv_ui_playpanel = DialogControlLastCreated();
-    DialogControlHookupStandard(c_triggerControlTypePanel, "UIContainer/FullscreenUpperContainer/PeepMenuPanel");
-    lib1B69CECC_gv_ui_menu = DialogControlLastCreated();
-    DialogControlHookupStandard(c_triggerControlTypeButton, "UIContainer/FullscreenUpperContainer/PeepMenuPanel/Play");
-    lib1B69CECC_gv_ui_play = DialogControlLastCreated();
-    DialogControlHookupStandard(c_triggerControlTypePulldown, "UIContainer/FullscreenUpperContainer/PeepPlayPanel/Race");
-    lib1B69CECC_gv_ui_play_race = DialogControlLastCreated();
-    DialogControlHookupStandard(c_triggerControlTypePulldown, "UIContainer/FullscreenUpperContainer/PeepPlayPanel/League");
-    lib1B69CECC_gv_ui_play_league = DialogControlLastCreated();
-    DialogControlHookupStandard(c_triggerControlTypeButton, "UIContainer/FullscreenUpperContainer/PeepPlayPanel/Confirm");
-    lib1B69CECC_gv_ui_play_confirm = DialogControlLastCreated();
-    DialogControlHookupStandard(c_triggerControlTypeButton, "UIContainer/FullscreenUpperContainer/PeepPlayPanel/Cancel");
-    lib1B69CECC_gv_ui_play_cancel = DialogControlLastCreated();
-    DialogControlHookupStandard(c_triggerControlTypeButton, "UIContainer/FullscreenUpperContainer/PeepMenuPanel/Help");
-    lib1B69CECC_gv_ui_help = DialogControlLastCreated();
-    DialogControlAddItem(lib1B69CECC_gv_ui_play_race, PlayerGroupAll(), StringExternal("Param/Value/lib_1B69CECC_5DE344B1"));
-    DialogControlAddItem(lib1B69CECC_gv_ui_play_race, PlayerGroupAll(), StringExternal("Param/Value/lib_1B69CECC_E5DCA431"));
-    DialogControlAddItem(lib1B69CECC_gv_ui_play_race, PlayerGroupAll(), StringExternal("Param/Value/lib_1B69CECC_F2C43C1F"));
-    DialogControlAddItem(lib1B69CECC_gv_ui_play_race, PlayerGroupAll(), StringExternal("Param/Value/lib_1B69CECC_47AED35E"));
-    DialogControlAddItem(lib1B69CECC_gv_ui_play_race, PlayerGroupAll(), StringExternal("Param/Value/lib_1B69CECC_C874B829"));
-    DialogControlAddItem(lib1B69CECC_gv_ui_play_race, PlayerGroupAll(), StringExternal("Param/Value/lib_1B69CECC_5F50D4B5"));
-    DialogControlAddItem(lib1B69CECC_gv_ui_play_race, PlayerGroupAll(), StringExternal("Param/Value/lib_1B69CECC_3578C5FD"));
-    DialogControlSelectItem(lib1B69CECC_gv_ui_play_race, PlayerGroupAll(), 1);
-    DialogControlAddItem(lib1B69CECC_gv_ui_play_league, PlayerGroupAll(), StringExternal("Param/Value/lib_1B69CECC_299A8AD4"));
-    DialogControlAddItem(lib1B69CECC_gv_ui_play_league, PlayerGroupAll(), StringExternal("Param/Value/lib_1B69CECC_DD98C82C"));
-    DialogControlAddItem(lib1B69CECC_gv_ui_play_league, PlayerGroupAll(), StringExternal("Param/Value/lib_1B69CECC_6DF26637"));
-    DialogControlAddItem(lib1B69CECC_gv_ui_play_league, PlayerGroupAll(), StringExternal("Param/Value/lib_1B69CECC_1E84688D"));
-    DialogControlAddItem(lib1B69CECC_gv_ui_play_league, PlayerGroupAll(), StringExternal("Param/Value/lib_1B69CECC_A7679ABE"));
-    DialogControlAddItem(lib1B69CECC_gv_ui_play_league, PlayerGroupAll(), StringExternal("Param/Value/lib_1B69CECC_0BF87976"));
-    DialogControlAddItem(lib1B69CECC_gv_ui_play_league, PlayerGroupAll(), StringExternal("Param/Value/lib_1B69CECC_AC5D4CE7"));
-    DialogControlAddItem(lib1B69CECC_gv_ui_play_league, PlayerGroupAll(), StringExternal("Param/Value/lib_1B69CECC_8C125C91"));
-    DialogControlSelectItem(lib1B69CECC_gv_ui_play_league, PlayerGroupAll(), 1);
-}
-
-void lib1B69CECC_gf_EnableLobbyUI () {
-    // Variable Declarations
-    int lv_intPlayer;
-
-    // Automatic Variable Declarations
-    // Variable Initialization
-
-    // Implementation
-    UISetFrameVisible(PlayerGroupAll(), c_syncFrameTypeResourcePanel, false);
-    UISetFrameVisible(PlayerGroupAll(), c_syncFrameTypeSupply, false);
-}
-
-void lib1B69CECC_gf_HideTimerWindow () {
-    // Automatic Variable Declarations
-    // Implementation
-    TimerWindowShow(lib1B69CECC_gv_timerWindow, PlayerGroupAll(), false);
-}
-
-void lib1B69CECC_gf_ShowTimerWindow () {
-    // Automatic Variable Declarations
-    // Implementation
-    TimerWindowShow(lib1B69CECC_gv_timerWindow, PlayerGroupAll(), true);
-}
-
-void lib1B69CECC_gf_HideLobby (int lp_theLobby) {
-    // Automatic Variable Declarations
-    // Implementation
-    DialogSetVisible(lp_theLobby, PlayerGroupAll(), false);
-}
-
-void lib1B69CECC_gf_RefreshLobby (structref<lib1B69CECC_gs_Lobby> lp_lobbyModel) {
-    // Variable Declarations
-    int lv_player;
-
-    // Automatic Variable Declarations
-    playergroup auto2DE13D9F_g;
-
-    // Variable Initialization
-
-    // Implementation
-    DialogControlRemoveAllItems(lib1B69CECC_gv_lobbyListBox, PlayerGroupAll());
-    auto2DE13D9F_g = lp_lobbyModel.lv_players;
-    lv_player = -1;
-    while (true) {
-        lv_player = PlayerGroupNextPlayer(auto2DE13D9F_g, lv_player);
-        if (lv_player < 0) { break; }
-        DialogControlAddItem(lib1B69CECC_gv_lobbyListBox, PlayerGroupAll(), PlayerName(lv_player));
+    if (((UnitGetType(lp_unit) == "PurifierRichMineralField") || (UnitGetType(lp_unit) == "PurifierRichMineralField750") || (UnitGetType(lp_unit) == "RichMineralField") || (UnitGetType(lp_unit) == "RichMineralField750"))) {
+        return true;
     }
-}
-
-void lib1B69CECC_gf_ShowLobbyUI () {
-    // Variable Declarations
-    const int lv_sPACEMARGIN = 50;
-    const int lv_lOBBY_WIDTH = 700;
-    const int lv_lOBBY_HEIGHT = 1000;
-
-    // Automatic Variable Declarations
-    // Variable Initialization
-
-    // Implementation
-    DialogCreate(lv_lOBBY_WIDTH, lv_lOBBY_HEIGHT, c_anchorTopLeft, 500, 100, true);
-    lib1B69CECC_gv_lobbyModal = DialogLastCreated();
-    DialogControlCreate(DialogLastCreated(), c_triggerControlTypeListBox);
-    lib1B69CECC_gv_lobbyListBox = DialogControlLastCreated();
-    DialogControlSetSize(DialogControlLastCreated(), PlayerGroupAll(), (lv_lOBBY_WIDTH - (2 * lv_sPACEMARGIN)), (lv_lOBBY_HEIGHT - (2 * lv_sPACEMARGIN)));
-    DialogControlSetPosition(DialogControlLastCreated(), PlayerGroupAll(), c_anchorTopLeft, lv_sPACEMARGIN, lv_sPACEMARGIN);
-    DialogSetVisible(DialogLastCreated(), PlayerGroupAll(), true);
-    lib1B69CECC_gf_ShowTimerWindow();
-}
-
-void lib1B69CECC_gf_EnablePlayerUI (playergroup lp_players) {
-    // Variable Declarations
-    int lv_aPlayer;
-
-    // Automatic Variable Declarations
-    // Variable Initialization
-
-    // Implementation
-    UISetMode(lp_players, c_uiModeConsole, c_transitionDurationImmediate);
-    UISetFrameVisible(lp_players, c_syncFrameTypeResourcePanel, true);
-    UISetFrameVisible(lp_players, c_syncFrameTypeSupply, true);
-    VisEnable(c_visTypeFog, true);
-    DialogControlSetVisible(lib1B69CECC_gv_ui_menu, lp_players, false);
-    DialogControlSetVisible(lib1B69CECC_gv_ui_playpanel, lp_players, false);
-}
-
-void lib1B69CECC_gf_EnableObserverUI (playergroup lp_observers, playergroup lp_players) {
-    // Variable Declarations
-    int lv_aObserver;
-    int lv_aPlayer;
-
-    // Automatic Variable Declarations
-    playergroup auto1D4FE5A6_g;
-    playergroup autoFF2D6FA4_g;
-
-    // Variable Initialization
-
-    // Implementation
-    DialogControlSetVisible(lib1B69CECC_gv_ui_menu, lp_observers, false);
-    DialogControlSetVisible(lib1B69CECC_gv_ui_playpanel, lp_observers, false);
-    auto1D4FE5A6_g = lp_observers;
-    lv_aObserver = -1;
-    while (true) {
-        lv_aObserver = PlayerGroupNextPlayer(auto1D4FE5A6_g, lv_aObserver);
-        if (lv_aObserver < 0) { break; }
-        autoFF2D6FA4_g = lp_players;
-        lv_aPlayer = -1;
-        while (true) {
-            lv_aPlayer = PlayerGroupNextPlayer(autoFF2D6FA4_g, lv_aPlayer);
-            if (lv_aPlayer < 0) { break; }
-            libNtve_gf_SetAllianceOneWay(lv_aPlayer, lv_aObserver, libNtve_ge_AllianceSetting_AllyWithSharedVision);
-        }
+    else {
+        return false;
     }
 }
 
@@ -528,6 +1100,30 @@ string lib1B69CECC_gf_compute_player_race_key (int lp_player) {
     // Automatic Variable Declarations
     // Implementation
     return ("race_player_" + IntToString(lp_player));
+}
+
+string lib1B69CECC_gf_compute_mineral_field_key (int lp_mineralIndex) {
+    // Automatic Variable Declarations
+    // Implementation
+    return ("mineral_field_" + IntToString(lp_mineralIndex));
+}
+
+string lib1B69CECC_gf_compute_rich_mineral_field_key (int lp_mineralIndex) {
+    // Automatic Variable Declarations
+    // Implementation
+    return ("rich_mineral_field_" + IntToString(lp_mineralIndex));
+}
+
+string lib1B69CECC_gf_compute_mineral_quantity_key (int lp_mineralIndex) {
+    // Automatic Variable Declarations
+    // Implementation
+    return ("mineral_quantity_" + IntToString(lp_mineralIndex));
+}
+
+string lib1B69CECC_gf_compute_rich_mineral_quantity_key (int lp_mineralIndex) {
+    // Automatic Variable Declarations
+    // Implementation
+    return ("rich_mineral_quantity_" + IntToString(lp_mineralIndex));
 }
 
 int lib1B69CECC_gf_compute_race_index (string lp_race) {
@@ -592,6 +1188,215 @@ string lib1B69CECC_gf_compute_race_from_index (int lp_race_index) {
     else {
         return "Neut";
     }
+}
+
+void lib1B69CECC_gf_HideRevealDialog (int lp_player) {
+    // Automatic Variable Declarations
+    // Implementation
+    DialogControlSetVisible(lib1B69CECC_gv_ui_reveal, PlayerGroupSingle(lp_player), false);
+}
+
+void lib1B69CECC_gf_ShowRevealCountdown (int lp_player, int lp_time_remaining) {
+    // Automatic Variable Declarations
+    // Implementation
+    libNtve_gf_SetDialogItemText(lib1B69CECC_gv_ui_reveal_label, (StringExternal("Param/Value/lib_1B69CECC_550F33D7") + IntToText(lp_time_remaining)), PlayerGroupSingle(lp_player));
+    DialogControlSetVisible(lib1B69CECC_gv_ui_reveal, PlayerGroupSingle(lp_player), true);
+}
+
+void lib1B69CECC_gf_ShowRevealMessage (int lp_player) {
+    // Variable Declarations
+    const string lv_rEVEAL_MESSAGE = "You are being revealed";
+
+    // Automatic Variable Declarations
+    // Variable Initialization
+
+    // Implementation
+    libNtve_gf_SetDialogItemText(lib1B69CECC_gv_ui_reveal_label, StringToText(lv_rEVEAL_MESSAGE), PlayerGroupSingle(lp_player));
+    DialogControlSetVisible(lib1B69CECC_gv_ui_reveal, PlayerGroupSingle(lp_player), true);
+}
+
+void lib1B69CECC_gf_InitialiseRevealDialog () {
+    // Automatic Variable Declarations
+    // Implementation
+    DialogControlHookupStandard(c_triggerControlTypePanel, "UIContainer/RevealMessageDialog");
+    lib1B69CECC_gv_ui_reveal = DialogControlLastCreated();
+    DialogControlHookupStandard(c_triggerControlTypeLabel, "UIContainer/RevealMessageDialog/Message");
+    lib1B69CECC_gv_ui_reveal_label = DialogControlLastCreated();
+    DialogControlSetVisible(lib1B69CECC_gv_ui_reveal, PlayerGroupAll(), false);
+}
+
+void lib1B69CECC_gf_HideGGMenu () {
+    // Automatic Variable Declarations
+    // Implementation
+    DialogControlSetVisible(lib1B69CECC_gv_ui_gg_menu, PlayerGroupAll(), false);
+}
+
+void lib1B69CECC_gf_InitialiseGGMenu () {
+    // Automatic Variable Declarations
+    // Implementation
+    DialogControlHookupStandard(c_triggerControlTypePanel, "UIContainer/ContainerFrame");
+    lib1B69CECC_gv_ui_gg_menu = DialogControlLastCreated();
+    DialogControlHookupStandard(c_triggerControlTypeButton, "UIContainer/ContainerFrame/ChooseYes");
+    lib1B69CECC_gv_ui_gg_menuyes = DialogControlLastCreated();
+    DialogControlHookupStandard(c_triggerControlTypeButton, "UIContainer/ContainerFrame/ChooseNo");
+    lib1B69CECC_gv_ui_gg_menuno = DialogControlLastCreated();
+    lib1B69CECC_gf_HideGGMenu();
+}
+
+void lib1B69CECC_gf_EnableObserverUI (playergroup lp_observers, playergroup lp_players) {
+    // Variable Declarations
+    int lv_aObserver;
+    int lv_aPlayer;
+
+    // Automatic Variable Declarations
+    playergroup auto1D4FE5A6_g;
+    playergroup autoFF2D6FA4_g;
+
+    // Variable Initialization
+
+    // Implementation
+    DialogControlSetVisible(lib1B69CECC_gv_ui_menu, lp_observers, false);
+    DialogControlSetVisible(lib1B69CECC_gv_ui_playpanel, lp_observers, false);
+    auto1D4FE5A6_g = lp_observers;
+    lv_aObserver = -1;
+    while (true) {
+        lv_aObserver = PlayerGroupNextPlayer(auto1D4FE5A6_g, lv_aObserver);
+        if (lv_aObserver < 0) { break; }
+        autoFF2D6FA4_g = lp_players;
+        lv_aPlayer = -1;
+        while (true) {
+            lv_aPlayer = PlayerGroupNextPlayer(autoFF2D6FA4_g, lv_aPlayer);
+            if (lv_aPlayer < 0) { break; }
+            libNtve_gf_SetAllianceOneWay(lv_aPlayer, lv_aObserver, libNtve_ge_AllianceSetting_AllyWithSharedVision);
+        }
+    }
+}
+
+void lib1B69CECC_gf_EnablePlayerUI (playergroup lp_players) {
+    // Variable Declarations
+    int lv_aPlayer;
+
+    // Automatic Variable Declarations
+    // Variable Initialization
+
+    // Implementation
+    UISetMode(lp_players, c_uiModeConsole, c_transitionDurationImmediate);
+    UISetFrameVisible(lp_players, c_syncFrameTypeResourcePanel, true);
+    UISetFrameVisible(lp_players, c_syncFrameTypeSupply, true);
+    VisEnable(c_visTypeFog, true);
+    DialogControlSetVisible(lib1B69CECC_gv_ui_menu, lp_players, false);
+    DialogControlSetVisible(lib1B69CECC_gv_ui_playpanel, lp_players, false);
+}
+
+void lib1B69CECC_gf_InitialisePlayDialog () {
+    // Automatic Variable Declarations
+    // Implementation
+    DialogControlHookupStandard(c_triggerControlTypePanel, "UIContainer/FullscreenUpperContainer/PeepPlayPanel");
+    lib1B69CECC_gv_ui_playpanel = DialogControlLastCreated();
+    DialogControlHookupStandard(c_triggerControlTypePanel, "UIContainer/FullscreenUpperContainer/PeepMenuPanel");
+    lib1B69CECC_gv_ui_menu = DialogControlLastCreated();
+    DialogControlHookupStandard(c_triggerControlTypeButton, "UIContainer/FullscreenUpperContainer/PeepMenuPanel/Play");
+    lib1B69CECC_gv_ui_play = DialogControlLastCreated();
+    DialogControlHookupStandard(c_triggerControlTypePulldown, "UIContainer/FullscreenUpperContainer/PeepPlayPanel/Race");
+    lib1B69CECC_gv_ui_play_race = DialogControlLastCreated();
+    DialogControlHookupStandard(c_triggerControlTypePulldown, "UIContainer/FullscreenUpperContainer/PeepPlayPanel/League");
+    lib1B69CECC_gv_ui_play_league = DialogControlLastCreated();
+    DialogControlHookupStandard(c_triggerControlTypeButton, "UIContainer/FullscreenUpperContainer/PeepPlayPanel/Confirm");
+    lib1B69CECC_gv_ui_play_confirm = DialogControlLastCreated();
+    DialogControlHookupStandard(c_triggerControlTypeButton, "UIContainer/FullscreenUpperContainer/PeepPlayPanel/Cancel");
+    lib1B69CECC_gv_ui_play_cancel = DialogControlLastCreated();
+    DialogControlHookupStandard(c_triggerControlTypeButton, "UIContainer/FullscreenUpperContainer/PeepMenuPanel/Help");
+    lib1B69CECC_gv_ui_help = DialogControlLastCreated();
+    DialogControlAddItem(lib1B69CECC_gv_ui_play_race, PlayerGroupAll(), StringExternal("Param/Value/lib_1B69CECC_5DE344B1"));
+    DialogControlAddItem(lib1B69CECC_gv_ui_play_race, PlayerGroupAll(), StringExternal("Param/Value/lib_1B69CECC_E5DCA431"));
+    DialogControlAddItem(lib1B69CECC_gv_ui_play_race, PlayerGroupAll(), StringExternal("Param/Value/lib_1B69CECC_F2C43C1F"));
+    DialogControlAddItem(lib1B69CECC_gv_ui_play_race, PlayerGroupAll(), StringExternal("Param/Value/lib_1B69CECC_47AED35E"));
+    DialogControlAddItem(lib1B69CECC_gv_ui_play_race, PlayerGroupAll(), StringExternal("Param/Value/lib_1B69CECC_C874B829"));
+    DialogControlAddItem(lib1B69CECC_gv_ui_play_race, PlayerGroupAll(), StringExternal("Param/Value/lib_1B69CECC_5F50D4B5"));
+    DialogControlAddItem(lib1B69CECC_gv_ui_play_race, PlayerGroupAll(), StringExternal("Param/Value/lib_1B69CECC_3578C5FD"));
+    DialogControlSelectItem(lib1B69CECC_gv_ui_play_race, PlayerGroupAll(), 1);
+    DialogControlAddItem(lib1B69CECC_gv_ui_play_league, PlayerGroupAll(), StringExternal("Param/Value/lib_1B69CECC_299A8AD4"));
+    DialogControlAddItem(lib1B69CECC_gv_ui_play_league, PlayerGroupAll(), StringExternal("Param/Value/lib_1B69CECC_DD98C82C"));
+    DialogControlAddItem(lib1B69CECC_gv_ui_play_league, PlayerGroupAll(), StringExternal("Param/Value/lib_1B69CECC_6DF26637"));
+    DialogControlAddItem(lib1B69CECC_gv_ui_play_league, PlayerGroupAll(), StringExternal("Param/Value/lib_1B69CECC_1E84688D"));
+    DialogControlAddItem(lib1B69CECC_gv_ui_play_league, PlayerGroupAll(), StringExternal("Param/Value/lib_1B69CECC_A7679ABE"));
+    DialogControlAddItem(lib1B69CECC_gv_ui_play_league, PlayerGroupAll(), StringExternal("Param/Value/lib_1B69CECC_0BF87976"));
+    DialogControlAddItem(lib1B69CECC_gv_ui_play_league, PlayerGroupAll(), StringExternal("Param/Value/lib_1B69CECC_AC5D4CE7"));
+    DialogControlAddItem(lib1B69CECC_gv_ui_play_league, PlayerGroupAll(), StringExternal("Param/Value/lib_1B69CECC_8C125C91"));
+    DialogControlSelectItem(lib1B69CECC_gv_ui_play_league, PlayerGroupAll(), 1);
+}
+
+void lib1B69CECC_gf_HideTimerWindow () {
+    // Automatic Variable Declarations
+    // Implementation
+    TimerWindowShow(lib1B69CECC_gv_timerWindow, PlayerGroupAll(), false);
+}
+
+void lib1B69CECC_gf_ShowTimerWindow () {
+    // Automatic Variable Declarations
+    // Implementation
+    TimerWindowShow(lib1B69CECC_gv_timerWindow, PlayerGroupAll(), true);
+}
+
+void lib1B69CECC_gf_EnableLobbyUI () {
+    // Variable Declarations
+    int lv_intPlayer;
+
+    // Automatic Variable Declarations
+    // Variable Initialization
+
+    // Implementation
+    UISetFrameVisible(PlayerGroupAll(), c_syncFrameTypeResourcePanel, false);
+    UISetFrameVisible(PlayerGroupAll(), c_syncFrameTypeSupply, false);
+    DialogControlSetVisible(lib1B69CECC_gv_ui_menu, PlayerGroupAll(), true);
+}
+
+void lib1B69CECC_gf_HideLobby (int lp_theLobby) {
+    // Automatic Variable Declarations
+    // Implementation
+    DialogSetVisible(lp_theLobby, PlayerGroupAll(), false);
+}
+
+void lib1B69CECC_gf_RefreshLobby (structref<lib1B69CECC_gs_Lobby> lp_lobbyModel) {
+    // Variable Declarations
+    int lv_player;
+
+    // Automatic Variable Declarations
+    playergroup auto2DE13D9F_g;
+
+    // Variable Initialization
+
+    // Implementation
+    DialogControlRemoveAllItems(lib1B69CECC_gv_lobbyListBox, PlayerGroupAll());
+    auto2DE13D9F_g = lp_lobbyModel.lv_players;
+    lv_player = -1;
+    while (true) {
+        lv_player = PlayerGroupNextPlayer(auto2DE13D9F_g, lv_player);
+        if (lv_player < 0) { break; }
+        DialogControlAddItem(lib1B69CECC_gv_lobbyListBox, PlayerGroupAll(), PlayerName(lv_player));
+    }
+}
+
+void lib1B69CECC_gf_ShowLobbyUI () {
+    // Variable Declarations
+    const int lv_sPACEMARGIN = 50;
+    const int lv_lOBBY_WIDTH = 700;
+    const int lv_lOBBY_HEIGHT = 800;
+    const int lv_lOBBY_X = 600;
+    const int lv_lOBBY_Y = 100;
+
+    // Automatic Variable Declarations
+    // Variable Initialization
+
+    // Implementation
+    DialogCreate(lv_lOBBY_WIDTH, lv_lOBBY_HEIGHT, c_anchorTopLeft, lv_lOBBY_X, lv_lOBBY_Y, true);
+    lib1B69CECC_gv_lobbyModal = DialogLastCreated();
+    DialogControlCreate(DialogLastCreated(), c_triggerControlTypeListBox);
+    lib1B69CECC_gv_lobbyListBox = DialogControlLastCreated();
+    DialogControlSetSize(DialogControlLastCreated(), PlayerGroupAll(), (lv_lOBBY_WIDTH - (2 * lv_sPACEMARGIN)), (lv_lOBBY_HEIGHT - (2 * lv_sPACEMARGIN)));
+    DialogControlSetPosition(DialogControlLastCreated(), PlayerGroupAll(), c_anchorTopLeft, lv_sPACEMARGIN, lv_sPACEMARGIN);
+    DialogSetVisible(DialogLastCreated(), PlayerGroupAll(), true);
+    lib1B69CECC_gf_ShowTimerWindow();
 }
 
 void lib1B69CECC_gf_LeaveLobby (int lp_thePlayer, structref<lib1B69CECC_gs_Lobby> lp_thisLobby) {
@@ -723,6 +1528,287 @@ void lib1B69CECC_gt_StartGameTrigger_Init () {
 }
 
 //--------------------------------------------------------------------------------------------------
+// Trigger: Reset TechTrigger
+//--------------------------------------------------------------------------------------------------
+bool lib1B69CECC_gt_ResetTechTrigger_Func (bool testConds, bool runActions) {
+    // Automatic Variable Declarations
+    // Actions
+    if (!runActions) {
+        return true;
+    }
+
+    lib1B69CECC_gf_ResetTechFunction();
+    return true;
+}
+
+//--------------------------------------------------------------------------------------------------
+void lib1B69CECC_gt_ResetTechTrigger_Init () {
+    lib1B69CECC_gt_ResetTechTrigger = TriggerCreate("lib1B69CECC_gt_ResetTechTrigger_Func");
+    TriggerAddEventChatMessage(lib1B69CECC_gt_ResetTechTrigger, c_playerAny, "-Reset Tech", true);
+}
+
+//--------------------------------------------------------------------------------------------------
+// Trigger: Reveal Dialog Trigger
+//--------------------------------------------------------------------------------------------------
+bool lib1B69CECC_gt_RevealDialogTrigger_Func (bool testConds, bool runActions) {
+    // Automatic Variable Declarations
+    // Actions
+    if (!runActions) {
+        return true;
+    }
+
+    DialogControlSetVisible(lib1B69CECC_gv_ui_reveal, PlayerGroupAll(), true);
+    return true;
+}
+
+//--------------------------------------------------------------------------------------------------
+void lib1B69CECC_gt_RevealDialogTrigger_Init () {
+    lib1B69CECC_gt_RevealDialogTrigger = TriggerCreate("lib1B69CECC_gt_RevealDialogTrigger_Func");
+    TriggerAddEventChatMessage(lib1B69CECC_gt_RevealDialogTrigger, c_playerAny, "-Message", true);
+}
+
+//--------------------------------------------------------------------------------------------------
+// Trigger: Reveal Countdown Trigger
+//--------------------------------------------------------------------------------------------------
+bool lib1B69CECC_gt_RevealCountdownTrigger_Func (bool testConds, bool runActions) {
+    // Variable Declarations
+    int lv_index;
+
+    // Automatic Variable Declarations
+    playergroup autoCD416776_g;
+    int autoCD416776_var;
+
+    // Variable Initialization
+
+    // Conditions
+    if (testConds) {
+        if (!((PlayerGroupCount(lib1B69CECC_gv_rEVEALED_PLAYERS) > 0))) {
+            return false;
+        }
+    }
+
+    // Actions
+    if (!runActions) {
+        return true;
+    }
+
+    autoCD416776_g = lib1B69CECC_gv_rEVEALED_PLAYERS;
+    autoCD416776_var = -1;
+    while (true) {
+        autoCD416776_var = PlayerGroupNextPlayer(autoCD416776_g, autoCD416776_var);
+        if (autoCD416776_var < 0) { break; }
+        if ((lib1B69CECC_gf_IsPlayeralreadyinrecord(autoCD416776_var) == true)) {
+            if ((lib1B69CECC_gf_IsPlayeralreadyinrecord(autoCD416776_var) == true)) {
+                lv_index = lib1B69CECC_gf_find_index_of_player(autoCD416776_var);
+                lib1B69CECC_gv_reveal_timer_record[lv_index].lv_time_left = MaxI((lib1B69CECC_gv_reveal_timer_record[lv_index].lv_time_left - 1), 0);
+                if ((lib1B69CECC_gv_reveal_timer_record[lv_index].lv_time_left == 0)) {
+                    lib1B69CECC_gf_ShowRevealMessage(autoCD416776_var);
+                    lib1B69CECC_gf_reveal_player(autoCD416776_var);
+                }
+                else {
+                    lib1B69CECC_gf_ShowRevealCountdown(autoCD416776_var, lib1B69CECC_gv_reveal_timer_record[lv_index].lv_time_left);
+                }
+            }
+
+        }
+
+    }
+    return true;
+}
+
+//--------------------------------------------------------------------------------------------------
+void lib1B69CECC_gt_RevealCountdownTrigger_Init () {
+    lib1B69CECC_gt_RevealCountdownTrigger = TriggerCreate("lib1B69CECC_gt_RevealCountdownTrigger_Func");
+    TriggerAddEventTimePeriodic(lib1B69CECC_gt_RevealCountdownTrigger, 1.0, c_timeGame);
+}
+
+//--------------------------------------------------------------------------------------------------
+// Trigger: Detect Reveal Trigger
+//--------------------------------------------------------------------------------------------------
+bool lib1B69CECC_gt_DetectRevealTrigger_Func (bool testConds, bool runActions) {
+    // Variable Declarations
+    const int lv_rEVEAL_TIMEOUT = 30;
+
+    // Automatic Variable Declarations
+    // Variable Initialization
+
+    // Conditions
+    if (testConds) {
+        if (!((lib1B69CECC_gf_is_town_centre(EventUnit()) == true))) {
+            return false;
+        }
+
+        if (!((PlayerGroupHasPlayer(lib1B69CECC_gv_pLAYERS, EventPlayer()) == true))) {
+            return false;
+        }
+    }
+
+    // Actions
+    if (!runActions) {
+        return true;
+    }
+
+    if ((lib1B69CECC_gf_ShouldPlayerBeRevealed(EventPlayer()) == true)) {
+        if ((PlayerGroupHasPlayer(lib1B69CECC_gv_rEVEALED_PLAYERS, EventPlayer()) == false)) {
+            PlayerGroupAdd(lib1B69CECC_gv_rEVEALED_PLAYERS, EventPlayer());
+            lib1B69CECC_gf_StartRevealTimer(EventPlayer());
+        }
+
+    }
+
+    return true;
+}
+
+//--------------------------------------------------------------------------------------------------
+void lib1B69CECC_gt_DetectRevealTrigger_Init () {
+    lib1B69CECC_gt_DetectRevealTrigger = TriggerCreate("lib1B69CECC_gt_DetectRevealTrigger_Func");
+    TriggerAddEventUnitDied(lib1B69CECC_gt_DetectRevealTrigger, null);
+    TriggerAddEventUnitConstructProgress(lib1B69CECC_gt_DetectRevealTrigger, null, c_unitProgressStageCancel);
+}
+
+//--------------------------------------------------------------------------------------------------
+// Trigger: Detect Unreveal Trigger
+//--------------------------------------------------------------------------------------------------
+bool lib1B69CECC_gt_DetectUnrevealTrigger_Func (bool testConds, bool runActions) {
+    // Automatic Variable Declarations
+    // Conditions
+    if (testConds) {
+        if (!((lib1B69CECC_gf_is_town_centre(EventUnitProgressUnit()) == true))) {
+            return false;
+        }
+    }
+
+    // Actions
+    if (!runActions) {
+        return true;
+    }
+
+    PlayerGroupRemove(lib1B69CECC_gv_rEVEALED_PLAYERS, EventPlayer());
+    lib1B69CECC_gf_HideRevealDialog(EventPlayer());
+    lib1B69CECC_gf_unreveal_player(EventPlayer());
+    return true;
+}
+
+//--------------------------------------------------------------------------------------------------
+void lib1B69CECC_gt_DetectUnrevealTrigger_Init () {
+    lib1B69CECC_gt_DetectUnrevealTrigger = TriggerCreate("lib1B69CECC_gt_DetectUnrevealTrigger_Func");
+    TriggerAddEventUnitConstructProgress(lib1B69CECC_gt_DetectUnrevealTrigger, null, c_unitProgressStageStart);
+}
+
+//--------------------------------------------------------------------------------------------------
+// Trigger: Detect GG
+//--------------------------------------------------------------------------------------------------
+bool lib1B69CECC_gt_DetectGG_Func (bool testConds, bool runActions) {
+    // Automatic Variable Declarations
+    // Conditions
+    if (testConds) {
+        if (!((PlayerGroupHasPlayer(lib1B69CECC_gv_pLAYERS, EventPlayer()) == true))) {
+            return false;
+        }
+    }
+
+    // Actions
+    if (!runActions) {
+        return true;
+    }
+
+    DialogControlSetVisible(lib1B69CECC_gv_ui_gg_menu, PlayerGroupSingle(EventPlayer()), true);
+    return true;
+}
+
+//--------------------------------------------------------------------------------------------------
+void lib1B69CECC_gt_DetectGG_Init () {
+    lib1B69CECC_gt_DetectGG = TriggerCreate("lib1B69CECC_gt_DetectGG_Func");
+    TriggerAddEventChatMessage(lib1B69CECC_gt_DetectGG, c_playerAny, "gg", true);
+    TriggerAddEventChatMessage(lib1B69CECC_gt_DetectGG, c_playerAny, "GG", true);
+}
+
+//--------------------------------------------------------------------------------------------------
+// Trigger: Clean Up When Player Leaves
+//--------------------------------------------------------------------------------------------------
+bool lib1B69CECC_gt_CleanUpWhenPlayerLeaves_Func (bool testConds, bool runActions) {
+    // Variable Declarations
+    unit lv_unit;
+
+    // Automatic Variable Declarations
+    unitgroup auto5DC909E3_g;
+    int auto5DC909E3_u;
+
+    // Variable Initialization
+
+    // Actions
+    if (!runActions) {
+        return true;
+    }
+
+    auto5DC909E3_g = UnitGroupFilterPlayer(UnitGroup(null, EventPlayer(), RegionEntireMap(), UnitFilter(0, 0, (1 << c_targetFilterAlly) | (1 << c_targetFilterNeutral) | (1 << c_targetFilterEnemy) | (1 << c_targetFilterRawResource) | (1 << c_targetFilterHarvestableResource) | (1 << c_targetFilterUncommandable), (1 << (c_targetFilterDead - 32))), 0), EventPlayer(), 0);
+    auto5DC909E3_u = UnitGroupCount(auto5DC909E3_g, c_unitCountAll);
+    for (;; auto5DC909E3_u -= 1) {
+        lv_unit = UnitGroupUnitFromEnd(auto5DC909E3_g, auto5DC909E3_u);
+        if (lv_unit == null) { break; }
+        UnitKill(lv_unit);
+    }
+    return true;
+}
+
+//--------------------------------------------------------------------------------------------------
+void lib1B69CECC_gt_CleanUpWhenPlayerLeaves_Init () {
+    lib1B69CECC_gt_CleanUpWhenPlayerLeaves = TriggerCreate("lib1B69CECC_gt_CleanUpWhenPlayerLeaves_Func");
+    TriggerAddEventPlayerLeft(lib1B69CECC_gt_CleanUpWhenPlayerLeaves, c_playerAny, c_gameResultUndecided);
+}
+
+//--------------------------------------------------------------------------------------------------
+// Trigger: Detect Victory
+//--------------------------------------------------------------------------------------------------
+bool lib1B69CECC_gt_DetectVictory_Func (bool testConds, bool runActions) {
+    // Variable Declarations
+    bool lv_restartLobby;
+    unit lv_aUnit;
+    int lv_aPlayer;
+
+    // Automatic Variable Declarations
+    playergroup autoA6D6F3A3_g;
+
+    // Variable Initialization
+
+    // Conditions
+    if (testConds) {
+        if (!((lib1B69CECC_gv_DETECT_VICTORY == true))) {
+            return false;
+        }
+    }
+
+    // Actions
+    if (!runActions) {
+        return true;
+    }
+
+    lv_restartLobby = false;
+    autoA6D6F3A3_g = lib1B69CECC_gv_pLAYERS;
+    lv_aPlayer = -1;
+    while (true) {
+        lv_aPlayer = PlayerGroupNextPlayer(autoA6D6F3A3_g, lv_aPlayer);
+        if (lv_aPlayer < 0) { break; }
+        if ((UnitGroupCount(UnitGroup(null, lv_aPlayer, RegionEntireMap(), UnitFilter((1 << c_targetFilterStructure) | (1 << c_targetFilterPreventDefeat), 0, (1 << c_targetFilterMissile), (1 << (c_targetFilterDead - 32)) | (1 << (c_targetFilterHidden - 32))), 0), c_unitCountAlive) == 0)) {
+            lib1B69CECC_gf_StopVictoryDetection();
+            lv_restartLobby = true;
+        }
+
+    }
+    if ((lv_restartLobby == true)) {
+        lib1B69CECC_gf_ResetGame();
+    }
+
+    return true;
+}
+
+//--------------------------------------------------------------------------------------------------
+void lib1B69CECC_gt_DetectVictory_Init () {
+    lib1B69CECC_gt_DetectVictory = TriggerCreate("lib1B69CECC_gt_DetectVictory_Func");
+    TriggerAddEventUnitDied(lib1B69CECC_gt_DetectVictory, null);
+}
+
+//--------------------------------------------------------------------------------------------------
 // Trigger: HandleTimeOut 
 //--------------------------------------------------------------------------------------------------
 bool lib1B69CECC_gt_HandleTimeOut_Func (bool testConds, bool runActions) {
@@ -734,6 +1820,8 @@ bool lib1B69CECC_gt_HandleTimeOut_Func (bool testConds, bool runActions) {
 
     lib1B69CECC_gf_StopTimer();
     lib1B69CECC_gf_InitialiseGame(lib1B69CECC_gv_theLobby.lv_players);
+    DialogControlSetVisible(lib1B69CECC_gv_ui_play_confirm, PlayerGroupAll(), true);
+    DialogControlSetVisible(lib1B69CECC_gv_ui_play_cancel, PlayerGroupAll(), false);
     return true;
 }
 
@@ -741,6 +1829,62 @@ bool lib1B69CECC_gt_HandleTimeOut_Func (bool testConds, bool runActions) {
 void lib1B69CECC_gt_HandleTimeOut_Init () {
     lib1B69CECC_gt_HandleTimeOut = TriggerCreate("lib1B69CECC_gt_HandleTimeOut_Func");
     TriggerAddEventTimer(lib1B69CECC_gt_HandleTimeOut, lib1B69CECC_gv_lobbyTimer.lv_timer);
+}
+
+//--------------------------------------------------------------------------------------------------
+// Trigger: Click Yes
+//--------------------------------------------------------------------------------------------------
+bool lib1B69CECC_gt_ClickYes_Func (bool testConds, bool runActions) {
+    // Automatic Variable Declarations
+    // Conditions
+    if (testConds) {
+        if (!((EventDialogControl() == lib1B69CECC_gv_ui_gg_menuyes))) {
+            return false;
+        }
+    }
+
+    // Actions
+    if (!runActions) {
+        return true;
+    }
+
+    lib1B69CECC_gf_StopVictoryDetection();
+    lib1B69CECC_gf_ResetGame();
+    lib1B69CECC_gf_HideGGMenu();
+    return true;
+}
+
+//--------------------------------------------------------------------------------------------------
+void lib1B69CECC_gt_ClickYes_Init () {
+    lib1B69CECC_gt_ClickYes = TriggerCreate("lib1B69CECC_gt_ClickYes_Func");
+    TriggerAddEventDialogControl(lib1B69CECC_gt_ClickYes, c_playerAny, c_invalidDialogControlId, c_triggerControlEventTypeClick);
+}
+
+//--------------------------------------------------------------------------------------------------
+// Trigger: Click No
+//--------------------------------------------------------------------------------------------------
+bool lib1B69CECC_gt_ClickNo_Func (bool testConds, bool runActions) {
+    // Automatic Variable Declarations
+    // Conditions
+    if (testConds) {
+        if (!((EventDialogControl() == lib1B69CECC_gv_ui_gg_menuno))) {
+            return false;
+        }
+    }
+
+    // Actions
+    if (!runActions) {
+        return true;
+    }
+
+    DialogControlSetVisible(lib1B69CECC_gv_ui_gg_menu, PlayerGroupSingle(EventPlayer()), false);
+    return true;
+}
+
+//--------------------------------------------------------------------------------------------------
+void lib1B69CECC_gt_ClickNo_Init () {
+    lib1B69CECC_gt_ClickNo = TriggerCreate("lib1B69CECC_gt_ClickNo_Func");
+    TriggerAddEventDialogControl(lib1B69CECC_gt_ClickNo, c_playerAny, c_invalidDialogControlId, c_triggerControlEventTypeClick);
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -832,13 +1976,6 @@ void lib1B69CECC_gt_ClickConfirm_Init () {
 bool lib1B69CECC_gt_RaceSelected_Func (bool testConds, bool runActions) {
     // Variable Declarations
     int lv_raceIndex;
-    const int lv_rANDOM_INDEX = 0;
-    const int lv_tERRAN_INDEX = 1;
-    const int lv_zERG_INDEX = 2;
-    const int lv_pROTOSS_INDEX = 3;
-    const int lv_gENETRON_INDEX = 4;
-    const int lv_xAYID_INDEX = 5;
-    const int lv_kEIRON_INDEX = 6;
 
     // Automatic Variable Declarations
     // Variable Initialization
@@ -870,34 +2007,21 @@ void lib1B69CECC_gt_RaceSelected_Init () {
 // Trigger: Melee Initialization
 //--------------------------------------------------------------------------------------------------
 bool lib1B69CECC_gt_MeleeInitialization_Func (bool testConds, bool runActions) {
-    // Variable Declarations
-    int lv_aPlayer;
-
     // Automatic Variable Declarations
-    playergroup auto37407480_g;
-
-    // Variable Initialization
-
     // Actions
     if (!runActions) {
         return true;
     }
 
-    TimerStart(lib1B69CECC_gv_lobbyTimer.lv_timer, lib1B69CECC_gv_lOBBY_COUNTDOWN_TIME, false, c_timeGame);
-    TimerPause(lib1B69CECC_gv_lobbyTimer.lv_timer, true);
-    TimerWindowCreate(lib1B69CECC_gv_lobbyTimer.lv_timer, StringExternal("Param/Value/lib_1B69CECC_D7E3EE6D"), true, false);
-    lib1B69CECC_gv_timerWindow = TimerWindowLastCreated();
-    auto37407480_g = PlayerGroupAll();
-    lv_aPlayer = -1;
-    while (true) {
-        lv_aPlayer = PlayerGroupNextPlayer(auto37407480_g, lv_aPlayer);
-        if (lv_aPlayer < 0) { break; }
-        DataTableSetInt(true, lib1B69CECC_gf_compute_player_race_key(lv_aPlayer), lib1B69CECC_gf_compute_race_index("Neut"));
-    }
-    lib1B69CECC_gf_InitialisePlayDialog();
-    lib1B69CECC_gf_InitialiseLobby();
     GameSetSpeedValue(c_gameSpeedFaster);
     lib1B69CECC_gf_DisableResourceTrading();
+    lib1B69CECC_gf_InitialiseRaceSelections();
+    lib1B69CECC_gf_RecordStartingMapFeatures();
+    lib1B69CECC_gf_InitialiseLobbyTimer();
+    lib1B69CECC_gf_InitialisePlayDialog();
+    lib1B69CECC_gf_InitialiseGGMenu();
+    lib1B69CECC_gf_InitialiseRevealDialog();
+    lib1B69CECC_gf_InitialiseLobby();
     return true;
 }
 
@@ -912,7 +2036,17 @@ void lib1B69CECC_InitTriggers () {
     lib1B69CECC_gt_AddAITrigger_Init();
     lib1B69CECC_gt_AddAITrigger2_Init();
     lib1B69CECC_gt_StartGameTrigger_Init();
+    lib1B69CECC_gt_ResetTechTrigger_Init();
+    lib1B69CECC_gt_RevealDialogTrigger_Init();
+    lib1B69CECC_gt_RevealCountdownTrigger_Init();
+    lib1B69CECC_gt_DetectRevealTrigger_Init();
+    lib1B69CECC_gt_DetectUnrevealTrigger_Init();
+    lib1B69CECC_gt_DetectGG_Init();
+    lib1B69CECC_gt_CleanUpWhenPlayerLeaves_Init();
+    lib1B69CECC_gt_DetectVictory_Init();
     lib1B69CECC_gt_HandleTimeOut_Init();
+    lib1B69CECC_gt_ClickYes_Init();
+    lib1B69CECC_gt_ClickNo_Init();
     lib1B69CECC_gt_ClickHelp_Init();
     lib1B69CECC_gt_ClickCancel_Init();
     lib1B69CECC_gt_ClickConfirm_Init();
