@@ -954,6 +954,10 @@ void lib1B69CECC_gf_InitialisePlayer (int lp_player, string lp_startlocation) {
     string lv_race;
 
     // Automatic Variable Declarations
+    unitgroup auto72918860_g;
+    int auto72918860_u;
+    unit auto72918860_var;
+
     // Variable Initialization
     lv_race_key = "";
 
@@ -963,7 +967,23 @@ void lib1B69CECC_gf_InitialisePlayer (int lp_player, string lp_startlocation) {
     lv_race = lib1B69CECC_gf_chose_race(lv_race_index);
     PlayerSetRace(lp_player, lv_race);
     MeleeInitResourcesForPlayer(lp_player, lv_race);
-    MeleeInitUnitsForPlayer(lp_player, lv_race, PointFromName(lp_startlocation));
+    if (true) {
+        MeleeInitUnitsForPlayer(lp_player, "Zerg", PointFromName(lp_startlocation));
+        CreepModify(PointFromName(lp_startlocation), 11.5, true, false);
+        auto72918860_g = UnitGroup(null, lp_player, RegionEntireMap(), UnitFilter((1 << c_targetFilterStructure), 0, 0, 0), 0);
+        auto72918860_u = UnitGroupCount(auto72918860_g, c_unitCountAll);
+        for (;; auto72918860_u -= 1) {
+            auto72918860_var = UnitGroupUnitFromEnd(auto72918860_g, auto72918860_u);
+            if (auto72918860_var == null) { break; }
+            if ((UnitGetType(auto72918860_var) == "Hatchery")) {
+                UnitCreateEffectUnit(auto72918860_var, "SpawnMutantLarvaApplySpawnBehavior", auto72918860_var);
+            }
+
+        }
+    }
+    else {
+        MeleeInitUnitsForPlayer(lp_player, lv_race, PointFromName(lp_startlocation));
+    }
 }
 
 void lib1B69CECC_gf_InitialiseGame (playergroup lp_lobby_Players) {
