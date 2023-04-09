@@ -160,6 +160,54 @@ void lib1B69CECC_gf_test_reset_tech () {
 
 }
 
+void lib1B69CECC_gf_reveal_player (int lp_player) {
+    // Automatic Variable Declarations
+    unitgroup auto74BDC69E_g;
+    int auto74BDC69E_u;
+    unit auto74BDC69E_var;
+    playergroup autoCB52BE8A_g;
+    int autoCB52BE8A_var;
+
+    // Implementation
+    auto74BDC69E_g = UnitGroup(null, lp_player, RegionEntireMap(), UnitFilter((1 << c_targetFilterStructure), 0, (1 << c_targetFilterMissile), (1 << (c_targetFilterDead - 32)) | (1 << (c_targetFilterHidden - 32))), 0);
+    auto74BDC69E_u = UnitGroupCount(auto74BDC69E_g, c_unitCountAll);
+    for (;; auto74BDC69E_u -= 1) {
+        auto74BDC69E_var = UnitGroupUnitFromEnd(auto74BDC69E_g, auto74BDC69E_u);
+        if (auto74BDC69E_var == null) { break; }
+        autoCB52BE8A_g = lib1B69CECC_gv_pLAYERS;
+        autoCB52BE8A_var = -1;
+        while (true) {
+            autoCB52BE8A_var = PlayerGroupNextPlayer(autoCB52BE8A_g, autoCB52BE8A_var);
+            if (autoCB52BE8A_var < 0) { break; }
+            libNtve_gf_ShareVisionofUnit(auto74BDC69E_var, true, autoCB52BE8A_var);
+        }
+    }
+}
+
+void lib1B69CECC_gf_unreveal_player (int lp_player) {
+    // Automatic Variable Declarations
+    unitgroup autoC27FBB8C_g;
+    int autoC27FBB8C_u;
+    unit autoC27FBB8C_var;
+    playergroup autoC24D79B9_g;
+    int autoC24D79B9_var;
+
+    // Implementation
+    autoC27FBB8C_g = UnitGroup(null, lp_player, RegionEntireMap(), UnitFilter((1 << c_targetFilterStructure), 0, (1 << c_targetFilterMissile), (1 << (c_targetFilterDead - 32)) | (1 << (c_targetFilterHidden - 32))), 0);
+    autoC27FBB8C_u = UnitGroupCount(autoC27FBB8C_g, c_unitCountAll);
+    for (;; autoC27FBB8C_u -= 1) {
+        autoC27FBB8C_var = UnitGroupUnitFromEnd(autoC27FBB8C_g, autoC27FBB8C_u);
+        if (autoC27FBB8C_var == null) { break; }
+        autoC24D79B9_g = lib1B69CECC_gv_pLAYERS;
+        autoC24D79B9_var = -1;
+        while (true) {
+            autoC24D79B9_var = PlayerGroupNextPlayer(autoC24D79B9_g, autoC24D79B9_var);
+            if (autoC24D79B9_var < 0) { break; }
+            libNtve_gf_ShareVisionofUnit(autoC27FBB8C_var, false, autoC24D79B9_var);
+        }
+    }
+}
+
 int lib1B69CECC_gf_find_index_of_player (int lp_player) {
     // Variable Declarations
     bool lv_found;
@@ -1375,6 +1423,7 @@ bool lib1B69CECC_gt_RevealCountdownTrigger_Func (bool testConds, bool runActions
                 lib1B69CECC_gv_reveal_timer_record[lv_index].lv_time_left = MaxI((lib1B69CECC_gv_reveal_timer_record[lv_index].lv_time_left - 1), 0);
                 if ((lib1B69CECC_gv_reveal_timer_record[lv_index].lv_time_left == 0)) {
                     lib1B69CECC_gf_ShowRevealMessage(autoCD416776_var);
+                    lib1B69CECC_gf_reveal_player(autoCD416776_var);
                 }
                 else {
                     lib1B69CECC_gf_ShowRevealCountdown(autoCD416776_var, lib1B69CECC_gv_reveal_timer_record[lv_index].lv_time_left);
@@ -1420,8 +1469,6 @@ bool lib1B69CECC_gt_DetectRevealTrigger_Func (bool testConds, bool runActions) {
     }
 
     if ((lib1B69CECC_gf_ShouldPlayerBeRevealed(EventPlayer()) == true)) {
-        TriggerDebugOutput(1, StringExternal("Param/Value/lib_1B69CECC_E4AFFC09"), true);
-        TriggerDebugOutput(1, PlayerName(EventPlayer()), true);
         if ((PlayerGroupHasPlayer(lib1B69CECC_gv_rEVEALED_PLAYERS, EventPlayer()) == false)) {
             PlayerGroupAdd(lib1B69CECC_gv_rEVEALED_PLAYERS, EventPlayer());
             lib1B69CECC_gf_StartRevealTimer(EventPlayer());
