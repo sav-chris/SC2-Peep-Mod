@@ -168,8 +168,8 @@ bool lib1B69CECC_gf_ShouldPlayerBeRevealed (int lp_player) {
     lv_units = UnitGroupEmpty();
 
     // Implementation
-    lv_units = UnitGroup(null, c_playerAny, RegionEntireMap(), UnitFilter(0, 0, (1 << c_targetFilterMissile), (1 << (c_targetFilterDead - 32)) | (1 << (c_targetFilterHidden - 32))), 0);
-    auto1E5E3B26_g = UnitGroup(null, lp_player, RegionEntireMap(), UnitFilter((1 << c_targetFilterStructure), 0, 0, (1 << (c_targetFilterDead - 32))), 0);
+    lv_units = UnitGroup(null, lp_player, RegionEntireMap(), UnitFilter(0, 0, (1 << c_targetFilterMissile), (1 << (c_targetFilterDead - 32)) | (1 << (c_targetFilterHidden - 32))), 0);
+    auto1E5E3B26_g = lv_units;
     auto1E5E3B26_u = UnitGroupCount(auto1E5E3B26_g, c_unitCountAll);
     for (;; auto1E5E3B26_u -= 1) {
         auto1E5E3B26_var = UnitGroupUnitFromEnd(auto1E5E3B26_g, auto1E5E3B26_u);
@@ -854,8 +854,8 @@ string lib1B69CECC_gf_compute_race_from_index (int lp_race_index) {
 void lib1B69CECC_gf_ShowRevealCountdown (int lp_player, int lp_time_remaining) {
     // Automatic Variable Declarations
     // Implementation
-    DialogSetVisible(lib1B69CECC_gv_ui_reveal, PlayerGroupSingle(lp_player), true);
     libNtve_gf_SetDialogItemText(lib1B69CECC_gv_ui_reveal_label, (StringExternal("Param/Value/lib_1B69CECC_550F33D7") + IntToText(lp_time_remaining)), PlayerGroupSingle(lp_player));
+    DialogSetVisible(lib1B69CECC_gv_ui_reveal, PlayerGroupSingle(lp_player), true);
 }
 
 void lib1B69CECC_gf_ShowRevealMessage (int lp_player) {
@@ -866,11 +866,11 @@ void lib1B69CECC_gf_ShowRevealMessage (int lp_player) {
     // Variable Initialization
 
     // Implementation
-    DialogSetVisible(lib1B69CECC_gv_ui_reveal, PlayerGroupSingle(lp_player), true);
     libNtve_gf_SetDialogItemText(lib1B69CECC_gv_ui_reveal_label, StringToText(lv_rEVEAL_MESSAGE), PlayerGroupSingle(lp_player));
+    DialogSetVisible(lib1B69CECC_gv_ui_reveal, PlayerGroupSingle(lp_player), true);
 }
 
-void lib1B69CECC_gf_CreateRevealDialog () {
+void lib1B69CECC_gf_InitialiseRevealDialog () {
     // Automatic Variable Declarations
     // Implementation
     DialogCreate(350, 150, c_anchorTopRight, 100, 100, true);
@@ -1242,7 +1242,7 @@ bool lib1B69CECC_gt_RevealTrigger_Func (bool testConds, bool runActions) {
 
     // Conditions
     if (testConds) {
-        if (!(((UnitGetType(EventUnit()) == "Nexus") || (UnitGetType(EventUnit()) == "CommandCenter") || (UnitGetType(EventUnit()) == "CommandCenterFlying") || (UnitGetType(EventUnit()) == "OrbitalCommand") || (UnitGetType(EventUnit()) == "OrbitalCommandFlying") || (UnitGetType(EventUnit()) == "PlanetaryFortress") || (UnitGetType(EventUnit()) == "Hatchery") || (UnitGetType(EventUnit()) == "Lair") || (UnitGetType(EventUnit()) == "Hive") || (UnitGetType(EventUnit()) == "Citadel") || (UnitGetType(EventUnit()) == "CitadelCharged") || (UnitGetType(EventUnit()) == "ScavengerNest")))) {
+        if (!(((PlayerGroupHasPlayer(lib1B69CECC_gv_pLAYERS, EventPlayer()) == true) && ((UnitGetType(EventUnit()) == "Nexus") || (UnitGetType(EventUnit()) == "CommandCenter") || (UnitGetType(EventUnit()) == "CommandCenterFlying") || (UnitGetType(EventUnit()) == "OrbitalCommand") || (UnitGetType(EventUnit()) == "OrbitalCommandFlying") || (UnitGetType(EventUnit()) == "PlanetaryFortress") || (UnitGetType(EventUnit()) == "Hatchery") || (UnitGetType(EventUnit()) == "Lair") || (UnitGetType(EventUnit()) == "Hive") || (UnitGetType(EventUnit()) == "Citadel") || (UnitGetType(EventUnit()) == "CitadelCharged") || (UnitGetType(EventUnit()) == "ScavengerNest"))))) {
             return false;
         }
     }
@@ -1253,11 +1253,11 @@ bool lib1B69CECC_gt_RevealTrigger_Func (bool testConds, bool runActions) {
     }
 
     if ((lib1B69CECC_gf_ShouldPlayerBeRevealed(EventPlayer()) == true)) {
+        TriggerDebugOutput(1, StringExternal("Param/Value/lib_1B69CECC_E4AFFC09"), true);
+        TriggerDebugOutput(1, PlayerName(EventPlayer()), true);
         lib1B69CECC_gf_ShowRevealMessage(EventPlayer());
         TimerStart(lib1B69CECC_gv_reveal_timer, lv_rEVEAL_TIMEOUT, false, c_timeGame);
-        while ((TimerGetRemaining(lib1B69CECC_gv_reveal_timer) > 0.0)) {
-            lib1B69CECC_gf_ShowRevealCountdown(FixedToInt(TimerGetRemaining(lib1B69CECC_gv_reveal_timer)), 0);
-        }
+        DialogSetVisible(lib1B69CECC_gv_ui_reveal, PlayerGroupAll(), true);
     }
 
     return true;
@@ -1594,6 +1594,7 @@ bool lib1B69CECC_gt_MeleeInitialization_Func (bool testConds, bool runActions) {
     lib1B69CECC_gf_InitialiseLobbyTimer();
     lib1B69CECC_gf_InitialisePlayDialog();
     lib1B69CECC_gf_InitialiseGGMenu();
+    lib1B69CECC_gf_InitialiseRevealDialog();
     lib1B69CECC_gf_InitialiseLobby();
     return true;
 }

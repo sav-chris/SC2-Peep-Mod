@@ -6,6 +6,7 @@ Param/Value/lib_1B69CECC_0BF87976=<img path="Assets\Textures\ui_battlenet_glue_i
 Param/Value/lib_1B69CECC_11BD8736=Test race index conversion
 Param/Value/lib_1B69CECC_158EBFD7=Check 2 players are chosen
 Param/Value/lib_1B69CECC_17918F27=Reset Tech:
+Param/Value/lib_1B69CECC_18317849=Should be revealed?
 Param/Value/lib_1B69CECC_1A177398=Reset Tech:
 Param/Value/lib_1B69CECC_1E84688D=<img path="Assets\Textures\ui_battlenet_glue_icons_league_gold.dds" alignment="AbsoluteMiddle" width="22" height="22"/> Gold
 Param/Value/lib_1B69CECC_1F8147D0=Show My Debug Message
@@ -44,9 +45,12 @@ Param/Value/lib_1B69CECC_CBC263A8=Reset Tech:
 Param/Value/lib_1B69CECC_D063B6AD=Test race index conversion
 Param/Value/lib_1B69CECC_D7E3EE6D=Match starting in:
 Param/Value/lib_1B69CECC_DD98C82C=<img path="Assets\Textures\ui_battlenet_glue_icons_league_bronze.dds" alignment="AbsoluteMiddle" width="22" height="22"/> Bronze
+Param/Value/lib_1B69CECC_DE06D93E=CC ded
 Param/Value/lib_1B69CECC_DECA5D45=Error: Failed to choose 2 players
 Param/Value/lib_1B69CECC_E156BCB8=Race index mismatch
+Param/Value/lib_1B69CECC_E4AFFC09=CC ded
 Param/Value/lib_1B69CECC_E5DCA431=<img path="Assets\Textures\sc2_ui_loadingscreen_playercard_raceindicator_terran.dds" alignment="AbsoluteMiddle" width="21" height="22"/> Terran
+Param/Value/lib_1B69CECC_EE52B75B=Should be revealed?
 Param/Value/lib_1B69CECC_F2C43C1F=<img path="Assets\Textures\sc2_ui_loadingscreen_playercard_raceindicator_zerg.dds" alignment="AbsoluteMiddle" width="21" height="22"/> Zerg
 Param/Value/lib_1B69CECC_F7F7FFB8=Test race index conversion
 Param/Value/lib_1B69CECC_FC9B2791=Test race index conversion

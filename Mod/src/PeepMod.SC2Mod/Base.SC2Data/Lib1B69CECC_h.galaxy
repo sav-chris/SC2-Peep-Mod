@@ -97,7 +97,7 @@ int lib1B69CECC_gf_compute_race_index (string lp_race);
 string lib1B69CECC_gf_compute_race_from_index (int lp_race_index);
 void lib1B69CECC_gf_ShowRevealCountdown (int lp_player, int lp_time_remaining);
 void lib1B69CECC_gf_ShowRevealMessage (int lp_player);
-void lib1B69CECC_gf_CreateRevealDialog ();
+void lib1B69CECC_gf_InitialiseRevealDialog ();
 void lib1B69CECC_gf_HideGGMenu ();
 void lib1B69CECC_gf_InitialiseGGMenu ();
 void lib1B69CECC_gf_EnableObserverUI (playergroup lp_observers, playergroup lp_players);
