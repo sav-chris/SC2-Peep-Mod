@@ -50,15 +50,6 @@ void lib1B69CECC_InitVariables () {
     lib1B69CECC_gv_theLobby.lv_players = PlayerGroupEmpty();
 }
 
-// Custom Script
-//--------------------------------------------------------------------------------------------------
-// Custom Script: Reset Technology
-//--------------------------------------------------------------------------------------------------
-include "scripts/tech"
-
-void lib1B69CECC_InitCustomScript () {
-}
-
 // Functions
 void lib1B69CECC_gf_Assert (bool lp_statement, text lp_assertionname, text lp_errormessage) {
     // Automatic Variable Declarations
@@ -149,15 +140,6 @@ void lib1B69CECC_gf_test_race_integer_conversion () {
     lib1B69CECC_gf_Assert((lib1B69CECC_gf_compute_race_from_index(lib1B69CECC_gf_compute_race_index("Gen")) == "Gen"), StringExternal("Param/Value/lib_1B69CECC_65B515D1"), StringExternal("Param/Value/lib_1B69CECC_798D7B2A"));
     lib1B69CECC_gf_Assert((lib1B69CECC_gf_compute_race_from_index(lib1B69CECC_gf_compute_race_index("Xayi")) == "Xayi"), StringExternal("Param/Value/lib_1B69CECC_F7F7FFB8"), StringExternal("Param/Value/lib_1B69CECC_E156BCB8"));
     lib1B69CECC_gf_Assert((lib1B69CECC_gf_compute_race_from_index(lib1B69CECC_gf_compute_race_index("Keir")) == "Keir"), StringExternal("Param/Value/lib_1B69CECC_11BD8736"), StringExternal("Param/Value/lib_1B69CECC_316FD8E1"));
-}
-
-void lib1B69CECC_gf_test_reset_tech () {
-    // Automatic Variable Declarations
-    // Implementation
-    libNtve_gf_SetUpgradeLevelForPlayer(1, "ShieldWall", 1);
-    if ((ResetTech() == true)) {
-    }
-
 }
 
 void lib1B69CECC_gf_ResetRevealStatus () {
@@ -578,28 +560,215 @@ void lib1B69CECC_gf_DisableResourceTrading () {
 void lib1B69CECC_gf_ResetTechFunction () {
     // Variable Declarations
     int lv_intPlayer;
-    string lv_usrDataInstance;
-    string lv_usrData;
-    int lv_usrDataInstanceCount;
-    string lv_usrDataUpgrade;
-    int lv_index;
-    int lv_upgradeCount;
 
     // Automatic Variable Declarations
-    string auto767E09BA_userType;
-    int auto767E09BA_i;
+    playergroup auto7B21BD26_g;
 
     // Variable Initialization
 
     // Implementation
-    lv_upgradeCount = UserDataFieldValueCount("SCEvent_Events", "Upgrade");
-    TriggerDebugOutput(1, StringExternal("Param/Value/lib_1B69CECC_1A177398"), true);
-    TriggerDebugOutput(1, IntToText(lv_upgradeCount), true);
-    auto767E09BA_userType = "SCEvent_Events";
-    auto767E09BA_i = 1;
-    for ( ; auto767E09BA_i <= UserDataInstanceCount(auto767E09BA_userType) ; auto767E09BA_i += 1 ) {
-        lv_usrDataInstance = UserDataInstance(auto767E09BA_userType, auto767E09BA_i);
-        lv_usrData = UserDataField("SCEvent_Events", 1);
+    auto7B21BD26_g = PlayerGroupAll();
+    lv_intPlayer = -1;
+    while (true) {
+        lv_intPlayer = PlayerGroupNextPlayer(auto7B21BD26_g, lv_intPlayer);
+        if (lv_intPlayer < 0) { break; }
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "ProtossAirArmorsLevel3", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "ProtossAirArmorsLevel2", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "ProtossAirArmorsLevel1", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "ProtossGroundArmorsLevel3", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "ProtossGroundArmorsLevel2", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "ProtossGroundArmorsLevel1", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "ProtossShieldsLevel3", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "ProtossShieldsLevel2", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "ProtossShieldsLevel1", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "TerranBuildingArmor", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "TerranInfantryArmorsLevel3", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "TerranInfantryArmorsLevel2", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "TerranInfantryArmorsLevel1", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "TerranVehicleAndShipArmorsLevel3", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "TerranVehicleAndShipArmorsLevel2", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "TerranVehicleAndShipArmorsLevel1", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "ZergFlyerArmorsLevel3", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "ZergFlyerArmorsLevel2", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "ZergFlyerArmorsLevel1", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "ZergGroundArmorsLevel3", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "ZergGroundArmorsLevel2", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "ZergGroundArmorsLevel1", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "ProtossAirWeaponsLevel3", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "ProtossAirWeaponsLevel2", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "ProtossAirWeaponsLevel1", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "ProtossGroundWeaponsLevel3", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "ProtossGroundWeaponsLevel2", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "ProtossGroundWeaponsLevel1", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "TerranInfantryWeaponsLevel3", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "TerranInfantryWeaponsLevel2", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "TerranInfantryWeaponsLevel1", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "TerranShipWeaponsLevel3", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "TerranShipWeaponsLevel2", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "TerranShipWeaponsLevel1", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "TerranVehicleWeaponsLevel3", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "TerranVehicleWeaponsLevel2", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "TerranVehicleWeaponsLevel1", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "TerranVehicleAndShipWeaponsLevel3", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "TerranVehicleAndShipWeaponsLevel2", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "TerranVehicleAndShipWeaponsLevel1", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "VikingJotunBoosters", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "ZergFlyerWeaponsLevel3", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "ZergFlyerWeaponsLevel2", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "ZergFlyerWeaponsLevel1", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "ZergMeleeWeaponsLevel3", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "ZergMeleeWeaponsLevel2", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "ZergMeleeWeaponsLevel1", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "ZergMissileWeaponsLevel3", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "ZergMissileWeaponsLevel2", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "ZergMissileWeaponsLevel1", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "BansheeCloak", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "PersonalCloaking", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "HighCapacityBarrels", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "PsiStormTech", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "NeuralParasite", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "InfestorPeristalsis", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "HunterSeeker", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "haltech", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "BlinkTech", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "Stimpack", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "StrikeCannons", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "WarpGateResearch", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "AbdominalFortitude", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "CentrificalHooks", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "BattlecruiserBehemothReactor", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "BattlecruiserEnableSpecializations", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "NeosteelFrame", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "Burrow", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "CarrierLaunchSpeedUpgrade", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "ExtendedThermalLance", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "GhostMoebiusReactor", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "HiSecAutoTracking", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "HighTemplarKhaydarinAmulet", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "hydraliskspeed", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "IncreasedRange", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "InfestorEnergyUpgrade", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "PunisherGrenades", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "ShieldWall", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "MedivacCaduceusReactor", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "ObserverGraviticBooster", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "overlordspeed", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "overlordtransport", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "RavenCorvidReactor", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "DurableMaterials", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "ReaperSpeed", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "GlialReconstitution", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "OrganicCarapace", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "TunnelingClaws", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "AnabolicSynthesis", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "ChitinousPlating", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "VoidRaySpeedUpgrade", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "GraviticDrive", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "Charge", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "zerglingattackspeed", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "zerglingmovementspeed", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "DrillClaws", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "HydraliskSpeedUpgrade", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "ReaperSpeed", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "LocustLifetimeIncrease", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "TransformationServos", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "MedivacCaduceusReactor", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "AdeptPiercingAttack", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "PhoenixRangeUpgrade", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "AnionPulseCrystals", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "DarkTemplarBlinkUpgrade", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "CycloneLockOnDamageUpgrade", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "LiberatorAGRangeUpgrade", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "SmartServos", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "MedivacIncreaseSpeedBoost", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "BansheeSpeed", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "EvolveGroovedSpines", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "EvolveMuscularAugments", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "hydraliskspeed", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "DiggingClaws", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "GenetronAircraftPlatingLevel1", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "GenetronAircraftPlatingLevel2", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "GenetronAircraftPlatingLevel3", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "GenetronGroundPlatingLevel1", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "GenetronGroundPlatingLevel2", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "GenetronGroundPlatingLevel3", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "GenetronAircraftWeaponsLevel1", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "GenetronAircraftWeaponsLevel2", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "GenetronAircraftWeaponsLevel3", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "GenetronHeavyWeaponsLevel1", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "GenetronHeavyWeaponsLevel2", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "GenetronHeavyWeaponsLevel3", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "GenetronLightWeaponsLevel1", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "GenetronLightWeaponsLevel2", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "GenetronLightWeaponsLevel3", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "CalibratedEngines", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "ReinforcedPlating", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "SpitfireMadcapRounds", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "BlitzerBoreanReactor", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "FixerFusionWelders", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "FixerReactiveArmor", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "PhalanxReactor", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "TrackingMunitions", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "EnhancedTargeting", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "SubterraneanSensors", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "SelffixProtocol", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "StealthSystems", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "VengeanceMissile", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "ShapedHull", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "AAMDefenseTurret", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "IntegratedOptics", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "CloakingGenerator", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "XayidFlyerCarapaceLevel1", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "XayidFlyerCarapaceLevel2", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "XayidFlyerCarapaceLevel3", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "XayidGroundCarapaceLevel1", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "XayidGroundCarapaceLevel2", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "XayidGroundCarapaceLevel3", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "XayidFlyerAttacksLevel1", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "XayidFlyerAttacksLevel2", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "XayidFlyerAttacksLevel3", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "XayidGroundAttacksLevel1", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "XayidGroundAttacksLevel2", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "XayidGroundAttacksLevel3", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "OcularAcuity", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "DexterousJoints", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "ScorpaliskMetabolics", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "PersistentSpores", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "CalcifiedHusk", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "BileDucts", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "BattleFrenzy", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "ResidualAcid", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "ProlongedSpores", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "CleavingSpores", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "RefinedExcretion", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "VolatileDischarge", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "KeironBioArmorLevel1", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "KeironBioArmorLevel2", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "KeironBioArmorLevel3", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "KeironMechArmorLevel1", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "KeironMechArmorLevel2", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "KeironMechArmorLevel3", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "KeironShieldsLevel1", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "KeironShieldsLevel2", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "KeironShieldsLevel3", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "KeironBioWeaponsLevel1", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "KeironBioWeaponsLevel2", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "KeironBioWeaponsLevel3", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "KeironMechWeaponsLevel1", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "KeironMechWeaponsLevel2", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "KeironMechWeaponsLevel3", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "ModifiedGait", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "ExaltedShield", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "LatentCharge", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "AmplifiedSphere", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "PulsarDampener", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "MeridianConvergence", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "WraithChamber", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "ShieldCompulsion", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "AnisopteraWings", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "DissonanceProjector", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "ApertureKeyhole", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "ApertureKeyhole", 0);
     }
 }
 
@@ -1251,31 +1420,6 @@ void lib1B69CECC_gf_DependencyMessage () {
 
 // Triggers
 //--------------------------------------------------------------------------------------------------
-// Trigger: Untitled Trigger 001
-//--------------------------------------------------------------------------------------------------
-bool lib1B69CECC_gt_UntitledTrigger001_Func (bool testConds, bool runActions) {
-    // Variable Declarations
-    bool lv_b;
-
-    // Automatic Variable Declarations
-    // Variable Initialization
-
-    // Actions
-    if (!runActions) {
-        return true;
-    }
-
-    lv_b = lv_b;
-    return true;
-}
-
-//--------------------------------------------------------------------------------------------------
-void lib1B69CECC_gt_UntitledTrigger001_Init () {
-    lib1B69CECC_gt_UntitledTrigger001 = TriggerCreate("lib1B69CECC_gt_UntitledTrigger001_Func");
-    TriggerAddEventMapInit(lib1B69CECC_gt_UntitledTrigger001);
-}
-
-//--------------------------------------------------------------------------------------------------
 // Trigger: run all test cases trigger
 //--------------------------------------------------------------------------------------------------
 bool lib1B69CECC_gt_runalltestcasestrigger_Func (bool testConds, bool runActions) {
@@ -1290,7 +1434,6 @@ bool lib1B69CECC_gt_runalltestcasestrigger_Func (bool testConds, bool runActions
     lib1B69CECC_gf_test_Choose_Observers_From_Lobby();
     lib1B69CECC_gf_test_compute_player_race_key();
     lib1B69CECC_gf_test_race_integer_conversion();
-    lib1B69CECC_gf_test_reset_tech();
     return true;
 }
 
@@ -1374,9 +1517,7 @@ bool lib1B69CECC_gt_ResetTechTrigger_Func (bool testConds, bool runActions) {
         return true;
     }
 
-    if ((ResetTech() == true)) {
-    }
-
+    lib1B69CECC_gf_ResetTechFunction();
     return true;
 }
 
@@ -1871,7 +2012,6 @@ void lib1B69CECC_gt_MeleeInitialization_Init () {
 }
 
 void lib1B69CECC_InitTriggers () {
-    lib1B69CECC_gt_UntitledTrigger001_Init();
     lib1B69CECC_gt_runalltestcasestrigger_Init();
     lib1B69CECC_gt_AddAITrigger_Init();
     lib1B69CECC_gt_AddAITrigger2_Init();
@@ -1908,7 +2048,6 @@ void lib1B69CECC_InitLib () {
 
     lib1B69CECC_InitLibraries();
     lib1B69CECC_InitVariables();
-    lib1B69CECC_InitCustomScript();
     lib1B69CECC_InitTriggers();
 }
 
