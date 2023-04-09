@@ -15,7 +15,7 @@
                 <TextureType val="NineSlice"/>
             </Frame>
 
-            <Frame type="Label" name="Title">
+            <Frame type="Label" name="Message">
             
                 <Anchor side="Top" relative="$parent" pos="Mid" offset="0"/>
                 <Anchor side="Left" relative="$parent" pos="Mid" offset="0"/>
