@@ -160,6 +160,17 @@ void lib1B69CECC_gf_test_reset_tech () {
 
 }
 
+bool lib1B69CECC_gf_is_town_centre (unit lp_unit) {
+    // Automatic Variable Declarations
+    // Implementation
+    if (((UnitGetType(lp_unit) == "Nexus") || (UnitGetType(lp_unit) == "CommandCenter") || (UnitGetType(lp_unit) == "CommandCenterFlying") || (UnitGetType(lp_unit) == "OrbitalCommand") || (UnitGetType(lp_unit) == "OrbitalCommandFlying") || (UnitGetType(lp_unit) == "PlanetaryFortress") || (UnitGetType(lp_unit) == "Hatchery") || (UnitGetType(lp_unit) == "Lair") || (UnitGetType(lp_unit) == "Hive") || (UnitGetType(lp_unit) == "Citadel") || (UnitGetType(lp_unit) == "CitadelCharged") || (UnitGetType(lp_unit) == "ScavengerNest"))) {
+        return true;
+    }
+    else {
+        return false;
+    }
+}
+
 void lib1B69CECC_gf_reveal_player (int lp_player) {
     // Automatic Variable Declarations
     unitgroup auto74BDC69E_g;
@@ -1454,7 +1465,7 @@ bool lib1B69CECC_gt_DetectRevealTrigger_Func (bool testConds, bool runActions) {
 
     // Conditions
     if (testConds) {
-        if (!((((UnitGetType(EventUnit()) == "Nexus") || (UnitGetType(EventUnit()) == "CommandCenter") || (UnitGetType(EventUnit()) == "CommandCenterFlying") || (UnitGetType(EventUnit()) == "OrbitalCommand") || (UnitGetType(EventUnit()) == "OrbitalCommandFlying") || (UnitGetType(EventUnit()) == "PlanetaryFortress") || (UnitGetType(EventUnit()) == "Hatchery") || (UnitGetType(EventUnit()) == "Lair") || (UnitGetType(EventUnit()) == "Hive") || (UnitGetType(EventUnit()) == "Citadel") || (UnitGetType(EventUnit()) == "CitadelCharged") || (UnitGetType(EventUnit()) == "ScavengerNest"))))) {
+        if (!((lib1B69CECC_gf_is_town_centre(EventUnit()) == true))) {
             return false;
         }
 
@@ -1484,6 +1495,35 @@ void lib1B69CECC_gt_DetectRevealTrigger_Init () {
     lib1B69CECC_gt_DetectRevealTrigger = TriggerCreate("lib1B69CECC_gt_DetectRevealTrigger_Func");
     TriggerAddEventUnitDied(lib1B69CECC_gt_DetectRevealTrigger, null);
     TriggerAddEventUnitConstructProgress(lib1B69CECC_gt_DetectRevealTrigger, null, c_unitProgressStageCancel);
+}
+
+//--------------------------------------------------------------------------------------------------
+// Trigger: Detect Unreveal Trigger
+//--------------------------------------------------------------------------------------------------
+bool lib1B69CECC_gt_DetectUnrevealTrigger_Func (bool testConds, bool runActions) {
+    // Automatic Variable Declarations
+    // Conditions
+    if (testConds) {
+        if (!((lib1B69CECC_gf_is_town_centre(EventUnitProgressUnit()) == true))) {
+            return false;
+        }
+    }
+
+    // Actions
+    if (!runActions) {
+        return true;
+    }
+
+    PlayerGroupRemove(lib1B69CECC_gv_rEVEALED_PLAYERS, EventPlayer());
+    lib1B69CECC_gf_HideRevealDialog(EventPlayer());
+    lib1B69CECC_gf_unreveal_player(EventPlayer());
+    return true;
+}
+
+//--------------------------------------------------------------------------------------------------
+void lib1B69CECC_gt_DetectUnrevealTrigger_Init () {
+    lib1B69CECC_gt_DetectUnrevealTrigger = TriggerCreate("lib1B69CECC_gt_DetectUnrevealTrigger_Func");
+    TriggerAddEventUnitConstructProgress(lib1B69CECC_gt_DetectUnrevealTrigger, null, c_unitProgressStageStart);
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -1832,6 +1872,7 @@ void lib1B69CECC_InitTriggers () {
     lib1B69CECC_gt_RevealDialogTrigger_Init();
     lib1B69CECC_gt_RevealCountdownTrigger_Init();
     lib1B69CECC_gt_DetectRevealTrigger_Init();
+    lib1B69CECC_gt_DetectUnrevealTrigger_Init();
     lib1B69CECC_gt_DetectGG_Init();
     lib1B69CECC_gt_CleanUpWhenPlayerLeaves_Init();
     lib1B69CECC_gt_DetectVictory_Init();
