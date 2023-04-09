@@ -17,7 +17,6 @@ const string lib1B69CECC_gv_mINERAL_FIELD_COUNT_KEY = "mineral_field_count";
 // Structures
 struct lib1B69CECC_gs_RevealTimerRecord {
     int lv_time_left;
-    timer lv_reveal_timer;
     int lv_player;
 };
 
@@ -64,6 +63,7 @@ void lib1B69CECC_gf_test_Choose_Observers_From_Lobby ();
 void lib1B69CECC_gf_test_compute_player_race_key ();
 void lib1B69CECC_gf_test_race_integer_conversion ();
 void lib1B69CECC_gf_test_reset_tech ();
+int lib1B69CECC_gf_find_index_of_player (int lp_player);
 bool lib1B69CECC_gf_IsPlayeralreadyinrecord (int lp_player);
 void lib1B69CECC_gf_StartRevealTimerCountdown (int lp_player, int lp_index);
 void lib1B69CECC_gf_StartRevealTimer (int lp_player);

@@ -24,7 +24,6 @@ void lib1B69CECC_InitVariables () {
 
     for (init_i = 0; init_i <= 2; init_i += 1) {
         lib1B69CECC_gv_reveal_timer_record[init_i].lv_time_left = 30;
-        lib1B69CECC_gv_reveal_timer_record[init_i].lv_reveal_timer = TimerCreate();
     }
     lib1B69CECC_gv_rEVEALED_PLAYERS = PlayerGroupEmpty();
     lib1B69CECC_gv_tmrDetectVictory = TimerCreate();
@@ -161,6 +160,28 @@ void lib1B69CECC_gf_test_reset_tech () {
 
 }
 
+int lib1B69CECC_gf_find_index_of_player (int lp_player) {
+    // Variable Declarations
+    bool lv_found;
+    int lv_index;
+    const int lv_mAX_INDEX = 2;
+
+    // Automatic Variable Declarations
+    // Variable Initialization
+    lv_index = 1;
+
+    // Implementation
+    while ((lv_index <= lv_mAX_INDEX) && (lv_found == false)) {
+        if ((lib1B69CECC_gv_reveal_timer_record[lv_index].lv_player == lp_player)) {
+            lv_found = true;
+        }
+        else {
+            lv_index = (lv_index + 1);
+        }
+    }
+    return MinI(lv_index, lv_mAX_INDEX);
+}
+
 bool lib1B69CECC_gf_IsPlayeralreadyinrecord (int lp_player) {
     // Automatic Variable Declarations
     // Implementation
@@ -182,7 +203,6 @@ void lib1B69CECC_gf_StartRevealTimerCountdown (int lp_player, int lp_index) {
     // Implementation
     lib1B69CECC_gv_reveal_timer_record[lp_index].lv_player = lp_player;
     lib1B69CECC_gv_reveal_timer_record[lp_index].lv_time_left = lv_cOUNTDOWN;
-    TimerStart(lib1B69CECC_gv_reveal_timer_record[lp_index].lv_reveal_timer, lv_cOUNTDOWN, false, c_timeGame);
 }
 
 void lib1B69CECC_gf_StartRevealTimer (int lp_player) {
@@ -1323,9 +1343,14 @@ void lib1B69CECC_gt_RevealDialogTrigger_Init () {
 // Trigger: Reveal Countdown Trigger
 //--------------------------------------------------------------------------------------------------
 bool lib1B69CECC_gt_RevealCountdownTrigger_Func (bool testConds, bool runActions) {
+    // Variable Declarations
+    int lv_index;
+
     // Automatic Variable Declarations
     playergroup autoCD416776_g;
     int autoCD416776_var;
+
+    // Variable Initialization
 
     // Conditions
     if (testConds) {
@@ -1344,7 +1369,20 @@ bool lib1B69CECC_gt_RevealCountdownTrigger_Func (bool testConds, bool runActions
     while (true) {
         autoCD416776_var = PlayerGroupNextPlayer(autoCD416776_g, autoCD416776_var);
         if (autoCD416776_var < 0) { break; }
-        lib1B69CECC_gf_ShowRevealCountdown(autoCD416776_var, 0);
+        if ((lib1B69CECC_gf_IsPlayeralreadyinrecord(autoCD416776_var) == true)) {
+            if ((lib1B69CECC_gf_IsPlayeralreadyinrecord(autoCD416776_var) == true)) {
+                lv_index = lib1B69CECC_gf_find_index_of_player(autoCD416776_var);
+                lib1B69CECC_gv_reveal_timer_record[lv_index].lv_time_left = MaxI((lib1B69CECC_gv_reveal_timer_record[lv_index].lv_time_left - 1), 0);
+                if ((lib1B69CECC_gv_reveal_timer_record[lv_index].lv_time_left == 0)) {
+                    lib1B69CECC_gf_ShowRevealMessage(autoCD416776_var);
+                }
+                else {
+                    lib1B69CECC_gf_ShowRevealCountdown(autoCD416776_var, lib1B69CECC_gv_reveal_timer_record[lv_index].lv_time_left);
+                }
+            }
+
+        }
+
     }
     return true;
 }
@@ -1389,7 +1427,6 @@ bool lib1B69CECC_gt_DetectRevealTrigger_Func (bool testConds, bool runActions) {
             lib1B69CECC_gf_StartRevealTimer(EventPlayer());
         }
 
-        lib1B69CECC_gf_ShowRevealCountdown(EventPlayer(), 30);
     }
 
     return true;
@@ -1399,6 +1436,7 @@ bool lib1B69CECC_gt_DetectRevealTrigger_Func (bool testConds, bool runActions) {
 void lib1B69CECC_gt_DetectRevealTrigger_Init () {
     lib1B69CECC_gt_DetectRevealTrigger = TriggerCreate("lib1B69CECC_gt_DetectRevealTrigger_Func");
     TriggerAddEventUnitDied(lib1B69CECC_gt_DetectRevealTrigger, null);
+    TriggerAddEventUnitConstructProgress(lib1B69CECC_gt_DetectRevealTrigger, null, c_unitProgressStageCancel);
 }
 
 //--------------------------------------------------------------------------------------------------
