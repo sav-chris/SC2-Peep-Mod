@@ -17,6 +17,7 @@ Param/Value/lib_1B69CECC_316FD8E1=Race index mismatch
 Param/Value/lib_1B69CECC_3578C5FD=<img path="Assets\Textures\sc2_ui_loadingscreen_playercard_raceindicator_keir.dds" alignment="AbsoluteMiddle" width="21" height="22"/> Keiron
 Param/Value/lib_1B69CECC_47AED35E=<img path="Assets\Textures\sc2_ui_loadingscreen_playercard_raceindicator_protoss.dds" alignment="AbsoluteMiddle" width="21" height="22"/> Protoss
 Param/Value/lib_1B69CECC_4FB89260=Race index mismatch
+Param/Value/lib_1B69CECC_550F33D7=You will be revealed in 
 Param/Value/lib_1B69CECC_5DE344B1=<img path="Assets\Textures\sc2_ui_loadingscreen_playercard_raceindicator_random.dds" alignment="AbsoluteMiddle" width="21" height="22"/> Random
 Param/Value/lib_1B69CECC_5F50D4B5=<img path="Assets\Textures\sc2_ui_loadingscreen_playercard_raceindicator_xayid.dds" alignment="AbsoluteMiddle" width="21" height="22"/> Xayid
 Param/Value/lib_1B69CECC_61B75788=Error: Players and observers must not intersect
@@ -24,6 +25,7 @@ Param/Value/lib_1B69CECC_65046665=Invalid Race Key Computed
 Param/Value/lib_1B69CECC_65B515D1=Test race index conversion
 Param/Value/lib_1B69CECC_6DF26637=<img path="Assets\Textures\ui_battlenet_glue_icons_league_silver.dds" alignment="AbsoluteMiddle" width="22" height="22"/> Silver
 Param/Value/lib_1B69CECC_6EE314B4=Test race index conversion
+Param/Value/lib_1B69CECC_73FE80F3=
 Param/Value/lib_1B69CECC_798D7B2A=Race index mismatch
 Param/Value/lib_1B69CECC_79FAD5F2=Test Foo Bar : Race
 Param/Value/lib_1B69CECC_7C40F074=Race index mismatch

@@ -12,9 +12,9 @@ bool ResetTech()
     int upgradeCount;
 
 
-    upgradeCount = UserDataFieldCount("Upgrade");
-    TriggerDebugOutput(1, StringToText("Upgrade Count: "), true);
-    TriggerDebugOutput(1, StringToText(IntToString(upgradeCount)), true);
+    //upgradeCount = UserDataGetUpgrade()
+    //TriggerDebugOutput(1, StringToText("Upgrade Count: "), true);
+    //TriggerDebugOutput(1, StringToText(IntToString(upgradeCount)), true);
 
     userType_eventsTable = "SCEvent_Events"; //libLbty_gv_starCraftEventsEventTable;
     

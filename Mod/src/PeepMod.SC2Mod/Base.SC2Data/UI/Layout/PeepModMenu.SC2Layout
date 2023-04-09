@@ -130,8 +130,6 @@
 
                 <Animation name="Help">
                     <Event event="OnClick" action="Reset,Play"/>
-
-                    
                 </Animation>
             </Frame>
 

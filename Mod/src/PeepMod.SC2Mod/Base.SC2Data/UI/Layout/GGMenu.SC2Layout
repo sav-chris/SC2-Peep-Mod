@@ -23,10 +23,8 @@
                 <Anchor side="Left" relative="$parent" pos="Mid" offset="0"/>
                 <Anchor side="Right" relative="$parent" pos="Mid" offset="0"/>
  
-                
-
                 <Style val="SystemAlert_Prot"/>
-                <Width val="600"/>
+                <Width val="400"/>
                 <Text val="Do you wish to surrender?"/>
             </Frame>
             
@@ -49,7 +47,7 @@
             </Frame>
             
             <Frame type="Button" name="ChooseNo" template="StandardTemplates/StandardButtonTemplate">
-                <Anchor side="Top" relative="$parent" pos="Min" offset="140"/>
+                <Anchor side="Top" relative="$parent" pos="Min" offset="180"/>
                 <Anchor side="Left" relative="$parent" pos="Min" offset="0"/>
                 <Anchor side="Bottom" relative="$parent" pos="Max" offset="0"/>
                 <Anchor side="Right" relative="$parent" pos="Max" offset="0"/>
