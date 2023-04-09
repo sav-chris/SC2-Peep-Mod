@@ -967,7 +967,7 @@ void lib1B69CECC_gf_InitialisePlayer (int lp_player, string lp_startlocation) {
     lv_race = lib1B69CECC_gf_chose_race(lv_race_index);
     PlayerSetRace(lp_player, lv_race);
     MeleeInitResourcesForPlayer(lp_player, lv_race);
-    if (true) {
+    if ((lv_race == "Zerg")) {
         MeleeInitUnitsForPlayer(lp_player, "Zerg", PointFromName(lp_startlocation));
         CreepModify(PointFromName(lp_startlocation), 11.5, true, false);
         auto72918860_g = UnitGroup(null, lp_player, RegionEntireMap(), UnitFilter((1 << c_targetFilterStructure), 0, 0, 0), 0);
