@@ -31,6 +31,7 @@ void lib1B69CECC_InitVariables () {
     lib1B69CECC_gv_oBSERVERS = PlayerGroupEmpty();
     lib1B69CECC_gv_lobbyTimer.lv_startTime = CurrentDateTimeGet();
     lib1B69CECC_gv_lobbyTimer.lv_timer = TimerCreate();
+    lib1B69CECC_gv_ui_victory_screen = c_invalidDialogControlId;
     lib1B69CECC_gv_ui_reveal = c_invalidDialogControlId;
     lib1B69CECC_gv_ui_reveal_label = c_invalidDialogControlId;
     lib1B69CECC_gv_ui_gg_menu = c_invalidDialogControlId;
@@ -769,6 +770,9 @@ void lib1B69CECC_gf_ResetTechFunction () {
         libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "DissonanceProjector", 0);
         libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "ApertureKeyhole", 0);
         libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "ApertureKeyhole", 0);
+        CatalogFieldValueSet(c_gameCatalogUnit, "Hydralisk", "Speed", lv_intPlayer, "2.25");
+        CatalogFieldValueSet(c_gameCatalogUnit, "Hydralisk", "SpeedMultiplierCreep", lv_intPlayer, "1.5");
+        CatalogFieldValueSet(c_gameCatalogUnit, "Overlord", "Speed", lv_intPlayer, "0.6445");
     }
 }
 
@@ -1188,6 +1192,19 @@ string lib1B69CECC_gf_compute_race_from_index (int lp_race_index) {
     else {
         return "Neut";
     }
+}
+
+void lib1B69CECC_gf_InitialiseVictoryScreen () {
+    // Automatic Variable Declarations
+    // Implementation
+    DialogControlHookupStandard(c_triggerControlTypePanel, "GameUI/UIContainer/VictoryScreen");
+    lib1B69CECC_gv_ui_victory_screen = DialogControlLastCreated();
+}
+
+void lib1B69CECC_gf_ShowGameStartScreen () {
+    // Automatic Variable Declarations
+    // Implementation
+    DialogControlSetVisible(lib1B69CECC_gv_ui_victory_screen, PlayerGroupAll(), true);
 }
 
 void lib1B69CECC_gf_HideRevealDialog (int lp_player) {
