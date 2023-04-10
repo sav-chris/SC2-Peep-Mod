@@ -9,7 +9,7 @@
 <Race id="Gen"/>
 <Race id="Xayi"/>
 <Race id="Keir"/>
-<Sound id="UI_BnetCountdown"/>
+<Sound id="UI_BnetCountdown321"/>
 <Unit id="RichMineralField"/>
 <Unit id="MineralField"/>
 </Preload>

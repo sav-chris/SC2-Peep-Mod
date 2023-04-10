@@ -142,6 +142,30 @@ void lib1B69CECC_gf_test_race_integer_conversion () {
     lib1B69CECC_gf_Assert((lib1B69CECC_gf_compute_race_from_index(lib1B69CECC_gf_compute_race_index("Keir")) == "Keir"), StringExternal("Param/Value/lib_1B69CECC_11BD8736"), StringExternal("Param/Value/lib_1B69CECC_316FD8E1"));
 }
 
+void lib1B69CECC_gf_test_compute_winners () {
+    // Variable Declarations
+    playergroup lv_players;
+    playergroup lv_losers;
+    playergroup lv_winners;
+    playergroup lv_computed_winners;
+
+    // Automatic Variable Declarations
+    // Variable Initialization
+    lv_players = PlayerGroupEmpty();
+    lv_losers = PlayerGroupEmpty();
+    lv_winners = PlayerGroupEmpty();
+    lv_computed_winners = PlayerGroupEmpty();
+
+    // Implementation
+    PlayerGroupAdd(lv_players, 1);
+    PlayerGroupAdd(lv_players, 2);
+    PlayerGroupAdd(lv_losers, 1);
+    PlayerGroupAdd(lv_winners, 2);
+    lv_computed_winners = lib1B69CECC_gf_compute_winners(lv_players, lv_losers);
+    lib1B69CECC_gf_Assert((PlayerGroupCount(lv_winners) == PlayerGroupCount(lv_computed_winners)), StringExternal("Param/Value/lib_1B69CECC_866D7D2F"), StringExternal("Param/Value/lib_1B69CECC_B786A63E"));
+    lib1B69CECC_gf_Assert((PlayerGroupCount(lv_winners) == PlayerGroupCount(libNtve_gf_IntersectionOfPlayerGroups(lv_winners, lv_computed_winners))), StringExternal("Param/Value/lib_1B69CECC_90BE0C1F"), StringExternal("Param/Value/lib_1B69CECC_A67B398B"));
+}
+
 void lib1B69CECC_gf_ResetRevealStatus () {
     // Automatic Variable Declarations
     // Implementation
@@ -426,6 +450,32 @@ void lib1B69CECC_gf_ResetGas () {
             UnitSetPropertyFixed(lv_unit, c_unitPropResources, 5000.0);
         }
 
+    }
+}
+
+void lib1B69CECC_gf_ResetVision () {
+    // Variable Declarations
+    int lv_aObserver;
+    int lv_aPlayer;
+
+    // Automatic Variable Declarations
+    playergroup autoC031B8F3_g;
+    playergroup auto26538C41_g;
+
+    // Variable Initialization
+
+    // Implementation
+    autoC031B8F3_g = lib1B69CECC_gv_oBSERVERS;
+    lv_aObserver = -1;
+    while (true) {
+        lv_aObserver = PlayerGroupNextPlayer(autoC031B8F3_g, lv_aObserver);
+        if (lv_aObserver < 0) { break; }
+        auto26538C41_g = lib1B69CECC_gv_pLAYERS;
+        lv_aPlayer = -1;
+        while (true) {
+            lv_aPlayer = PlayerGroupNextPlayer(auto26538C41_g, lv_aPlayer);
+            if (lv_aPlayer < 0) { break; }
+        }
     }
 }
 
@@ -809,6 +859,7 @@ void lib1B69CECC_gf_ResetGame () {
     // Automatic Variable Declarations
     // Implementation
     lib1B69CECC_gf_KillAllPlayerUnits();
+    lib1B69CECC_gf_ResetVision();
     lib1B69CECC_gf_ResetGas();
     lib1B69CECC_gf_ResetMinerals();
     lib1B69CECC_gf_CleanUpCreep();
@@ -998,9 +1049,8 @@ void lib1B69CECC_gf_InitialiseGame (playergroup lp_lobby_Players) {
 
     // Implementation
     lib1B69CECC_gf_HideLobby(lib1B69CECC_gv_lobbyModal);
-    SoundPlayForPlayer(SoundLink("UI_BnetCountdown", -1), c_maxPlayers, PlayerGroupAll(), 100.0, 0.0);
-    SoundPlayForPlayer(SoundLink("UI_BnetCountdown", -1), c_maxPlayers, PlayerGroupAll(), 100.0, 0.0);
-    SoundPlayForPlayer(SoundLink("UI_BnetCountdown", -1), c_maxPlayers, PlayerGroupAll(), 100.0, 0.0);
+    SoundPlayForPlayer(SoundLink("UI_BnetCountdown321", -1), c_maxPlayers, PlayerGroupAll(), 100.0, 0.0);
+    UIDisplayMessage(PlayerGroupAll(), c_messageAreaSubtitle, StringExternal("Param/Value/lib_1B69CECC_890AFE24"));
     CinematicFade(false, 2.0, c_fadeStyleNormal, Color(0.00, 0.00, 0.00), 0.0, true);
     CinematicFade(true, 2.0, c_fadeStyleNormal, Color(0.00, 0.00, 0.00), 0.0, true);
     lv_start_locations[0] = lib1B69CECC_gv_sTARTLOCATION_1;
@@ -1211,6 +1261,36 @@ bool lib1B69CECC_gf_is_town_centre (unit lp_unit) {
     }
 }
 
+playergroup lib1B69CECC_gf_compute_winners (playergroup lp_players, playergroup lp_losers) {
+    // Variable Declarations
+    playergroup lv_winners;
+
+    // Automatic Variable Declarations
+    // Variable Initialization
+    lv_winners = PlayerGroupEmpty();
+
+    // Implementation
+    lv_winners = PlayerGroupCopy(lp_players);
+    libNtve_gf_RemovePlayerGroupFromPlayerGroup(lp_losers, lv_winners);
+    return lv_winners;
+}
+
+void lib1B69CECC_gf_DisplayVictoryMessage (playergroup lp_winners) {
+    // Automatic Variable Declarations
+    playergroup autoA551C0E6_g;
+    int autoA551C0E6_var;
+
+    // Implementation
+    UIDisplayMessage(PlayerGroupAll(), c_messageAreaSubtitle, TextExpressionAssemble("Param/Expression/lib_1B69CECC_2F42B94E"));
+    autoA551C0E6_g = PlayerGroupAll();
+    autoA551C0E6_var = -1;
+    while (true) {
+        autoA551C0E6_var = PlayerGroupNextPlayer(autoA551C0E6_g, autoA551C0E6_var);
+        if (autoA551C0E6_var < 0) { break; }
+        UIDisplayMessage(PlayerGroupAll(), c_messageAreaSubtitle, PlayerName(autoA551C0E6_var));
+    }
+}
+
 void lib1B69CECC_gf_HideRevealDialog (int lp_player) {
     // Automatic Variable Declarations
     // Implementation
@@ -1288,7 +1368,7 @@ void lib1B69CECC_gf_EnableObserverUI (playergroup lp_observers, playergroup lp_p
         while (true) {
             lv_aPlayer = PlayerGroupNextPlayer(autoFF2D6FA4_g, lv_aPlayer);
             if (lv_aPlayer < 0) { break; }
-            libNtve_gf_SetAllianceOneWay(lv_aPlayer, lv_aObserver, libNtve_ge_AllianceSetting_AllyWithSharedVision);
+            PlayerSetAlliance(lv_aPlayer, c_allianceIdVision, lv_aObserver, false);
         }
     }
 }
@@ -1474,6 +1554,7 @@ bool lib1B69CECC_gt_runalltestcasestrigger_Func (bool testConds, bool runActions
     lib1B69CECC_gf_test_Choose_Observers_From_Lobby();
     lib1B69CECC_gf_test_compute_player_race_key();
     lib1B69CECC_gf_test_race_integer_conversion();
+    lib1B69CECC_gf_test_compute_winners();
     return true;
 }
 
@@ -1782,6 +1863,7 @@ void lib1B69CECC_gt_CleanUpWhenPlayerLeaves_Init () {
 //--------------------------------------------------------------------------------------------------
 bool lib1B69CECC_gt_DetectVictory_Func (bool testConds, bool runActions) {
     // Variable Declarations
+    playergroup lv_losers;
     bool lv_restartLobby;
     unit lv_aUnit;
     int lv_aPlayer;
@@ -1790,6 +1872,7 @@ bool lib1B69CECC_gt_DetectVictory_Func (bool testConds, bool runActions) {
     playergroup autoA6D6F3A3_g;
 
     // Variable Initialization
+    lv_losers = PlayerGroupEmpty();
 
     // Conditions
     if (testConds) {
@@ -1812,10 +1895,12 @@ bool lib1B69CECC_gt_DetectVictory_Func (bool testConds, bool runActions) {
         if ((UnitGroupCount(UnitGroup(null, lv_aPlayer, RegionEntireMap(), UnitFilter((1 << c_targetFilterStructure) | (1 << c_targetFilterPreventDefeat), 0, (1 << c_targetFilterMissile), (1 << (c_targetFilterDead - 32)) | (1 << (c_targetFilterHidden - 32))), 0), c_unitCountAlive) == 0)) {
             lib1B69CECC_gf_StopVictoryDetection();
             lv_restartLobby = true;
+            PlayerGroupAdd(lv_losers, lv_aPlayer);
         }
 
     }
     if ((lv_restartLobby == true)) {
+        lib1B69CECC_gf_DisplayVictoryMessage(lib1B69CECC_gf_compute_winners(lib1B69CECC_gv_pLAYERS, lv_losers));
         lib1B69CECC_gf_ResetGame();
     }
 
@@ -1852,38 +1937,6 @@ void lib1B69CECC_gt_HandleTimeOut_Init () {
 }
 
 //--------------------------------------------------------------------------------------------------
-// Trigger: Worker Saturation Display
-//--------------------------------------------------------------------------------------------------
-bool lib1B69CECC_gt_WorkerSaturationDisplay_Func (bool testConds, bool runActions) {
-    // Variable Declarations
-    int lv_player;
-
-    // Automatic Variable Declarations
-    // Variable Initialization
-
-    // Conditions
-    if (testConds) {
-        if (!(((lib1B69CECC_gf_is_gas_structure(EventUnitCreatedUnit()) == true) || (lib1B69CECC_gf_is_town_centre(EventUnitCreatedUnit()) == true)))) {
-            return false;
-        }
-    }
-
-    // Actions
-    if (!runActions) {
-        return true;
-    }
-
-    TextTagCreate(StringExternal("Param/Value/lib_1B69CECC_EB0680CA"), 18, UnitGetPosition(EventUnitCreatedUnit()), 4.0, true, true, PlayerGroupAll());
-    return true;
-}
-
-//--------------------------------------------------------------------------------------------------
-void lib1B69CECC_gt_WorkerSaturationDisplay_Init () {
-    lib1B69CECC_gt_WorkerSaturationDisplay = TriggerCreate("lib1B69CECC_gt_WorkerSaturationDisplay_Func");
-    TriggerAddEventUnitCreated(lib1B69CECC_gt_WorkerSaturationDisplay, null, null, null);
-}
-
-//--------------------------------------------------------------------------------------------------
 // Trigger: Click Yes
 //--------------------------------------------------------------------------------------------------
 bool lib1B69CECC_gt_ClickYes_Func (bool testConds, bool runActions) {
@@ -1902,6 +1955,7 @@ bool lib1B69CECC_gt_ClickYes_Func (bool testConds, bool runActions) {
 
     lib1B69CECC_gf_StopVictoryDetection();
     lib1B69CECC_gf_HideGGMenu();
+    lib1B69CECC_gf_DisplayVictoryMessage(lib1B69CECC_gf_compute_winners(lib1B69CECC_gv_pLAYERS, PlayerGroupSingle(EventPlayer())));
     lib1B69CECC_gf_ResetGame();
     return true;
 }
@@ -2097,7 +2151,6 @@ void lib1B69CECC_InitTriggers () {
     lib1B69CECC_gt_CleanUpWhenPlayerLeaves_Init();
     lib1B69CECC_gt_DetectVictory_Init();
     lib1B69CECC_gt_HandleTimeOut_Init();
-    lib1B69CECC_gt_WorkerSaturationDisplay_Init();
     lib1B69CECC_gt_ClickYes_Init();
     lib1B69CECC_gt_ClickNo_Init();
     lib1B69CECC_gt_ClickHelp_Init();
