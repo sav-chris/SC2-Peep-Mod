@@ -16470,7 +16470,6 @@
             <FlagAction/>
             <Parameter Type="ParamDef" Library="1B69CECC" Id="F0D23AE7"/>
             <Variable Type="Variable" Library="1B69CECC" Id="F5F7545C"/>
-            <FunctionCall Type="FunctionCall" Library="1B69CECC" Id="7BBCBC6F"/>
             <FunctionCall Type="FunctionCall" Library="1B69CECC" Id="90DEED1A"/>
             <FunctionCall Type="FunctionCall" Library="1B69CECC" Id="044B3E44"/>
             <FunctionCall Type="FunctionCall" Library="1B69CECC" Id="DB4DFDDD"/>
@@ -16498,24 +16497,6 @@
         <Element Type="Param" Id="EFEE3F4E">
             <Value>0</Value>
             <ValueType Type="int"/>
-        </Element>
-        <Element Type="FunctionCall" Id="7BBCBC6F">
-            <FunctionDef Type="FunctionDef" Library="Ntve" Id="8EDD3557"/>
-            <Parameter Type="Param" Library="1B69CECC" Id="9C0D09B4"/>
-            <Parameter Type="Param" Library="1B69CECC" Id="62BC2570"/>
-            <Parameter Type="Param" Library="1B69CECC" Id="FEF8D216"/>
-        </Element>
-        <Element Type="Param" Id="9C0D09B4">
-            <ParameterDef Type="ParamDef" Library="Ntve" Id="AE2D0D80"/>
-            <Parameter Type="ParamDef" Library="1B69CECC" Id="F0D23AE7"/>
-        </Element>
-        <Element Type="Param" Id="62BC2570">
-            <ParameterDef Type="ParamDef" Library="Ntve" Id="5328E238"/>
-            <Preset Type="PresetValue" Library="Ntve" Id="EFBDA3CB"/>
-        </Element>
-        <Element Type="Param" Id="FEF8D216">
-            <ParameterDef Type="ParamDef" Library="Ntve" Id="31F1731E"/>
-            <Preset Type="PresetValue" Library="Ntve" Id="D88ACDB5"/>
         </Element>
         <Element Type="FunctionCall" Id="90DEED1A">
             <FunctionDef Type="FunctionDef" Library="Ntve" Id="AE5AF605"/>

@@ -1301,7 +1301,6 @@ void lib1B69CECC_gf_EnablePlayerUI (playergroup lp_players) {
     // Variable Initialization
 
     // Implementation
-    UISetMode(lp_players, c_uiModeConsole, c_transitionDurationImmediate);
     UISetFrameVisible(lp_players, c_syncFrameTypeResourcePanel, true);
     UISetFrameVisible(lp_players, c_syncFrameTypeSupply, true);
     VisEnable(c_visTypeFog, true);
