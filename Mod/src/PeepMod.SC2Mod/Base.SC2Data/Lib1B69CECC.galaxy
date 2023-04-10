@@ -149,17 +149,6 @@ void lib1B69CECC_gf_ResetRevealStatus () {
     DialogControlSetVisible(lib1B69CECC_gv_ui_reveal, PlayerGroupAll(), false);
 }
 
-bool lib1B69CECC_gf_is_town_centre (unit lp_unit) {
-    // Automatic Variable Declarations
-    // Implementation
-    if (((UnitGetType(lp_unit) == "Nexus") || (UnitGetType(lp_unit) == "CommandCenter") || (UnitGetType(lp_unit) == "CommandCenterFlying") || (UnitGetType(lp_unit) == "OrbitalCommand") || (UnitGetType(lp_unit) == "OrbitalCommandFlying") || (UnitGetType(lp_unit) == "PlanetaryFortress") || (UnitGetType(lp_unit) == "Hatchery") || (UnitGetType(lp_unit) == "Lair") || (UnitGetType(lp_unit) == "Hive") || (UnitGetType(lp_unit) == "Citadel") || (UnitGetType(lp_unit) == "CitadelCharged") || (UnitGetType(lp_unit) == "ScavengerNest"))) {
-        return true;
-    }
-    else {
-        return false;
-    }
-}
-
 void lib1B69CECC_gf_reveal_player (int lp_player) {
     // Automatic Variable Declarations
     unitgroup auto74BDC69E_g;
@@ -1200,6 +1189,28 @@ string lib1B69CECC_gf_compute_race_from_index (int lp_race_index) {
     }
 }
 
+bool lib1B69CECC_gf_is_gas_structure (unit lp_unit) {
+    // Automatic Variable Declarations
+    // Implementation
+    if (((UnitGetType(lp_unit) == "Extractor") || (UnitGetType(lp_unit) == "ExtractorRich") || (UnitGetType(lp_unit) == "Refinery") || (UnitGetType(lp_unit) == "RefineryRich") || (UnitGetType(lp_unit) == "Assimilator") || (UnitGetType(lp_unit) == "AssimilatorRich") || (UnitGetType(lp_unit) == "Siphoner") || (UnitGetType(lp_unit) == "SiphonerRich") || (UnitGetType(lp_unit) == "Formulator") || (UnitGetType(lp_unit) == "FormulatorRich") || (UnitGetType(lp_unit) == "FilteringPlant") || (UnitGetType(lp_unit) == "FilteringPlantRich"))) {
+        return true;
+    }
+    else {
+        return false;
+    }
+}
+
+bool lib1B69CECC_gf_is_town_centre (unit lp_unit) {
+    // Automatic Variable Declarations
+    // Implementation
+    if (((UnitGetType(lp_unit) == "Nexus") || (UnitGetType(lp_unit) == "CommandCenter") || (UnitGetType(lp_unit) == "CommandCenterFlying") || (UnitGetType(lp_unit) == "OrbitalCommand") || (UnitGetType(lp_unit) == "OrbitalCommandFlying") || (UnitGetType(lp_unit) == "PlanetaryFortress") || (UnitGetType(lp_unit) == "Hatchery") || (UnitGetType(lp_unit) == "Lair") || (UnitGetType(lp_unit) == "Hive") || (UnitGetType(lp_unit) == "Citadel") || (UnitGetType(lp_unit) == "CitadelCharged") || (UnitGetType(lp_unit) == "ScavengerNest") || (UnitGetType(lp_unit) == "ProcessingCore"))) {
+        return true;
+    }
+    else {
+        return false;
+    }
+}
+
 void lib1B69CECC_gf_HideRevealDialog (int lp_player) {
     // Automatic Variable Declarations
     // Implementation
@@ -1842,6 +1853,38 @@ void lib1B69CECC_gt_HandleTimeOut_Init () {
 }
 
 //--------------------------------------------------------------------------------------------------
+// Trigger: Worker Saturation Display
+//--------------------------------------------------------------------------------------------------
+bool lib1B69CECC_gt_WorkerSaturationDisplay_Func (bool testConds, bool runActions) {
+    // Variable Declarations
+    int lv_player;
+
+    // Automatic Variable Declarations
+    // Variable Initialization
+
+    // Conditions
+    if (testConds) {
+        if (!(((lib1B69CECC_gf_is_gas_structure(EventUnitCreatedUnit()) == true) || (lib1B69CECC_gf_is_town_centre(EventUnitCreatedUnit()) == true)))) {
+            return false;
+        }
+    }
+
+    // Actions
+    if (!runActions) {
+        return true;
+    }
+
+    TextTagCreate(StringExternal("Param/Value/lib_1B69CECC_EB0680CA"), 24, UnitGetPosition(EventUnitCreatedUnit()), 1.0, true, true, PlayerGroupAll());
+    return true;
+}
+
+//--------------------------------------------------------------------------------------------------
+void lib1B69CECC_gt_WorkerSaturationDisplay_Init () {
+    lib1B69CECC_gt_WorkerSaturationDisplay = TriggerCreate("lib1B69CECC_gt_WorkerSaturationDisplay_Func");
+    TriggerAddEventUnitCreated(lib1B69CECC_gt_WorkerSaturationDisplay, null, null, null);
+}
+
+//--------------------------------------------------------------------------------------------------
 // Trigger: Click Yes
 //--------------------------------------------------------------------------------------------------
 bool lib1B69CECC_gt_ClickYes_Func (bool testConds, bool runActions) {
@@ -2055,6 +2098,7 @@ void lib1B69CECC_InitTriggers () {
     lib1B69CECC_gt_CleanUpWhenPlayerLeaves_Init();
     lib1B69CECC_gt_DetectVictory_Init();
     lib1B69CECC_gt_HandleTimeOut_Init();
+    lib1B69CECC_gt_WorkerSaturationDisplay_Init();
     lib1B69CECC_gt_ClickYes_Init();
     lib1B69CECC_gt_ClickNo_Init();
     lib1B69CECC_gt_ClickHelp_Init();
