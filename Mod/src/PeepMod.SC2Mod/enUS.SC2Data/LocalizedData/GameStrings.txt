@@ -15,6 +15,7 @@ Param/Value/lib_1B69CECC_2F914B3C=Foo
 Param/Value/lib_1B69CECC_316FD8E1=Race index mismatch
 Param/Value/lib_1B69CECC_3578C5FD=<img path="Assets\Textures\sc2_ui_loadingscreen_playercard_raceindicator_keir.dds" alignment="AbsoluteMiddle" width="21" height="22"/> Keiron
 Param/Value/lib_1B69CECC_47AED35E=<img path="Assets\Textures\sc2_ui_loadingscreen_playercard_raceindicator_protoss.dds" alignment="AbsoluteMiddle" width="21" height="22"/> Protoss
+Param/Value/lib_1B69CECC_4F8A3C50=Error: Failed to choose 1 player
 Param/Value/lib_1B69CECC_4FB89260=Race index mismatch
 Param/Value/lib_1B69CECC_550F33D7=You will be revealed in 
 Param/Value/lib_1B69CECC_5DE344B1=<img path="Assets\Textures\sc2_ui_loadingscreen_playercard_raceindicator_random.dds" alignment="AbsoluteMiddle" width="21" height="22"/> Random
@@ -32,10 +33,12 @@ Param/Value/lib_1B69CECC_8512A993=Check 4 observers are chosen
 Param/Value/lib_1B69CECC_866D7D2F=Test computing winners
 Param/Value/lib_1B69CECC_866ECC49=Test race index conversion
 Param/Value/lib_1B69CECC_890AFE24=<s val="SystemAlert_Prot">Say 'gg' in chat to surrender</s>
+Param/Value/lib_1B69CECC_89E293E9=Check 1 player is chosen
 Param/Value/lib_1B69CECC_8C125C91=<img path="Assets\Textures\ui_battlenet_glue_icons_league_grandmaster.dds" alignment="AbsoluteMiddle" width="22" height="22"/> Grand Master
 Param/Value/lib_1B69CECC_8C525690=Race index mismatch
 Param/Value/lib_1B69CECC_90BE0C1F=Test computing winners
 Param/Value/lib_1B69CECC_92097C58=Error: Failed to choose  observers
+Param/Value/lib_1B69CECC_9E134877=Error: Failed to choose 1 player
 Param/Value/lib_1B69CECC_A17D4CBC=Check players are not observers
 Param/Value/lib_1B69CECC_A67B398B=Error Computing winners
 Param/Value/lib_1B69CECC_A7679ABE=<img path="Assets\Textures\ui_battlenet_glue_icons_league_platinum.dds" alignment="AbsoluteMiddle" width="22" height="22"/> Platinum
@@ -43,6 +46,7 @@ Param/Value/lib_1B69CECC_AC5D4CE7=<img path="Assets\Textures\ui_battlenet_glue_i
 Param/Value/lib_1B69CECC_B6025F4F=Compute player race key
 Param/Value/lib_1B69CECC_B786A63E=Error Computing winners
 Param/Value/lib_1B69CECC_B7AA3D44=Race index mismatch
+Param/Value/lib_1B69CECC_BE2B8A86=Check 1 player is chosen
 Param/Value/lib_1B69CECC_C874B829=<img path="Assets\Textures\sc2_ui_loadingscreen_playercard_raceindicator_genetron.dds" alignment="AbsoluteMiddle" width="21" height="22"/> Genetron
 Param/Value/lib_1B69CECC_D063B6AD=Test race index conversion
 Param/Value/lib_1B69CECC_D7E3EE6D=Match starting in:

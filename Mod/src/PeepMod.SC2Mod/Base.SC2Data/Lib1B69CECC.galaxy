@@ -166,6 +166,30 @@ void lib1B69CECC_gf_test_compute_winners () {
     lib1B69CECC_gf_Assert((PlayerGroupCount(lv_winners) == PlayerGroupCount(libNtve_gf_IntersectionOfPlayerGroups(lv_winners, lv_computed_winners))), StringExternal("Param/Value/lib_1B69CECC_90BE0C1F"), StringExternal("Param/Value/lib_1B69CECC_A67B398B"));
 }
 
+void lib1B69CECC_gf_test_choose_a_player () {
+    // Variable Declarations
+    int lv_aPlayer;
+    playergroup lv_lobby;
+    playergroup lv_player;
+
+    // Automatic Variable Declarations
+    // Variable Initialization
+    lv_lobby = PlayerGroupEmpty();
+    lv_player = PlayerGroupEmpty();
+
+    // Implementation
+    lv_lobby = PlayerGroupEmpty();
+    PlayerGroupAdd(lv_lobby, 4);
+    PlayerGroupAdd(lv_lobby, 7);
+    PlayerGroupAdd(lv_lobby, 3);
+    PlayerGroupAdd(lv_lobby, 12);
+    PlayerGroupAdd(lv_lobby, 8);
+    PlayerGroupAdd(lv_lobby, 10);
+    lv_player = lib1B69CECC_gf_choose_a_player(lv_lobby);
+    lib1B69CECC_gf_Assert((PlayerGroupCount(lv_player) == 1), StringExternal("Param/Value/lib_1B69CECC_89E293E9"), StringExternal("Param/Value/lib_1B69CECC_4F8A3C50"));
+    lib1B69CECC_gf_Assert((PlayerGroupCount(libNtve_gf_IntersectionOfPlayerGroups(lv_player, lv_lobby)) == 1), StringExternal("Param/Value/lib_1B69CECC_BE2B8A86"), StringExternal("Param/Value/lib_1B69CECC_9E134877"));
+}
+
 void lib1B69CECC_gf_ResetRevealStatus () {
     // Automatic Variable Declarations
     // Implementation
@@ -1077,22 +1101,56 @@ void lib1B69CECC_gf_InitialiseGame (playergroup lp_lobby_Players) {
 playergroup lib1B69CECC_gf_ChoosePlayersFromLobby (playergroup lp_lobby) {
     // Variable Declarations
     playergroup lv_players;
-    int lv_player1;
-    int lv_player2;
     playergroup lv_temp;
+    int lv_player;
+    int lv_selected;
+    int lv_index;
 
     // Automatic Variable Declarations
     // Variable Initialization
     lv_players = PlayerGroupEmpty();
     lv_temp = PlayerGroupEmpty();
+    lv_index = 1;
 
     // Implementation
     lv_temp = PlayerGroupCopy(lp_lobby);
-    lv_player1 = PlayerGroupPlayer(lp_lobby, RandomInt(1, PlayerGroupCount(lp_lobby)));
-    PlayerGroupRemove(lv_temp, lv_player1);
-    lv_player2 = PlayerGroupPlayer(lv_temp, RandomInt(1, PlayerGroupCount(lv_temp)));
-    PlayerGroupAdd(lv_players, lv_player1);
-    PlayerGroupAdd(lv_players, lv_player2);
+    lv_players = lib1B69CECC_gf_choose_a_player(lv_temp);
+    libNtve_gf_RemovePlayerGroupFromPlayerGroup(lv_players, lv_temp);
+    lv_players = libNtve_gf_UnionOfPlayerGroups(lv_players, lib1B69CECC_gf_choose_a_player(lv_temp));
+    return lv_players;
+}
+
+playergroup lib1B69CECC_gf_choose_a_player (playergroup lp_players_in) {
+    // Variable Declarations
+    playergroup lv_players;
+    playergroup lv_temp;
+    int lv_player;
+    int lv_selected;
+    int lv_index;
+
+    // Automatic Variable Declarations
+    playergroup autoAB2C7C44_g;
+
+    // Variable Initialization
+    lv_players = PlayerGroupEmpty();
+    lv_temp = PlayerGroupEmpty();
+    lv_index = 1;
+
+    // Implementation
+    lv_temp = PlayerGroupCopy(lp_players_in);
+    lv_index = 1;
+    lv_selected = RandomInt(1, PlayerGroupCount(lv_temp));
+    autoAB2C7C44_g = lv_temp;
+    lv_player = -1;
+    while (true) {
+        lv_player = PlayerGroupNextPlayer(autoAB2C7C44_g, lv_player);
+        if (lv_player < 0) { break; }
+        if ((lv_index == lv_selected)) {
+            PlayerGroupAdd(lv_players, lv_player);
+        }
+
+        lv_index = (lv_index + 1);
+    }
     return lv_players;
 }
 
@@ -1368,7 +1426,7 @@ void lib1B69CECC_gf_EnableObserverUI (playergroup lp_observers, playergroup lp_p
         while (true) {
             lv_aPlayer = PlayerGroupNextPlayer(autoFF2D6FA4_g, lv_aPlayer);
             if (lv_aPlayer < 0) { break; }
-            PlayerSetAlliance(lv_aPlayer, c_allianceIdVision, lv_aObserver, false);
+            PlayerSetAlliance(lv_aPlayer, c_allianceIdVision, lv_aObserver, true);
         }
     }
 }
@@ -1555,6 +1613,7 @@ bool lib1B69CECC_gt_runalltestcasestrigger_Func (bool testConds, bool runActions
     lib1B69CECC_gf_test_compute_player_race_key();
     lib1B69CECC_gf_test_race_integer_conversion();
     lib1B69CECC_gf_test_compute_winners();
+    lib1B69CECC_gf_test_choose_a_player();
     return true;
 }
 
