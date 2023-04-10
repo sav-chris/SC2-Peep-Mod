@@ -15645,7 +15645,7 @@
         </Element>
         <Element Type="Param" Id="F2E0B975">
             <ParameterDef Type="ParamDef" Library="Ntve" Id="E6B1E94C"/>
-            <Value>24</Value>
+            <Value>18</Value>
             <ValueType Type="int"/>
         </Element>
         <Element Type="Param" Id="ACE2B5BE">
@@ -15665,7 +15665,7 @@
         </Element>
         <Element Type="Param" Id="7E57C8BC">
             <ParameterDef Type="ParamDef" Library="Ntve" Id="9B739D1B"/>
-            <Value>1</Value>
+            <Value>4.0</Value>
             <ValueType Type="fixed"/>
         </Element>
         <Element Type="Param" Id="A404A29F">

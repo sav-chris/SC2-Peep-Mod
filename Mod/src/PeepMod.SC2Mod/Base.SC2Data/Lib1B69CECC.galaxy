@@ -1874,7 +1874,7 @@ bool lib1B69CECC_gt_WorkerSaturationDisplay_Func (bool testConds, bool runAction
         return true;
     }
 
-    TextTagCreate(StringExternal("Param/Value/lib_1B69CECC_EB0680CA"), 24, UnitGetPosition(EventUnitCreatedUnit()), 1.0, true, true, PlayerGroupAll());
+    TextTagCreate(StringExternal("Param/Value/lib_1B69CECC_EB0680CA"), 18, UnitGetPosition(EventUnitCreatedUnit()), 4.0, true, true, PlayerGroupAll());
     return true;
 }
 
