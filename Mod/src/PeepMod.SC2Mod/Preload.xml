@@ -3,12 +3,7 @@
 <Actor id="SYSTEM_ActorConfig"/>
 <Effect id="SpawnMutantLarvaApplySpawnBehavior"/>
 <Race id="Neut"/>
-<Race id="Terr"/>
 <Race id="Zerg"/>
-<Race id="Prot"/>
-<Race id="Gen"/>
-<Race id="Xayi"/>
-<Race id="Keir"/>
 <Sound id="UI_BnetCountdown321"/>
 <Unit id="RichMineralField"/>
 <Unit id="MineralField"/>

@@ -1,0 +1,358 @@
+//==================================================================================================
+// 
+// Generated Map Script
+// 
+// Name:   Gresvan LE
+// 
+//==================================================================================================
+include "TriggerLibs/NativeLib"
+include "Lib1B69CECC"
+
+//--------------------------------------------------------------------------------------------------
+// Library Initialization
+//--------------------------------------------------------------------------------------------------
+void InitLibs () {
+    libNtve_InitLib();
+    lib1B69CECC_InitLib();
+}
+
+//--------------------------------------------------------------------------------------------------
+// Constants
+//--------------------------------------------------------------------------------------------------
+const int gv_aIPlayer_1 = 14;
+const int gv_aIPlayer_2 = 13;
+
+//--------------------------------------------------------------------------------------------------
+// Global Function Declarations
+//--------------------------------------------------------------------------------------------------
+void gf_Assert (bool lp_statement, text lp_assertionname, text lp_errormessage);
+void gf_test_Choose_Players_From_Lobby ();
+void gf_test_Choose_Observers_From_Lobby ();
+void gf_test_compute_player_race_key ();
+void gf_test_race_integer_conversion ();
+void gf_test_compute_winners ();
+void gf_test_choose_a_player ();
+
+//--------------------------------------------------------------------------------------------------
+// Trigger Variables
+//--------------------------------------------------------------------------------------------------
+trigger gt_MeleeInitialization;
+trigger gt_runalltestcasestrigger;
+trigger gt_AddAITrigger;
+trigger gt_AddAITrigger2;
+trigger gt_StartGameTrigger;
+trigger gt_ResetTechTrigger;
+trigger gt_RevealDialogTrigger;
+
+//--------------------------------------------------------------------------------------------------
+// Global Functions
+//--------------------------------------------------------------------------------------------------
+void gf_Assert (bool lp_statement, text lp_assertionname, text lp_errormessage) {
+    // Automatic Variable Declarations
+    // Implementation
+    if ((lp_statement == true)) {
+        TriggerDebugOutput(1, (lp_assertionname + StringExternal("Param/Value/AC62F563")), true);
+    }
+    else {
+        TriggerDebugOutput(1, lp_errormessage, true);
+    }
+}
+
+void gf_test_Choose_Players_From_Lobby () {
+    // Variable Declarations
+    int lv_aPlayer;
+    playergroup lv_lobby;
+    playergroup lv_players;
+
+    // Automatic Variable Declarations
+    // Variable Initialization
+    lv_lobby = PlayerGroupEmpty();
+    lv_players = PlayerGroupEmpty();
+
+    // Implementation
+    lv_lobby = PlayerGroupEmpty();
+    PlayerGroupAdd(lv_lobby, 4);
+    PlayerGroupAdd(lv_lobby, 7);
+    PlayerGroupAdd(lv_lobby, 3);
+    PlayerGroupAdd(lv_lobby, 12);
+    PlayerGroupAdd(lv_lobby, 8);
+    PlayerGroupAdd(lv_lobby, 10);
+    lv_players = lib1B69CECC_gf_ChoosePlayersFromLobby(lv_lobby);
+    gf_Assert((PlayerGroupCount(lv_players) == 2), StringExternal("Param/Value/1593907F"), StringExternal("Param/Value/0E29D7E0"));
+}
+
+void gf_test_Choose_Observers_From_Lobby () {
+    // Variable Declarations
+    int lv_aPlayer;
+    playergroup lv_lobby;
+    playergroup lv_players;
+    playergroup lv_observers;
+    playergroup lv_intersect;
+
+    // Automatic Variable Declarations
+    // Variable Initialization
+    lv_lobby = PlayerGroupEmpty();
+    lv_players = PlayerGroupEmpty();
+    lv_observers = PlayerGroupEmpty();
+    lv_intersect = PlayerGroupEmpty();
+
+    // Implementation
+    lv_lobby = PlayerGroupEmpty();
+    PlayerGroupAdd(lv_lobby, 4);
+    PlayerGroupAdd(lv_lobby, 7);
+    PlayerGroupAdd(lv_lobby, 3);
+    PlayerGroupAdd(lv_lobby, 12);
+    PlayerGroupAdd(lv_lobby, 8);
+    PlayerGroupAdd(lv_lobby, 10);
+    lv_players = lib1B69CECC_gf_ChoosePlayersFromLobby(lv_lobby);
+    lv_observers = lib1B69CECC_gf_ChooseObserversFromLobby(lv_lobby, lv_players);
+    gf_Assert((PlayerGroupCount(lv_observers) == 4), StringExternal("Param/Value/A2E35A92"), StringExternal("Param/Value/A8ED4127"));
+    lv_intersect = libNtve_gf_IntersectionOfPlayerGroups(lv_players, lv_observers);
+    gf_Assert((PlayerGroupCount(lv_intersect) == 0), StringExternal("Param/Value/B8D170CC"), StringExternal("Param/Value/8945BE5C"));
+}
+
+void gf_test_compute_player_race_key () {
+    // Variable Declarations
+    string lv_race_key;
+
+    // Automatic Variable Declarations
+    // Variable Initialization
+    lv_race_key = "";
+
+    // Implementation
+    lv_race_key = lib1B69CECC_gf_compute_player_race_key(1);
+    gf_Assert(StringEqual(lv_race_key, "race_player_1", c_stringCase), StringExternal("Param/Value/6287E443"), StringExternal("Param/Value/EF8E9705"));
+    lv_race_key = lib1B69CECC_gf_compute_player_race_key(5);
+    gf_Assert(StringEqual(lv_race_key, "race_player_5", c_stringCase), StringExternal("Param/Value/EFC4C8BF"), StringExternal("Param/Value/2E57C41A"));
+}
+
+void gf_test_race_integer_conversion () {
+    // Automatic Variable Declarations
+    // Implementation
+    gf_Assert((lib1B69CECC_gf_compute_race_from_index(lib1B69CECC_gf_compute_race_index("Neut")) == "Neut"), StringExternal("Param/Value/3C846BFD"), StringExternal("Param/Value/0BB0FF0B"));
+    gf_Assert((lib1B69CECC_gf_compute_race_from_index(lib1B69CECC_gf_compute_race_index("Terr")) == "Terr"), StringExternal("Param/Value/1BAA6162"), StringExternal("Param/Value/633E9795"));
+    gf_Assert((lib1B69CECC_gf_compute_race_from_index(lib1B69CECC_gf_compute_race_index("Zerg")) == "Zerg"), StringExternal("Param/Value/BE10936C"), StringExternal("Param/Value/091391E5"));
+    gf_Assert((lib1B69CECC_gf_compute_race_from_index(lib1B69CECC_gf_compute_race_index("Prot")) == "Prot"), StringExternal("Param/Value/1B57069F"), StringExternal("Param/Value/0123A25D"));
+    gf_Assert((lib1B69CECC_gf_compute_race_from_index(lib1B69CECC_gf_compute_race_index("Gen")) == "Gen"), StringExternal("Param/Value/2C1E44C6"), StringExternal("Param/Value/06078540"));
+    gf_Assert((lib1B69CECC_gf_compute_race_from_index(lib1B69CECC_gf_compute_race_index("Xayi")) == "Xayi"), StringExternal("Param/Value/C9755E37"), StringExternal("Param/Value/4EF5D0F2"));
+    gf_Assert((lib1B69CECC_gf_compute_race_from_index(lib1B69CECC_gf_compute_race_index("Keir")) == "Keir"), StringExternal("Param/Value/2946E3C5"), StringExternal("Param/Value/EFBD8ABE"));
+}
+
+void gf_test_compute_winners () {
+    // Variable Declarations
+    playergroup lv_players;
+    playergroup lv_losers;
+    playergroup lv_winners;
+    playergroup lv_computed_winners;
+
+    // Automatic Variable Declarations
+    // Variable Initialization
+    lv_players = PlayerGroupEmpty();
+    lv_losers = PlayerGroupEmpty();
+    lv_winners = PlayerGroupEmpty();
+    lv_computed_winners = PlayerGroupEmpty();
+
+    // Implementation
+    PlayerGroupAdd(lv_players, 1);
+    PlayerGroupAdd(lv_players, 2);
+    PlayerGroupAdd(lv_losers, 1);
+    PlayerGroupAdd(lv_winners, 2);
+    lv_computed_winners = lib1B69CECC_gf_compute_winners(lv_players, lv_losers);
+    gf_Assert((PlayerGroupCount(lv_winners) == PlayerGroupCount(lv_computed_winners)), StringExternal("Param/Value/26B29DAE"), StringExternal("Param/Value/F0B268B8"));
+    gf_Assert((PlayerGroupCount(lv_winners) == PlayerGroupCount(libNtve_gf_IntersectionOfPlayerGroups(lv_winners, lv_computed_winners))), StringExternal("Param/Value/403393F7"), StringExternal("Param/Value/999410FB"));
+}
+
+void gf_test_choose_a_player () {
+    // Variable Declarations
+    int lv_aPlayer;
+    playergroup lv_lobby;
+    playergroup lv_player;
+
+    // Automatic Variable Declarations
+    // Variable Initialization
+    lv_lobby = PlayerGroupEmpty();
+    lv_player = PlayerGroupEmpty();
+
+    // Implementation
+    lv_lobby = PlayerGroupEmpty();
+    PlayerGroupAdd(lv_lobby, 4);
+    PlayerGroupAdd(lv_lobby, 7);
+    PlayerGroupAdd(lv_lobby, 3);
+    PlayerGroupAdd(lv_lobby, 12);
+    PlayerGroupAdd(lv_lobby, 8);
+    PlayerGroupAdd(lv_lobby, 10);
+    lv_player = lib1B69CECC_gf_choose_a_player(lv_lobby);
+    gf_Assert((PlayerGroupCount(lv_player) == 1), StringExternal("Param/Value/68088600"), StringExternal("Param/Value/8B445C76"));
+    gf_Assert((PlayerGroupCount(libNtve_gf_IntersectionOfPlayerGroups(lv_player, lv_lobby)) == 1), StringExternal("Param/Value/3F09CB5B"), StringExternal("Param/Value/AD3D4B9C"));
+}
+
+//--------------------------------------------------------------------------------------------------
+// Trigger: Melee Initialization
+//--------------------------------------------------------------------------------------------------
+bool gt_MeleeInitialization_Func (bool testConds, bool runActions) {
+    // Automatic Variable Declarations
+    // Actions
+    if (!runActions) {
+        return true;
+    }
+
+    lib1B69CECC_gf_DependencyMessage();
+    return true;
+}
+
+//--------------------------------------------------------------------------------------------------
+void gt_MeleeInitialization_Init () {
+    gt_MeleeInitialization = TriggerCreate("gt_MeleeInitialization_Func");
+    TriggerAddEventMapInit(gt_MeleeInitialization);
+}
+
+//--------------------------------------------------------------------------------------------------
+// Trigger: run all test cases trigger
+//--------------------------------------------------------------------------------------------------
+bool gt_runalltestcasestrigger_Func (bool testConds, bool runActions) {
+    // Automatic Variable Declarations
+    // Actions
+    if (!runActions) {
+        return true;
+    }
+
+    TriggerDebugSetTypeFile(1, "TriggerDebug.txt");
+    gf_test_Choose_Players_From_Lobby();
+    gf_test_Choose_Observers_From_Lobby();
+    gf_test_compute_player_race_key();
+    gf_test_race_integer_conversion();
+    gf_test_compute_winners();
+    gf_test_choose_a_player();
+    return true;
+}
+
+//--------------------------------------------------------------------------------------------------
+void gt_runalltestcasestrigger_Init () {
+    gt_runalltestcasestrigger = TriggerCreate("gt_runalltestcasestrigger_Func");
+    TriggerAddEventChatMessage(gt_runalltestcasestrigger, c_playerAny, "-Run Unit Tests", true);
+}
+
+//--------------------------------------------------------------------------------------------------
+// Trigger: Add AI Trigger
+//--------------------------------------------------------------------------------------------------
+bool gt_AddAITrigger_Func (bool testConds, bool runActions) {
+    // Automatic Variable Declarations
+    // Actions
+    if (!runActions) {
+        return true;
+    }
+
+    DataTableSetInt(true, lib1B69CECC_gf_compute_player_race_key(gv_aIPlayer_1), lib1B69CECC_gf_compute_race_index("Gen"));
+    lib1B69CECC_gf_JoinLobby(gv_aIPlayer_1, lib1B69CECC_gv_theLobby);
+    lib1B69CECC_gf_RefreshLobby(lib1B69CECC_gv_theLobby);
+    return true;
+}
+
+//--------------------------------------------------------------------------------------------------
+void gt_AddAITrigger_Init () {
+    gt_AddAITrigger = TriggerCreate("gt_AddAITrigger_Func");
+    TriggerAddEventChatMessage(gt_AddAITrigger, c_playerAny, "-AI Player", true);
+}
+
+//--------------------------------------------------------------------------------------------------
+// Trigger: Add AI Trigger 2
+//--------------------------------------------------------------------------------------------------
+bool gt_AddAITrigger2_Func (bool testConds, bool runActions) {
+    // Automatic Variable Declarations
+    // Actions
+    if (!runActions) {
+        return true;
+    }
+
+    DataTableSetInt(true, lib1B69CECC_gf_compute_player_race_key(gv_aIPlayer_2), lib1B69CECC_gf_compute_race_index("Zerg"));
+    lib1B69CECC_gf_JoinLobby(gv_aIPlayer_2, lib1B69CECC_gv_theLobby);
+    lib1B69CECC_gf_RefreshLobby(lib1B69CECC_gv_theLobby);
+    return true;
+}
+
+//--------------------------------------------------------------------------------------------------
+void gt_AddAITrigger2_Init () {
+    gt_AddAITrigger2 = TriggerCreate("gt_AddAITrigger2_Func");
+    TriggerAddEventChatMessage(gt_AddAITrigger2, c_playerAny, "-AI Player 2", true);
+}
+
+//--------------------------------------------------------------------------------------------------
+// Trigger: Start Game Trigger
+//--------------------------------------------------------------------------------------------------
+bool gt_StartGameTrigger_Func (bool testConds, bool runActions) {
+    // Automatic Variable Declarations
+    // Actions
+    if (!runActions) {
+        return true;
+    }
+
+    lib1B69CECC_gf_InitialiseGame(lib1B69CECC_gv_theLobby.lv_players);
+    return true;
+}
+
+//--------------------------------------------------------------------------------------------------
+void gt_StartGameTrigger_Init () {
+    gt_StartGameTrigger = TriggerCreate("gt_StartGameTrigger_Func");
+    TriggerAddEventChatMessage(gt_StartGameTrigger, c_playerAny, "-Start Game", true);
+}
+
+//--------------------------------------------------------------------------------------------------
+// Trigger: Reset TechTrigger
+//--------------------------------------------------------------------------------------------------
+bool gt_ResetTechTrigger_Func (bool testConds, bool runActions) {
+    // Automatic Variable Declarations
+    // Actions
+    if (!runActions) {
+        return true;
+    }
+
+    lib1B69CECC_gf_ResetTechFunction();
+    return true;
+}
+
+//--------------------------------------------------------------------------------------------------
+void gt_ResetTechTrigger_Init () {
+    gt_ResetTechTrigger = TriggerCreate("gt_ResetTechTrigger_Func");
+    TriggerAddEventChatMessage(gt_ResetTechTrigger, c_playerAny, "-Reset Tech", true);
+}
+
+//--------------------------------------------------------------------------------------------------
+// Trigger: Reveal Dialog Trigger
+//--------------------------------------------------------------------------------------------------
+bool gt_RevealDialogTrigger_Func (bool testConds, bool runActions) {
+    // Automatic Variable Declarations
+    // Actions
+    if (!runActions) {
+        return true;
+    }
+
+    DialogControlSetVisible(lib1B69CECC_gv_ui_reveal, PlayerGroupAll(), true);
+    return true;
+}
+
+//--------------------------------------------------------------------------------------------------
+void gt_RevealDialogTrigger_Init () {
+    gt_RevealDialogTrigger = TriggerCreate("gt_RevealDialogTrigger_Func");
+    TriggerAddEventChatMessage(gt_RevealDialogTrigger, c_playerAny, "-Message", true);
+}
+
+//--------------------------------------------------------------------------------------------------
+// Trigger Initialization
+//--------------------------------------------------------------------------------------------------
+void InitTriggers () {
+    gt_MeleeInitialization_Init();
+    gt_runalltestcasestrigger_Init();
+    gt_AddAITrigger_Init();
+    gt_AddAITrigger2_Init();
+    gt_StartGameTrigger_Init();
+    gt_ResetTechTrigger_Init();
+    gt_RevealDialogTrigger_Init();
+}
+
+//--------------------------------------------------------------------------------------------------
+// Map Initialization
+//--------------------------------------------------------------------------------------------------
+void InitMap () {
+    InitLibs();
+    InitTriggers();
+}

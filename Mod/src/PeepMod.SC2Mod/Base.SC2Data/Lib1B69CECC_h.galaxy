@@ -4,8 +4,6 @@ include "TriggerLibs/natives"
 // Library: PeepMod Library
 //--------------------------------------------------------------------------------------------------
 // Constants
-const int lib1B69CECC_gv_aIPlayer_1 = 14;
-const int lib1B69CECC_gv_aIPlayer_2 = 13;
 const int lib1B69CECC_gv_jOIN_LOBBY_TIMEOUT_THRESHOLD = 0;
 const int lib1B69CECC_gv_lOBBY_COUNTDOWN_TIME = 10;
 const string lib1B69CECC_gv_sTARTLOCATION_1 = "Start Location 001";
@@ -57,13 +55,6 @@ int lib1B69CECC_gv_lobbyListBox;
 lib1B69CECC_gs_Lobby lib1B69CECC_gv_theLobby;
 
 // Function Declarations
-void lib1B69CECC_gf_Assert (bool lp_statement, text lp_assertionname, text lp_errormessage);
-void lib1B69CECC_gf_test_Choose_Players_From_Lobby ();
-void lib1B69CECC_gf_test_Choose_Observers_From_Lobby ();
-void lib1B69CECC_gf_test_compute_player_race_key ();
-void lib1B69CECC_gf_test_race_integer_conversion ();
-void lib1B69CECC_gf_test_compute_winners ();
-void lib1B69CECC_gf_test_choose_a_player ();
 void lib1B69CECC_gf_ResetRevealStatus ();
 void lib1B69CECC_gf_reveal_player (int lp_player);
 void lib1B69CECC_gf_unreveal_player (int lp_player);
@@ -136,12 +127,6 @@ void lib1B69CECC_gf_JoinLobby (int lp_thePlayer, structref<lib1B69CECC_gs_Lobby>
 void lib1B69CECC_gf_DependencyMessage ();
 
 // Trigger Declarations
-trigger lib1B69CECC_gt_runalltestcasestrigger;
-trigger lib1B69CECC_gt_AddAITrigger;
-trigger lib1B69CECC_gt_AddAITrigger2;
-trigger lib1B69CECC_gt_StartGameTrigger;
-trigger lib1B69CECC_gt_ResetTechTrigger;
-trigger lib1B69CECC_gt_RevealDialogTrigger;
 trigger lib1B69CECC_gt_RevealCountdownTrigger;
 trigger lib1B69CECC_gt_DetectRevealTrigger;
 trigger lib1B69CECC_gt_DetectUnrevealTrigger;

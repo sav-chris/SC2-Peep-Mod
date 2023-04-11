@@ -2,57 +2,24 @@
 DocInfo/DescShort=2 or more
 DocInfo/Name=The Scion Peep Mod
 Param/Expression/lib_1B69CECC_2F42B94E=<s val="SystemAlert_Prot">Victorious Players:</s>
-Param/Value/lib_1B69CECC_0060E0E8=Compute player race key
 Param/Value/lib_1B69CECC_0BF87976=<img path="Assets\Textures\ui_battlenet_glue_icons_league_diamond.dds" alignment="AbsoluteMiddle" width="22" height="22"/> Diamond
-Param/Value/lib_1B69CECC_11BD8736=Test race index conversion
-Param/Value/lib_1B69CECC_158EBFD7=Check 2 players are chosen
 Param/Value/lib_1B69CECC_1E84688D=<img path="Assets\Textures\ui_battlenet_glue_icons_league_gold.dds" alignment="AbsoluteMiddle" width="22" height="22"/> Gold
 Param/Value/lib_1B69CECC_299A8AD4=<img path="Assets\Textures\ui_battlenet_glue_icons_league_unranked.dds" alignment="AbsoluteMiddle" width="22" height="22"/> Unranked
-Param/Value/lib_1B69CECC_29FB0C40= Passed
-Param/Value/lib_1B69CECC_2F1BA268=Invalid Race Key Computed
-Param/Value/lib_1B69CECC_316FD8E1=Race index mismatch
 Param/Value/lib_1B69CECC_3578C5FD=<img path="Assets\Textures\sc2_ui_loadingscreen_playercard_raceindicator_keir.dds" alignment="AbsoluteMiddle" width="21" height="22"/> Keiron
 Param/Value/lib_1B69CECC_47AED35E=<img path="Assets\Textures\sc2_ui_loadingscreen_playercard_raceindicator_protoss.dds" alignment="AbsoluteMiddle" width="21" height="22"/> Protoss
-Param/Value/lib_1B69CECC_4F8A3C50=Error: Failed to choose 1 player
-Param/Value/lib_1B69CECC_4FB89260=Race index mismatch
 Param/Value/lib_1B69CECC_550F33D7=You will be revealed in 
 Param/Value/lib_1B69CECC_5DE344B1=<img path="Assets\Textures\sc2_ui_loadingscreen_playercard_raceindicator_random.dds" alignment="AbsoluteMiddle" width="21" height="22"/> Random
 Param/Value/lib_1B69CECC_5F50D4B5=<img path="Assets\Textures\sc2_ui_loadingscreen_playercard_raceindicator_xayid.dds" alignment="AbsoluteMiddle" width="21" height="22"/> Xayid
-Param/Value/lib_1B69CECC_61B75788=Error: Players and observers must not intersect
-Param/Value/lib_1B69CECC_65046665=Invalid Race Key Computed
-Param/Value/lib_1B69CECC_65B515D1=Test race index conversion
 Param/Value/lib_1B69CECC_6DF26637=<img path="Assets\Textures\ui_battlenet_glue_icons_league_silver.dds" alignment="AbsoluteMiddle" width="22" height="22"/> Silver
-Param/Value/lib_1B69CECC_6EE314B4=Test race index conversion
 Param/Value/lib_1B69CECC_73FE80F3=
-Param/Value/lib_1B69CECC_798D7B2A=Race index mismatch
 Param/Value/lib_1B69CECC_79FAD5F2=Test Foo Bar : Race
-Param/Value/lib_1B69CECC_7C40F074=Race index mismatch
-Param/Value/lib_1B69CECC_8512A993=Check 4 observers are chosen
-Param/Value/lib_1B69CECC_866D7D2F=Test computing winners
-Param/Value/lib_1B69CECC_866ECC49=Test race index conversion
 Param/Value/lib_1B69CECC_890AFE24=<s val="SystemAlert_Prot">Say 'gg' in chat to surrender</s>
-Param/Value/lib_1B69CECC_89E293E9=Check 1 player is chosen
 Param/Value/lib_1B69CECC_8C125C91=<img path="Assets\Textures\ui_battlenet_glue_icons_league_grandmaster.dds" alignment="AbsoluteMiddle" width="22" height="22"/> Grand Master
-Param/Value/lib_1B69CECC_8C525690=Race index mismatch
-Param/Value/lib_1B69CECC_90BE0C1F=Test computing winners
-Param/Value/lib_1B69CECC_92097C58=Error: Failed to choose  observers
 Param/Value/lib_1B69CECC_96486FC5=<s val="SystemAlert_Prot">Welcome to the Scion Peep Mod. Select a race in the Play menu to join the game.</s>
-Param/Value/lib_1B69CECC_9E134877=Error: Failed to choose 1 player
-Param/Value/lib_1B69CECC_A17D4CBC=Check players are not observers
-Param/Value/lib_1B69CECC_A67B398B=Error Computing winners
 Param/Value/lib_1B69CECC_A7679ABE=<img path="Assets\Textures\ui_battlenet_glue_icons_league_platinum.dds" alignment="AbsoluteMiddle" width="22" height="22"/> Platinum
 Param/Value/lib_1B69CECC_AC5D4CE7=<img path="Assets\Textures\ui_battlenet_glue_icons_league_master.dds" alignment="AbsoluteMiddle" width="22" height="22"/> Master
-Param/Value/lib_1B69CECC_B6025F4F=Compute player race key
-Param/Value/lib_1B69CECC_B786A63E=Error Computing winners
-Param/Value/lib_1B69CECC_B7AA3D44=Race index mismatch
-Param/Value/lib_1B69CECC_BE2B8A86=Check 1 player is chosen
 Param/Value/lib_1B69CECC_C874B829=<img path="Assets\Textures\sc2_ui_loadingscreen_playercard_raceindicator_genetron.dds" alignment="AbsoluteMiddle" width="21" height="22"/> Genetron
-Param/Value/lib_1B69CECC_D063B6AD=Test race index conversion
 Param/Value/lib_1B69CECC_D7E3EE6D=Match starting in:
 Param/Value/lib_1B69CECC_DD98C82C=<img path="Assets\Textures\ui_battlenet_glue_icons_league_bronze.dds" alignment="AbsoluteMiddle" width="22" height="22"/> Bronze
-Param/Value/lib_1B69CECC_DECA5D45=Error: Failed to choose 2 players
-Param/Value/lib_1B69CECC_E156BCB8=Race index mismatch
 Param/Value/lib_1B69CECC_E5DCA431=<img path="Assets\Textures\sc2_ui_loadingscreen_playercard_raceindicator_terran.dds" alignment="AbsoluteMiddle" width="21" height="22"/> Terran
 Param/Value/lib_1B69CECC_F2C43C1F=<img path="Assets\Textures\sc2_ui_loadingscreen_playercard_raceindicator_zerg.dds" alignment="AbsoluteMiddle" width="21" height="22"/> Zerg
-Param/Value/lib_1B69CECC_F7F7FFB8=Test race index conversion
-Param/Value/lib_1B69CECC_FC9B2791=Test race index conversion
