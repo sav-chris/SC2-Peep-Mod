@@ -1,0 +1,8 @@
+﻿DocInfo/DescLong=A wide macro map designed around control of the center high and low grounds to facilitate forward expansion routes. Once large rocks are broken, attacks on the triangular third base become harder to defend in the later stages of the game.<n/><n/>Submitted to the TLMC powered by Shopify<n/>Created by Legan
+DocInfo/DescShort=2
+DocInfo/Name=Gresvan LE
+MapInfo/Player00/Name=Neutral
+MapInfo/Player01/Name=Player 1
+MapInfo/Player02/Name=Player 2
+MapInfo/Player03/Name=Hostile
+Terrain/Name/Gresvan=Gresvan
