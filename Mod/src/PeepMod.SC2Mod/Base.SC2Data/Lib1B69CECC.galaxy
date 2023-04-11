@@ -499,6 +499,7 @@ void lib1B69CECC_gf_ResetVision () {
         while (true) {
             lv_aPlayer = PlayerGroupNextPlayer(auto26538C41_g, lv_aPlayer);
             if (lv_aPlayer < 0) { break; }
+            PlayerSetAlliance(lv_aPlayer, c_allianceIdVision, lv_aObserver, false);
         }
     }
 }
@@ -1996,6 +1997,38 @@ void lib1B69CECC_gt_HandleTimeOut_Init () {
 }
 
 //--------------------------------------------------------------------------------------------------
+// Trigger: Worker Saturation Trigger
+//--------------------------------------------------------------------------------------------------
+bool lib1B69CECC_gt_WorkerSaturationTrigger_Func (bool testConds, bool runActions) {
+    // Variable Declarations
+    unit lv_unit;
+
+    // Automatic Variable Declarations
+    // Variable Initialization
+
+    // Conditions
+    if (testConds) {
+        if (!((lib1B69CECC_gf_is_town_centre(EventUnitCreatedUnit()) == true))) {
+            return false;
+        }
+    }
+
+    // Actions
+    if (!runActions) {
+        return true;
+    }
+
+    TextTagCreate(StringExternal("Param/Value/lib_1B69CECC_E5F7140C"), 16, UnitGetPosition(EventUnitCreatedUnit()), 3.0, true, true, PlayerGroupAll());
+    return true;
+}
+
+//--------------------------------------------------------------------------------------------------
+void lib1B69CECC_gt_WorkerSaturationTrigger_Init () {
+    lib1B69CECC_gt_WorkerSaturationTrigger = TriggerCreate("lib1B69CECC_gt_WorkerSaturationTrigger_Func");
+    TriggerAddEventUnitCreated(lib1B69CECC_gt_WorkerSaturationTrigger, null, null, null);
+}
+
+//--------------------------------------------------------------------------------------------------
 // Trigger: Click Yes
 //--------------------------------------------------------------------------------------------------
 bool lib1B69CECC_gt_ClickYes_Func (bool testConds, bool runActions) {
@@ -2210,6 +2243,7 @@ void lib1B69CECC_InitTriggers () {
     lib1B69CECC_gt_CleanUpWhenPlayerLeaves_Init();
     lib1B69CECC_gt_DetectVictory_Init();
     lib1B69CECC_gt_HandleTimeOut_Init();
+    lib1B69CECC_gt_WorkerSaturationTrigger_Init();
     lib1B69CECC_gt_ClickYes_Init();
     lib1B69CECC_gt_ClickNo_Init();
     lib1B69CECC_gt_ClickHelp_Init();
