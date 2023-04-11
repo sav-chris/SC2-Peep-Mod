@@ -1,7 +1,7 @@
 ﻿DocInfo/DescLong=Completely devoid of any description whatsoever.
 DocInfo/DescShort=Any
 DocInfo/Name=Just Another StarCraft II Mod
-Param/Expression/lib_1B69CECC_2F42B94E=<s val="SystemAlert_Prot">Players Victorious:</s>
+Param/Expression/lib_1B69CECC_2F42B94E=<s val="SystemAlert_Prot">Victorious Players:</s>
 Param/Value/lib_1B69CECC_0060E0E8=Compute player race key
 Param/Value/lib_1B69CECC_0BF87976=<img path="Assets\Textures\ui_battlenet_glue_icons_league_diamond.dds" alignment="AbsoluteMiddle" width="22" height="22"/> Diamond
 Param/Value/lib_1B69CECC_11BD8736=Test race index conversion

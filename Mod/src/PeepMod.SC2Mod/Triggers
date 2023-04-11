@@ -2,7 +2,6 @@
 <TriggerData>
     <Library Id="1B69CECC">
         <Root>
-            <Item Type="Category" Library="1B69CECC" Id="DD6A43AE"/>
             <Item Type="Category" Library="1B69CECC" Id="57E18721"/>
             <Item Type="Comment" Library="1B69CECC" Id="B266339F"/>
             <Item Type="Category" Library="1B69CECC" Id="D0D45F53"/>
@@ -14,8 +13,6 @@
             <Item Type="FunctionDef" Library="1B69CECC" Id="97EAEA23"/>
             <Item Type="Trigger" Library="1B69CECC" Id="1666B268"/>
         </Root>
-        <Element Type="Category" Id="DD6A43AE">
-        </Element>
         <Element Type="Category" Id="57E18721">
             <Item Type="Comment" Library="1B69CECC" Id="366E660E"/>
             <Item Type="Category" Library="1B69CECC" Id="AF936C89"/>
@@ -14320,7 +14317,6 @@
             <FunctionDef Type="FunctionDef" Library="1B69CECC" Id="7D8DD229"/>
         </Element>
         <Element Type="Category" Id="BB7EC55C">
-            <Item Type="Comment" Library="1B69CECC" Id="751953D8"/>
             <Item Type="FunctionDef" Library="1B69CECC" Id="9CD93AE9"/>
             <Item Type="FunctionDef" Library="1B69CECC" Id="49198F5C"/>
             <Item Type="FunctionDef" Library="1B69CECC" Id="36C82135"/>
@@ -14333,11 +14329,6 @@
             <Item Type="FunctionDef" Library="1B69CECC" Id="8B4177C8"/>
             <Item Type="FunctionDef" Library="1B69CECC" Id="354ADDA6"/>
             <Item Type="FunctionDef" Library="1B69CECC" Id="C8134C22"/>
-        </Element>
-        <Element Type="Comment" Id="751953D8">
-            <Comment>
-                Some similar funtions in here, could be refactored?
-            </Comment>
         </Element>
         <Element Type="FunctionDef" Id="9CD93AE9">
             <FlagCall/>
@@ -16528,10 +16519,7 @@
         </Element>
         <Element Type="Param" Id="E572C8F2">
             <ParameterDef Type="ParamDef" Library="Ntve" Id="42AB3EFD"/>
-            <FunctionCall Type="FunctionCall" Library="1B69CECC" Id="2A8D63CC"/>
-        </Element>
-        <Element Type="FunctionCall" Id="2A8D63CC">
-            <FunctionDef Type="FunctionDef" Library="Ntve" Id="00000192"/>
+            <Parameter Type="ParamDef" Library="1B69CECC" Id="57569689"/>
         </Element>
         <Element Type="FunctionCall" Id="58E7F3FA">
             <FunctionDef Type="FunctionDef" Library="Ntve" Id="0366EE04"/>

@@ -1340,7 +1340,7 @@ void lib1B69CECC_gf_DisplayVictoryMessage (playergroup lp_winners) {
 
     // Implementation
     UIDisplayMessage(PlayerGroupAll(), c_messageAreaSubtitle, TextExpressionAssemble("Param/Expression/lib_1B69CECC_2F42B94E"));
-    autoA551C0E6_g = PlayerGroupAll();
+    autoA551C0E6_g = lp_winners;
     autoA551C0E6_var = -1;
     while (true) {
         autoA551C0E6_var = PlayerGroupNextPlayer(autoA551C0E6_g, autoA551C0E6_var);
