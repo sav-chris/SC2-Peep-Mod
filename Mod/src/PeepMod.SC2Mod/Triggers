@@ -3958,7 +3958,6 @@
             <Variable Type="Variable" Library="1B69CECC" Id="22F6B93A"/>
             <Event Type="FunctionCall" Library="1B69CECC" Id="791194E2"/>
             <Event Type="FunctionCall" Library="1B69CECC" Id="503ABF01"/>
-            <Event Type="Comment" Library="1B69CECC" Id="92BDCA57"/>
             <Condition Type="FunctionCall" Library="1B69CECC" Id="DF1FC3C1"/>
             <Condition Type="FunctionCall" Library="1B69CECC" Id="7BEB24F4"/>
             <Action Type="FunctionCall" Library="1B69CECC" Id="46AF1A7F"/>
@@ -3994,11 +3993,6 @@
         <Element Type="Param" Id="0C66C1EF">
             <ParameterDef Type="ParamDef" Library="Ntve" Id="5E741589"/>
             <Preset Type="PresetValue" Library="Ntve" Id="00000059"/>
-        </Element>
-        <Element Type="Comment" Id="92BDCA57">
-            <Comment>
-                TO DO: also check if town centre cancelled
-            </Comment>
         </Element>
         <Element Type="FunctionCall" Id="DF1FC3C1">
             <FunctionDef Type="FunctionDef" Library="Ntve" Id="C439C375"/>
@@ -19481,24 +19475,33 @@
         </Element>
         <Element Type="FunctionDef" Id="97EAEA23">
             <FlagAction/>
-            <FunctionCall Type="FunctionCall" Library="1B69CECC" Id="E7832FE1"/>
+            <FunctionCall Type="Comment" Library="1B69CECC" Id="353A3CBC"/>
+            <FunctionCall Type="FunctionCall" Library="1B69CECC" Id="930AD361"/>
         </Element>
-        <Element Type="FunctionCall" Id="E7832FE1">
-            <FunctionDef Type="FunctionDef" Library="Ntve" Id="00000118"/>
-            <Parameter Type="Param" Library="1B69CECC" Id="9E8A873F"/>
-            <Parameter Type="Param" Library="1B69CECC" Id="A718037A"/>
-            <Parameter Type="Param" Library="1B69CECC" Id="1F8147D0"/>
+        <Element Type="Comment" Id="353A3CBC">
+            <Comment>
+                This isn&apos;t just a nice message. Maps that display this message import the mod dependencies.
+            </Comment>
         </Element>
-        <Element Type="Param" Id="9E8A873F">
-            <ParameterDef Type="ParamDef" Library="Ntve" Id="C3CF50B0"/>
-            <Preset Type="PresetValue" Library="Ntve" Id="AEB4446D"/>
+        <Element Type="FunctionCall" Id="930AD361">
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="0366EE04"/>
+            <Parameter Type="Param" Library="1B69CECC" Id="F0CCD496"/>
+            <Parameter Type="Param" Library="1B69CECC" Id="14544990"/>
+            <Parameter Type="Param" Library="1B69CECC" Id="96486FC5"/>
         </Element>
-        <Element Type="Param" Id="A718037A">
-            <ParameterDef Type="ParamDef" Library="Ntve" Id="00000187"/>
-            <Preset Type="PresetValue" Library="Ntve" Id="00000071"/>
+        <Element Type="Param" Id="F0CCD496">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="0D120C33"/>
+            <FunctionCall Type="FunctionCall" Library="1B69CECC" Id="1025EBC8"/>
         </Element>
-        <Element Type="Param" Id="1F8147D0">
-            <ParameterDef Type="ParamDef" Library="Ntve" Id="00000186"/>
+        <Element Type="FunctionCall" Id="1025EBC8">
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="00000192"/>
+        </Element>
+        <Element Type="Param" Id="14544990">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="A4C19F41"/>
+            <Preset Type="PresetValue" Library="Ntve" Id="875889C8"/>
+        </Element>
+        <Element Type="Param" Id="96486FC5">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="78A54B52"/>
             <ValueType Type="text"/>
         </Element>
         <Element Type="Trigger" Id="1666B268">
