@@ -149,7 +149,6 @@ trigger lib1B69CECC_gt_DetectGG;
 trigger lib1B69CECC_gt_CleanUpWhenPlayerLeaves;
 trigger lib1B69CECC_gt_DetectVictory;
 trigger lib1B69CECC_gt_HandleTimeOut;
-trigger lib1B69CECC_gt_WorkerSaturationTrigger;
 trigger lib1B69CECC_gt_ClickYes;
 trigger lib1B69CECC_gt_ClickNo;
 trigger lib1B69CECC_gt_ClickHelp;
