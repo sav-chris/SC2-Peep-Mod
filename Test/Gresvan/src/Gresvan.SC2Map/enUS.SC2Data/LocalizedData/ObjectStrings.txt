@@ -1,0 +1,2 @@
+﻿Light/Name/EditorTestLight=default
+Terrain/EditorPrefix/Gresvan=(Void)
