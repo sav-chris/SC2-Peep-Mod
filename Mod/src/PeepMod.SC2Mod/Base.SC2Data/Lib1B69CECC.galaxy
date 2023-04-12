@@ -722,6 +722,8 @@ void lib1B69CECC_gf_KillAllPlayerUnits () {
     playergroup autoF7FB8F78_g;
     unitgroup auto950C134E_g;
     int auto950C134E_u;
+    unitgroup autoD52C8CEB_g;
+    int autoD52C8CEB_u;
 
     // Variable Initialization
 
@@ -735,6 +737,13 @@ void lib1B69CECC_gf_KillAllPlayerUnits () {
         auto950C134E_u = UnitGroupCount(auto950C134E_g, c_unitCountAll);
         for (;; auto950C134E_u -= 1) {
             lv_aUnit = UnitGroupUnitFromEnd(auto950C134E_g, auto950C134E_u);
+            if (lv_aUnit == null) { break; }
+            UnitKill(lv_aUnit);
+        }
+        autoD52C8CEB_g = UnitGroupFilterPlayer(UnitGroup(null, lv_aPlayer, RegionEntireMap(), UnitFilter(0, 0, (1 << c_targetFilterAlly) | (1 << c_targetFilterNeutral) | (1 << c_targetFilterEnemy) | (1 << c_targetFilterRawResource) | (1 << c_targetFilterUncommandable), (1 << (c_targetFilterDead - 32))), 0), lv_aPlayer, 0);
+        autoD52C8CEB_u = UnitGroupCount(autoD52C8CEB_g, c_unitCountAll);
+        for (;; autoD52C8CEB_u -= 1) {
+            lv_aUnit = UnitGroupUnitFromEnd(autoD52C8CEB_g, autoD52C8CEB_u);
             if (lv_aUnit == null) { break; }
             UnitKill(lv_aUnit);
         }
