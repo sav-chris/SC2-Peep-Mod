@@ -734,7 +734,7 @@ void lib1B69CECC_gf_KillAllPlayerUnits () {
     // Variable Initialization
 
     // Implementation
-    autoF7FB8F78_g = lib1B69CECC_gv_pLAYERS;
+    autoF7FB8F78_g = PlayerGroupAll();
     lv_aPlayer = -1;
     while (true) {
         lv_aPlayer = PlayerGroupNextPlayer(autoF7FB8F78_g, lv_aPlayer);

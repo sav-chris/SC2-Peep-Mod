@@ -9123,7 +9123,10 @@
         </Element>
         <Element Type="Param" Id="17086C9C">
             <ParameterDef Type="ParamDef" Library="Ntve" Id="A4B226A9"/>
-            <Variable Type="Variable" Library="1B69CECC" Id="1FE68C2D"/>
+            <FunctionCall Type="FunctionCall" Library="1B69CECC" Id="36163B21"/>
+        </Element>
+        <Element Type="FunctionCall" Id="36163B21">
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="00000192"/>
         </Element>
         <Element Type="Param" Id="F4839C8C">
             <ParameterDef Type="ParamDef" Library="Ntve" Id="857209C7"/>
