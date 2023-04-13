@@ -12,21 +12,12 @@
     </Dependencies>
     <Screenshot>
         <File>
-            <Value>Screenshot-1.jpg</Value>
-            <Value>Screenshot-2.jpg</Value>
-            <Value>Screenshot-3.jpg</Value>
-            <Value>Screenshot-4.jpg</Value>
+            <Value>race menu.tga</Value>
         </File>
         <CaptionId>
-            <Value>1</Value>
-            <Value>2</Value>
-            <Value>3</Value>
-            <Value>4</Value>
+            <Value>5</Value>
         </CaptionId>
         <Flags>
-            <Value> </Value>
-            <Value> </Value>
-            <Value> </Value>
             <Value> </Value>
         </Flags>
     </Screenshot>
