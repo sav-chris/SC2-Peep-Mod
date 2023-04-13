@@ -482,6 +482,12 @@ void lib1B69CECC_gf_DisableResourceTrading () {
     }
 }
 
+void lib1B69CECC_gf_ResetAlliances () {
+    // Automatic Variable Declarations
+    // Implementation
+    libNtve_gf_SetPlayerGroupAlliance(PlayerGroupAll(), libNtve_ge_AllianceSetting_Ally);
+}
+
 void lib1B69CECC_gf_ResetTechFunction () {
     // Variable Declarations
     int lv_intPlayer;
@@ -961,6 +967,7 @@ void lib1B69CECC_gf_InitialiseGame (playergroup lp_lobby_Players) {
         lib1B69CECC_gf_InitialisePlayer(lv_aPlayer, lv_start_locations[lv_idx]);
         lv_idx = (lv_idx + 1);
     }
+    libNtve_gf_SetAllianceBetweenTwoPlayerGroups(lib1B69CECC_gv_pLAYERS, lib1B69CECC_gv_oBSERVERS, libNtve_ge_AllianceSetting_Enemy);
     libNtve_gf_SetPlayerGroupAlliance(lib1B69CECC_gv_pLAYERS, libNtve_ge_AllianceSetting_Enemy);
     libNtve_gf_SetPlayerGroupAlliance(lib1B69CECC_gv_oBSERVERS, libNtve_ge_AllianceSetting_Ally);
     lib1B69CECC_gf_HideTimerWindow();

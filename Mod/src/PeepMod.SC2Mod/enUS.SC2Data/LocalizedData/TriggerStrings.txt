@@ -76,6 +76,7 @@ FunctionDef/Name/lib_1B69CECC_C932414F=compute_rich_mineral_quantity_key
 FunctionDef/Name/lib_1B69CECC_D2CDFC14=Reset Tech Function
 FunctionDef/Name/lib_1B69CECC_D4967DFC=StartRevealTimer
 FunctionDef/Name/lib_1B69CECC_D9CAB814=Hide Reveal Dialog
+FunctionDef/Name/lib_1B69CECC_DD89F42E=Reset Alliances
 FunctionDef/Name/lib_1B69CECC_DF161E31=compute_rich_mineral_field_key
 FunctionDef/Name/lib_1B69CECC_E28C1E67=Reset Game
 FunctionDef/Name/lib_1B69CECC_E6BB6032=Choose Observers From Lobby

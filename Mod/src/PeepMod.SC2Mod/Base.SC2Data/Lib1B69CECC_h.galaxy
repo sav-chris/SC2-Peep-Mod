@@ -73,6 +73,7 @@ void lib1B69CECC_gf_ResetMinerals ();
 void lib1B69CECC_gf_InitialiseRaceSelections ();
 void lib1B69CECC_gf_ResetFogofWar ();
 void lib1B69CECC_gf_DisableResourceTrading ();
+void lib1B69CECC_gf_ResetAlliances ();
 void lib1B69CECC_gf_ResetTechFunction ();
 void lib1B69CECC_gf_CleanUpCreep ();
 void lib1B69CECC_gf_CleanUpPlayersAndObservers ();
