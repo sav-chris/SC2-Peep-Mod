@@ -848,7 +848,7 @@ bool lib1B69CECC_gf_IsEnoughPlayersToStart () {
     return false;
 }
 
-string lib1B69CECC_gf_chose_race (int lp_race_index) {
+string lib1B69CECC_gf_choose_race (int lp_race_index) {
     // Variable Declarations
     string lv_race;
     int lv_new_idx;
@@ -910,7 +910,7 @@ void lib1B69CECC_gf_InitialisePlayer (int lp_player, string lp_startlocation) {
     // Implementation
     lv_race_key = lib1B69CECC_gf_compute_player_race_key(lp_player);
     lv_race_index = DataTableGetInt(true, lv_race_key);
-    lv_race = lib1B69CECC_gf_chose_race(lv_race_index);
+    lv_race = lib1B69CECC_gf_choose_race(lv_race_index);
     PlayerSetRace(lp_player, lv_race);
     MeleeInitResourcesForPlayer(lp_player, lv_race);
     if ((lv_race == "Zerg")) {
