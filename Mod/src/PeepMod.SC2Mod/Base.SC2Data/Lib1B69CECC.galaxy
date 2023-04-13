@@ -964,8 +964,11 @@ void lib1B69CECC_gf_InitialiseGame (playergroup lp_lobby_Players) {
     while (true) {
         lv_aPlayer = PlayerGroupNextPlayer(autoEF8BA5EB_g, lv_aPlayer);
         if (lv_aPlayer < 0) { break; }
-        lib1B69CECC_gf_InitialisePlayer(lv_aPlayer, lv_start_locations[lv_idx]);
-        lv_idx = (lv_idx + 1);
+        if ((lv_idx < 2)) {
+            lib1B69CECC_gf_InitialisePlayer(lv_aPlayer, lv_start_locations[lv_idx]);
+            lv_idx = (lv_idx + 1);
+        }
+
     }
     libNtve_gf_SetAllianceBetweenTwoPlayerGroups(lib1B69CECC_gv_pLAYERS, lib1B69CECC_gv_oBSERVERS, libNtve_ge_AllianceSetting_Enemy);
     libNtve_gf_SetPlayerGroupAlliance(lib1B69CECC_gv_pLAYERS, libNtve_ge_AllianceSetting_Enemy);
