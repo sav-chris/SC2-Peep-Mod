@@ -224,6 +224,7 @@ Variable/Name/lib_1B69CECC_96153B53=ui_gg_menu yes
 Variable/Name/lib_1B69CECC_9C0F543A=START LOCATION_1
 Variable/Name/lib_1B69CECC_9FC2BAFA=index
 Variable/Name/lib_1B69CECC_A1233A02=aObserver
+Variable/Name/lib_1B69CECC_A4EB1740=nonneutral
 Variable/Name/lib_1B69CECC_A8F4489F=intPlayer
 Variable/Name/lib_1B69CECC_B31A5D23=lobbyTimer
 Variable/Name/lib_1B69CECC_B3C399A1=MINERAL_FIELD_COUNT_KEY

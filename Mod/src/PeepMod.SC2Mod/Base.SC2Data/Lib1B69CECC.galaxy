@@ -723,6 +723,7 @@ void lib1B69CECC_gf_KillAllPlayerUnits () {
     // Variable Declarations
     unit lv_aUnit;
     int lv_aPlayer;
+    playergroup lv_nonneutral;
 
     // Automatic Variable Declarations
     playergroup autoF7FB8F78_g;
@@ -732,9 +733,12 @@ void lib1B69CECC_gf_KillAllPlayerUnits () {
     int autoD52C8CEB_u;
 
     // Variable Initialization
+    lv_nonneutral = PlayerGroupEmpty();
 
     // Implementation
-    autoF7FB8F78_g = PlayerGroupAll();
+    lv_nonneutral = PlayerGroupAll();
+    PlayerGroupRemove(lv_nonneutral, 0);
+    autoF7FB8F78_g = lv_nonneutral;
     lv_aPlayer = -1;
     while (true) {
         lv_aPlayer = PlayerGroupNextPlayer(autoF7FB8F78_g, lv_aPlayer);
@@ -1387,6 +1391,7 @@ void lib1B69CECC_gf_EnableLobbyUI () {
     // Implementation
     UISetFrameVisible(PlayerGroupAll(), c_syncFrameTypeResourcePanel, false);
     UISetFrameVisible(PlayerGroupAll(), c_syncFrameTypeSupply, false);
+    UISetFrameVisible(PlayerGroupAll(), c_syncFrameTypeAllianceButton, false);
     DialogControlSetVisible(lib1B69CECC_gv_ui_menu, PlayerGroupAll(), true);
 }
 
