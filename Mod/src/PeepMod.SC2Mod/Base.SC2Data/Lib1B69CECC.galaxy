@@ -1413,6 +1413,7 @@ void lib1B69CECC_gf_EnableLobbyUI () {
     UISetFrameVisible(lib1B69CECC_gf_nonneutral_players(), c_syncFrameTypeSupply, false);
     UISetFrameVisible(lib1B69CECC_gf_nonneutral_players(), c_syncFrameTypeAllianceButton, false);
     DialogControlSetVisible(lib1B69CECC_gv_ui_menu, lib1B69CECC_gf_nonneutral_players(), true);
+    DialogControlSetVisible(lib1B69CECC_gv_ui_playpanel, lib1B69CECC_gf_nonneutral_players(), true);
 }
 
 void lib1B69CECC_gf_HideLobby (int lp_theLobby) {
