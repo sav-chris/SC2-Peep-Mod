@@ -483,9 +483,16 @@ void lib1B69CECC_gf_DisableResourceTrading () {
 }
 
 void lib1B69CECC_gf_ResetAlliances () {
+    // Variable Declarations
+    playergroup lv_nonneutral;
+
     // Automatic Variable Declarations
+    // Variable Initialization
+    lv_nonneutral = PlayerGroupEmpty();
+
     // Implementation
-    libNtve_gf_SetPlayerGroupAlliance(PlayerGroupAll(), libNtve_ge_AllianceSetting_Ally);
+    lv_nonneutral = lib1B69CECC_gf_nonneutral_players();
+    libNtve_gf_SetPlayerGroupAlliance(lv_nonneutral, libNtve_ge_AllianceSetting_Ally);
 }
 
 void lib1B69CECC_gf_ResetTechFunction () {
@@ -736,8 +743,7 @@ void lib1B69CECC_gf_KillAllPlayerUnits () {
     lv_nonneutral = PlayerGroupEmpty();
 
     // Implementation
-    lv_nonneutral = PlayerGroupAll();
-    PlayerGroupRemove(lv_nonneutral, 0);
+    lv_nonneutral = lib1B69CECC_gf_nonneutral_players();
     autoF7FB8F78_g = lv_nonneutral;
     lv_aPlayer = -1;
     while (true) {
@@ -1064,6 +1070,20 @@ void lib1B69CECC_gf_InitialiseLobby () {
     lib1B69CECC_gf_EnableLobbyUI();
     lib1B69CECC_gf_ClearLobby();
     lib1B69CECC_gf_ShowLobbyUI();
+}
+
+playergroup lib1B69CECC_gf_nonneutral_players () {
+    // Variable Declarations
+    playergroup lv_nonneutral;
+
+    // Automatic Variable Declarations
+    // Variable Initialization
+    lv_nonneutral = PlayerGroupEmpty();
+
+    // Implementation
+    lv_nonneutral = PlayerGroupAll();
+    PlayerGroupRemove(lv_nonneutral, 0);
+    return lv_nonneutral;
 }
 
 bool lib1B69CECC_gf_is_mineral_field (unit lp_unit) {

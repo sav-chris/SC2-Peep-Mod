@@ -94,6 +94,7 @@ playergroup lib1B69CECC_gf_ChoosePlayersFromLobby (playergroup lp_lobby);
 playergroup lib1B69CECC_gf_choose_a_player (playergroup lp_players_in);
 playergroup lib1B69CECC_gf_ChooseObserversFromLobby (playergroup lp_lobby, playergroup lp_players);
 void lib1B69CECC_gf_InitialiseLobby ();
+playergroup lib1B69CECC_gf_nonneutral_players ();
 bool lib1B69CECC_gf_is_mineral_field (unit lp_unit);
 bool lib1B69CECC_gf_is_rich_mineral_field (unit lp_unit);
 string lib1B69CECC_gf_compute_player_race_key (int lp_player);
