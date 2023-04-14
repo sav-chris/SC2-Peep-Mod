@@ -3,4 +3,5 @@
     <Include path="UI/Layout/PeepModMenu.SC2Layout"/>
     <Include path="UI/Layout/GGMenu.SC2Layout"/>
     <Include path="UI/Layout/RevealMessageDialog.SC2Layout"/>
+    <Include path="UI/Layout/PeepMissionTimePanel.SC2Layout"/>
 </Desc>
