@@ -10224,6 +10224,7 @@
             <FunctionCall Type="FunctionCall" Library="1B69CECC" Id="B6B1FEF8"/>
             <FunctionCall Type="FunctionCall" Library="1B69CECC" Id="CCDCF37F"/>
             <FunctionCall Type="FunctionCall" Library="1B69CECC" Id="81C98C91"/>
+            <FunctionCall Type="FunctionCall" Library="1B69CECC" Id="CA5651AB"/>
             <FunctionCall Type="FunctionCall" Library="1B69CECC" Id="0F7A7899"/>
         </Element>
         <Element Type="FunctionCall" Id="B6B1FEF8">
@@ -10278,6 +10279,41 @@
         </Element>
         <Element Type="Param" Id="62D586AD">
             <Variable Type="Variable" Library="1B69CECC" Id="4C5CEF1B"/>
+        </Element>
+        <Element Type="FunctionCall" Id="CA5651AB">
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="651D9322"/>
+            <SubFunctionType Type="SubFuncType" Library="Ntve" Id="00000005"/>
+            <Parameter Type="Param" Library="1B69CECC" Id="9C5BC40F"/>
+            <Parameter Type="Param" Library="1B69CECC" Id="AB392B1F"/>
+            <Parameter Type="Param" Library="1B69CECC" Id="D5B7A79F"/>
+            <Parameter Type="Param" Library="1B69CECC" Id="0697AAF9"/>
+            <Parameter Type="Param" Library="1B69CECC" Id="C96A0381"/>
+        </Element>
+        <Element Type="Param" Id="9C5BC40F">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="4FD0F5E6"/>
+            <Preset Type="PresetValue" Library="Ntve" Id="8229CCB3"/>
+        </Element>
+        <Element Type="Param" Id="AB392B1F">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="420B8251"/>
+            <FunctionCall Type="FunctionCall" Library="1B69CECC" Id="7A52630C"/>
+        </Element>
+        <Element Type="FunctionCall" Id="7A52630C">
+            <FunctionDef Type="FunctionDef" Library="1B69CECC" Id="A3E07673"/>
+        </Element>
+        <Element Type="Param" Id="D5B7A79F">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="83444B10"/>
+            <Value>100.0</Value>
+            <ValueType Type="fixed"/>
+        </Element>
+        <Element Type="Param" Id="0697AAF9">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="1D1E66BC"/>
+            <Value>0.0</Value>
+            <ValueType Type="fixed"/>
+        </Element>
+        <Element Type="Param" Id="C96A0381">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="B7793BD2"/>
+            <Value>UI_BNet_Countdown</Value>
+            <ValueType Type="soundlink"/>
         </Element>
         <Element Type="FunctionCall" Id="0F7A7899">
             <FunctionDef Type="FunctionDef" Library="Ntve" Id="C439C375"/>
