@@ -27,3 +27,41 @@ The project is a [starcraft mod](https://s2editor-guides.readthedocs.io/New_Tuto
 I've separated the project into `Control` logic, user interface `View` and `Model` entities.
 Any additional helper functions go in `Functions`. 
 
+
+# Development and Testing Notes
+
+To do development you will need the scion races source code which is a dependency.  
+Go to your starcraft Mods directory. 
+For example if you installed starcraft in the default directory on C: drive:
+
+```bash
+cd "C:\Program Files (x86)\StarCraft II\Mods"
+git clone https://github.com/Solstice245/scion-keiron-dev.git
+```
+
+After makeing changes to the Mod soure code in `Mod\src` using the starcraft editor, the project must be saved again as a `.SC2Mod` file. This is what the directory `Mod\bin` is for. This file must be copied to the starcraft Mod folder for starcraft to detect it for testing.
+
+An example of doing this in powershell:
+
+```bash
+Copy-Item -Path "\Mod\bin\PeepMod.SC2Mod" -Destination "C:\Program Files (x86)\StarCraft II\Mods\PeepMod.SC2Mod"
+```
+
+The map files in the `Test\` folder contain test cases. When run from the editor you can run the test cases in game. Use the command `-Run Unit Tests` in the chat window.
+
+![UnitTests](Docs/Unit%20Tests.png)
+
+* Additional Testing Commands
+  
+    `-AI Player` 
+    Adds a dummy AI Player to the lobby
+
+    `-AI Player 2` 
+    Adds another dummy AI Player to the lobby
+
+
+These debugging commands are only available in test maps and not the ones in the `Maps` folder as those maps are meant for deployment. 
+
+
+
+

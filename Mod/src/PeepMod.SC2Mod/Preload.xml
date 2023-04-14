@@ -5,6 +5,7 @@
 <Race id="Neut"/>
 <Race id="Zerg"/>
 <Sound id="UI_BnetCountdown321"/>
+<Sound id="UI_BNet_Countdown"/>
 <Unit id="RichMineralField"/>
 <Unit id="MineralField"/>
 </Preload>

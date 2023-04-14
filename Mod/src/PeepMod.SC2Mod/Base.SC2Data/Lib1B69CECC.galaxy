@@ -831,6 +831,7 @@ void lib1B69CECC_gf_StartTimer () {
         lib1B69CECC_gv_lobbyTimer.lv_startTime = CurrentDateTimeGet();
         lib1B69CECC_gv_lobbyTimer.lv_isStarted = true;
         TimerRestart(lib1B69CECC_gv_lobbyTimer.lv_timer);
+        SoundPlayForPlayer(SoundLink("UI_BNet_Countdown", -1), c_maxPlayers, lib1B69CECC_gf_nonneutral_players(), 100.0, 0.0);
     }
 }
 
