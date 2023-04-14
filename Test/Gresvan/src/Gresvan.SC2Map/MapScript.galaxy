@@ -2,7 +2,7 @@
 // 
 // Generated Map Script
 // 
-// Name:   Gresvan LE
+// Name:   The Scion Peep Mod: Gresvan LE
 // 
 //==================================================================================================
 include "TriggerLibs/NativeLib"
@@ -51,7 +51,7 @@ void gf_Assert (bool lp_statement, text lp_assertionname, text lp_errormessage) 
     // Automatic Variable Declarations
     // Implementation
     if ((lp_statement == true)) {
-        TriggerDebugOutput(1, (lp_assertionname + StringExternal("Param/Value/AC62F563")), true);
+        TriggerDebugOutput(1, (lp_assertionname + StringExternal("Param/Value/96FB33D3")), true);
     }
     else {
         TriggerDebugOutput(1, lp_errormessage, true);
@@ -78,7 +78,7 @@ void gf_test_Choose_Players_From_Lobby () {
     PlayerGroupAdd(lv_lobby, 8);
     PlayerGroupAdd(lv_lobby, 10);
     lv_players = lib1B69CECC_gf_ChoosePlayersFromLobby(lv_lobby);
-    gf_Assert((PlayerGroupCount(lv_players) == 2), StringExternal("Param/Value/1593907F"), StringExternal("Param/Value/0E29D7E0"));
+    gf_Assert((PlayerGroupCount(lv_players) == 2), StringExternal("Param/Value/AE28B2D8"), StringExternal("Param/Value/0D728812"));
 }
 
 void gf_test_Choose_Observers_From_Lobby () {
@@ -106,9 +106,9 @@ void gf_test_Choose_Observers_From_Lobby () {
     PlayerGroupAdd(lv_lobby, 10);
     lv_players = lib1B69CECC_gf_ChoosePlayersFromLobby(lv_lobby);
     lv_observers = lib1B69CECC_gf_ChooseObserversFromLobby(lv_lobby, lv_players);
-    gf_Assert((PlayerGroupCount(lv_observers) == 4), StringExternal("Param/Value/A2E35A92"), StringExternal("Param/Value/A8ED4127"));
+    gf_Assert((PlayerGroupCount(lv_observers) == 4), StringExternal("Param/Value/8118853D"), StringExternal("Param/Value/6686C8DE"));
     lv_intersect = libNtve_gf_IntersectionOfPlayerGroups(lv_players, lv_observers);
-    gf_Assert((PlayerGroupCount(lv_intersect) == 0), StringExternal("Param/Value/B8D170CC"), StringExternal("Param/Value/8945BE5C"));
+    gf_Assert((PlayerGroupCount(lv_intersect) == 0), StringExternal("Param/Value/A7070821"), StringExternal("Param/Value/D6E303C0"));
 }
 
 void gf_test_compute_player_race_key () {
@@ -121,21 +121,21 @@ void gf_test_compute_player_race_key () {
 
     // Implementation
     lv_race_key = lib1B69CECC_gf_compute_player_race_key(1);
-    gf_Assert(StringEqual(lv_race_key, "race_player_1", c_stringCase), StringExternal("Param/Value/6287E443"), StringExternal("Param/Value/EF8E9705"));
+    gf_Assert(StringEqual(lv_race_key, "race_player_1", c_stringCase), StringExternal("Param/Value/CB029CC4"), StringExternal("Param/Value/029C9A0A"));
     lv_race_key = lib1B69CECC_gf_compute_player_race_key(5);
-    gf_Assert(StringEqual(lv_race_key, "race_player_5", c_stringCase), StringExternal("Param/Value/EFC4C8BF"), StringExternal("Param/Value/2E57C41A"));
+    gf_Assert(StringEqual(lv_race_key, "race_player_5", c_stringCase), StringExternal("Param/Value/FA364A04"), StringExternal("Param/Value/B4FB9B12"));
 }
 
 void gf_test_race_integer_conversion () {
     // Automatic Variable Declarations
     // Implementation
-    gf_Assert((lib1B69CECC_gf_compute_race_from_index(lib1B69CECC_gf_compute_race_index("Neut")) == "Neut"), StringExternal("Param/Value/3C846BFD"), StringExternal("Param/Value/0BB0FF0B"));
-    gf_Assert((lib1B69CECC_gf_compute_race_from_index(lib1B69CECC_gf_compute_race_index("Terr")) == "Terr"), StringExternal("Param/Value/1BAA6162"), StringExternal("Param/Value/633E9795"));
-    gf_Assert((lib1B69CECC_gf_compute_race_from_index(lib1B69CECC_gf_compute_race_index("Zerg")) == "Zerg"), StringExternal("Param/Value/BE10936C"), StringExternal("Param/Value/091391E5"));
-    gf_Assert((lib1B69CECC_gf_compute_race_from_index(lib1B69CECC_gf_compute_race_index("Prot")) == "Prot"), StringExternal("Param/Value/1B57069F"), StringExternal("Param/Value/0123A25D"));
-    gf_Assert((lib1B69CECC_gf_compute_race_from_index(lib1B69CECC_gf_compute_race_index("Gen")) == "Gen"), StringExternal("Param/Value/2C1E44C6"), StringExternal("Param/Value/06078540"));
-    gf_Assert((lib1B69CECC_gf_compute_race_from_index(lib1B69CECC_gf_compute_race_index("Xayi")) == "Xayi"), StringExternal("Param/Value/C9755E37"), StringExternal("Param/Value/4EF5D0F2"));
-    gf_Assert((lib1B69CECC_gf_compute_race_from_index(lib1B69CECC_gf_compute_race_index("Keir")) == "Keir"), StringExternal("Param/Value/2946E3C5"), StringExternal("Param/Value/EFBD8ABE"));
+    gf_Assert((lib1B69CECC_gf_compute_race_from_index(lib1B69CECC_gf_compute_race_index("Neut")) == "Neut"), StringExternal("Param/Value/678F0631"), StringExternal("Param/Value/EAC8E143"));
+    gf_Assert((lib1B69CECC_gf_compute_race_from_index(lib1B69CECC_gf_compute_race_index("Terr")) == "Terr"), StringExternal("Param/Value/3BF25680"), StringExternal("Param/Value/D0560D08"));
+    gf_Assert((lib1B69CECC_gf_compute_race_from_index(lib1B69CECC_gf_compute_race_index("Zerg")) == "Zerg"), StringExternal("Param/Value/9911D17E"), StringExternal("Param/Value/A1CB12FE"));
+    gf_Assert((lib1B69CECC_gf_compute_race_from_index(lib1B69CECC_gf_compute_race_index("Prot")) == "Prot"), StringExternal("Param/Value/F0593D5E"), StringExternal("Param/Value/DD3608E4"));
+    gf_Assert((lib1B69CECC_gf_compute_race_from_index(lib1B69CECC_gf_compute_race_index("Gen")) == "Gen"), StringExternal("Param/Value/D751862E"), StringExternal("Param/Value/1F0A1A9C"));
+    gf_Assert((lib1B69CECC_gf_compute_race_from_index(lib1B69CECC_gf_compute_race_index("Xayi")) == "Xayi"), StringExternal("Param/Value/EAB36FF2"), StringExternal("Param/Value/9C0C48D2"));
+    gf_Assert((lib1B69CECC_gf_compute_race_from_index(lib1B69CECC_gf_compute_race_index("Keir")) == "Keir"), StringExternal("Param/Value/BF841A7B"), StringExternal("Param/Value/932E69DB"));
 }
 
 void gf_test_compute_winners () {
@@ -158,8 +158,8 @@ void gf_test_compute_winners () {
     PlayerGroupAdd(lv_losers, 1);
     PlayerGroupAdd(lv_winners, 2);
     lv_computed_winners = lib1B69CECC_gf_compute_winners(lv_players, lv_losers);
-    gf_Assert((PlayerGroupCount(lv_winners) == PlayerGroupCount(lv_computed_winners)), StringExternal("Param/Value/26B29DAE"), StringExternal("Param/Value/F0B268B8"));
-    gf_Assert((PlayerGroupCount(lv_winners) == PlayerGroupCount(libNtve_gf_IntersectionOfPlayerGroups(lv_winners, lv_computed_winners))), StringExternal("Param/Value/403393F7"), StringExternal("Param/Value/999410FB"));
+    gf_Assert((PlayerGroupCount(lv_winners) == PlayerGroupCount(lv_computed_winners)), StringExternal("Param/Value/DD0F4670"), StringExternal("Param/Value/4637591A"));
+    gf_Assert((PlayerGroupCount(lv_winners) == PlayerGroupCount(libNtve_gf_IntersectionOfPlayerGroups(lv_winners, lv_computed_winners))), StringExternal("Param/Value/0FD2A78B"), StringExternal("Param/Value/04ABB4EE"));
 }
 
 void gf_test_choose_a_player () {
@@ -182,8 +182,8 @@ void gf_test_choose_a_player () {
     PlayerGroupAdd(lv_lobby, 8);
     PlayerGroupAdd(lv_lobby, 10);
     lv_player = lib1B69CECC_gf_choose_a_player(lv_lobby);
-    gf_Assert((PlayerGroupCount(lv_player) == 1), StringExternal("Param/Value/68088600"), StringExternal("Param/Value/8B445C76"));
-    gf_Assert((PlayerGroupCount(libNtve_gf_IntersectionOfPlayerGroups(lv_player, lv_lobby)) == 1), StringExternal("Param/Value/3F09CB5B"), StringExternal("Param/Value/AD3D4B9C"));
+    gf_Assert((PlayerGroupCount(lv_player) == 1), StringExternal("Param/Value/79109AA6"), StringExternal("Param/Value/DD6568CD"));
+    gf_Assert((PlayerGroupCount(libNtve_gf_IntersectionOfPlayerGroups(lv_player, lv_lobby)) == 1), StringExternal("Param/Value/5E26F2F6"), StringExternal("Param/Value/8AC7F637"));
 }
 
 //--------------------------------------------------------------------------------------------------
