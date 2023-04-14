@@ -163,6 +163,7 @@ Variable/Name/lib_1B69CECC_09665E72=index
 Variable/Name/lib_1B69CECC_0987CF58=ui_play_confirm
 Variable/Name/lib_1B69CECC_0AB29023=REVEALED_PLAYERS
 Variable/Name/lib_1B69CECC_0D19B112=tmrDetectVictory
+Variable/Name/lib_1B69CECC_10B8D7F8=player_group
 Variable/Name/lib_1B69CECC_11102DA4=temp
 Variable/Name/lib_1B69CECC_13BC1D86=index
 Variable/Name/lib_1B69CECC_153AD5CA=player

@@ -55,7 +55,7 @@ void lib1B69CECC_gf_ResetRevealStatus () {
     // Automatic Variable Declarations
     // Implementation
     lib1B69CECC_gv_rEVEALED_PLAYERS = PlayerGroupEmpty();
-    DialogControlSetVisible(lib1B69CECC_gv_ui_reveal, PlayerGroupAll(), false);
+    DialogControlSetVisible(lib1B69CECC_gv_ui_reveal, lib1B69CECC_gf_nonneutral_players(), false);
 }
 
 void lib1B69CECC_gf_reveal_player (int lp_player) {
@@ -413,7 +413,7 @@ void lib1B69CECC_gf_InitialiseRaceSelections () {
     // Variable Initialization
 
     // Implementation
-    auto37407480_g = PlayerGroupAll();
+    auto37407480_g = lib1B69CECC_gf_nonneutral_players();
     lv_aPlayer = -1;
     while (true) {
         lv_aPlayer = PlayerGroupNextPlayer(auto37407480_g, lv_aPlayer);
@@ -431,7 +431,7 @@ void lib1B69CECC_gf_ResetFogofWar () {
 
     // Implementation
     Wait(0.1, c_timeGame);
-    autoEE90B737_g = PlayerGroupAll();
+    autoEE90B737_g = lib1B69CECC_gf_nonneutral_players();
     autoEE90B737_var = -1;
     while (true) {
         autoEE90B737_var = PlayerGroupNextPlayer(autoEE90B737_g, autoEE90B737_var);
@@ -439,7 +439,7 @@ void lib1B69CECC_gf_ResetFogofWar () {
         VisRevealArea(autoEE90B737_var, RegionEntireMap(), 0.1, false);
     }
     Wait(0.2, c_timeGame);
-    autoB07B4D9F_g = PlayerGroupAll();
+    autoB07B4D9F_g = lib1B69CECC_gf_nonneutral_players();
     autoB07B4D9F_var = -1;
     while (true) {
         autoB07B4D9F_var = PlayerGroupNextPlayer(autoB07B4D9F_g, autoB07B4D9F_var);
@@ -460,16 +460,16 @@ void lib1B69CECC_gf_DisableResourceTrading () {
     // Variable Initialization
 
     // Implementation
-    UISetFrameVisible(PlayerGroupAll(), c_syncFrameTypeResourcePanel, false);
-    UISetFrameVisible(PlayerGroupAll(), c_syncFrameTypeTeamResourceButton, false);
+    UISetFrameVisible(lib1B69CECC_gf_nonneutral_players(), c_syncFrameTypeResourcePanel, false);
+    UISetFrameVisible(lib1B69CECC_gf_nonneutral_players(), c_syncFrameTypeTeamResourceButton, false);
     UISetResourceTradingAllowed(c_resourceTypeMinerals, false);
     UISetResourceTradingAllowed(c_resourceTypeVespene, false);
-    autoA9BF1F9F_g = PlayerGroupAll();
+    autoA9BF1F9F_g = lib1B69CECC_gf_nonneutral_players();
     lv_aPlayer = -1;
     while (true) {
         lv_aPlayer = PlayerGroupNextPlayer(autoA9BF1F9F_g, lv_aPlayer);
         if (lv_aPlayer < 0) { break; }
-        auto01013A5D_g = PlayerGroupAll();
+        auto01013A5D_g = lib1B69CECC_gf_nonneutral_players();
         lv_bPlayer2 = -1;
         while (true) {
             lv_bPlayer2 = PlayerGroupNextPlayer(auto01013A5D_g, lv_bPlayer2);
@@ -505,7 +505,7 @@ void lib1B69CECC_gf_ResetTechFunction () {
     // Variable Initialization
 
     // Implementation
-    auto7B21BD26_g = PlayerGroupAll();
+    auto7B21BD26_g = lib1B69CECC_gf_nonneutral_players();
     lv_intPlayer = -1;
     while (true) {
         lv_intPlayer = PlayerGroupNextPlayer(auto7B21BD26_g, lv_intPlayer);
@@ -961,13 +961,13 @@ void lib1B69CECC_gf_InitialiseGame (playergroup lp_lobby_Players) {
     // Implementation
     lib1B69CECC_gf_HideLobby(lib1B69CECC_gv_lobbyModal);
     SoundPlayForPlayer(SoundLink("UI_BnetCountdown321", -1), c_maxPlayers, PlayerGroupAll(), 100.0, 0.0);
-    UIDisplayMessage(PlayerGroupAll(), c_messageAreaSubtitle, StringExternal("Param/Value/lib_1B69CECC_890AFE24"));
+    UIDisplayMessage(lib1B69CECC_gf_nonneutral_players(), c_messageAreaSubtitle, StringExternal("Param/Value/lib_1B69CECC_890AFE24"));
     CinematicFade(false, 2.0, c_fadeStyleNormal, Color(0.00, 0.00, 0.00), 0.0, true);
     CinematicFade(true, 2.0, c_fadeStyleNormal, Color(0.00, 0.00, 0.00), 0.0, true);
     lv_start_locations[0] = lib1B69CECC_gv_sTARTLOCATION_1;
     lv_start_locations[1] = lib1B69CECC_gv_sTARTLOCATION_2;
     lib1B69CECC_gv_pLAYERS = lib1B69CECC_gf_ChoosePlayersFromLobby(lp_lobby_Players);
-    lib1B69CECC_gv_oBSERVERS = lib1B69CECC_gf_ChooseObserversFromLobby(PlayerGroupAll(), lib1B69CECC_gv_pLAYERS);
+    lib1B69CECC_gv_oBSERVERS = lib1B69CECC_gf_ChooseObserversFromLobby(lib1B69CECC_gf_nonneutral_players(), lib1B69CECC_gv_pLAYERS);
     lv_idx = 0;
     autoEF8BA5EB_g = lib1B69CECC_gv_pLAYERS;
     lv_aPlayer = -1;
@@ -1244,13 +1244,13 @@ void lib1B69CECC_gf_DisplayVictoryMessage (playergroup lp_winners) {
     int autoA551C0E6_var;
 
     // Implementation
-    UIDisplayMessage(PlayerGroupAll(), c_messageAreaSubtitle, TextExpressionAssemble("Param/Expression/lib_1B69CECC_2F42B94E"));
+    UIDisplayMessage(lib1B69CECC_gf_nonneutral_players(), c_messageAreaSubtitle, TextExpressionAssemble("Param/Expression/lib_1B69CECC_2F42B94E"));
     autoA551C0E6_g = lp_winners;
     autoA551C0E6_var = -1;
     while (true) {
         autoA551C0E6_var = PlayerGroupNextPlayer(autoA551C0E6_g, autoA551C0E6_var);
         if (autoA551C0E6_var < 0) { break; }
-        UIDisplayMessage(PlayerGroupAll(), c_messageAreaSubtitle, PlayerName(autoA551C0E6_var));
+        UIDisplayMessage(lib1B69CECC_gf_nonneutral_players(), c_messageAreaSubtitle, PlayerName(autoA551C0E6_var));
     }
 }
 
@@ -1392,13 +1392,13 @@ void lib1B69CECC_gf_InitialisePlayDialog () {
 void lib1B69CECC_gf_HideTimerWindow () {
     // Automatic Variable Declarations
     // Implementation
-    TimerWindowShow(lib1B69CECC_gv_timerWindow, PlayerGroupAll(), false);
+    TimerWindowShow(lib1B69CECC_gv_timerWindow, lib1B69CECC_gf_nonneutral_players(), false);
 }
 
 void lib1B69CECC_gf_ShowTimerWindow () {
     // Automatic Variable Declarations
     // Implementation
-    TimerWindowShow(lib1B69CECC_gv_timerWindow, PlayerGroupAll(), true);
+    TimerWindowShow(lib1B69CECC_gv_timerWindow, lib1B69CECC_gf_nonneutral_players(), true);
 }
 
 void lib1B69CECC_gf_EnableLobbyUI () {
@@ -1409,16 +1409,16 @@ void lib1B69CECC_gf_EnableLobbyUI () {
     // Variable Initialization
 
     // Implementation
-    UISetFrameVisible(PlayerGroupAll(), c_syncFrameTypeResourcePanel, false);
-    UISetFrameVisible(PlayerGroupAll(), c_syncFrameTypeSupply, false);
-    UISetFrameVisible(PlayerGroupAll(), c_syncFrameTypeAllianceButton, false);
-    DialogControlSetVisible(lib1B69CECC_gv_ui_menu, PlayerGroupAll(), true);
+    UISetFrameVisible(lib1B69CECC_gf_nonneutral_players(), c_syncFrameTypeResourcePanel, false);
+    UISetFrameVisible(lib1B69CECC_gf_nonneutral_players(), c_syncFrameTypeSupply, false);
+    UISetFrameVisible(lib1B69CECC_gf_nonneutral_players(), c_syncFrameTypeAllianceButton, false);
+    DialogControlSetVisible(lib1B69CECC_gv_ui_menu, lib1B69CECC_gf_nonneutral_players(), true);
 }
 
 void lib1B69CECC_gf_HideLobby (int lp_theLobby) {
     // Automatic Variable Declarations
     // Implementation
-    DialogSetVisible(lp_theLobby, PlayerGroupAll(), false);
+    DialogSetVisible(lp_theLobby, lib1B69CECC_gf_nonneutral_players(), false);
 }
 
 void lib1B69CECC_gf_RefreshLobby (structref<lib1B69CECC_gs_Lobby> lp_lobbyModel) {
@@ -1499,7 +1499,7 @@ void lib1B69CECC_gf_JoinLobby (int lp_thePlayer, structref<lib1B69CECC_gs_Lobby>
 void lib1B69CECC_gf_DependencyMessage () {
     // Automatic Variable Declarations
     // Implementation
-    UIDisplayMessage(PlayerGroupAll(), c_messageAreaSubtitle, StringExternal("Param/Value/lib_1B69CECC_96486FC5"));
+    UIDisplayMessage(lib1B69CECC_gf_nonneutral_players(), c_messageAreaSubtitle, StringExternal("Param/Value/lib_1B69CECC_96486FC5"));
 }
 
 // Triggers
@@ -1760,8 +1760,8 @@ bool lib1B69CECC_gt_HandleTimeOut_Func (bool testConds, bool runActions) {
 
     lib1B69CECC_gf_StopTimer();
     lib1B69CECC_gf_InitialiseGame(lib1B69CECC_gv_theLobby.lv_players);
-    DialogControlSetVisible(lib1B69CECC_gv_ui_play_confirm, PlayerGroupAll(), true);
-    DialogControlSetVisible(lib1B69CECC_gv_ui_play_cancel, PlayerGroupAll(), false);
+    DialogControlSetVisible(lib1B69CECC_gv_ui_play_confirm, lib1B69CECC_gf_nonneutral_players(), true);
+    DialogControlSetVisible(lib1B69CECC_gv_ui_play_cancel, lib1B69CECC_gf_nonneutral_players(), false);
     return true;
 }
 
@@ -1832,7 +1832,13 @@ void lib1B69CECC_gt_ClickNo_Init () {
 // Trigger: Click Help
 //--------------------------------------------------------------------------------------------------
 bool lib1B69CECC_gt_ClickHelp_Func (bool testConds, bool runActions) {
+    // Variable Declarations
+    playergroup lv_player_group;
+
     // Automatic Variable Declarations
+    // Variable Initialization
+    lv_player_group = PlayerGroupEmpty();
+
     // Conditions
     if (testConds) {
         if (!((EventDialogControl() == lib1B69CECC_gv_ui_help))) {
@@ -1845,7 +1851,8 @@ bool lib1B69CECC_gt_ClickHelp_Func (bool testConds, bool runActions) {
         return true;
     }
 
-    HelpPanelDisplayPage(PlayerGroupAll(), c_helpPanelPageTutorials);
+    PlayerGroupAdd(lv_player_group, EventPlayer());
+    HelpPanelDisplayPage(lv_player_group, c_helpPanelPageTutorials);
     return true;
 }
 
