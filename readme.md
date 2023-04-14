@@ -18,5 +18,5 @@ Starcraft 2 Mod for playing round robin 1v1s in a lobby with many players. Custo
 
 The project is a [starcraft mod](https://s2editor-guides.readthedocs.io/New_Tutorials/01_Introduction/006_Mods/) which can be used by other starcraft [1v1 maps](https://liquipedia.net/starcraft2/Maps/Ladder_Maps/Legacy_of_the_Void). This mod in turn uses the [Scion Mod](https://sc2arcade.com/map/1/313549/) by [Solstice245](https://github.com/Solstice245/scion-keiron-dev). Documentation on the Scion mod gameplay [can be found here](https://starcraft-scion-custom-races.fandom.com/). 
 
-![Package Diagram](docs/Sub-Packages%20Structure%20Diagram.png)
+![Package Diagram](docs/Subpackages-Structure-Diagram.png)
 
