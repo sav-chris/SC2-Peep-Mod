@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Preload>
-<Asset path="assets\textures\black_dots.dds" Type="Image"/>
+<Asset path="assets\textures\ui_console_timer_background_xayid.dds" Type="Image"/>
+<Asset path="black_dots.dds" Type="Image"/>
+<Asset path="assets\textures\ui_console_timer_background_genetron.dds" Type="Image"/>
+<Asset path="assets\textures\ui_console_timer_background_defaultprotoss.dds" Type="Image"/>
+<Asset path="assets\textures\ui_console_timer_background_keiron.dds" Type="Image"/>
+<Asset path="assets\textures\ui_console_timer_background_defaultterran.dds" Type="Image"/>
+<Asset path="assets\textures\ui_console_timer_background_defaultzerg.dds" Type="Image"/>
 <Actor id="SYSTEM_ActorConfig"/>
 <Effect id="SpawnMutantLarvaApplySpawnBehavior"/>
 <Race id="Neut"/>

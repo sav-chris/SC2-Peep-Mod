@@ -29,6 +29,8 @@ struct lib1B69CECC_gs_Lobby {
 };
 
 // Variable Declarations
+bool lib1B69CECC_gv_game_started;
+datetime lib1B69CECC_gv_match_start_time;
 lib1B69CECC_gs_RevealTimerRecord[3] lib1B69CECC_gv_reveal_timer_record;
 playergroup lib1B69CECC_gv_rEVEALED_PLAYERS;
 bool lib1B69CECC_gv_DETECT_VICTORY;
@@ -38,7 +40,6 @@ playergroup lib1B69CECC_gv_oBSERVERS;
 lib1B69CECC_gs_LobbyTimer lib1B69CECC_gv_lobbyTimer;
 timer lib1B69CECC_gv_ui_matchTime;
 int lib1B69CECC_gv_ui_clock;
-int lib1B69CECC_gv_ui_clock2;
 int lib1B69CECC_gv_ui_clocklabel;
 int lib1B69CECC_gv_ui_reveal;
 int lib1B69CECC_gv_ui_reveal_label;
@@ -59,6 +60,8 @@ int lib1B69CECC_gv_lobbyListBox;
 lib1B69CECC_gs_Lobby lib1B69CECC_gv_theLobby;
 
 // Function Declarations
+void lib1B69CECC_gf_StartClock ();
+void lib1B69CECC_gf_StopClock ();
 void lib1B69CECC_gf_ResetRevealStatus ();
 void lib1B69CECC_gf_reveal_player (int lp_player);
 void lib1B69CECC_gf_unreveal_player (int lp_player);
@@ -112,6 +115,8 @@ string lib1B69CECC_gf_compute_race_from_index (int lp_race_index);
 bool lib1B69CECC_gf_is_gas_structure (unit lp_unit);
 bool lib1B69CECC_gf_is_town_centre (unit lp_unit);
 playergroup lib1B69CECC_gf_compute_winners (playergroup lp_players, playergroup lp_losers);
+void lib1B69CECC_gf_SetClockSkin ();
+void lib1B69CECC_gf_ResetClockDisplay ();
 void lib1B69CECC_gf_InitialiseClock ();
 void lib1B69CECC_gf_DisplayVictoryMessage (playergroup lp_winners);
 void lib1B69CECC_gf_EnableObserverUI (playergroup lp_observers, playergroup lp_players);
@@ -135,6 +140,7 @@ void lib1B69CECC_gf_JoinLobby (int lp_thePlayer, structref<lib1B69CECC_gs_Lobby>
 void lib1B69CECC_gf_DependencyMessage ();
 
 // Trigger Declarations
+trigger lib1B69CECC_gt_SetTimeTrigger;
 trigger lib1B69CECC_gt_RevealCountdownTrigger;
 trigger lib1B69CECC_gt_DetectRevealTrigger;
 trigger lib1B69CECC_gt_DetectUnrevealTrigger;
@@ -142,7 +148,6 @@ trigger lib1B69CECC_gt_DetectGG;
 trigger lib1B69CECC_gt_CleanUpWhenPlayerLeaves;
 trigger lib1B69CECC_gt_DetectVictory;
 trigger lib1B69CECC_gt_HandleTimeOut;
-trigger lib1B69CECC_gt_SetTimeTrigger;
 trigger lib1B69CECC_gt_ClickYes;
 trigger lib1B69CECC_gt_ClickNo;
 trigger lib1B69CECC_gt_ClickHelp;
