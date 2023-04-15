@@ -260,7 +260,7 @@ void lib1B69CECC_gf_RecordBlueMineralsonMap () {
         }
 
     }
-    DataTableSetInt(true, lib1B69CECC_gv_mINERAL_FIELD_COUNT_KEY, lv_index);
+    lib1B69CECC_gv_mINERAL_FIELD_COUNT = lv_index;
 }
 
 void lib1B69CECC_gf_RecordRichMineralsonMap () {
@@ -294,7 +294,7 @@ void lib1B69CECC_gf_RecordRichMineralsonMap () {
         }
 
     }
-    DataTableSetInt(true, lib1B69CECC_gv_rICH_MINERAL_FIELD_COUNT_KEY, lv_index);
+    lib1B69CECC_gv_rICH_MINERAL_FIELD_COUNT = lv_index;
 }
 
 void lib1B69CECC_gf_DeleteAllMineralFields () {
@@ -385,9 +385,7 @@ void lib1B69CECC_gf_ResetVision () {
 
 void lib1B69CECC_gf_ResetMinerals () {
     // Variable Declarations
-    const string lv_mineral_field_count_key = "mineral_field_count";
     point lv_pos;
-    int lv_mineral_field_count;
     int lv_index;
     int lv_mineral_quantity;
 
@@ -401,8 +399,7 @@ void lib1B69CECC_gf_ResetMinerals () {
 
     // Implementation
     lib1B69CECC_gf_DeleteAllMineralFields();
-    lv_mineral_field_count = DataTableGetInt(true, lv_mineral_field_count_key);
-    auto0E57139E_ae = lv_mineral_field_count;
+    auto0E57139E_ae = lib1B69CECC_gv_mINERAL_FIELD_COUNT;
     lv_index = 1;
     for ( ; ( (auto0E57139E_ai >= 0 && lv_index <= auto0E57139E_ae) || (auto0E57139E_ai < 0 && lv_index >= auto0E57139E_ae) ) ; lv_index += auto0E57139E_ai ) {
         lv_pos = DataTableGetPoint(true, lib1B69CECC_gf_compute_mineral_field_key(lv_index));
@@ -410,8 +407,7 @@ void lib1B69CECC_gf_ResetMinerals () {
         UnitCreate(1, "MineralField", c_unitCreateIgnorePlacement, 0, lv_pos, 0.0);
         UnitSetPropertyFixed(UnitLastCreated(), c_unitPropResources, lv_mineral_quantity);
     }
-    lv_mineral_field_count = DataTableGetInt(true, lib1B69CECC_gv_rICH_MINERAL_FIELD_COUNT_KEY);
-    autoF8F96ABC_ae = lv_mineral_field_count;
+    autoF8F96ABC_ae = lib1B69CECC_gv_rICH_MINERAL_FIELD_COUNT;
     lv_index = 1;
     for ( ; ( (autoF8F96ABC_ai >= 0 && lv_index <= autoF8F96ABC_ae) || (autoF8F96ABC_ai < 0 && lv_index >= autoF8F96ABC_ae) ) ; lv_index += autoF8F96ABC_ai ) {
         lv_pos = DataTableGetPoint(true, lib1B69CECC_gf_compute_rich_mineral_field_key(lv_index));
