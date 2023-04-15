@@ -928,6 +928,7 @@ void lib1B69CECC_gf_InitialisePlayer (int lp_player, string lp_startlocation) {
     int lv_race_index;
     string lv_race_key;
     string lv_race;
+    text lv_player_message;
 
     // Automatic Variable Declarations
     unitgroup auto72918860_g;
@@ -942,6 +943,8 @@ void lib1B69CECC_gf_InitialisePlayer (int lp_player, string lp_startlocation) {
     lv_race_index = DataTableGetInt(true, lv_race_key);
     lv_race = lib1B69CECC_gf_choose_race(lv_race_index);
     PlayerSetRace(lp_player, lv_race);
+    lv_player_message = (StringExternal("Param/Value/lib_1B69CECC_68000019") + PlayerName(lp_player) + StringExternal("Param/Value/lib_1B69CECC_F23FBEA6") + lib1B69CECC_gf_race_to_text(lv_race) + StringExternal("Param/Value/lib_1B69CECC_5D96BE83"));
+    UIDisplayMessage(lib1B69CECC_gf_nonneutral_players(), c_messageAreaSubtitle, lv_player_message);
     MeleeInitResourcesForPlayer(lp_player, lv_race);
     if ((lv_race == "Zerg")) {
         MeleeInitUnitsForPlayer(lp_player, "Zerg", PointFromName(lp_startlocation));
@@ -1091,6 +1094,81 @@ void lib1B69CECC_gf_InitialiseLobby () {
     lib1B69CECC_gf_EnableLobbyUI();
     lib1B69CECC_gf_ClearLobby();
     lib1B69CECC_gf_ShowLobbyUI();
+}
+
+text lib1B69CECC_gf_format_player_name (int lp_player) {
+    // Variable Declarations
+    text lv_race_icon;
+    string lv_race_key;
+    int lv_race_index;
+
+    // Automatic Variable Declarations
+    int auto01508744_val;
+
+    // Variable Initialization
+    lv_race_key = "";
+
+    // Implementation
+    lv_race_key = lib1B69CECC_gf_compute_player_race_key(lp_player);
+    lv_race_index = DataTableGetInt(true, lv_race_key);
+    auto01508744_val = lv_race_index;
+    if (auto01508744_val == 2) {
+        lv_race_icon = StringExternal("Param/Value/lib_1B69CECC_8A3BD15D");
+    }
+    else if (auto01508744_val == 3) {
+        lv_race_icon = StringExternal("Param/Value/lib_1B69CECC_C8F6245F");
+    }
+    else if (auto01508744_val == 4) {
+        lv_race_icon = StringExternal("Param/Value/lib_1B69CECC_6E1545DC");
+    }
+    else if (auto01508744_val == 5) {
+        lv_race_icon = StringExternal("Param/Value/lib_1B69CECC_828333EB");
+    }
+    else if (auto01508744_val == 6) {
+        lv_race_icon = StringExternal("Param/Value/lib_1B69CECC_8C9853A6");
+    }
+    else if (auto01508744_val == 7) {
+        lv_race_icon = StringExternal("Param/Value/lib_1B69CECC_8B1E82EA");
+    }
+    else if (auto01508744_val == 1) {
+        lv_race_icon = StringExternal("Param/Value/lib_1B69CECC_BE3BC2C3");
+    }
+    else {
+        lv_race_icon = StringExternal("Param/Value/lib_1B69CECC_969F809F");
+    }
+    return (lv_race_icon + PlayerName(lp_player));
+}
+
+text lib1B69CECC_gf_race_to_text (string lp_race) {
+    // Automatic Variable Declarations
+    string autoE285AC27_val;
+
+    // Implementation
+    autoE285AC27_val = lp_race;
+    if (autoE285AC27_val == "Gen") {
+        return StringExternal("Param/Value/lib_1B69CECC_DABD0022");
+    }
+    else if (autoE285AC27_val == "Xayi") {
+        return StringExternal("Param/Value/lib_1B69CECC_39D4FFFC");
+    }
+    else if (autoE285AC27_val == "Keir") {
+        return StringExternal("Param/Value/lib_1B69CECC_3C13E2A6");
+    }
+    else if (autoE285AC27_val == "Terr") {
+        return StringExternal("Param/Value/lib_1B69CECC_97516E28");
+    }
+    else if (autoE285AC27_val == "Zerg") {
+        return StringExternal("Param/Value/lib_1B69CECC_F22BBE30");
+    }
+    else if (autoE285AC27_val == "Prot") {
+        return StringExternal("Param/Value/lib_1B69CECC_344D4A21");
+    }
+    else if (autoE285AC27_val == "Neut") {
+        return StringExternal("Param/Value/lib_1B69CECC_D865D5BC");
+    }
+    else {
+        return StringExternal("Param/Value/lib_1B69CECC_1B3257B4");
+    }
 }
 
 text lib1B69CECC_gf_convertSecondsToTime (int lp_intTotalSeconds) {
@@ -1565,7 +1643,7 @@ void lib1B69CECC_gf_RefreshLobby (structref<lib1B69CECC_gs_Lobby> lp_lobbyModel)
     while (true) {
         lv_player = PlayerGroupNextPlayer(auto2DE13D9F_g, lv_player);
         if (lv_player < 0) { break; }
-        DialogControlAddItem(lib1B69CECC_gv_lobbyListBox, PlayerGroupAll(), PlayerName(lv_player));
+        DialogControlAddItem(lib1B69CECC_gv_lobbyListBox, PlayerGroupAll(), lib1B69CECC_gf_format_player_name(lv_player));
     }
 }
 
@@ -1830,8 +1908,8 @@ bool lib1B69CECC_gt_CleanUpWhenPlayerLeaves_Func (bool testConds, bool runAction
     unit lv_unit;
 
     // Automatic Variable Declarations
-    unitgroup auto5DC909E3_g;
-    int auto5DC909E3_u;
+    unitgroup autoBA2FA09C_g;
+    int autoBA2FA09C_u;
 
     // Variable Initialization
 
@@ -1840,10 +1918,10 @@ bool lib1B69CECC_gt_CleanUpWhenPlayerLeaves_Func (bool testConds, bool runAction
         return true;
     }
 
-    auto5DC909E3_g = UnitGroupFilterPlayer(UnitGroup(null, EventPlayer(), RegionEntireMap(), UnitFilter(0, 0, (1 << c_targetFilterAlly) | (1 << c_targetFilterNeutral) | (1 << c_targetFilterEnemy) | (1 << c_targetFilterRawResource) | (1 << c_targetFilterHarvestableResource) | (1 << c_targetFilterUncommandable), (1 << (c_targetFilterDead - 32))), 0), EventPlayer(), 0);
-    auto5DC909E3_u = UnitGroupCount(auto5DC909E3_g, c_unitCountAll);
-    for (;; auto5DC909E3_u -= 1) {
-        lv_unit = UnitGroupUnitFromEnd(auto5DC909E3_g, auto5DC909E3_u);
+    autoBA2FA09C_g = UnitGroupFilterPlayer(UnitGroup(null, EventPlayer(), RegionEntireMap(), UnitFilter(0, 0, (1 << c_targetFilterAlly) | (1 << c_targetFilterNeutral) | (1 << c_targetFilterEnemy) | (1 << c_targetFilterRawResource) | (1 << c_targetFilterUncommandable), (1 << (c_targetFilterDead - 32))), 0), EventPlayer(), 0);
+    autoBA2FA09C_u = UnitGroupCount(autoBA2FA09C_g, c_unitCountAll);
+    for (;; autoBA2FA09C_u -= 1) {
+        lv_unit = UnitGroupUnitFromEnd(autoBA2FA09C_g, autoBA2FA09C_u);
         if (lv_unit == null) { break; }
         UnitKill(lv_unit);
     }
@@ -2105,6 +2183,7 @@ bool lib1B69CECC_gt_RaceSelected_Func (bool testConds, bool runActions) {
 
     lv_raceIndex = DialogControlGetSelectedItem(lib1B69CECC_gv_ui_play_race, EventPlayer());
     DataTableSetInt(true, lib1B69CECC_gf_compute_player_race_key(EventPlayer()), lv_raceIndex);
+    lib1B69CECC_gf_RefreshLobby(lib1B69CECC_gv_theLobby);
     return true;
 }
 
