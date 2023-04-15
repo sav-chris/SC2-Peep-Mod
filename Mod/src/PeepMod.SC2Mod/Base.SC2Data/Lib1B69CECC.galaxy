@@ -229,6 +229,38 @@ bool lib1B69CECC_gf_ShouldPlayerBeRevealed (int lp_player) {
     return (UnitGroupCount(lv_units, c_unitCountAlive) == 0);
 }
 
+void lib1B69CECC_gf_RecordPlatesonMap () {
+    // Variable Declarations
+    point lv_pos;
+    int lv_index;
+    string lv_plates_key;
+    const int lv_nEUTRAL_PLAYER = 0;
+
+    // Automatic Variable Declarations
+    unitgroup auto46A38B20_g;
+    int auto46A38B20_u;
+    unit auto46A38B20_var;
+
+    // Variable Initialization
+    lv_plates_key = "";
+
+    // Implementation
+    auto46A38B20_g = UnitGroup(null, c_playerAny, RegionEntireMap(), UnitFilter(0, 0, (1 << c_targetFilterRawResource) | (1 << c_targetFilterHarvestableResource), 0), 0);
+    auto46A38B20_u = UnitGroupCount(auto46A38B20_g, c_unitCountAll);
+    for (;; auto46A38B20_u -= 1) {
+        auto46A38B20_var = UnitGroupUnitFromEnd(auto46A38B20_g, auto46A38B20_u);
+        if (auto46A38B20_var == null) { break; }
+        if ((lib1B69CECC_gf_is_plates(auto46A38B20_var) == true)) {
+            lv_pos = UnitGetPosition(auto46A38B20_var);
+            lv_index = (lv_index + 1);
+            lv_plates_key = lib1B69CECC_gf_compute_plates_key(lv_index);
+            DataTableSetPoint(true, lv_plates_key, lv_pos);
+        }
+
+    }
+    lib1B69CECC_gv_pLATES_COUNT = lv_index;
+}
+
 void lib1B69CECC_gf_RecordBlueMineralsonMap () {
     // Variable Declarations
     point lv_pos;
@@ -316,6 +348,25 @@ void lib1B69CECC_gf_DeleteAllMineralFields () {
     }
 }
 
+void lib1B69CECC_gf_DeletePlates () {
+    // Automatic Variable Declarations
+    unitgroup auto349ECCF7_g;
+    int auto349ECCF7_u;
+    unit auto349ECCF7_var;
+
+    // Implementation
+    auto349ECCF7_g = UnitGroup(null, c_playerAny, RegionEntireMap(), UnitFilter(0, 0, (1 << c_targetFilterRawResource) | (1 << c_targetFilterHarvestableResource), 0), 0);
+    auto349ECCF7_u = UnitGroupCount(auto349ECCF7_g, c_unitCountAll);
+    for (;; auto349ECCF7_u -= 1) {
+        auto349ECCF7_var = UnitGroupUnitFromEnd(auto349ECCF7_g, auto349ECCF7_u);
+        if (auto349ECCF7_var == null) { break; }
+        if ((lib1B69CECC_gf_is_plates(auto349ECCF7_var) == true)) {
+            UnitRemove(auto349ECCF7_var);
+        }
+
+    }
+}
+
 void lib1B69CECC_gf_RecordStartingMapFeatures () {
     // Variable Declarations
     point lv_pos;
@@ -331,6 +382,7 @@ void lib1B69CECC_gf_RecordStartingMapFeatures () {
     // Implementation
     lib1B69CECC_gf_RecordBlueMineralsonMap();
     lib1B69CECC_gf_RecordRichMineralsonMap();
+    lib1B69CECC_gf_RecordPlatesonMap();
 }
 
 void lib1B69CECC_gf_ResetGas () {
@@ -414,6 +466,28 @@ void lib1B69CECC_gf_ResetMinerals () {
         lv_mineral_quantity = DataTableGetInt(true, lib1B69CECC_gf_compute_rich_mineral_quantity_key(lv_index));
         UnitCreate(1, "RichMineralField", c_unitCreateIgnorePlacement, 0, lv_pos, 0.0);
         UnitSetPropertyFixed(UnitLastCreated(), c_unitPropResources, lv_mineral_quantity);
+    }
+}
+
+void lib1B69CECC_gf_ResetPlates () {
+    // Variable Declarations
+    point lv_pos;
+    int lv_index;
+    int lv_mineral_quantity;
+
+    // Automatic Variable Declarations
+    int auto6CBC40A6_ae;
+    const int auto6CBC40A6_ai = 1;
+
+    // Variable Initialization
+
+    // Implementation
+    lib1B69CECC_gf_DeletePlates();
+    auto6CBC40A6_ae = lib1B69CECC_gv_pLATES_COUNT;
+    lv_index = 1;
+    for ( ; ( (auto6CBC40A6_ai >= 0 && lv_index <= auto6CBC40A6_ae) || (auto6CBC40A6_ai < 0 && lv_index >= auto6CBC40A6_ae) ) ; lv_index += auto6CBC40A6_ai ) {
+        lv_pos = DataTableGetPoint(true, lib1B69CECC_gf_compute_plates_key(lv_index));
+        UnitCreate(1, "UnbuildablePlatesDestructible", c_unitCreateIgnorePlacement, 0, lv_pos, 0.0);
     }
 }
 
@@ -787,6 +861,7 @@ void lib1B69CECC_gf_ResetGame () {
     lib1B69CECC_gf_ResetVision();
     lib1B69CECC_gf_ResetGas();
     lib1B69CECC_gf_ResetMinerals();
+    lib1B69CECC_gf_ResetPlates();
     lib1B69CECC_gf_CleanUpCreep();
     lib1B69CECC_gf_CleanUpPlayersAndObservers();
     lib1B69CECC_gf_ResetFogofWar();
@@ -1232,6 +1307,17 @@ bool lib1B69CECC_gf_is_mineral_field (unit lp_unit) {
     }
 }
 
+bool lib1B69CECC_gf_is_plates (unit lp_unit) {
+    // Automatic Variable Declarations
+    // Implementation
+    if (((UnitGetType(lp_unit) == "UnbuildablePlatesDestructible") || (UnitGetType(lp_unit) == "UnbuildableBricksDestructible") || (UnitGetType(lp_unit) == "UnbuildableRocksDestructible") || (UnitGetType(lp_unit) == "UnbuildableRocksUnit") || (UnitGetType(lp_unit) == "UnbuildableRocksSmallUnit") || (UnitGetType(lp_unit) == "UnbuildableBricksUnit") || (UnitGetType(lp_unit) == "UnbuildableBricksSmallUnit") || (UnitGetType(lp_unit) == "UnbuildablePlatesUnit") || (UnitGetType(lp_unit) == "UnbuildablePlatesSmallUnit"))) {
+        return true;
+    }
+    else {
+        return false;
+    }
+}
+
 bool lib1B69CECC_gf_is_rich_mineral_field (unit lp_unit) {
     // Automatic Variable Declarations
     // Implementation
@@ -1253,6 +1339,12 @@ string lib1B69CECC_gf_compute_mineral_field_key (int lp_mineralIndex) {
     // Automatic Variable Declarations
     // Implementation
     return ("mineral_field_" + IntToString(lp_mineralIndex));
+}
+
+string lib1B69CECC_gf_compute_plates_key (int lp_mineralIndex) {
+    // Automatic Variable Declarations
+    // Implementation
+    return ("plates_" + IntToString(lp_mineralIndex));
 }
 
 string lib1B69CECC_gf_compute_rich_mineral_field_key (int lp_mineralIndex) {
