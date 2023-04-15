@@ -928,6 +928,7 @@ void lib1B69CECC_gf_InitialisePlayer (int lp_player, string lp_startlocation) {
     int lv_race_index;
     string lv_race_key;
     string lv_race;
+    text lv_player_message;
 
     // Automatic Variable Declarations
     unitgroup auto72918860_g;
@@ -942,6 +943,8 @@ void lib1B69CECC_gf_InitialisePlayer (int lp_player, string lp_startlocation) {
     lv_race_index = DataTableGetInt(true, lv_race_key);
     lv_race = lib1B69CECC_gf_choose_race(lv_race_index);
     PlayerSetRace(lp_player, lv_race);
+    lv_player_message = (StringExternal("Param/Value/lib_1B69CECC_3807A187") + PlayerName(lp_player) + StringExternal("Param/Value/lib_1B69CECC_24E523CE") + lib1B69CECC_gf_race_to_text(lv_race) + StringExternal("Param/Value/lib_1B69CECC_0A27312B"));
+    UIDisplayMessage(lib1B69CECC_gf_nonneutral_players(), c_messageAreaSubtitle, lv_player_message);
     MeleeInitResourcesForPlayer(lp_player, lv_race);
     if ((lv_race == "Zerg")) {
         MeleeInitUnitsForPlayer(lp_player, "Zerg", PointFromName(lp_startlocation));
@@ -1091,6 +1094,38 @@ void lib1B69CECC_gf_InitialiseLobby () {
     lib1B69CECC_gf_EnableLobbyUI();
     lib1B69CECC_gf_ClearLobby();
     lib1B69CECC_gf_ShowLobbyUI();
+}
+
+text lib1B69CECC_gf_race_to_text (string lp_race) {
+    // Automatic Variable Declarations
+    string autoE285AC27_val;
+
+    // Implementation
+    autoE285AC27_val = lp_race;
+    if (autoE285AC27_val == "Gen") {
+        return StringExternal("Param/Value/lib_1B69CECC_DABD0022");
+    }
+    else if (autoE285AC27_val == "Xayi") {
+        return StringExternal("Param/Value/lib_1B69CECC_39D4FFFC");
+    }
+    else if (autoE285AC27_val == "Keir") {
+        return StringExternal("Param/Value/lib_1B69CECC_3C13E2A6");
+    }
+    else if (autoE285AC27_val == "Terr") {
+        return StringExternal("Param/Value/lib_1B69CECC_97516E28");
+    }
+    else if (autoE285AC27_val == "Zerg") {
+        return StringExternal("Param/Value/lib_1B69CECC_F22BBE30");
+    }
+    else if (autoE285AC27_val == "Prot") {
+        return StringExternal("Param/Value/lib_1B69CECC_344D4A21");
+    }
+    else if (autoE285AC27_val == "Neut") {
+        return StringExternal("Param/Value/lib_1B69CECC_D865D5BC");
+    }
+    else {
+        return StringExternal("Param/Value/lib_1B69CECC_1B3257B4");
+    }
 }
 
 text lib1B69CECC_gf_convertSecondsToTime (int lp_intTotalSeconds) {
