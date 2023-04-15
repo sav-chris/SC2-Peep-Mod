@@ -15,4 +15,5 @@
 <Sound id="UI_BNet_Countdown"/>
 <Unit id="RichMineralField"/>
 <Unit id="MineralField"/>
+<Unit id="UnbuildablePlatesDestructible"/>
 </Preload>
