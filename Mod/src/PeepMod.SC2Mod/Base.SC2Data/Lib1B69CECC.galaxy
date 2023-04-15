@@ -796,10 +796,11 @@ void lib1B69CECC_gf_ResetGame () {
     lib1B69CECC_gf_ResetFogofWar();
     lib1B69CECC_gf_ResetTechFunction();
     lib1B69CECC_gf_ResetRevealStatus();
+    lib1B69CECC_gf_StopClock();
     CinematicFade(false, 2.0, c_fadeStyleNormal, Color(0.00, 0.00, 0.00), 0.0, true);
     CinematicFade(true, 2.0, c_fadeStyleNormal, Color(0.00, 0.00, 0.00), 0.0, true);
+    lib1B69CECC_gf_KillAllPlayerUnits();
     lib1B69CECC_gf_InitialiseLobby();
-    lib1B69CECC_gf_StopClock();
 }
 
 void lib1B69CECC_gf_StartVictoryDetection () {
