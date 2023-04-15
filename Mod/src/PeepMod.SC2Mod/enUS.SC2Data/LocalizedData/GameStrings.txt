@@ -2,35 +2,42 @@
 DocInfo/DescShort=2 or more
 DocInfo/Name=The Scion Peep Mod
 Param/Expression/lib_1B69CECC_2F42B94E=<s val="SystemAlert_Prot">Victorious Players:</s>
-Param/Value/lib_1B69CECC_0A27312B=</s>
+Param/Value/lib_1B69CECC_008B34F0=
 Param/Value/lib_1B69CECC_0BF87976=<img path="Assets\Textures\ui_battlenet_glue_icons_league_diamond.dds" alignment="AbsoluteMiddle" width="22" height="22"/> Diamond
 Param/Value/lib_1B69CECC_1B3257B4=Neutral
 Param/Value/lib_1B69CECC_1E84688D=<img path="Assets\Textures\ui_battlenet_glue_icons_league_gold.dds" alignment="AbsoluteMiddle" width="22" height="22"/> Gold
-Param/Value/lib_1B69CECC_24E523CE= is playing as 
 Param/Value/lib_1B69CECC_299A8AD4=<img path="Assets\Textures\ui_battlenet_glue_icons_league_unranked.dds" alignment="AbsoluteMiddle" width="22" height="22"/> Unranked
 Param/Value/lib_1B69CECC_344D4A21=Protoss
 Param/Value/lib_1B69CECC_3578C5FD=<img path="Assets\Textures\sc2_ui_loadingscreen_playercard_raceindicator_keir.dds" alignment="AbsoluteMiddle" width="21" height="22"/> Keiron
-Param/Value/lib_1B69CECC_3807A187=<s val="SystemAlert_Prot">
 Param/Value/lib_1B69CECC_39D4FFFC=Xayid
 Param/Value/lib_1B69CECC_3C13E2A6=Keiron
 Param/Value/lib_1B69CECC_47AED35E=<img path="Assets\Textures\sc2_ui_loadingscreen_playercard_raceindicator_protoss.dds" alignment="AbsoluteMiddle" width="21" height="22"/> Protoss
 Param/Value/lib_1B69CECC_550F33D7=You will be revealed in 
+Param/Value/lib_1B69CECC_5D96BE83=</s>
 Param/Value/lib_1B69CECC_5DE344B1=<img path="Assets\Textures\sc2_ui_loadingscreen_playercard_raceindicator_random.dds" alignment="AbsoluteMiddle" width="21" height="22"/> Random
 Param/Value/lib_1B69CECC_5F50D4B5=<img path="Assets\Textures\sc2_ui_loadingscreen_playercard_raceindicator_xayid.dds" alignment="AbsoluteMiddle" width="21" height="22"/> Xayid
+Param/Value/lib_1B69CECC_68000019=<s val="SystemAlert_Prot">
 Param/Value/lib_1B69CECC_6DF26637=<img path="Assets\Textures\ui_battlenet_glue_icons_league_silver.dds" alignment="AbsoluteMiddle" width="22" height="22"/> Silver
+Param/Value/lib_1B69CECC_6E1545DC=<img path="Assets\Textures\sc2_ui_loadingscreen_playercard_raceindicator_protoss.dds" alignment="AbsoluteMiddle" width="21" height="22"/> 
 Param/Value/lib_1B69CECC_73FE80F3=
 Param/Value/lib_1B69CECC_79FAD5F2=Test Foo Bar : Race
 Param/Value/lib_1B69CECC_7F3AAD05=00:00
+Param/Value/lib_1B69CECC_828333EB=<img path="Assets\Textures\sc2_ui_loadingscreen_playercard_raceindicator_genetron.dds" alignment="AbsoluteMiddle" width="21" height="22"/> 
 Param/Value/lib_1B69CECC_890AFE24=<s val="SystemAlert_Prot">Say 'gg' in chat to surrender</s>
+Param/Value/lib_1B69CECC_8A3BD15D=<img path="Assets\Textures\sc2_ui_loadingscreen_playercard_raceindicator_terran.dds" alignment="AbsoluteMiddle" width="21" height="22"/> 
+Param/Value/lib_1B69CECC_8B1E82EA=<img path="Assets\Textures\sc2_ui_loadingscreen_playercard_raceindicator_keir.dds" alignment="AbsoluteMiddle" width="21" height="22"/>
 Param/Value/lib_1B69CECC_8C125C91=<img path="Assets\Textures\ui_battlenet_glue_icons_league_grandmaster.dds" alignment="AbsoluteMiddle" width="22" height="22"/> Grand Master
+Param/Value/lib_1B69CECC_8C9853A6=<img path="Assets\Textures\sc2_ui_loadingscreen_playercard_raceindicator_xayid.dds" alignment="AbsoluteMiddle" width="21" height="22"/> 
 Param/Value/lib_1B69CECC_96486FC5=<s val="SystemAlert_Prot">Welcome to the Scion Peep Mod. Select a race in the Play menu to join the game.</s>
+Param/Value/lib_1B69CECC_969F809F=<img path="Assets\Textures\sc2_ui_loadingscreen_playercard_raceindicator_random.dds" alignment="AbsoluteMiddle" width="21" height="22"/> 
 Param/Value/lib_1B69CECC_97516E28=Terran
 Param/Value/lib_1B69CECC_A7679ABE=<img path="Assets\Textures\ui_battlenet_glue_icons_league_platinum.dds" alignment="AbsoluteMiddle" width="22" height="22"/> Platinum
-Param/Value/lib_1B69CECC_AAE11D6A= is playing as 
 Param/Value/lib_1B69CECC_AC5D4CE7=<img path="Assets\Textures\ui_battlenet_glue_icons_league_master.dds" alignment="AbsoluteMiddle" width="22" height="22"/> Master
 Param/Value/lib_1B69CECC_AD0F3D2C=0
+Param/Value/lib_1B69CECC_BE3BC2C3=<img path="Assets\Textures\sc2_ui_loadingscreen_playercard_raceindicator_random.dds" alignment="AbsoluteMiddle" width="21" height="22"/> 
 Param/Value/lib_1B69CECC_C5A6675E=<s val="SystemAlert_Prot">Welcome to the Scion Peep Mod. Select a race in the Play menu to join the game.</s>
 Param/Value/lib_1B69CECC_C874B829=<img path="Assets\Textures\sc2_ui_loadingscreen_playercard_raceindicator_genetron.dds" alignment="AbsoluteMiddle" width="21" height="22"/> Genetron
+Param/Value/lib_1B69CECC_C8F6245F=<img path="Assets\Textures\sc2_ui_loadingscreen_playercard_raceindicator_zerg.dds" alignment="AbsoluteMiddle" width="21" height="22"/> 
 Param/Value/lib_1B69CECC_CF9CF4BB=0
 Param/Value/lib_1B69CECC_D7E3EE6D=Match starting in:
 Param/Value/lib_1B69CECC_D865D5BC=Neutral
@@ -40,5 +47,6 @@ Param/Value/lib_1B69CECC_DD98C82C=<img path="Assets\Textures\ui_battlenet_glue_i
 Param/Value/lib_1B69CECC_E5DCA431=<img path="Assets\Textures\sc2_ui_loadingscreen_playercard_raceindicator_terran.dds" alignment="AbsoluteMiddle" width="21" height="22"/> Terran
 Param/Value/lib_1B69CECC_EEFA286E=:
 Param/Value/lib_1B69CECC_F22BBE30=Zerg
+Param/Value/lib_1B69CECC_F23FBEA6= is playing as 
 Param/Value/lib_1B69CECC_F2C43C1F=<img path="Assets\Textures\sc2_ui_loadingscreen_playercard_raceindicator_zerg.dds" alignment="AbsoluteMiddle" width="21" height="22"/> Zerg
 Param/Value/lib_1B69CECC_F85BDA49=Match Time
