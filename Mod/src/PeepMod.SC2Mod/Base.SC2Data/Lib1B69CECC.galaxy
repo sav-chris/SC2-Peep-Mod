@@ -1076,6 +1076,7 @@ void lib1B69CECC_gf_InitialiseGame (playergroup lp_lobby_Players) {
 
     }
     libNtve_gf_SetAllianceBetweenTwoPlayerGroups(lib1B69CECC_gv_pLAYERS, lib1B69CECC_gv_oBSERVERS, libNtve_ge_AllianceSetting_Enemy);
+    libNtve_gf_SetAllianceBetweenTwoPlayerGroups(lib1B69CECC_gv_oBSERVERS, lib1B69CECC_gv_pLAYERS, libNtve_ge_AllianceSetting_Enemy);
     libNtve_gf_SetPlayerGroupAlliance(lib1B69CECC_gv_pLAYERS, libNtve_ge_AllianceSetting_Enemy);
     libNtve_gf_SetPlayerGroupAlliance(lib1B69CECC_gv_oBSERVERS, libNtve_ge_AllianceSetting_Ally);
     lib1B69CECC_gf_HideTimerWindow();
