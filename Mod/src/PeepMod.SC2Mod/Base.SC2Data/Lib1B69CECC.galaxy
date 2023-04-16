@@ -47,6 +47,7 @@ void lib1B69CECC_InitVariables () {
     lib1B69CECC_gv_ui_play_confirm = c_invalidDialogControlId;
     lib1B69CECC_gv_ui_play_cancel = c_invalidDialogControlId;
     lib1B69CECC_gv_ui_help = c_invalidDialogControlId;
+    lib1B69CECC_gv_ui_chat = c_invalidDialogControlId;
     lib1B69CECC_gv_timerWindow = c_timerWindowNone;
     lib1B69CECC_gv_lobbyModal = c_invalidDialogId;
     lib1B69CECC_gv_lobbyListBox = c_invalidDialogControlId;
@@ -1646,6 +1647,15 @@ void lib1B69CECC_gf_InitialiseGGMenu () {
     lib1B69CECC_gf_HideGGMenu();
 }
 
+void lib1B69CECC_gf_InitialiseMenu () {
+    // Automatic Variable Declarations
+    // Implementation
+    DialogControlHookupStandard(c_triggerControlTypeButton, "UIContainer/FullscreenUpperContainer/PeepMenuPanel/Help");
+    lib1B69CECC_gv_ui_help = DialogControlLastCreated();
+    DialogControlHookupStandard(c_triggerControlTypeButton, "UIContainer/FullscreenUpperContainer/PeepMenuPanel/Chat");
+    lib1B69CECC_gv_ui_chat = DialogControlLastCreated();
+}
+
 void lib1B69CECC_gf_InitialisePlayDialog () {
     // Automatic Variable Declarations
     // Implementation
@@ -1663,8 +1673,6 @@ void lib1B69CECC_gf_InitialisePlayDialog () {
     lib1B69CECC_gv_ui_play_confirm = DialogControlLastCreated();
     DialogControlHookupStandard(c_triggerControlTypeButton, "UIContainer/FullscreenUpperContainer/PeepPlayPanel/Cancel");
     lib1B69CECC_gv_ui_play_cancel = DialogControlLastCreated();
-    DialogControlHookupStandard(c_triggerControlTypeButton, "UIContainer/FullscreenUpperContainer/PeepMenuPanel/Help");
-    lib1B69CECC_gv_ui_help = DialogControlLastCreated();
     DialogControlAddItem(lib1B69CECC_gv_ui_play_race, PlayerGroupAll(), StringExternal("Param/Value/lib_1B69CECC_5DE344B1"));
     DialogControlAddItem(lib1B69CECC_gv_ui_play_race, PlayerGroupAll(), StringExternal("Param/Value/lib_1B69CECC_E5DCA431"));
     DialogControlAddItem(lib1B69CECC_gv_ui_play_race, PlayerGroupAll(), StringExternal("Param/Value/lib_1B69CECC_F2C43C1F"));
@@ -2194,6 +2202,40 @@ void lib1B69CECC_gt_ClickHelp_Init () {
 }
 
 //--------------------------------------------------------------------------------------------------
+// Trigger: Click Chat
+//--------------------------------------------------------------------------------------------------
+bool lib1B69CECC_gt_ClickChat_Func (bool testConds, bool runActions) {
+    // Variable Declarations
+    playergroup lv_player_group;
+
+    // Automatic Variable Declarations
+    // Variable Initialization
+    lv_player_group = PlayerGroupEmpty();
+
+    // Conditions
+    if (testConds) {
+        if (!((EventDialogControl() == lib1B69CECC_gv_ui_chat))) {
+            return false;
+        }
+    }
+
+    // Actions
+    if (!runActions) {
+        return true;
+    }
+
+    PlayerGroupAdd(lv_player_group, EventPlayer());
+    UIMessageLogPanelSetVisible(lv_player_group, true);
+    return true;
+}
+
+//--------------------------------------------------------------------------------------------------
+void lib1B69CECC_gt_ClickChat_Init () {
+    lib1B69CECC_gt_ClickChat = TriggerCreate("lib1B69CECC_gt_ClickChat_Func");
+    TriggerAddEventDialogControl(lib1B69CECC_gt_ClickChat, c_playerAny, c_invalidDialogControlId, c_triggerControlEventTypeClick);
+}
+
+//--------------------------------------------------------------------------------------------------
 // Trigger: Click Cancel
 //--------------------------------------------------------------------------------------------------
 bool lib1B69CECC_gt_ClickCancel_Func (bool testConds, bool runActions) {
@@ -2298,6 +2340,7 @@ bool lib1B69CECC_gt_MeleeInitialization_Func (bool testConds, bool runActions) {
     lib1B69CECC_gf_InitialiseRaceSelections();
     lib1B69CECC_gf_RecordStartingMapFeatures();
     lib1B69CECC_gf_InitialiseLobbyTimer();
+    lib1B69CECC_gf_InitialiseMenu();
     lib1B69CECC_gf_InitialisePlayDialog();
     lib1B69CECC_gf_InitialiseGGMenu();
     lib1B69CECC_gf_InitialiseRevealDialog();
@@ -2324,6 +2367,7 @@ void lib1B69CECC_InitTriggers () {
     lib1B69CECC_gt_ClickYes_Init();
     lib1B69CECC_gt_ClickNo_Init();
     lib1B69CECC_gt_ClickHelp_Init();
+    lib1B69CECC_gt_ClickChat_Init();
     lib1B69CECC_gt_ClickCancel_Init();
     lib1B69CECC_gt_ClickConfirm_Init();
     lib1B69CECC_gt_RaceSelected_Init();
