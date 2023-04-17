@@ -31,6 +31,8 @@ void lib1B69CECC_InitVariables () {
     lib1B69CECC_gv_oBSERVERS = PlayerGroupEmpty();
     lib1B69CECC_gv_lobbyTimer.lv_startTime = CurrentDateTimeGet();
     lib1B69CECC_gv_lobbyTimer.lv_timer = TimerCreate();
+    lib1B69CECC_gv_ui_energymax = c_invalidDialogControlId;
+    lib1B69CECC_gv_ui_resource_icons = c_invalidDialogControlId;
     lib1B69CECC_gv_ui_matchTime = TimerCreate();
     lib1B69CECC_gv_ui_clock = c_invalidDialogId;
     lib1B69CECC_gv_ui_clocklabel = c_invalidDialogControlId;
@@ -1467,6 +1469,33 @@ playergroup lib1B69CECC_gf_compute_winners (playergroup lp_players, playergroup 
     return lv_winners;
 }
 
+void lib1B69CECC_gf_InitialiseResourceIcons () {
+    // Variable Declarations
+    int lv_genetron_energy_panel_ui;
+    int lv_genetron_energy_current_ui;
+    int lv_genetron_energy_max_ui;
+    int lv_genetron_energy_label_ui;
+
+    // Automatic Variable Declarations
+    // Variable Initialization
+    lv_genetron_energy_panel_ui = c_invalidDialogControlId;
+    lv_genetron_energy_current_ui = c_invalidDialogControlId;
+    lv_genetron_energy_max_ui = c_invalidDialogControlId;
+    lv_genetron_energy_label_ui = c_invalidDialogControlId;
+
+    // Implementation
+    DialogControlHookupStandard(c_triggerControlTypePanel, "UIContainer/FullscreenUpperContainer/PeepModResourceIconPanel");
+    lv_genetron_energy_panel_ui = DialogControlLastCreated();
+    DialogControlHookupStandard(c_triggerControlTypeCountdownLabel, "UIContainer/FullscreenUpperContainer/PeepModResourceIconPanel/EnergyCurrent");
+    lv_genetron_energy_current_ui = DialogControlLastCreated();
+    DialogControlHookupStandard(c_triggerControlTypeCountdownLabel, "UIContainer/FullscreenUpperContainer/PeepModResourceIconPanel/EnergyMax");
+    lv_genetron_energy_max_ui = DialogControlLastCreated();
+    DialogControlHookupStandard(c_triggerControlTypeCountdownLabel, "UIContainer/FullscreenUpperContainer/PeepModResourceIconPanel/EnergyLabel");
+    lv_genetron_energy_label_ui = DialogControlLastCreated();
+    libNtve_gf_SetDialogItemCurrentValue(lv_genetron_energy_max_ui, 123.0, PlayerGroupAll());
+    DialogControlSetVisible(lv_genetron_energy_panel_ui, PlayerGroupAll(), true);
+}
+
 void lib1B69CECC_gf_SetClockSkin () {
     // Variable Declarations
     string lv_race;
@@ -1701,7 +1730,7 @@ void lib1B69CECC_gf_HideTimerWindow () {
 void lib1B69CECC_gf_ShowTimerWindow () {
     // Automatic Variable Declarations
     // Implementation
-    TimerWindowShow(lib1B69CECC_gv_timerWindow, lib1B69CECC_gf_nonneutral_players(), true);
+    TimerWindowShow(lib1B69CECC_gv_timerWindow, lib1B69CECC_gf_nonneutral_players(), false);
 }
 
 void lib1B69CECC_gf_EnableLobbyUI () {
@@ -2340,6 +2369,7 @@ bool lib1B69CECC_gt_MeleeInitialization_Func (bool testConds, bool runActions) {
     lib1B69CECC_gf_InitialiseRaceSelections();
     lib1B69CECC_gf_RecordStartingMapFeatures();
     lib1B69CECC_gf_InitialiseLobbyTimer();
+    lib1B69CECC_gf_InitialiseResourceIcons();
     lib1B69CECC_gf_InitialiseMenu();
     lib1B69CECC_gf_InitialisePlayDialog();
     lib1B69CECC_gf_InitialiseGGMenu();
