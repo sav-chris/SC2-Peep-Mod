@@ -4,7 +4,7 @@
     <Frame type="Frame" name="GameUI/UIContainer/FullscreenUpperContainer" file="GameUI">
         <Frame type="Frame" name="PeepModResourceIconPanel">            
             <Anchor side="Top" relative="$parent" pos="Min" offset="50"/>
-            <Anchor side="Left" relative="$parent" pos="Max" offset="-750"/>
+            <Anchor side="Left" relative="$parent" pos="Max" offset="-800"/>
             <Anchor side="Right" relative="$parent" pos="Max" offset="0"/>            
             <Height val="32"/>
             <Visible val="True"/>
@@ -12,7 +12,7 @@
             <Frame type="Image" name="RaceIcon">
                 <Anchor side="Bottom" relative="$parent" pos="Max" offset="0"/>
                 <Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
-                <Anchor side="Left" relative="$parent/EnergyIcon" pos="Min" offset="-10"/>
+                <Anchor side="Left" relative="$parent/EnergyIcon" pos="Min" offset="150"/>
                 <Width val="32"/>
                 <Texture val="Assets/Textures/icon-1v1-terran.dds"/>
                 <Tooltip val="Race"/>
@@ -24,7 +24,7 @@
             <Frame type="Image" name="MineralsIcon">
                 <Anchor side="Bottom" relative="$parent" pos="Max" offset="0"/>
                 <Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
-                <Anchor side="Left" relative="$parent" pos="Min" offset="150"/>
+                <Anchor side="Left" relative="$parent" pos="Min" offset="200"/>
                 <Width val="32"/>
                 <Texture val="Assets/Textures/icon-mineral.dds"/>
                 <Tooltip val="Minerals"/>
@@ -35,7 +35,7 @@
             <Frame type="CountdownLabel" name="MineralsLabel" >
                 <Anchor side="Bottom" relative="$parent" pos="Max" offset="0"/>
                 <Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
-                <Anchor side="Left" relative="$parent" pos="Min" offset="200"/>
+                <Anchor side="Left" relative="$parent/MineralsIcon" pos="Min" offset="50"/>
                 <Width val="32"/>
                 <StartValue val="{$this/@CurrentValue}"/>
                 <CurrentValue val="0"/>
@@ -48,7 +48,7 @@
             <Frame type="Image" name="GasIcon">
                 <Anchor side="Bottom" relative="$parent" pos="Max" offset="0"/>
                 <Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
-                <Anchor side="Left" relative="$parent" pos="Min" offset="350"/>
+                <Anchor side="Left" relative="$parent" pos="Min" offset="400"/>
                 <Width val="32"/>
                 <Texture val="Assets/Textures/icon-gas.dds"/>
                 <Tooltip val="Gas"/>
@@ -59,7 +59,7 @@
             <Frame type="CountdownLabel" name="GasLabel" >
                 <Anchor side="Bottom" relative="$parent" pos="Max" offset="0"/>
                 <Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
-                <Anchor side="Left" relative="$parent" pos="Min" offset="400"/>
+                <Anchor side="Left" relative="$parent/GasIcon" pos="Min" offset="50"/>
                 <Width val="32"/>
                 <StartValue val="{$this/@CurrentValue}"/>
                 <CurrentValue val="0"/>
@@ -75,7 +75,7 @@
             <Frame type="Image" name="SupplyIcon">
                 <Anchor side="Bottom" relative="$parent" pos="Max" offset="0"/>
                 <Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
-                <Anchor side="Left" relative="$parent" pos="Min" offset="550"/>
+                <Anchor side="Left" relative="$parent" pos="Min" offset="600"/>
                 <Width val="32"/>
                 <Texture val="Assets/Textures/icon-supply-terran_nobg.dds"/>
                 <Tooltip val="Supply"/>
@@ -86,7 +86,7 @@
             <Frame type="CountdownLabel" name="SupplyLabel" >
                 <Anchor side="Bottom" relative="$parent" pos="Max" offset="0"/>
                 <Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
-                <Anchor side="Left" relative="$parent" pos="Min" offset="600"/>
+                <Anchor side="Left" relative="$parent/SupplyIcon" pos="Min" offset="50"/>
                 <Width val="32"/>
                 <StartValue val="{$this/@CurrentValue}"/>
                 <CurrentValue val="0"/>
