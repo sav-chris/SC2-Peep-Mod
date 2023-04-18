@@ -4,7 +4,7 @@
     <Frame type="Frame" name="GameUI/UIContainer/FullscreenUpperContainer" file="GameUI">
         <Frame type="Frame" name="PeepModResourceIconPanel">            
             <Anchor side="Top" relative="$parent" pos="Min" offset="50"/>
-            <Anchor side="Left" relative="$parent" pos="Max" offset="-800"/>
+            <Anchor side="Left" relative="$parent" pos="Max" offset="-900"/>
             <Anchor side="Right" relative="$parent" pos="Max" offset="0"/>            
             <Height val="32"/>
             <Visible val="True"/>
@@ -12,7 +12,7 @@
             <Frame type="Image" name="RaceIcon">
                 <Anchor side="Bottom" relative="$parent" pos="Max" offset="0"/>
                 <Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
-                <Anchor side="Left" relative="$parent/EnergyIcon" pos="Min" offset="150"/>
+                <Anchor side="Left" relative="$parent/EnergyIcon" pos="Min" offset="250"/>
                 <Width val="32"/>
                 <Texture val="Assets/Textures/icon-1v1-terran.dds"/>
                 <Tooltip val="Race"/>
@@ -24,7 +24,7 @@
             <Frame type="Image" name="MineralsIcon">
                 <Anchor side="Bottom" relative="$parent" pos="Max" offset="0"/>
                 <Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
-                <Anchor side="Left" relative="$parent" pos="Min" offset="200"/>
+                <Anchor side="Left" relative="$parent/RaceIcon" pos="Min" offset="50"/>
                 <Width val="32"/>
                 <Texture val="Assets/Textures/icon-mineral.dds"/>
                 <Tooltip val="Minerals"/>
@@ -35,20 +35,44 @@
             <Frame type="CountdownLabel" name="MineralsLabel" >
                 <Anchor side="Bottom" relative="$parent" pos="Max" offset="0"/>
                 <Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
-                <Anchor side="Left" relative="$parent/MineralsIcon" pos="Min" offset="50"/>
+                <Anchor side="Left" relative="$parent" pos="Min" offset="0"/>
                 <Width val="32"/>
                 <StartValue val="{$this/@CurrentValue}"/>
                 <CurrentValue val="0"/>
                 <Text val="0"/>
-                <Visible val="True"/>
-                <Style val="ResourcePanel"/>
+                <Visible val="False"/>
             </Frame>
+            
+            <Frame type="TextFormatFrame" name="MineralsFormat">
+                <Anchor relative="$parent"/>
+                <Visible val="True"/>
+                <FormatText val="%0%"/>
+                <Replacement val="{$parent/MineralsLabel/@Text}" index="0"/>
+            </Frame>
+
+            <Frame type="CountdownLabel" name="MineralsDisplayLabel">
+                <Anchor side="Bottom" relative="$parent" pos="Max" offset="0"/>
+                <Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
+                <Anchor side="Left" relative="$parent/MineralsIcon" pos="Min" offset="50"/>
+                <Style val="ResourcePanel"/>
+                <Text val="{$parent/MineralsFormat/@Text}"/>
+                <TooltipAnchorPosition val="TopToBottom | RightToLeft"/>
+                <Visible val="True"/>
+                <Animation name="CountUp">
+                    <Event event="OnShown" action="Reset,Play"/>
+                    <Controller type="Counter" end="Loop" frame="$parent/MineralsLabel">
+                        <Key type="Curve" time="0.0" value="1.0" out="Slow"/>
+                    </Controller>
+                </Animation>
+            </Frame>
+
+
 
 
             <Frame type="Image" name="GasIcon">
                 <Anchor side="Bottom" relative="$parent" pos="Max" offset="0"/>
                 <Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
-                <Anchor side="Left" relative="$parent" pos="Min" offset="400"/>
+                <Anchor side="Left" relative="$parent/RaceIcon" pos="Min" offset="250"/>
                 <Width val="32"/>
                 <Texture val="Assets/Textures/icon-gas.dds"/>
                 <Tooltip val="Gas"/>
@@ -68,14 +92,34 @@
                 <Style val="ResourcePanel"/>
             </Frame>
 
+            <Frame type="TextFormatFrame" name="GasFormat">
+                <Anchor relative="$parent"/>
+                <Visible val="True"/>
+                <FormatText val="%0%"/>
+                <Replacement val="{$parent/GasLabel/@Text}" index="0"/>
+            </Frame>
 
-
+            <Frame type="CountdownLabel" name="GasDisplayLabel">
+                <Anchor side="Bottom" relative="$parent" pos="Max" offset="0"/>
+                <Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
+                <Anchor side="Left" relative="$parent/GasIcon" pos="Min" offset="50"/>
+                <Style val="ResourcePanel"/>
+                <Text val="{$parent/GasFormat/@Text}"/>
+                <TooltipAnchorPosition val="TopToBottom | RightToLeft"/>
+                <Visible val="True"/>
+                <Animation name="CountUp">
+                    <Event event="OnShown" action="Reset,Play"/>
+                    <Controller type="Counter" end="Loop" frame="$parent/GasLabel">
+                        <Key type="Curve" time="0.0" value="1.0" out="Slow"/>
+                    </Controller>
+                </Animation>
+            </Frame>
 
 
             <Frame type="Image" name="SupplyIcon">
                 <Anchor side="Bottom" relative="$parent" pos="Max" offset="0"/>
                 <Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
-                <Anchor side="Left" relative="$parent" pos="Min" offset="600"/>
+                <Anchor side="Left" relative="$parent/RaceIcon" pos="Min" offset="450"/>
                 <Width val="32"/>
                 <Texture val="Assets/Textures/icon-supply-terran_nobg.dds"/>
                 <Tooltip val="Supply"/>
@@ -83,17 +127,55 @@
                 <AcceptsMouse val="True"/>
             </Frame>
 
-            <Frame type="CountdownLabel" name="SupplyLabel" >
+            <Frame type="CountdownLabel" name="SupplyCurrent">
                 <Anchor side="Bottom" relative="$parent" pos="Max" offset="0"/>
                 <Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
-                <Anchor side="Left" relative="$parent/SupplyIcon" pos="Min" offset="50"/>
-                <Width val="32"/>
+                <Anchor side="Left" relative="$parent" pos="Min" offset="0"/>
                 <StartValue val="{$this/@CurrentValue}"/>
                 <CurrentValue val="0"/>
-                <Text val="2001200"/>
-                <Visible val="True"/>
-                <Style val="ResourcePanel"/>
+                <Text val="0"/>
+                <Visible val="False"/>
             </Frame>
+
+            <Frame type="CountdownLabel" name="SupplyMax">
+                <Anchor side="Bottom" relative="$parent" pos="Max" offset="0"/>
+                <Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
+                <Anchor side="Left" relative="$parent" pos="Min" offset="0"/>
+                <StartValue val="{$this/@CurrentValue}"/>
+                <CurrentValue val="0"/>
+                <Text val="0"/>
+                <Visible val="False"/>
+            </Frame>
+            
+            <Frame type="TextFormatFrame" name="SupplyFormat">
+                <Anchor relative="$parent"/>
+                <FormatText val="%0%/%1%"/>
+                <Replacement val="{$parent/SupplyCurrent/@Text}" index="0"/>
+                <Replacement val="{$parent/SupplyMax/@Text}" index="1"/>
+            </Frame>
+            
+
+            <Frame type="CountdownLabel" name="SupplyLabel">
+                <Anchor side="Bottom" relative="$parent" pos="Max" offset="0"/>
+                <Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
+                <Anchor side="Left" relative="$parent/SupplyIcon" pos="Max" offset="5"/>
+                <Anchor side="Right" relative="$parent" pos="Max" offset="0"/>
+                <Style val="ResourcePanel"/>
+                <Text val="{$parent/SupplyFormat/@Text}"/>
+                <TooltipAnchorPosition val="TopToBottom | RightToLeft"/>
+                <Animation name="CountUp">
+                    <Event event="OnShown" action="Reset,Play"/>
+                    <Controller type="Counter" end="Loop" frame="$parent/SupplyCurrent">
+                        <Key type="Curve" time="0.0" value="1.0" out="Slow"/>
+                    </Controller>
+                    <Controller type="Counter" end="Loop" frame="$parent/SupplyMax">
+                        <Key type="Curve" time="0.0" value="1.0" out="Slow"/>
+                    </Controller>
+                </Animation>
+            </Frame>
+            
+
+
 
             <Frame type="Image" name="EnergyIcon">
                 <Anchor side="Bottom" relative="$parent" pos="Max" offset="0"/>
@@ -133,6 +215,7 @@
                 <Replacement val="{$parent/EnergyMax/@Text}" index="1"/>
             </Frame>
 
+
             <Frame type="CountdownLabel" name="EnergyLabel">
                 <Anchor side="Bottom" relative="$parent" pos="Max" offset="0"/>
                 <Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
@@ -151,6 +234,7 @@
                     </Controller>
                 </Animation>
             </Frame>
+
 
         </Frame>
     </Frame>

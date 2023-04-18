@@ -51,8 +51,8 @@ void lib1B69CECC_InitVariables () {
     lib1B69CECC_gv_ui_help = c_invalidDialogControlId;
     lib1B69CECC_gv_ui_chat = c_invalidDialogControlId;
     lib1B69CECC_gv_timerWindow = c_timerWindowNone;
-    lib1B69CECC_gv_lobbyModal = c_invalidDialogId;
-    lib1B69CECC_gv_lobbyListBox = c_invalidDialogControlId;
+    lib1B69CECC_gv_ui_lobbyModal = c_invalidDialogId;
+    lib1B69CECC_gv_ui_LobbyListBox = c_invalidDialogControlId;
     lib1B69CECC_gv_theLobby.lv_players = PlayerGroupEmpty();
 }
 
@@ -1057,7 +1057,7 @@ void lib1B69CECC_gf_InitialiseGame (playergroup lp_lobby_Players) {
     }
 
     // Implementation
-    lib1B69CECC_gf_HideLobby(lib1B69CECC_gv_lobbyModal);
+    lib1B69CECC_gf_HideLobby();
     SoundPlayForPlayer(SoundLink("UI_BnetCountdown321", -1), c_maxPlayers, PlayerGroupAll(), 100.0, 0.0);
     UIDisplayMessage(lib1B69CECC_gf_nonneutral_players(), c_messageAreaSubtitle, StringExternal("Param/Value/lib_1B69CECC_890AFE24"));
     CinematicFade(false, 2.0, c_fadeStyleNormal, Color(0.00, 0.00, 0.00), 0.0, true);
@@ -1475,6 +1475,12 @@ void lib1B69CECC_gf_InitialiseResourceIcons () {
     int lv_genetron_energy_current_ui;
     int lv_genetron_energy_max_ui;
     int lv_genetron_energy_label_ui;
+    int lv_ui_minerals_label;
+    int lv_ui_gas_label;
+    int lv_ui_supplymax_label;
+    int lv_ui_supplycurrent_label;
+    int lv_ui_energymax_label;
+    int lv_ui_energycurrent_label;
 
     // Automatic Variable Declarations
     // Variable Initialization
@@ -1482,6 +1488,12 @@ void lib1B69CECC_gf_InitialiseResourceIcons () {
     lv_genetron_energy_current_ui = c_invalidDialogControlId;
     lv_genetron_energy_max_ui = c_invalidDialogControlId;
     lv_genetron_energy_label_ui = c_invalidDialogControlId;
+    lv_ui_minerals_label = c_invalidDialogControlId;
+    lv_ui_gas_label = c_invalidDialogControlId;
+    lv_ui_supplymax_label = c_invalidDialogControlId;
+    lv_ui_supplycurrent_label = c_invalidDialogControlId;
+    lv_ui_energymax_label = c_invalidDialogControlId;
+    lv_ui_energycurrent_label = c_invalidDialogControlId;
 
     // Implementation
     DialogControlHookupStandard(c_triggerControlTypePanel, "UIContainer/FullscreenUpperContainer/PeepModResourceIconPanel");
@@ -1494,6 +1506,24 @@ void lib1B69CECC_gf_InitialiseResourceIcons () {
     lv_genetron_energy_label_ui = DialogControlLastCreated();
     libNtve_gf_SetDialogItemCurrentValue(lv_genetron_energy_max_ui, 123.0, PlayerGroupAll());
     DialogControlSetVisible(lv_genetron_energy_panel_ui, PlayerGroupAll(), true);
+    DialogControlHookupStandard(c_triggerControlTypeCountdownLabel, "UIContainer/FullscreenUpperContainer/PeepModResourceIconPanel/MineralsLabel");
+    lv_ui_minerals_label = DialogControlLastCreated();
+    libNtve_gf_SetDialogItemCurrentValue(lv_ui_minerals_label, 54321.0, PlayerGroupAll());
+    DialogControlHookupStandard(c_triggerControlTypeCountdownLabel, "UIContainer/FullscreenUpperContainer/PeepModResourceIconPanel/GasLabel");
+    lv_ui_gas_label = DialogControlLastCreated();
+    libNtve_gf_SetDialogItemCurrentValue(lv_ui_gas_label, 55555.0, PlayerGroupAll());
+    DialogControlHookupStandard(c_triggerControlTypeCountdownLabel, "UIContainer/FullscreenUpperContainer/PeepModResourceIconPanel/SupplyMax");
+    lv_ui_supplymax_label = DialogControlLastCreated();
+    libNtve_gf_SetDialogItemCurrentValue(lv_ui_supplymax_label, 200.0, PlayerGroupAll());
+    DialogControlHookupStandard(c_triggerControlTypeCountdownLabel, "UIContainer/FullscreenUpperContainer/PeepModResourceIconPanel/SupplyCurrent");
+    lv_ui_supplycurrent_label = DialogControlLastCreated();
+    libNtve_gf_SetDialogItemCurrentValue(lv_ui_supplycurrent_label, 199.0, PlayerGroupAll());
+    DialogControlHookupStandard(c_triggerControlTypeCountdownLabel, "UIContainer/FullscreenUpperContainer/PeepModResourceIconPanel/EnergyCurrent");
+    lv_ui_energycurrent_label = DialogControlLastCreated();
+    libNtve_gf_SetDialogItemCurrentValue(lv_ui_energycurrent_label, 500.0, PlayerGroupAll());
+    DialogControlHookupStandard(c_triggerControlTypeCountdownLabel, "UIContainer/FullscreenUpperContainer/PeepModResourceIconPanel/EnergyMax");
+    lv_ui_energymax_label = DialogControlLastCreated();
+    libNtve_gf_SetDialogItemCurrentValue(lv_ui_energymax_label, 100000.0, PlayerGroupAll());
 }
 
 void lib1B69CECC_gf_SetClockSkin () {
@@ -1748,10 +1778,10 @@ void lib1B69CECC_gf_EnableLobbyUI () {
     DialogControlSetVisible(lib1B69CECC_gv_ui_playpanel, lib1B69CECC_gf_nonneutral_players(), true);
 }
 
-void lib1B69CECC_gf_HideLobby (int lp_theLobby) {
+void lib1B69CECC_gf_HideLobby () {
     // Automatic Variable Declarations
     // Implementation
-    DialogSetVisible(lp_theLobby, lib1B69CECC_gf_nonneutral_players(), false);
+    DialogSetVisible(lib1B69CECC_gv_ui_lobbyModal, PlayerGroupAll(), false);
 }
 
 void lib1B69CECC_gf_RefreshLobby (structref<lib1B69CECC_gs_Lobby> lp_lobbyModel) {
@@ -1764,13 +1794,13 @@ void lib1B69CECC_gf_RefreshLobby (structref<lib1B69CECC_gs_Lobby> lp_lobbyModel)
     // Variable Initialization
 
     // Implementation
-    DialogControlRemoveAllItems(lib1B69CECC_gv_lobbyListBox, PlayerGroupAll());
+    DialogControlRemoveAllItems(lib1B69CECC_gv_ui_LobbyListBox, PlayerGroupAll());
     auto2DE13D9F_g = lp_lobbyModel.lv_players;
     lv_player = -1;
     while (true) {
         lv_player = PlayerGroupNextPlayer(auto2DE13D9F_g, lv_player);
         if (lv_player < 0) { break; }
-        DialogControlAddItem(lib1B69CECC_gv_lobbyListBox, PlayerGroupAll(), lib1B69CECC_gf_format_player_name(lv_player));
+        DialogControlAddItem(lib1B69CECC_gv_ui_LobbyListBox, PlayerGroupAll(), lib1B69CECC_gf_format_player_name(lv_player));
     }
 }
 
@@ -1787,9 +1817,9 @@ void lib1B69CECC_gf_ShowLobbyUI () {
 
     // Implementation
     DialogCreate(lv_lOBBY_WIDTH, lv_lOBBY_HEIGHT, c_anchorTopLeft, lv_lOBBY_X, lv_lOBBY_Y, true);
-    lib1B69CECC_gv_lobbyModal = DialogLastCreated();
+    lib1B69CECC_gv_ui_lobbyModal = DialogLastCreated();
     DialogControlCreate(DialogLastCreated(), c_triggerControlTypeListBox);
-    lib1B69CECC_gv_lobbyListBox = DialogControlLastCreated();
+    lib1B69CECC_gv_ui_LobbyListBox = DialogControlLastCreated();
     DialogControlSetSize(DialogControlLastCreated(), PlayerGroupAll(), (lv_lOBBY_WIDTH - (2 * lv_sPACEMARGIN)), (lv_lOBBY_HEIGHT - (2 * lv_sPACEMARGIN)));
     DialogControlSetPosition(DialogControlLastCreated(), PlayerGroupAll(), c_anchorTopLeft, lv_sPACEMARGIN, lv_sPACEMARGIN);
     DialogSetVisible(DialogLastCreated(), PlayerGroupAll(), true);
