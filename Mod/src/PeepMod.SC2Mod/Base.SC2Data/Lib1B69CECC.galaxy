@@ -1638,6 +1638,8 @@ void lib1B69CECC_gf_EnableObserverUI (playergroup lp_observers, playergroup lp_p
             PlayerSetAlliance(lv_aPlayer, c_allianceIdVision, lv_aObserver, true);
         }
     }
+    DialogControlSetVisible(lib1B69CECC_gv_playerOne.lv_ui_player_stats, lp_observers, true);
+    DialogControlSetVisible(lib1B69CECC_gv_playerTwo.lv_ui_player_stats, lp_observers, true);
 }
 
 void lib1B69CECC_gf_EnablePlayerUI (playergroup lp_players) {
@@ -1653,6 +1655,8 @@ void lib1B69CECC_gf_EnablePlayerUI (playergroup lp_players) {
     VisEnable(c_visTypeFog, true);
     DialogControlSetVisible(lib1B69CECC_gv_ui_menu, lp_players, false);
     DialogControlSetVisible(lib1B69CECC_gv_ui_playpanel, lp_players, false);
+    DialogControlSetVisible(lib1B69CECC_gv_playerOne.lv_ui_player_stats, lp_players, false);
+    DialogControlSetVisible(lib1B69CECC_gv_playerTwo.lv_ui_player_stats, lp_players, false);
 }
 
 void lib1B69CECC_gf_HideRevealDialog (int lp_player) {
@@ -1778,6 +1782,8 @@ void lib1B69CECC_gf_EnableLobbyUI () {
     UISetFrameVisible(lib1B69CECC_gf_nonneutral_players(), c_syncFrameTypeAllianceButton, false);
     DialogControlSetVisible(lib1B69CECC_gv_ui_menu, lib1B69CECC_gf_nonneutral_players(), true);
     DialogControlSetVisible(lib1B69CECC_gv_ui_playpanel, lib1B69CECC_gf_nonneutral_players(), true);
+    DialogControlSetVisible(lib1B69CECC_gv_playerOne.lv_ui_player_stats, lib1B69CECC_gf_nonneutral_players(), false);
+    DialogControlSetVisible(lib1B69CECC_gv_playerTwo.lv_ui_player_stats, lib1B69CECC_gf_nonneutral_players(), false);
 }
 
 void lib1B69CECC_gf_HideLobby () {
