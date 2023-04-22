@@ -36,6 +36,7 @@ struct lib1B69CECC_gs_PlayerStats {
     int lv_ui_energycurrent_label;
     int lv_ui_player_stats;
     int lv_ui_race_state;
+    int lv_ui_player_name;
 };
 
 struct lib1B69CECC_gs_Lobby {

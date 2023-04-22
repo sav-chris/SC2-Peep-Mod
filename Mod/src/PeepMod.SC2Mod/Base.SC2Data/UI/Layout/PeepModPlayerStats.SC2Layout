@@ -8,6 +8,8 @@
         <Width val="1000"/>
         <Height val="32"/>
 
+        
+
         <StateGroup name="RaceState">
             <State name="Terran">
                 <When type="AnimationState" frame="$this" RaceState="Terran"/>
@@ -52,13 +54,21 @@
             </State>
         </StateGroup>
 
+        <Frame type="Label" name="PlayerName">
+            <Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
+            <Anchor side="Left" relative="$parent" pos="Min" offset="0"/>
+            <Visible val="False"/>
+            <Alpha val="0"/>
+            <Text val="0"/>
+        </Frame>
+
         <Frame type="Image" name="RaceIcon">
             <Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
             <Anchor side="Left" relative="$parent/EnergyIcon" pos="Min" offset="250"/>
             <Width val="32"/>
             <Height val="32"/>
             <Texture val="Assets/Textures/icon-1v1-protoss.dds"/>
-            <Tooltip val="Race"/>
+            <Tooltip val="{$parent/PlayerName/@Text}"/>
             <TooltipAnchorPosition val="TopToBottom | RightToLeft"/>
             <AcceptsMouse val="True"/>
             <Visible val="True"/>

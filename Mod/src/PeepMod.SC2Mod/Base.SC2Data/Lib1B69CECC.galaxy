@@ -59,6 +59,7 @@ void lib1B69CECC_InitVariables () {
     lib1B69CECC_gv_playerOne.lv_ui_energycurrent_label = c_invalidDialogControlId;
     lib1B69CECC_gv_playerOne.lv_ui_player_stats = c_invalidDialogControlId;
     lib1B69CECC_gv_playerOne.lv_ui_race_state = c_invalidDialogControlId;
+    lib1B69CECC_gv_playerOne.lv_ui_player_name = c_invalidDialogControlId;
     lib1B69CECC_gv_playerTwo.lv_ui_minerals_label = c_invalidDialogControlId;
     lib1B69CECC_gv_playerTwo.lv_ui_gas_label = c_invalidDialogControlId;
     lib1B69CECC_gv_playerTwo.lv_ui_supplymax_label = c_invalidDialogControlId;
@@ -67,6 +68,7 @@ void lib1B69CECC_InitVariables () {
     lib1B69CECC_gv_playerTwo.lv_ui_energycurrent_label = c_invalidDialogControlId;
     lib1B69CECC_gv_playerTwo.lv_ui_player_stats = c_invalidDialogControlId;
     lib1B69CECC_gv_playerTwo.lv_ui_race_state = c_invalidDialogControlId;
+    lib1B69CECC_gv_playerTwo.lv_ui_player_name = c_invalidDialogControlId;
     lib1B69CECC_gv_theLobby.lv_players = PlayerGroupEmpty();
 }
 
@@ -1592,26 +1594,24 @@ void lib1B69CECC_gf_InitialiseResourceIcons () {
     lib1B69CECC_gv_playerOne.lv_ui_energycurrent_label = DialogControlLastCreated();
     DialogControlHookupStandard(c_triggerControlTypeCountdownLabel, "UIContainer/FullscreenUpperContainer/PlayerOneStats/EnergyMax");
     lib1B69CECC_gv_playerOne.lv_ui_energymax_label = DialogControlLastCreated();
+    DialogControlHookupStandard(c_triggerControlTypeLabel, "UIContainer/FullscreenUpperContainer/PlayerOneStats/PlayerName");
+    lib1B69CECC_gv_playerOne.lv_ui_player_name = DialogControlLastCreated();
     DialogControlHookupStandard(c_triggerControlTypePanel, "UIContainer/FullscreenUpperContainer/PlayerTwoStats");
     lib1B69CECC_gv_playerTwo.lv_ui_player_stats = DialogControlLastCreated();
     DialogControlHookupStandard(c_triggerControlTypeCountdownLabel, "UIContainer/FullscreenUpperContainer/PlayerTwoStats/MineralsLabel");
     lib1B69CECC_gv_playerTwo.lv_ui_minerals_label = DialogControlLastCreated();
-    libNtve_gf_SetDialogItemCurrentValue(lib1B69CECC_gv_playerTwo.lv_ui_minerals_label, 12345.0, PlayerGroupAll());
     DialogControlHookupStandard(c_triggerControlTypeCountdownLabel, "UIContainer/FullscreenUpperContainer/PlayerTwoStats/GasLabel");
     lib1B69CECC_gv_playerTwo.lv_ui_gas_label = DialogControlLastCreated();
-    libNtve_gf_SetDialogItemCurrentValue(lib1B69CECC_gv_playerTwo.lv_ui_gas_label, 12345.0, PlayerGroupAll());
     DialogControlHookupStandard(c_triggerControlTypeCountdownLabel, "UIContainer/FullscreenUpperContainer/PlayerTwoStats/SupplyCurrent");
     lib1B69CECC_gv_playerTwo.lv_ui_supplycurrent_label = DialogControlLastCreated();
-    libNtve_gf_SetDialogItemCurrentValue(lib1B69CECC_gv_playerTwo.lv_ui_supplycurrent_label, 150.0, PlayerGroupAll());
     DialogControlHookupStandard(c_triggerControlTypeCountdownLabel, "UIContainer/FullscreenUpperContainer/PlayerTwoStats/SupplyMax");
     lib1B69CECC_gv_playerTwo.lv_ui_supplymax_label = DialogControlLastCreated();
-    libNtve_gf_SetDialogItemCurrentValue(lib1B69CECC_gv_playerTwo.lv_ui_supplymax_label, 200.0, PlayerGroupAll());
     DialogControlHookupStandard(c_triggerControlTypeCountdownLabel, "UIContainer/FullscreenUpperContainer/PlayerTwoStats/EnergyCurrent");
     lib1B69CECC_gv_playerTwo.lv_ui_energycurrent_label = DialogControlLastCreated();
-    libNtve_gf_SetDialogItemCurrentValue(lib1B69CECC_gv_playerTwo.lv_ui_energycurrent_label, 500.0, PlayerGroupAll());
     DialogControlHookupStandard(c_triggerControlTypeCountdownLabel, "UIContainer/FullscreenUpperContainer/PlayerTwoStats/EnergyMax");
     lib1B69CECC_gv_playerTwo.lv_ui_energymax_label = DialogControlLastCreated();
-    libNtve_gf_SetDialogItemCurrentValue(lib1B69CECC_gv_playerTwo.lv_ui_energymax_label, 100000.0, PlayerGroupAll());
+    DialogControlHookupStandard(c_triggerControlTypeLabel, "UIContainer/FullscreenUpperContainer/PlayerTwoStats/PlayerName");
+    lib1B69CECC_gv_playerTwo.lv_ui_player_name = DialogControlLastCreated();
     DialogControlSetVisible(lib1B69CECC_gv_playerOne.lv_ui_player_stats, PlayerGroupAll(), false);
     DialogControlSetVisible(lib1B69CECC_gv_playerTwo.lv_ui_player_stats, PlayerGroupAll(), false);
 }
@@ -1975,6 +1975,10 @@ bool lib1B69CECC_gt_UpdateResourceIconsTrigger_Func (bool testConds, bool runAct
     string lv_race_text;
 
     // Automatic Variable Declarations
+    playergroup auto98BCC76D_g;
+    int auto98BCC76D_var;
+    playergroup auto6367159E_g;
+    int auto6367159E_var;
     playergroup autoB69F3BB4_g;
     int autoB69F3BB4_var;
     playergroup auto620D320A_g;
@@ -1994,6 +1998,20 @@ bool lib1B69CECC_gt_UpdateResourceIconsTrigger_Func (bool testConds, bool runAct
     lv_player_two = PlayerGroupCopy(lib1B69CECC_gv_pLAYERS);
     libNtve_gf_RemovePlayerGroupFromPlayerGroup(lv_player_one, lv_player_two);
     lv_player_two = lib1B69CECC_gf_choose_a_player(lv_player_two);
+    auto98BCC76D_g = lv_player_one;
+    auto98BCC76D_var = -1;
+    while (true) {
+        auto98BCC76D_var = PlayerGroupNextPlayer(auto98BCC76D_g, auto98BCC76D_var);
+        if (auto98BCC76D_var < 0) { break; }
+        libNtve_gf_SetDialogItemText(lib1B69CECC_gv_playerOne.lv_ui_player_name, PlayerName(auto98BCC76D_var), PlayerGroupAll());
+    }
+    auto6367159E_g = lv_player_two;
+    auto6367159E_var = -1;
+    while (true) {
+        auto6367159E_var = PlayerGroupNextPlayer(auto6367159E_g, auto6367159E_var);
+        if (auto6367159E_var < 0) { break; }
+        libNtve_gf_SetDialogItemText(lib1B69CECC_gv_playerTwo.lv_ui_player_name, PlayerName(auto6367159E_var), PlayerGroupAll());
+    }
     while ((lib1B69CECC_gv_DETECT_VICTORY == true)) {
         Wait(lv_dETA_T, c_timeGame);
         autoB69F3BB4_g = lv_player_one;

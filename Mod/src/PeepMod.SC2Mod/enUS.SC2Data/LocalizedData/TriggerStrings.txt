@@ -212,6 +212,7 @@ Variable/Name/lib_1B69CECC_16BD6CE0=energy_max
 Variable/Name/lib_1B69CECC_16CFCCFF=intMinutes
 Variable/Name/lib_1B69CECC_18CF24F2=ui_play_race
 Variable/Name/lib_1B69CECC_18F596A4=ui_supplymax_label
+Variable/Name/lib_1B69CECC_1C3A43F2=ui_player_name
 Variable/Name/lib_1B69CECC_1C80F35B=ui_matchTime
 Variable/Name/lib_1B69CECC_1CEFE830=race_key
 Variable/Name/lib_1B69CECC_1F7E2EBE=pos
