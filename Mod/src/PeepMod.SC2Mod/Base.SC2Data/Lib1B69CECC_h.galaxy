@@ -22,6 +22,23 @@ struct lib1B69CECC_gs_LobbyTimer {
     timer lv_timer;
 };
 
+struct lib1B69CECC_gs_GenetronEnergy {
+    fixed lv_energy_max;
+    fixed lv_energy_current;
+};
+
+struct lib1B69CECC_gs_PlayerStats {
+    int lv_ui_minerals_label;
+    int lv_ui_gas_label;
+    int lv_ui_supplymax_label;
+    int lv_ui_supplycurrent_label;
+    int lv_ui_energymax_label;
+    int lv_ui_energycurrent_label;
+    int lv_ui_player_stats;
+    int lv_ui_race_state;
+    int lv_ui_player_name;
+};
+
 struct lib1B69CECC_gs_Lobby {
     playergroup lv_players;
 };
@@ -54,14 +71,19 @@ int lib1B69CECC_gv_ui_play_cancel;
 int lib1B69CECC_gv_ui_help;
 int lib1B69CECC_gv_ui_chat;
 int lib1B69CECC_gv_timerWindow;
-int lib1B69CECC_gv_lobbyModal;
-int lib1B69CECC_gv_lobbyListBox;
+int lib1B69CECC_gv_ui_lobbyModal;
+int lib1B69CECC_gv_ui_LobbyListBox;
+lib1B69CECC_gs_PlayerStats lib1B69CECC_gv_playerOne;
+lib1B69CECC_gs_PlayerStats lib1B69CECC_gv_playerTwo;
 int lib1B69CECC_gv_rICH_MINERAL_FIELD_COUNT;
 int lib1B69CECC_gv_mINERAL_FIELD_COUNT;
 int lib1B69CECC_gv_pLATES_COUNT;
 lib1B69CECC_gs_Lobby lib1B69CECC_gv_theLobby;
 
 // Function Declarations
+fixed lib1B69CECC_gf_ComputeGenetronEnergyCurrent (int lp_player);
+fixed lib1B69CECC_gf_ComputeGenetronEnergyMax (int lp_player);
+void lib1B69CECC_gf_DisplayRaceIcon (int lp_player, structref<lib1B69CECC_gs_PlayerStats> lp_player_stats);
 void lib1B69CECC_gf_StartClock ();
 void lib1B69CECC_gf_StopClock ();
 void lib1B69CECC_gf_ResetRevealStatus ();
@@ -124,6 +146,7 @@ string lib1B69CECC_gf_compute_race_from_index (int lp_race_index);
 bool lib1B69CECC_gf_is_gas_structure (unit lp_unit);
 bool lib1B69CECC_gf_is_town_centre (unit lp_unit);
 playergroup lib1B69CECC_gf_compute_winners (playergroup lp_players, playergroup lp_losers);
+void lib1B69CECC_gf_InitialiseResourceIcons ();
 void lib1B69CECC_gf_SetClockSkin ();
 void lib1B69CECC_gf_ResetClockDisplay ();
 void lib1B69CECC_gf_InitialiseClock ();
@@ -141,7 +164,7 @@ void lib1B69CECC_gf_InitialisePlayDialog ();
 void lib1B69CECC_gf_HideTimerWindow ();
 void lib1B69CECC_gf_ShowTimerWindow ();
 void lib1B69CECC_gf_EnableLobbyUI ();
-void lib1B69CECC_gf_HideLobby (int lp_theLobby);
+void lib1B69CECC_gf_HideLobby ();
 void lib1B69CECC_gf_RefreshLobby (structref<lib1B69CECC_gs_Lobby> lp_lobbyModel);
 void lib1B69CECC_gf_ShowLobbyUI ();
 void lib1B69CECC_gf_LeaveLobby (int lp_thePlayer, structref<lib1B69CECC_gs_Lobby> lp_thisLobby);
@@ -150,6 +173,7 @@ void lib1B69CECC_gf_JoinLobby (int lp_thePlayer, structref<lib1B69CECC_gs_Lobby>
 void lib1B69CECC_gf_DependencyMessage ();
 
 // Trigger Declarations
+trigger lib1B69CECC_gt_UpdateResourceIconsTrigger;
 trigger lib1B69CECC_gt_SetTimeTrigger;
 trigger lib1B69CECC_gt_RevealCountdownTrigger;
 trigger lib1B69CECC_gt_DetectRevealTrigger;

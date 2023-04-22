@@ -49,12 +49,122 @@ void lib1B69CECC_InitVariables () {
     lib1B69CECC_gv_ui_help = c_invalidDialogControlId;
     lib1B69CECC_gv_ui_chat = c_invalidDialogControlId;
     lib1B69CECC_gv_timerWindow = c_timerWindowNone;
-    lib1B69CECC_gv_lobbyModal = c_invalidDialogId;
-    lib1B69CECC_gv_lobbyListBox = c_invalidDialogControlId;
+    lib1B69CECC_gv_ui_lobbyModal = c_invalidDialogId;
+    lib1B69CECC_gv_ui_LobbyListBox = c_invalidDialogControlId;
+    lib1B69CECC_gv_playerOne.lv_ui_minerals_label = c_invalidDialogControlId;
+    lib1B69CECC_gv_playerOne.lv_ui_gas_label = c_invalidDialogControlId;
+    lib1B69CECC_gv_playerOne.lv_ui_supplymax_label = c_invalidDialogControlId;
+    lib1B69CECC_gv_playerOne.lv_ui_supplycurrent_label = c_invalidDialogControlId;
+    lib1B69CECC_gv_playerOne.lv_ui_energymax_label = c_invalidDialogControlId;
+    lib1B69CECC_gv_playerOne.lv_ui_energycurrent_label = c_invalidDialogControlId;
+    lib1B69CECC_gv_playerOne.lv_ui_player_stats = c_invalidDialogControlId;
+    lib1B69CECC_gv_playerOne.lv_ui_race_state = c_invalidDialogControlId;
+    lib1B69CECC_gv_playerOne.lv_ui_player_name = c_invalidDialogControlId;
+    lib1B69CECC_gv_playerTwo.lv_ui_minerals_label = c_invalidDialogControlId;
+    lib1B69CECC_gv_playerTwo.lv_ui_gas_label = c_invalidDialogControlId;
+    lib1B69CECC_gv_playerTwo.lv_ui_supplymax_label = c_invalidDialogControlId;
+    lib1B69CECC_gv_playerTwo.lv_ui_supplycurrent_label = c_invalidDialogControlId;
+    lib1B69CECC_gv_playerTwo.lv_ui_energymax_label = c_invalidDialogControlId;
+    lib1B69CECC_gv_playerTwo.lv_ui_energycurrent_label = c_invalidDialogControlId;
+    lib1B69CECC_gv_playerTwo.lv_ui_player_stats = c_invalidDialogControlId;
+    lib1B69CECC_gv_playerTwo.lv_ui_race_state = c_invalidDialogControlId;
+    lib1B69CECC_gv_playerTwo.lv_ui_player_name = c_invalidDialogControlId;
     lib1B69CECC_gv_theLobby.lv_players = PlayerGroupEmpty();
 }
 
 // Functions
+fixed lib1B69CECC_gf_ComputeGenetronEnergyCurrent (int lp_player) {
+    // Variable Declarations
+    fixed lv_genetron_energy_current_val;
+    unitgroup lv_genetron_energy_group;
+
+    // Automatic Variable Declarations
+    unitgroup auto3BE2108A_g;
+    int auto3BE2108A_u;
+    unit auto3BE2108A_var;
+
+    // Variable Initialization
+    lv_genetron_energy_group = UnitGroupEmpty();
+
+    // Implementation
+    UnitGroupAddUnitGroup(lv_genetron_energy_group, UnitGroup("ProcessingCore", lp_player, RegionEntireMap(), UnitFilter(0, 0, (1 << c_targetFilterMissile), (1 << (c_targetFilterUnderConstruction - 32)) | (1 << (c_targetFilterDead - 32)) | (1 << (c_targetFilterHidden - 32))), 0));
+    UnitGroupAddUnitGroup(lv_genetron_energy_group, UnitGroup("RelayTower", lp_player, RegionEntireMap(), UnitFilter(0, 0, (1 << c_targetFilterMissile), (1 << (c_targetFilterUnderConstruction - 32)) | (1 << (c_targetFilterDead - 32)) | (1 << (c_targetFilterHidden - 32))), 0));
+    lv_genetron_energy_current_val = 0.0;
+    auto3BE2108A_g = lv_genetron_energy_group;
+    auto3BE2108A_u = UnitGroupCount(auto3BE2108A_g, c_unitCountAll);
+    for (;; auto3BE2108A_u -= 1) {
+        auto3BE2108A_var = UnitGroupUnitFromEnd(auto3BE2108A_g, auto3BE2108A_u);
+        if (auto3BE2108A_var == null) { break; }
+        lv_genetron_energy_current_val += UnitGetPropertyFixed(auto3BE2108A_var, c_unitPropEnergy, c_unitPropCurrent);
+    }
+    return lv_genetron_energy_current_val;
+}
+
+fixed lib1B69CECC_gf_ComputeGenetronEnergyMax (int lp_player) {
+    // Variable Declarations
+    fixed lv_genetron_energy_max_val;
+    unitgroup lv_genetron_energy_group;
+
+    // Automatic Variable Declarations
+    unitgroup auto3C7CC871_g;
+    int auto3C7CC871_u;
+    unit auto3C7CC871_var;
+
+    // Variable Initialization
+    lv_genetron_energy_group = UnitGroupEmpty();
+
+    // Implementation
+    lv_genetron_energy_max_val = 0.0;
+    UnitGroupAddUnitGroup(lv_genetron_energy_group, UnitGroup("ProcessingCore", lp_player, RegionEntireMap(), UnitFilter(0, 0, (1 << c_targetFilterMissile), (1 << (c_targetFilterUnderConstruction - 32)) | (1 << (c_targetFilterDead - 32)) | (1 << (c_targetFilterHidden - 32))), 0));
+    UnitGroupAddUnitGroup(lv_genetron_energy_group, UnitGroup("RelayTower", lp_player, RegionEntireMap(), UnitFilter(0, 0, (1 << c_targetFilterMissile), (1 << (c_targetFilterUnderConstruction - 32)) | (1 << (c_targetFilterDead - 32)) | (1 << (c_targetFilterHidden - 32))), 0));
+    auto3C7CC871_g = lv_genetron_energy_group;
+    auto3C7CC871_u = UnitGroupCount(auto3C7CC871_g, c_unitCountAll);
+    for (;; auto3C7CC871_u -= 1) {
+        auto3C7CC871_var = UnitGroupUnitFromEnd(auto3C7CC871_g, auto3C7CC871_u);
+        if (auto3C7CC871_var == null) { break; }
+        lv_genetron_energy_max_val += UnitGetPropertyFixed(auto3C7CC871_var, c_unitPropEnergyMax, c_unitPropCurrent);
+    }
+    return lv_genetron_energy_max_val;
+}
+
+void lib1B69CECC_gf_DisplayRaceIcon (int lp_player, structref<lib1B69CECC_gs_PlayerStats> lp_player_stats) {
+    // Variable Declarations
+    string lv_theRace;
+    string lv_race_text;
+
+    // Automatic Variable Declarations
+    string autoF5B8B2E6_val;
+
+    // Variable Initialization
+    lv_race_text = "";
+
+    // Implementation
+    lv_theRace = PlayerRace(lp_player);
+    autoF5B8B2E6_val = lv_theRace;
+    if (autoF5B8B2E6_val == "Terr") {
+        lv_race_text = "Terran";
+    }
+    else if (autoF5B8B2E6_val == "Zerg") {
+        lv_race_text = "Zerg";
+    }
+    else if (autoF5B8B2E6_val == "Prot") {
+        lv_race_text = "Protoss";
+    }
+    else if (autoF5B8B2E6_val == "Gen") {
+        lv_race_text = "Genetron";
+    }
+    else if (autoF5B8B2E6_val == "Xayi") {
+        lv_race_text = "Xayid";
+    }
+    else if (autoF5B8B2E6_val == "Keir") {
+        lv_race_text = "Keiron";
+    }
+    else {
+        lv_race_text = "Terran";
+    }
+    DialogControlSetAnimationState(lp_player_stats.lv_ui_player_stats, lib1B69CECC_gv_oBSERVERS, "RaceState", lv_race_text);
+}
+
 void lib1B69CECC_gf_StartClock () {
     // Automatic Variable Declarations
     // Implementation
@@ -1055,7 +1165,7 @@ void lib1B69CECC_gf_InitialiseGame (playergroup lp_lobby_Players) {
     }
 
     // Implementation
-    lib1B69CECC_gf_HideLobby(lib1B69CECC_gv_lobbyModal);
+    lib1B69CECC_gf_HideLobby();
     SoundPlayForPlayer(SoundLink("UI_BnetCountdown321", -1), c_maxPlayers, PlayerGroupAll(), 100.0, 0.0);
     UIDisplayMessage(lib1B69CECC_gf_nonneutral_players(), c_messageAreaSubtitle, StringExternal("Param/Value/lib_1B69CECC_890AFE24"));
     CinematicFade(false, 2.0, c_fadeStyleNormal, Color(0.00, 0.00, 0.00), 0.0, true);
@@ -1081,9 +1191,9 @@ void lib1B69CECC_gf_InitialiseGame (playergroup lp_lobby_Players) {
     libNtve_gf_SetPlayerGroupAlliance(lib1B69CECC_gv_pLAYERS, libNtve_ge_AllianceSetting_Enemy);
     libNtve_gf_SetPlayerGroupAlliance(lib1B69CECC_gv_oBSERVERS, libNtve_ge_AllianceSetting_Ally);
     lib1B69CECC_gf_HideTimerWindow();
+    lib1B69CECC_gf_StartVictoryDetection();
     lib1B69CECC_gf_EnableObserverUI(lib1B69CECC_gv_oBSERVERS, lib1B69CECC_gv_pLAYERS);
     lib1B69CECC_gf_EnablePlayerUI(lib1B69CECC_gv_pLAYERS);
-    lib1B69CECC_gf_StartVictoryDetection();
     lib1B69CECC_gf_StartClock();
 }
 
@@ -1467,6 +1577,45 @@ playergroup lib1B69CECC_gf_compute_winners (playergroup lp_players, playergroup 
     return lv_winners;
 }
 
+void lib1B69CECC_gf_InitialiseResourceIcons () {
+    // Automatic Variable Declarations
+    // Implementation
+    DialogControlHookupStandard(c_triggerControlTypePanel, "UIContainer/FullscreenUpperContainer/PlayerOneStats");
+    lib1B69CECC_gv_playerOne.lv_ui_player_stats = DialogControlLastCreated();
+    DialogControlHookupStandard(c_triggerControlTypeCountdownLabel, "UIContainer/FullscreenUpperContainer/PlayerOneStats/MineralsLabel");
+    lib1B69CECC_gv_playerOne.lv_ui_minerals_label = DialogControlLastCreated();
+    DialogControlHookupStandard(c_triggerControlTypeCountdownLabel, "UIContainer/FullscreenUpperContainer/PlayerOneStats/GasLabel");
+    lib1B69CECC_gv_playerOne.lv_ui_gas_label = DialogControlLastCreated();
+    DialogControlHookupStandard(c_triggerControlTypeCountdownLabel, "UIContainer/FullscreenUpperContainer/PlayerOneStats/SupplyCurrent");
+    lib1B69CECC_gv_playerOne.lv_ui_supplycurrent_label = DialogControlLastCreated();
+    DialogControlHookupStandard(c_triggerControlTypeCountdownLabel, "UIContainer/FullscreenUpperContainer/PlayerOneStats/SupplyMax");
+    lib1B69CECC_gv_playerOne.lv_ui_supplymax_label = DialogControlLastCreated();
+    DialogControlHookupStandard(c_triggerControlTypeCountdownLabel, "UIContainer/FullscreenUpperContainer/PlayerOneStats/EnergyCurrent");
+    lib1B69CECC_gv_playerOne.lv_ui_energycurrent_label = DialogControlLastCreated();
+    DialogControlHookupStandard(c_triggerControlTypeCountdownLabel, "UIContainer/FullscreenUpperContainer/PlayerOneStats/EnergyMax");
+    lib1B69CECC_gv_playerOne.lv_ui_energymax_label = DialogControlLastCreated();
+    DialogControlHookupStandard(c_triggerControlTypeLabel, "UIContainer/FullscreenUpperContainer/PlayerOneStats/PlayerName");
+    lib1B69CECC_gv_playerOne.lv_ui_player_name = DialogControlLastCreated();
+    DialogControlHookupStandard(c_triggerControlTypePanel, "UIContainer/FullscreenUpperContainer/PlayerTwoStats");
+    lib1B69CECC_gv_playerTwo.lv_ui_player_stats = DialogControlLastCreated();
+    DialogControlHookupStandard(c_triggerControlTypeCountdownLabel, "UIContainer/FullscreenUpperContainer/PlayerTwoStats/MineralsLabel");
+    lib1B69CECC_gv_playerTwo.lv_ui_minerals_label = DialogControlLastCreated();
+    DialogControlHookupStandard(c_triggerControlTypeCountdownLabel, "UIContainer/FullscreenUpperContainer/PlayerTwoStats/GasLabel");
+    lib1B69CECC_gv_playerTwo.lv_ui_gas_label = DialogControlLastCreated();
+    DialogControlHookupStandard(c_triggerControlTypeCountdownLabel, "UIContainer/FullscreenUpperContainer/PlayerTwoStats/SupplyCurrent");
+    lib1B69CECC_gv_playerTwo.lv_ui_supplycurrent_label = DialogControlLastCreated();
+    DialogControlHookupStandard(c_triggerControlTypeCountdownLabel, "UIContainer/FullscreenUpperContainer/PlayerTwoStats/SupplyMax");
+    lib1B69CECC_gv_playerTwo.lv_ui_supplymax_label = DialogControlLastCreated();
+    DialogControlHookupStandard(c_triggerControlTypeCountdownLabel, "UIContainer/FullscreenUpperContainer/PlayerTwoStats/EnergyCurrent");
+    lib1B69CECC_gv_playerTwo.lv_ui_energycurrent_label = DialogControlLastCreated();
+    DialogControlHookupStandard(c_triggerControlTypeCountdownLabel, "UIContainer/FullscreenUpperContainer/PlayerTwoStats/EnergyMax");
+    lib1B69CECC_gv_playerTwo.lv_ui_energymax_label = DialogControlLastCreated();
+    DialogControlHookupStandard(c_triggerControlTypeLabel, "UIContainer/FullscreenUpperContainer/PlayerTwoStats/PlayerName");
+    lib1B69CECC_gv_playerTwo.lv_ui_player_name = DialogControlLastCreated();
+    DialogControlSetVisible(lib1B69CECC_gv_playerOne.lv_ui_player_stats, PlayerGroupAll(), false);
+    DialogControlSetVisible(lib1B69CECC_gv_playerTwo.lv_ui_player_stats, PlayerGroupAll(), false);
+}
+
 void lib1B69CECC_gf_SetClockSkin () {
     // Variable Declarations
     string lv_race;
@@ -1577,6 +1726,9 @@ void lib1B69CECC_gf_EnableObserverUI (playergroup lp_observers, playergroup lp_p
             PlayerSetAlliance(lv_aPlayer, c_allianceIdVision, lv_aObserver, true);
         }
     }
+    DialogControlSetVisible(lib1B69CECC_gv_playerOne.lv_ui_player_stats, lp_observers, true);
+    DialogControlSetVisible(lib1B69CECC_gv_playerTwo.lv_ui_player_stats, lp_observers, true);
+    TriggerExecute(lib1B69CECC_gt_UpdateResourceIconsTrigger, true, false);
 }
 
 void lib1B69CECC_gf_EnablePlayerUI (playergroup lp_players) {
@@ -1592,6 +1744,8 @@ void lib1B69CECC_gf_EnablePlayerUI (playergroup lp_players) {
     VisEnable(c_visTypeFog, true);
     DialogControlSetVisible(lib1B69CECC_gv_ui_menu, lp_players, false);
     DialogControlSetVisible(lib1B69CECC_gv_ui_playpanel, lp_players, false);
+    DialogControlSetVisible(lib1B69CECC_gv_playerOne.lv_ui_player_stats, lp_players, false);
+    DialogControlSetVisible(lib1B69CECC_gv_playerTwo.lv_ui_player_stats, lp_players, false);
 }
 
 void lib1B69CECC_gf_HideRevealDialog (int lp_player) {
@@ -1717,12 +1871,14 @@ void lib1B69CECC_gf_EnableLobbyUI () {
     UISetFrameVisible(lib1B69CECC_gf_nonneutral_players(), c_syncFrameTypeAllianceButton, false);
     DialogControlSetVisible(lib1B69CECC_gv_ui_menu, lib1B69CECC_gf_nonneutral_players(), true);
     DialogControlSetVisible(lib1B69CECC_gv_ui_playpanel, lib1B69CECC_gf_nonneutral_players(), true);
+    DialogControlSetVisible(lib1B69CECC_gv_playerOne.lv_ui_player_stats, lib1B69CECC_gf_nonneutral_players(), false);
+    DialogControlSetVisible(lib1B69CECC_gv_playerTwo.lv_ui_player_stats, lib1B69CECC_gf_nonneutral_players(), false);
 }
 
-void lib1B69CECC_gf_HideLobby (int lp_theLobby) {
+void lib1B69CECC_gf_HideLobby () {
     // Automatic Variable Declarations
     // Implementation
-    DialogSetVisible(lp_theLobby, lib1B69CECC_gf_nonneutral_players(), false);
+    DialogSetVisible(lib1B69CECC_gv_ui_lobbyModal, PlayerGroupAll(), false);
 }
 
 void lib1B69CECC_gf_RefreshLobby (structref<lib1B69CECC_gs_Lobby> lp_lobbyModel) {
@@ -1735,13 +1891,13 @@ void lib1B69CECC_gf_RefreshLobby (structref<lib1B69CECC_gs_Lobby> lp_lobbyModel)
     // Variable Initialization
 
     // Implementation
-    DialogControlRemoveAllItems(lib1B69CECC_gv_lobbyListBox, PlayerGroupAll());
+    DialogControlRemoveAllItems(lib1B69CECC_gv_ui_LobbyListBox, PlayerGroupAll());
     auto2DE13D9F_g = lp_lobbyModel.lv_players;
     lv_player = -1;
     while (true) {
         lv_player = PlayerGroupNextPlayer(auto2DE13D9F_g, lv_player);
         if (lv_player < 0) { break; }
-        DialogControlAddItem(lib1B69CECC_gv_lobbyListBox, PlayerGroupAll(), lib1B69CECC_gf_format_player_name(lv_player));
+        DialogControlAddItem(lib1B69CECC_gv_ui_LobbyListBox, PlayerGroupAll(), lib1B69CECC_gf_format_player_name(lv_player));
     }
 }
 
@@ -1758,9 +1914,9 @@ void lib1B69CECC_gf_ShowLobbyUI () {
 
     // Implementation
     DialogCreate(lv_lOBBY_WIDTH, lv_lOBBY_HEIGHT, c_anchorTopLeft, lv_lOBBY_X, lv_lOBBY_Y, true);
-    lib1B69CECC_gv_lobbyModal = DialogLastCreated();
+    lib1B69CECC_gv_ui_lobbyModal = DialogLastCreated();
     DialogControlCreate(DialogLastCreated(), c_triggerControlTypeListBox);
-    lib1B69CECC_gv_lobbyListBox = DialogControlLastCreated();
+    lib1B69CECC_gv_ui_LobbyListBox = DialogControlLastCreated();
     DialogControlSetSize(DialogControlLastCreated(), PlayerGroupAll(), (lv_lOBBY_WIDTH - (2 * lv_sPACEMARGIN)), (lv_lOBBY_HEIGHT - (2 * lv_sPACEMARGIN)));
     DialogControlSetPosition(DialogControlLastCreated(), PlayerGroupAll(), c_anchorTopLeft, lv_sPACEMARGIN, lv_sPACEMARGIN);
     DialogSetVisible(DialogLastCreated(), PlayerGroupAll(), true);
@@ -1807,6 +1963,92 @@ void lib1B69CECC_gf_DependencyMessage () {
 }
 
 // Triggers
+//--------------------------------------------------------------------------------------------------
+// Trigger: Update Resource Icons Trigger
+//--------------------------------------------------------------------------------------------------
+bool lib1B69CECC_gt_UpdateResourceIconsTrigger_Func (bool testConds, bool runActions) {
+    // Variable Declarations
+    const fixed lv_dETA_T = 0.0625;
+    playergroup lv_player_one;
+    playergroup lv_player_two;
+    string lv_theRace;
+    string lv_race_text;
+
+    // Automatic Variable Declarations
+    playergroup auto98BCC76D_g;
+    int auto98BCC76D_var;
+    playergroup auto6367159E_g;
+    int auto6367159E_var;
+    playergroup autoB69F3BB4_g;
+    int autoB69F3BB4_var;
+    playergroup auto620D320A_g;
+    int auto620D320A_var;
+
+    // Variable Initialization
+    lv_player_one = PlayerGroupEmpty();
+    lv_player_two = PlayerGroupEmpty();
+    lv_race_text = "";
+
+    // Actions
+    if (!runActions) {
+        return true;
+    }
+
+    lv_player_one = lib1B69CECC_gf_choose_a_player(lib1B69CECC_gv_pLAYERS);
+    lv_player_two = PlayerGroupCopy(lib1B69CECC_gv_pLAYERS);
+    libNtve_gf_RemovePlayerGroupFromPlayerGroup(lv_player_one, lv_player_two);
+    lv_player_two = lib1B69CECC_gf_choose_a_player(lv_player_two);
+    auto98BCC76D_g = lv_player_one;
+    auto98BCC76D_var = -1;
+    while (true) {
+        auto98BCC76D_var = PlayerGroupNextPlayer(auto98BCC76D_g, auto98BCC76D_var);
+        if (auto98BCC76D_var < 0) { break; }
+        libNtve_gf_SetDialogItemText(lib1B69CECC_gv_playerOne.lv_ui_player_name, PlayerName(auto98BCC76D_var), PlayerGroupAll());
+    }
+    auto6367159E_g = lv_player_two;
+    auto6367159E_var = -1;
+    while (true) {
+        auto6367159E_var = PlayerGroupNextPlayer(auto6367159E_g, auto6367159E_var);
+        if (auto6367159E_var < 0) { break; }
+        libNtve_gf_SetDialogItemText(lib1B69CECC_gv_playerTwo.lv_ui_player_name, PlayerName(auto6367159E_var), PlayerGroupAll());
+    }
+    while ((lib1B69CECC_gv_DETECT_VICTORY == true)) {
+        Wait(lv_dETA_T, c_timeGame);
+        autoB69F3BB4_g = lv_player_one;
+        autoB69F3BB4_var = -1;
+        while (true) {
+            autoB69F3BB4_var = PlayerGroupNextPlayer(autoB69F3BB4_g, autoB69F3BB4_var);
+            if (autoB69F3BB4_var < 0) { break; }
+            libNtve_gf_SetDialogItemCurrentValue(lib1B69CECC_gv_playerOne.lv_ui_minerals_label, PlayerScoreValueGetAsInt(autoB69F3BB4_var, "MineralsCurrent"), PlayerGroupAll());
+            libNtve_gf_SetDialogItemCurrentValue(lib1B69CECC_gv_playerOne.lv_ui_gas_label, PlayerScoreValueGetAsInt(autoB69F3BB4_var, "VespeneCurrent"), PlayerGroupAll());
+            libNtve_gf_SetDialogItemCurrentValue(lib1B69CECC_gv_playerOne.lv_ui_supplycurrent_label, PlayerScoreValueGetAsInt(autoB69F3BB4_var, "FoodUsed"), PlayerGroupAll());
+            libNtve_gf_SetDialogItemCurrentValue(lib1B69CECC_gv_playerOne.lv_ui_supplymax_label, PlayerScoreValueGetAsInt(autoB69F3BB4_var, "FoodMade"), PlayerGroupAll());
+            libNtve_gf_SetDialogItemCurrentValue(lib1B69CECC_gv_playerOne.lv_ui_energycurrent_label, lib1B69CECC_gf_ComputeGenetronEnergyCurrent(autoB69F3BB4_var), PlayerGroupAll());
+            libNtve_gf_SetDialogItemCurrentValue(lib1B69CECC_gv_playerOne.lv_ui_energymax_label, lib1B69CECC_gf_ComputeGenetronEnergyMax(autoB69F3BB4_var), PlayerGroupAll());
+            lib1B69CECC_gf_DisplayRaceIcon(autoB69F3BB4_var, lib1B69CECC_gv_playerOne);
+        }
+        auto620D320A_g = lv_player_two;
+        auto620D320A_var = -1;
+        while (true) {
+            auto620D320A_var = PlayerGroupNextPlayer(auto620D320A_g, auto620D320A_var);
+            if (auto620D320A_var < 0) { break; }
+            libNtve_gf_SetDialogItemCurrentValue(lib1B69CECC_gv_playerTwo.lv_ui_minerals_label, PlayerScoreValueGetAsInt(auto620D320A_var, "MineralsCurrent"), PlayerGroupAll());
+            libNtve_gf_SetDialogItemCurrentValue(lib1B69CECC_gv_playerTwo.lv_ui_gas_label, PlayerScoreValueGetAsInt(auto620D320A_var, "VespeneCurrent"), PlayerGroupAll());
+            libNtve_gf_SetDialogItemCurrentValue(lib1B69CECC_gv_playerTwo.lv_ui_supplycurrent_label, PlayerScoreValueGetAsInt(auto620D320A_var, "FoodUsed"), PlayerGroupAll());
+            libNtve_gf_SetDialogItemCurrentValue(lib1B69CECC_gv_playerTwo.lv_ui_supplymax_label, PlayerScoreValueGetAsInt(auto620D320A_var, "FoodMade"), PlayerGroupAll());
+            libNtve_gf_SetDialogItemCurrentValue(lib1B69CECC_gv_playerTwo.lv_ui_energycurrent_label, lib1B69CECC_gf_ComputeGenetronEnergyCurrent(auto620D320A_var), PlayerGroupAll());
+            libNtve_gf_SetDialogItemCurrentValue(lib1B69CECC_gv_playerTwo.lv_ui_energymax_label, lib1B69CECC_gf_ComputeGenetronEnergyMax(auto620D320A_var), PlayerGroupAll());
+            lib1B69CECC_gf_DisplayRaceIcon(auto620D320A_var, lib1B69CECC_gv_playerTwo);
+        }
+    }
+    return true;
+}
+
+//--------------------------------------------------------------------------------------------------
+void lib1B69CECC_gt_UpdateResourceIconsTrigger_Init () {
+    lib1B69CECC_gt_UpdateResourceIconsTrigger = TriggerCreate("lib1B69CECC_gt_UpdateResourceIconsTrigger_Func");
+}
+
 //--------------------------------------------------------------------------------------------------
 // Trigger: Set Time Trigger
 //--------------------------------------------------------------------------------------------------
@@ -2023,6 +2265,8 @@ bool lib1B69CECC_gt_CleanUpWhenPlayerLeaves_Func (bool testConds, bool runAction
         if (lv_unit == null) { break; }
         UnitKill(lv_unit);
     }
+    lib1B69CECC_gf_LeaveLobby(EventPlayer(), lib1B69CECC_gv_theLobby);
+    lib1B69CECC_gf_RefreshLobby(lib1B69CECC_gv_theLobby);
     return true;
 }
 
@@ -2340,6 +2584,7 @@ bool lib1B69CECC_gt_MeleeInitialization_Func (bool testConds, bool runActions) {
     lib1B69CECC_gf_InitialiseRaceSelections();
     lib1B69CECC_gf_RecordStartingMapFeatures();
     lib1B69CECC_gf_InitialiseLobbyTimer();
+    lib1B69CECC_gf_InitialiseResourceIcons();
     lib1B69CECC_gf_InitialiseMenu();
     lib1B69CECC_gf_InitialisePlayDialog();
     lib1B69CECC_gf_InitialiseGGMenu();
@@ -2356,6 +2601,7 @@ void lib1B69CECC_gt_MeleeInitialization_Init () {
 }
 
 void lib1B69CECC_InitTriggers () {
+    lib1B69CECC_gt_UpdateResourceIconsTrigger_Init();
     lib1B69CECC_gt_SetTimeTrigger_Init();
     lib1B69CECC_gt_RevealCountdownTrigger_Init();
     lib1B69CECC_gt_DetectRevealTrigger_Init();
