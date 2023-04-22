@@ -31,6 +31,7 @@ void lib1B69CECC_InitVariables () {
     lib1B69CECC_gv_oBSERVERS = PlayerGroupEmpty();
     lib1B69CECC_gv_lobbyTimer.lv_startTime = CurrentDateTimeGet();
     lib1B69CECC_gv_lobbyTimer.lv_timer = TimerCreate();
+    lib1B69CECC_gv_ui_production_tab = c_invalidDialogControlId;
     lib1B69CECC_gv_ui_matchTime = TimerCreate();
     lib1B69CECC_gv_ui_clock = c_invalidDialogId;
     lib1B69CECC_gv_ui_clocklabel = c_invalidDialogControlId;
@@ -338,6 +339,42 @@ bool lib1B69CECC_gf_ShouldPlayerBeRevealed (int lp_player) {
 
     }
     return (UnitGroupCount(lv_units, c_unitCountAlive) == 0);
+}
+
+void lib1B69CECC_gf_ResetAllScores () {
+    // Automatic Variable Declarations
+    playergroup autoE2ADD1C2_g;
+    int autoE2ADD1C2_var;
+
+    // Implementation
+    autoE2ADD1C2_g = lib1B69CECC_gf_nonneutral_players();
+    autoE2ADD1C2_var = -1;
+    while (true) {
+        autoE2ADD1C2_var = PlayerGroupNextPlayer(autoE2ADD1C2_g, autoE2ADD1C2_var);
+        if (autoE2ADD1C2_var < 0) { break; }
+        lib1B69CECC_gf_ResetScore(autoE2ADD1C2_var);
+    }
+}
+
+void lib1B69CECC_gf_ResetScore (int lp_player) {
+    // Automatic Variable Declarations
+    // Implementation
+    PlayerModifyPropertyInt(lp_player, c_playerPropSuppliesLimit, c_playerPropOperSetTo, 200);
+    PlayerModifyPropertyInt(lp_player, c_playerPropMinerals, c_playerPropOperSetTo, 0);
+    PlayerModifyPropertyInt(lp_player, c_playerPropMineralsCollected, c_playerPropOperSetTo, 0);
+    PlayerModifyPropertyInt(lp_player, c_playerPropVespene, c_playerPropOperSetTo, 0);
+    PlayerModifyPropertyInt(lp_player, c_playerPropVespeneCollected, c_playerPropOperSetTo, 0);
+    PlayerScoreValueSetFromInt(lp_player, "UnitsLostCount", 0);
+    PlayerScoreValueSetFromInt(lp_player, "ResourceLostArmy", 0);
+    PlayerScoreValueSetFromInt(lp_player, "UnitsLostValue", 0);
+    PlayerScoreValueSetFromInt(lp_player, "MineralsLostArmy", 0);
+    PlayerScoreValueSetFromInt(lp_player, "VespeneLostArmy", 0);
+    PlayerScoreValueSetFromInt(lp_player, "ArmySpendingTotal", 0);
+    PlayerScoreValueSetFromInt(lp_player, "EconomySpendingTotal", 0);
+    PlayerScoreValueSetFromInt(lp_player, "UpgradeSpendingSampled", 0);
+    PlayerScoreValueSetFromInt(lp_player, "UpgradeSpendingTotal", 0);
+    PlayerScoreValueSetFromInt(lp_player, "ResourceValueArmySampled", 0);
+    PlayerScoreValueSetFromInt(lp_player, "APM", 0);
 }
 
 void lib1B69CECC_gf_RecordPlatesonMap () {
@@ -1577,6 +1614,20 @@ playergroup lib1B69CECC_gf_compute_winners (playergroup lp_players, playergroup 
     return lv_winners;
 }
 
+int lib1B69CECC_gf_DialogItemFromHookup (int lp_dialogItemType, string lp_name) {
+    // Automatic Variable Declarations
+    // Implementation
+    DialogControlHookupStandard(lp_dialogItemType, lp_name);
+    return DialogControlLastCreated();
+}
+
+void lib1B69CECC_gf_InitialiseProductionTab () {
+    // Automatic Variable Declarations
+    // Implementation
+    DialogControlCreateInPanelFromTemplate(lib1B69CECC_gf_DialogItemFromHookup(c_triggerControlTypePanel, "UIContainer/FullscreenUpperContainer/PeepLeaderPanel"), c_triggerControlTypePanel, "GameUI/GameUI/UIContainer/FullscreenUpperContainer/LeaderPanel");
+    lib1B69CECC_gv_ui_production_tab = DialogControlLastCreated();
+}
+
 void lib1B69CECC_gf_InitialiseResourceIcons () {
     // Automatic Variable Declarations
     // Implementation
@@ -1729,6 +1780,7 @@ void lib1B69CECC_gf_EnableObserverUI (playergroup lp_observers, playergroup lp_p
     DialogControlSetVisible(lib1B69CECC_gv_playerOne.lv_ui_player_stats, lp_observers, true);
     DialogControlSetVisible(lib1B69CECC_gv_playerTwo.lv_ui_player_stats, lp_observers, true);
     TriggerExecute(lib1B69CECC_gt_UpdateResourceIconsTrigger, true, false);
+    DialogControlSetVisible(lib1B69CECC_gv_ui_production_tab, lib1B69CECC_gv_oBSERVERS, true);
 }
 
 void lib1B69CECC_gf_EnablePlayerUI (playergroup lp_players) {
@@ -1746,6 +1798,7 @@ void lib1B69CECC_gf_EnablePlayerUI (playergroup lp_players) {
     DialogControlSetVisible(lib1B69CECC_gv_ui_playpanel, lp_players, false);
     DialogControlSetVisible(lib1B69CECC_gv_playerOne.lv_ui_player_stats, lp_players, false);
     DialogControlSetVisible(lib1B69CECC_gv_playerTwo.lv_ui_player_stats, lp_players, false);
+    DialogControlSetVisible(lib1B69CECC_gv_ui_production_tab, lib1B69CECC_gv_pLAYERS, false);
 }
 
 void lib1B69CECC_gf_HideRevealDialog (int lp_player) {
@@ -1873,6 +1926,7 @@ void lib1B69CECC_gf_EnableLobbyUI () {
     DialogControlSetVisible(lib1B69CECC_gv_ui_playpanel, lib1B69CECC_gf_nonneutral_players(), true);
     DialogControlSetVisible(lib1B69CECC_gv_playerOne.lv_ui_player_stats, lib1B69CECC_gf_nonneutral_players(), false);
     DialogControlSetVisible(lib1B69CECC_gv_playerTwo.lv_ui_player_stats, lib1B69CECC_gf_nonneutral_players(), false);
+    DialogControlSetVisible(lib1B69CECC_gv_ui_production_tab, PlayerGroupAll(), false);
 }
 
 void lib1B69CECC_gf_HideLobby () {
@@ -2590,6 +2644,7 @@ bool lib1B69CECC_gt_MeleeInitialization_Func (bool testConds, bool runActions) {
     lib1B69CECC_gf_InitialiseGGMenu();
     lib1B69CECC_gf_InitialiseRevealDialog();
     lib1B69CECC_gf_InitialiseClock();
+    lib1B69CECC_gf_InitialiseProductionTab();
     lib1B69CECC_gf_InitialiseLobby();
     return true;
 }

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <Desc>
-
     <Frame type="Button" name="ScionPeepMenuButton">
         <Width val="52"/>
         <Height val="52"/>
@@ -76,6 +75,8 @@
 
     <Frame type="Frame" name="GameUI/UIContainer/FullscreenUpperContainer" file="GameUI">
 
+        
+
         <Frame type="Frame" name="PeepMenuPanel" template="StandardBattlenetTemplates/StandardSmallPanelTemplate">
             <Anchor side="Left" relative="$parent" pos="Min" offset="-50"/>
             <Anchor side="Top" relative="$parent" pos="Min" offset="-72"/>
@@ -133,6 +134,13 @@
                 </Animation>
             </Frame>
 
+        </Frame>
+
+        <Frame type="Frame" name="PeepLeaderPanel">
+            <Anchor side="Left" relative="$parent" pos="Min" offset="0"/>
+            <Anchor side="Right" relative="$parent" pos="Max" offset="0"/>
+            <Anchor side="Top" relative="$parent/PeepMenuPanel" pos="Max" offset="0"/>
+            <Height val="600"/>
         </Frame>
 
         <Frame type="Frame" name="PeepPlayPanel" template="StandardBattlenetTemplates/StandardSmallPanelTemplate">
