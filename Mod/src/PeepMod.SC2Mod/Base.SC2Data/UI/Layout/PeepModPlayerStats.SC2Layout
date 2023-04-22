@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <Desc>
 
-    <Frame type="Frame" name="PlayerStats">
+    <Frame type="Frame" name="PlayerStatsTemplate">
         <Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
         <Anchor side="Left" relative="$parent" pos="Min" offset="0"/>
         <Visible val="True"/>
         <Width val="1000"/>
         <Height val="32"/>
 
-        <Frame type="Image" name="TheRaceIcon">
+        <Frame type="Image" name="RaceIcon">
             <Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
             <Anchor side="Left" relative="$parent/EnergyIcon" pos="Min" offset="250"/>
             <Width val="32"/>
@@ -23,7 +23,7 @@
         <Frame type="Image" name="MineralsIcon">
             <Anchor side="Bottom" relative="$parent" pos="Max" offset="0"/>
             <Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
-            <Anchor side="Left" relative="$parent/TheRaceIcon" pos="Min" offset="50"/>
+            <Anchor side="Left" relative="$parent/RaceIcon" pos="Min" offset="50"/>
             <Width val="32"/>
             <Height val="32"/>
             <Texture val="Assets/Textures/icon-mineral.dds"/>
@@ -69,7 +69,7 @@
         <Frame type="Image" name="GasIcon">
             <Anchor side="Bottom" relative="$parent" pos="Max" offset="0"/>
             <Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
-            <Anchor side="Left" relative="$parent/TheRaceIcon" pos="Min" offset="250"/>
+            <Anchor side="Left" relative="$parent/RaceIcon" pos="Min" offset="250"/>
             <Width val="32"/>
             <Texture val="Assets/Textures/icon-gas.dds"/>
             <Tooltip val="Gas"/>
@@ -116,7 +116,7 @@
         <Frame type="Image" name="SupplyIcon">
             <Anchor side="Bottom" relative="$parent" pos="Max" offset="0"/>
             <Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
-            <Anchor side="Left" relative="$parent/TheRaceIcon" pos="Min" offset="450"/>
+            <Anchor side="Left" relative="$parent/RaceIcon" pos="Min" offset="450"/>
             <Width val="32"/>
             <Texture val="Assets/Textures/icon-supply-terran_nobg.dds"/>
             <Tooltip val="Supply"/>

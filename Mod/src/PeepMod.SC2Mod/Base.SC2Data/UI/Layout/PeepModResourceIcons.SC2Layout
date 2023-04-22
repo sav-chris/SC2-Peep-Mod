@@ -2,13 +2,13 @@
 <Desc>
     <Frame type="Frame" name="GameUI/UIContainer/FullscreenUpperContainer" file="GameUI">
         
-        <Frame type="Frame" name="PlayerOneStats" template="PeepModPlayerStats/PlayerStats">
+        <Frame type="Frame" name="PlayerOneStats" template="PeepModPlayerStats/PlayerStatsTemplate">
             <Anchor side="Top" relative="$parent" pos="Min" offset="50"/>
             <Anchor side="Left" relative="$parent" pos="Max" offset="-900"/>
             <Visible val="True"/>
         </Frame>
 
-        <Frame type="Frame" name="PlayerTwoStats" template="PeepModPlayerStats/PlayerStats">
+        <Frame type="Frame" name="PlayerTwoStats" template="PeepModPlayerStats/PlayerStatsTemplate">
             <Anchor side="Top" relative="$parent" pos="Min" offset="100"/>
             <Anchor side="Left" relative="$parent" pos="Max" offset="-900"/>
             <Visible val="True"/>
