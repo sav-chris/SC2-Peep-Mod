@@ -16,6 +16,7 @@
                 <Action type="SetProperty" frame="$this/RaceIcon" Texture="Assets/Textures/icon-1v1-terran.dds" />
                 <Action type="SetProperty" frame="$this/EnergyLabel" Visible="False"/>
                 <Action type="SetProperty" frame="$this/EnergyIcon" Visible="False"/>
+                <Action type="SetProperty" frame="$this/SupplyIcon" Texture="Assets/Textures/icon-supply-terran_nobg.dds" />
             </State>
 
             <State name="Protoss">
@@ -23,6 +24,7 @@
                 <Action type="SetProperty" frame="$this/RaceIcon" Texture="Assets/Textures/icon-1v1-protoss.dds" />
                 <Action type="SetProperty" frame="$this/EnergyLabel" Visible="False"/>
                 <Action type="SetProperty" frame="$this/EnergyIcon" Visible="False"/>
+                <Action type="SetProperty" frame="$this/SupplyIcon" Texture="Assets/Textures/icon-supply-protoss_nobg.dds" />
             </State>
 
             <State name="Zerg">
@@ -30,6 +32,7 @@
                 <Action type="SetProperty" frame="$this/RaceIcon" Texture="Assets/Textures/icon-1v1-zerg.dds" />
                 <Action type="SetProperty" frame="$this/EnergyLabel" Visible="False"/>
                 <Action type="SetProperty" frame="$this/EnergyIcon" Visible="False"/>
+                <Action type="SetProperty" frame="$this/SupplyIcon" Texture="Assets/Textures/icon-supply-zerg_nobg.dds" />
             </State>
 
             <State name="Genetron">
@@ -37,6 +40,8 @@
                 <Action type="SetProperty" frame="$this/RaceIcon" Texture="Assets/Textures/icon-1v1-genetron.dds" />
                 <Action type="SetProperty" frame="$this/EnergyLabel" Visible="True"/>
                 <Action type="SetProperty" frame="$this/EnergyIcon" Visible="True"/>
+                <Action type="SetProperty" frame="$this/SupplyIcon" Texture="Assets/Textures/wcs-ui-supply-gen.dds" />
+                
             </State>
 
             <State name="Keiron">
@@ -44,6 +49,7 @@
                 <Action type="SetProperty" frame="$this/RaceIcon" Texture="Assets/Textures/icon-1v1-keiron.dds" />
                 <Action type="SetProperty" frame="$this/EnergyLabel" Visible="False"/>
                 <Action type="SetProperty" frame="$this/EnergyIcon" Visible="False"/>
+                <Action type="SetProperty" frame="$this/SupplyIcon" Texture="Assets/Textures/wcs-ui-supply-keir.dds" />
             </State>
 
             <State name="Xayid">
@@ -51,6 +57,7 @@
                 <Action type="SetProperty" frame="$this/RaceIcon" Texture="Assets/Textures/icon-1v1-xayid.dds" />
                 <Action type="SetProperty" frame="$this/EnergyLabel" Visible="False"/>
                 <Action type="SetProperty" frame="$this/EnergyIcon" Visible="False"/>
+                <Action type="SetProperty" frame="$this/SupplyIcon" Texture="Assets/Textures/wcs-ui-supply-xayi.dds" />
             </State>
         </StateGroup>
 
