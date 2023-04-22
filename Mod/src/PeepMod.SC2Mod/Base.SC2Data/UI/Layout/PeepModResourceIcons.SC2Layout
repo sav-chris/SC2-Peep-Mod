@@ -242,7 +242,7 @@
         
         <Frame type="Frame" name="PlayerOneStats" template="PeepModPlayerStats/PlayerStats">
             <Anchor side="Top" relative="$parent" pos="Min" offset="100"/>
-            <Anchor side="Left" relative="$parent" pos="Max" offset="-650"/>
+            <Anchor side="Left" relative="$parent" pos="Max" offset="-900"/>
             <Visible val="True"/>
         </Frame>
 
