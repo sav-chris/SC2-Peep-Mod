@@ -29,6 +29,7 @@ struct lib1B69CECC_gs_PlayerStats {
     int lv_ui_supplycurrent_label;
     int lv_ui_energymax_label;
     int lv_ui_energycurrent_label;
+    int lv_ui_player_stats;
 };
 
 struct lib1B69CECC_gs_Lobby {
@@ -162,6 +163,7 @@ void lib1B69CECC_gf_JoinLobby (int lp_thePlayer, structref<lib1B69CECC_gs_Lobby>
 void lib1B69CECC_gf_DependencyMessage ();
 
 // Trigger Declarations
+trigger lib1B69CECC_gt_UntitledTrigger001;
 trigger lib1B69CECC_gt_SetTimeTrigger;
 trigger lib1B69CECC_gt_RevealCountdownTrigger;
 trigger lib1B69CECC_gt_DetectRevealTrigger;
@@ -170,7 +172,6 @@ trigger lib1B69CECC_gt_DetectGG;
 trigger lib1B69CECC_gt_CleanUpWhenPlayerLeaves;
 trigger lib1B69CECC_gt_DetectVictory;
 trigger lib1B69CECC_gt_HandleTimeOut;
-trigger lib1B69CECC_gt_UntitledTrigger001;
 trigger lib1B69CECC_gt_ClickYes;
 trigger lib1B69CECC_gt_ClickNo;
 trigger lib1B69CECC_gt_ClickHelp;
