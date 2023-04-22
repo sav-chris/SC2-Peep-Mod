@@ -31,6 +31,7 @@ void lib1B69CECC_InitVariables () {
     lib1B69CECC_gv_oBSERVERS = PlayerGroupEmpty();
     lib1B69CECC_gv_lobbyTimer.lv_startTime = CurrentDateTimeGet();
     lib1B69CECC_gv_lobbyTimer.lv_timer = TimerCreate();
+    lib1B69CECC_gv_ui_leader = c_invalidDialogControlId;
     lib1B69CECC_gv_ui_matchTime = TimerCreate();
     lib1B69CECC_gv_ui_clock = c_invalidDialogId;
     lib1B69CECC_gv_ui_clocklabel = c_invalidDialogControlId;
@@ -1577,6 +1578,20 @@ playergroup lib1B69CECC_gf_compute_winners (playergroup lp_players, playergroup 
     return lv_winners;
 }
 
+int lib1B69CECC_gf_DialogItemFromHookup (int lp_dialogItemType, string lp_name) {
+    // Automatic Variable Declarations
+    // Implementation
+    DialogControlHookupStandard(lp_dialogItemType, lp_name);
+    return DialogControlLastCreated();
+}
+
+void lib1B69CECC_gf_InitialiseProductionTab () {
+    // Automatic Variable Declarations
+    // Implementation
+    DialogControlCreateInPanelFromTemplate(lib1B69CECC_gf_DialogItemFromHookup(c_triggerControlTypePanel, "UIContainer/FullscreenUpperContainer/PeepLeaderPanel"), c_triggerControlTypePanel, "GameUI/GameUI/UIContainer/FullscreenUpperContainer/LeaderPanel");
+    lib1B69CECC_gv_ui_leader = DialogControlLastCreated();
+}
+
 void lib1B69CECC_gf_InitialiseResourceIcons () {
     // Automatic Variable Declarations
     // Implementation
@@ -1729,6 +1744,7 @@ void lib1B69CECC_gf_EnableObserverUI (playergroup lp_observers, playergroup lp_p
     DialogControlSetVisible(lib1B69CECC_gv_playerOne.lv_ui_player_stats, lp_observers, true);
     DialogControlSetVisible(lib1B69CECC_gv_playerTwo.lv_ui_player_stats, lp_observers, true);
     TriggerExecute(lib1B69CECC_gt_UpdateResourceIconsTrigger, true, false);
+    DialogControlSetVisible(lib1B69CECC_gv_ui_leader, lib1B69CECC_gv_oBSERVERS, true);
 }
 
 void lib1B69CECC_gf_EnablePlayerUI (playergroup lp_players) {
@@ -1746,6 +1762,7 @@ void lib1B69CECC_gf_EnablePlayerUI (playergroup lp_players) {
     DialogControlSetVisible(lib1B69CECC_gv_ui_playpanel, lp_players, false);
     DialogControlSetVisible(lib1B69CECC_gv_playerOne.lv_ui_player_stats, lp_players, false);
     DialogControlSetVisible(lib1B69CECC_gv_playerTwo.lv_ui_player_stats, lp_players, false);
+    DialogControlSetVisible(lib1B69CECC_gv_ui_leader, lib1B69CECC_gv_pLAYERS, false);
 }
 
 void lib1B69CECC_gf_HideRevealDialog (int lp_player) {
@@ -2590,6 +2607,7 @@ bool lib1B69CECC_gt_MeleeInitialization_Func (bool testConds, bool runActions) {
     lib1B69CECC_gf_InitialiseGGMenu();
     lib1B69CECC_gf_InitialiseRevealDialog();
     lib1B69CECC_gf_InitialiseClock();
+    lib1B69CECC_gf_InitialiseProductionTab();
     lib1B69CECC_gf_InitialiseLobby();
     return true;
 }
