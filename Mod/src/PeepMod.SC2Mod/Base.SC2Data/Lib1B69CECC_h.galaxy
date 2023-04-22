@@ -30,6 +30,7 @@ struct lib1B69CECC_gs_PlayerStats {
     int lv_ui_energymax_label;
     int lv_ui_energycurrent_label;
     int lv_ui_player_stats;
+    int lv_ui_race_state;
 };
 
 struct lib1B69CECC_gs_Lobby {
@@ -74,6 +75,7 @@ int lib1B69CECC_gv_pLATES_COUNT;
 lib1B69CECC_gs_Lobby lib1B69CECC_gv_theLobby;
 
 // Function Declarations
+void lib1B69CECC_gf_DisplayRaceIcon (int lp_player, structref<lib1B69CECC_gs_PlayerStats> lp_player_stats);
 void lib1B69CECC_gf_StartClock ();
 void lib1B69CECC_gf_StopClock ();
 void lib1B69CECC_gf_ResetRevealStatus ();

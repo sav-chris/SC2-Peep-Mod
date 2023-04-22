@@ -58,6 +58,7 @@ void lib1B69CECC_InitVariables () {
     lib1B69CECC_gv_playerOne.lv_ui_energymax_label = c_invalidDialogControlId;
     lib1B69CECC_gv_playerOne.lv_ui_energycurrent_label = c_invalidDialogControlId;
     lib1B69CECC_gv_playerOne.lv_ui_player_stats = c_invalidDialogControlId;
+    lib1B69CECC_gv_playerOne.lv_ui_race_state = c_invalidDialogControlId;
     lib1B69CECC_gv_playerTwo.lv_ui_minerals_label = c_invalidDialogControlId;
     lib1B69CECC_gv_playerTwo.lv_ui_gas_label = c_invalidDialogControlId;
     lib1B69CECC_gv_playerTwo.lv_ui_supplymax_label = c_invalidDialogControlId;
@@ -65,10 +66,49 @@ void lib1B69CECC_InitVariables () {
     lib1B69CECC_gv_playerTwo.lv_ui_energymax_label = c_invalidDialogControlId;
     lib1B69CECC_gv_playerTwo.lv_ui_energycurrent_label = c_invalidDialogControlId;
     lib1B69CECC_gv_playerTwo.lv_ui_player_stats = c_invalidDialogControlId;
+    lib1B69CECC_gv_playerTwo.lv_ui_race_state = c_invalidDialogControlId;
     lib1B69CECC_gv_theLobby.lv_players = PlayerGroupEmpty();
 }
 
 // Functions
+void lib1B69CECC_gf_DisplayRaceIcon (int lp_player, structref<lib1B69CECC_gs_PlayerStats> lp_player_stats) {
+    // Variable Declarations
+    string lv_theRace;
+    string lv_race_text;
+
+    // Automatic Variable Declarations
+    string autoF5B8B2E6_val;
+
+    // Variable Initialization
+    lv_race_text = "";
+
+    // Implementation
+    lv_theRace = PlayerRace(lp_player);
+    autoF5B8B2E6_val = lv_theRace;
+    if (autoF5B8B2E6_val == "Terr") {
+        lv_race_text = "Terran";
+    }
+    else if (autoF5B8B2E6_val == "Zerg") {
+        lv_race_text = "Zerg";
+    }
+    else if (autoF5B8B2E6_val == "Prot") {
+        lv_race_text = "Protoss";
+    }
+    else if (autoF5B8B2E6_val == "Gen") {
+        lv_race_text = "Genetron";
+    }
+    else if (autoF5B8B2E6_val == "Xayi") {
+        lv_race_text = "Xayid";
+    }
+    else if (autoF5B8B2E6_val == "Keir") {
+        lv_race_text = "Keiron";
+    }
+    else {
+        lv_race_text = "Terran";
+    }
+    DialogControlSetAnimationState(lp_player_stats.lv_ui_player_stats, lib1B69CECC_gv_oBSERVERS, "RaceState", lv_race_text);
+}
+
 void lib1B69CECC_gf_StartClock () {
     // Automatic Variable Declarations
     // Implementation
@@ -1875,8 +1915,10 @@ void lib1B69CECC_gf_DependencyMessage () {
 bool lib1B69CECC_gt_UpdateResourceIconsTrigger_Func (bool testConds, bool runActions) {
     // Variable Declarations
     const fixed lv_dETA_T = 0.0625;
-    playergroup lv_playe_one;
-    playergroup lv_playe_two;
+    playergroup lv_player_one;
+    playergroup lv_player_two;
+    string lv_theRace;
+    string lv_race_text;
 
     // Automatic Variable Declarations
     playergroup autoB69F3BB4_g;
@@ -1885,22 +1927,22 @@ bool lib1B69CECC_gt_UpdateResourceIconsTrigger_Func (bool testConds, bool runAct
     int auto620D320A_var;
 
     // Variable Initialization
-    lv_playe_one = PlayerGroupEmpty();
-    lv_playe_two = PlayerGroupEmpty();
+    lv_player_one = PlayerGroupEmpty();
+    lv_player_two = PlayerGroupEmpty();
+    lv_race_text = "";
 
     // Actions
     if (!runActions) {
         return true;
     }
 
+    lv_player_one = lib1B69CECC_gf_choose_a_player(lib1B69CECC_gv_pLAYERS);
+    lv_player_two = PlayerGroupCopy(lib1B69CECC_gv_pLAYERS);
+    libNtve_gf_RemovePlayerGroupFromPlayerGroup(lv_player_one, lv_player_two);
+    lv_player_two = lib1B69CECC_gf_choose_a_player(lv_player_two);
     while ((lib1B69CECC_gv_DETECT_VICTORY == true)) {
-        TriggerDebugOutput(1, StringExternal("Param/Value/lib_1B69CECC_BFD64487"), true);
         Wait(lv_dETA_T, c_timeGame);
-        lv_playe_one = lib1B69CECC_gf_choose_a_player(lib1B69CECC_gv_pLAYERS);
-        lv_playe_two = PlayerGroupCopy(lib1B69CECC_gv_pLAYERS);
-        libNtve_gf_RemovePlayerGroupFromPlayerGroup(lv_playe_one, lv_playe_two);
-        lv_playe_two = lib1B69CECC_gf_choose_a_player(lv_playe_two);
-        autoB69F3BB4_g = lv_playe_one;
+        autoB69F3BB4_g = lv_player_one;
         autoB69F3BB4_var = -1;
         while (true) {
             autoB69F3BB4_var = PlayerGroupNextPlayer(autoB69F3BB4_g, autoB69F3BB4_var);
@@ -1911,8 +1953,9 @@ bool lib1B69CECC_gt_UpdateResourceIconsTrigger_Func (bool testConds, bool runAct
             libNtve_gf_SetDialogItemCurrentValue(lib1B69CECC_gv_playerOne.lv_ui_supplymax_label, PlayerScoreValueGetAsInt(autoB69F3BB4_var, "FoodMade"), PlayerGroupAll());
             libNtve_gf_SetDialogItemCurrentValue(lib1B69CECC_gv_playerOne.lv_ui_energycurrent_label, 500.0, PlayerGroupAll());
             libNtve_gf_SetDialogItemCurrentValue(lib1B69CECC_gv_playerOne.lv_ui_energymax_label, 100000.0, PlayerGroupAll());
+            lib1B69CECC_gf_DisplayRaceIcon(autoB69F3BB4_var, lib1B69CECC_gv_playerOne);
         }
-        auto620D320A_g = lv_playe_two;
+        auto620D320A_g = lv_player_two;
         auto620D320A_var = -1;
         while (true) {
             auto620D320A_var = PlayerGroupNextPlayer(auto620D320A_g, auto620D320A_var);
@@ -1923,6 +1966,7 @@ bool lib1B69CECC_gt_UpdateResourceIconsTrigger_Func (bool testConds, bool runAct
             libNtve_gf_SetDialogItemCurrentValue(lib1B69CECC_gv_playerTwo.lv_ui_supplymax_label, PlayerScoreValueGetAsInt(auto620D320A_var, "FoodMade"), PlayerGroupAll());
             libNtve_gf_SetDialogItemCurrentValue(lib1B69CECC_gv_playerTwo.lv_ui_energycurrent_label, 500.0, PlayerGroupAll());
             libNtve_gf_SetDialogItemCurrentValue(lib1B69CECC_gv_playerTwo.lv_ui_energymax_label, 100000.0, PlayerGroupAll());
+            lib1B69CECC_gf_DisplayRaceIcon(auto620D320A_var, lib1B69CECC_gv_playerTwo);
         }
     }
     return true;

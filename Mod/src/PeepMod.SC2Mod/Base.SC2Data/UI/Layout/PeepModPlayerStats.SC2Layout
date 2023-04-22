@@ -8,6 +8,38 @@
         <Width val="1000"/>
         <Height val="32"/>
 
+        <StateGroup name="RaceState">
+            <State name="Terran">
+                <When type="AnimationState" frame="$this" RaceState="Terran"/>
+                <Action type="SetProperty" frame="$this/RaceIcon" Texture="Assets/Textures/icon-1v1-terran.dds" />
+            </State>
+
+            <State name="Protoss">
+                <When type="AnimationState" frame="$this" RaceState="Protoss"/>
+                <Action type="SetProperty" frame="$this/RaceIcon" Texture="Assets/Textures/icon-1v1-protoss.dds" />
+            </State>
+
+            <State name="Zerg">
+                <When type="AnimationState" frame="$this" RaceState="Zerg"/>
+                <Action type="SetProperty" frame="$this/RaceIcon" Texture="Assets/Textures/icon-1v1-zerg.dds" />
+            </State>
+
+            <State name="Genetron">
+                <When type="AnimationState" frame="$this" RaceState="Genetron"/>
+                <Action type="SetProperty" frame="$this/RaceIcon" Texture="Assets/Textures/icon-1v1-genetron.dds" />
+            </State>
+
+            <State name="Keiron">
+                <When type="AnimationState" frame="$this" RaceState="Keiron"/>
+                <Action type="SetProperty" frame="$this/RaceIcon" Texture="Assets/Textures/icon-1v1-keiron.dds" />
+            </State>
+
+            <State name="Xayid">
+                <When type="AnimationState" frame="$this" RaceState="Xayid"/>
+                <Action type="SetProperty" frame="$this/RaceIcon" Texture="Assets/Textures/icon-1v1-xayid.dds" />
+            </State>
+        </StateGroup>
+
         <Frame type="Image" name="RaceIcon">
             <Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
             <Anchor side="Left" relative="$parent/EnergyIcon" pos="Min" offset="250"/>
