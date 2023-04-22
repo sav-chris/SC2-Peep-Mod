@@ -95,6 +95,8 @@ bool lib1B69CECC_gf_IsPlayeralreadyinrecord (int lp_player);
 void lib1B69CECC_gf_StartRevealTimerCountdown (int lp_player, int lp_index);
 void lib1B69CECC_gf_StartRevealTimer (int lp_player);
 bool lib1B69CECC_gf_ShouldPlayerBeRevealed (int lp_player);
+void lib1B69CECC_gf_ResetAllScores ();
+void lib1B69CECC_gf_ResetScore (int lp_player);
 void lib1B69CECC_gf_RecordPlatesonMap ();
 void lib1B69CECC_gf_RecordBlueMineralsonMap ();
 void lib1B69CECC_gf_RecordRichMineralsonMap ();

@@ -341,6 +341,42 @@ bool lib1B69CECC_gf_ShouldPlayerBeRevealed (int lp_player) {
     return (UnitGroupCount(lv_units, c_unitCountAlive) == 0);
 }
 
+void lib1B69CECC_gf_ResetAllScores () {
+    // Automatic Variable Declarations
+    playergroup autoE2ADD1C2_g;
+    int autoE2ADD1C2_var;
+
+    // Implementation
+    autoE2ADD1C2_g = lib1B69CECC_gf_nonneutral_players();
+    autoE2ADD1C2_var = -1;
+    while (true) {
+        autoE2ADD1C2_var = PlayerGroupNextPlayer(autoE2ADD1C2_g, autoE2ADD1C2_var);
+        if (autoE2ADD1C2_var < 0) { break; }
+        lib1B69CECC_gf_ResetScore(autoE2ADD1C2_var);
+    }
+}
+
+void lib1B69CECC_gf_ResetScore (int lp_player) {
+    // Automatic Variable Declarations
+    // Implementation
+    PlayerModifyPropertyInt(lp_player, c_playerPropSuppliesLimit, c_playerPropOperSetTo, 200);
+    PlayerModifyPropertyInt(lp_player, c_playerPropMinerals, c_playerPropOperSetTo, 0);
+    PlayerModifyPropertyInt(lp_player, c_playerPropMineralsCollected, c_playerPropOperSetTo, 0);
+    PlayerModifyPropertyInt(lp_player, c_playerPropVespene, c_playerPropOperSetTo, 0);
+    PlayerModifyPropertyInt(lp_player, c_playerPropVespeneCollected, c_playerPropOperSetTo, 0);
+    PlayerScoreValueSetFromInt(lp_player, "UnitsLostCount", 0);
+    PlayerScoreValueSetFromInt(lp_player, "ResourceLostArmy", 0);
+    PlayerScoreValueSetFromInt(lp_player, "UnitsLostValue", 0);
+    PlayerScoreValueSetFromInt(lp_player, "MineralsLostArmy", 0);
+    PlayerScoreValueSetFromInt(lp_player, "VespeneLostArmy", 0);
+    PlayerScoreValueSetFromInt(lp_player, "ArmySpendingTotal", 0);
+    PlayerScoreValueSetFromInt(lp_player, "EconomySpendingTotal", 0);
+    PlayerScoreValueSetFromInt(lp_player, "UpgradeSpendingSampled", 0);
+    PlayerScoreValueSetFromInt(lp_player, "UpgradeSpendingTotal", 0);
+    PlayerScoreValueSetFromInt(lp_player, "ResourceValueArmySampled", 0);
+    PlayerScoreValueSetFromInt(lp_player, "APM", 0);
+}
+
 void lib1B69CECC_gf_RecordPlatesonMap () {
     // Variable Declarations
     point lv_pos;
