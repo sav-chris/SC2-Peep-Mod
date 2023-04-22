@@ -1095,9 +1095,9 @@ void lib1B69CECC_gf_InitialiseGame (playergroup lp_lobby_Players) {
     libNtve_gf_SetPlayerGroupAlliance(lib1B69CECC_gv_pLAYERS, libNtve_ge_AllianceSetting_Enemy);
     libNtve_gf_SetPlayerGroupAlliance(lib1B69CECC_gv_oBSERVERS, libNtve_ge_AllianceSetting_Ally);
     lib1B69CECC_gf_HideTimerWindow();
+    lib1B69CECC_gf_StartVictoryDetection();
     lib1B69CECC_gf_EnableObserverUI(lib1B69CECC_gv_oBSERVERS, lib1B69CECC_gv_pLAYERS);
     lib1B69CECC_gf_EnablePlayerUI(lib1B69CECC_gv_pLAYERS);
-    lib1B69CECC_gf_StartVictoryDetection();
     lib1B69CECC_gf_StartClock();
 }
 
@@ -1488,22 +1488,16 @@ void lib1B69CECC_gf_InitialiseResourceIcons () {
     lib1B69CECC_gv_playerOne.lv_ui_player_stats = DialogControlLastCreated();
     DialogControlHookupStandard(c_triggerControlTypeCountdownLabel, "UIContainer/FullscreenUpperContainer/PlayerOneStats/MineralsLabel");
     lib1B69CECC_gv_playerOne.lv_ui_minerals_label = DialogControlLastCreated();
-    libNtve_gf_SetDialogItemCurrentValue(lib1B69CECC_gv_playerOne.lv_ui_minerals_label, 12345.0, PlayerGroupAll());
     DialogControlHookupStandard(c_triggerControlTypeCountdownLabel, "UIContainer/FullscreenUpperContainer/PlayerOneStats/GasLabel");
     lib1B69CECC_gv_playerOne.lv_ui_gas_label = DialogControlLastCreated();
-    libNtve_gf_SetDialogItemCurrentValue(lib1B69CECC_gv_playerOne.lv_ui_gas_label, 12345.0, PlayerGroupAll());
     DialogControlHookupStandard(c_triggerControlTypeCountdownLabel, "UIContainer/FullscreenUpperContainer/PlayerOneStats/SupplyCurrent");
     lib1B69CECC_gv_playerOne.lv_ui_supplycurrent_label = DialogControlLastCreated();
-    libNtve_gf_SetDialogItemCurrentValue(lib1B69CECC_gv_playerOne.lv_ui_supplycurrent_label, 150.0, PlayerGroupAll());
     DialogControlHookupStandard(c_triggerControlTypeCountdownLabel, "UIContainer/FullscreenUpperContainer/PlayerOneStats/SupplyMax");
     lib1B69CECC_gv_playerOne.lv_ui_supplymax_label = DialogControlLastCreated();
-    libNtve_gf_SetDialogItemCurrentValue(lib1B69CECC_gv_playerOne.lv_ui_supplymax_label, 200.0, PlayerGroupAll());
     DialogControlHookupStandard(c_triggerControlTypeCountdownLabel, "UIContainer/FullscreenUpperContainer/PlayerOneStats/EnergyCurrent");
     lib1B69CECC_gv_playerOne.lv_ui_energycurrent_label = DialogControlLastCreated();
-    libNtve_gf_SetDialogItemCurrentValue(lib1B69CECC_gv_playerOne.lv_ui_energycurrent_label, 500.0, PlayerGroupAll());
     DialogControlHookupStandard(c_triggerControlTypeCountdownLabel, "UIContainer/FullscreenUpperContainer/PlayerOneStats/EnergyMax");
     lib1B69CECC_gv_playerOne.lv_ui_energymax_label = DialogControlLastCreated();
-    libNtve_gf_SetDialogItemCurrentValue(lib1B69CECC_gv_playerOne.lv_ui_energymax_label, 100000.0, PlayerGroupAll());
     DialogControlHookupStandard(c_triggerControlTypePanel, "UIContainer/FullscreenUpperContainer/PlayerTwoStats");
     lib1B69CECC_gv_playerTwo.lv_ui_player_stats = DialogControlLastCreated();
     DialogControlHookupStandard(c_triggerControlTypeCountdownLabel, "UIContainer/FullscreenUpperContainer/PlayerTwoStats/MineralsLabel");
@@ -1640,6 +1634,7 @@ void lib1B69CECC_gf_EnableObserverUI (playergroup lp_observers, playergroup lp_p
     }
     DialogControlSetVisible(lib1B69CECC_gv_playerOne.lv_ui_player_stats, lp_observers, true);
     DialogControlSetVisible(lib1B69CECC_gv_playerTwo.lv_ui_player_stats, lp_observers, true);
+    TriggerExecute(lib1B69CECC_gt_UpdateResourceIconsTrigger, true, false);
 }
 
 void lib1B69CECC_gf_EnablePlayerUI (playergroup lp_players) {
@@ -1875,22 +1870,67 @@ void lib1B69CECC_gf_DependencyMessage () {
 
 // Triggers
 //--------------------------------------------------------------------------------------------------
-// Trigger: Untitled Trigger 001
+// Trigger: Update Resource Icons Trigger
 //--------------------------------------------------------------------------------------------------
-bool lib1B69CECC_gt_UntitledTrigger001_Func (bool testConds, bool runActions) {
+bool lib1B69CECC_gt_UpdateResourceIconsTrigger_Func (bool testConds, bool runActions) {
+    // Variable Declarations
+    const fixed lv_dETA_T = 0.0625;
+    playergroup lv_playe_one;
+    playergroup lv_playe_two;
+
     // Automatic Variable Declarations
+    playergroup autoB69F3BB4_g;
+    int autoB69F3BB4_var;
+    playergroup auto620D320A_g;
+    int auto620D320A_var;
+
+    // Variable Initialization
+    lv_playe_one = PlayerGroupEmpty();
+    lv_playe_two = PlayerGroupEmpty();
+
     // Actions
     if (!runActions) {
         return true;
     }
 
-    Wait(0.0625, c_timeGame);
+    while ((lib1B69CECC_gv_DETECT_VICTORY == true)) {
+        TriggerDebugOutput(1, StringExternal("Param/Value/lib_1B69CECC_BFD64487"), true);
+        Wait(lv_dETA_T, c_timeGame);
+        lv_playe_one = lib1B69CECC_gf_choose_a_player(lib1B69CECC_gv_pLAYERS);
+        lv_playe_two = PlayerGroupCopy(lib1B69CECC_gv_pLAYERS);
+        libNtve_gf_RemovePlayerGroupFromPlayerGroup(lv_playe_one, lv_playe_two);
+        lv_playe_two = lib1B69CECC_gf_choose_a_player(lv_playe_two);
+        autoB69F3BB4_g = lv_playe_one;
+        autoB69F3BB4_var = -1;
+        while (true) {
+            autoB69F3BB4_var = PlayerGroupNextPlayer(autoB69F3BB4_g, autoB69F3BB4_var);
+            if (autoB69F3BB4_var < 0) { break; }
+            libNtve_gf_SetDialogItemCurrentValue(lib1B69CECC_gv_playerOne.lv_ui_minerals_label, PlayerScoreValueGetAsInt(autoB69F3BB4_var, "MineralsCurrent"), PlayerGroupAll());
+            libNtve_gf_SetDialogItemCurrentValue(lib1B69CECC_gv_playerOne.lv_ui_gas_label, PlayerScoreValueGetAsInt(autoB69F3BB4_var, "VespeneCurrent"), PlayerGroupAll());
+            libNtve_gf_SetDialogItemCurrentValue(lib1B69CECC_gv_playerOne.lv_ui_supplycurrent_label, PlayerScoreValueGetAsInt(autoB69F3BB4_var, "FoodUsed"), PlayerGroupAll());
+            libNtve_gf_SetDialogItemCurrentValue(lib1B69CECC_gv_playerOne.lv_ui_supplymax_label, PlayerScoreValueGetAsInt(autoB69F3BB4_var, "FoodMade"), PlayerGroupAll());
+            libNtve_gf_SetDialogItemCurrentValue(lib1B69CECC_gv_playerOne.lv_ui_energycurrent_label, 500.0, PlayerGroupAll());
+            libNtve_gf_SetDialogItemCurrentValue(lib1B69CECC_gv_playerOne.lv_ui_energymax_label, 100000.0, PlayerGroupAll());
+        }
+        auto620D320A_g = lv_playe_two;
+        auto620D320A_var = -1;
+        while (true) {
+            auto620D320A_var = PlayerGroupNextPlayer(auto620D320A_g, auto620D320A_var);
+            if (auto620D320A_var < 0) { break; }
+            libNtve_gf_SetDialogItemCurrentValue(lib1B69CECC_gv_playerTwo.lv_ui_minerals_label, PlayerScoreValueGetAsInt(auto620D320A_var, "MineralsCurrent"), PlayerGroupAll());
+            libNtve_gf_SetDialogItemCurrentValue(lib1B69CECC_gv_playerTwo.lv_ui_gas_label, PlayerScoreValueGetAsInt(auto620D320A_var, "VespeneCurrent"), PlayerGroupAll());
+            libNtve_gf_SetDialogItemCurrentValue(lib1B69CECC_gv_playerTwo.lv_ui_supplycurrent_label, PlayerScoreValueGetAsInt(auto620D320A_var, "FoodUsed"), PlayerGroupAll());
+            libNtve_gf_SetDialogItemCurrentValue(lib1B69CECC_gv_playerTwo.lv_ui_supplymax_label, PlayerScoreValueGetAsInt(auto620D320A_var, "FoodMade"), PlayerGroupAll());
+            libNtve_gf_SetDialogItemCurrentValue(lib1B69CECC_gv_playerTwo.lv_ui_energycurrent_label, 500.0, PlayerGroupAll());
+            libNtve_gf_SetDialogItemCurrentValue(lib1B69CECC_gv_playerTwo.lv_ui_energymax_label, 100000.0, PlayerGroupAll());
+        }
+    }
     return true;
 }
 
 //--------------------------------------------------------------------------------------------------
-void lib1B69CECC_gt_UntitledTrigger001_Init () {
-    lib1B69CECC_gt_UntitledTrigger001 = TriggerCreate("lib1B69CECC_gt_UntitledTrigger001_Func");
+void lib1B69CECC_gt_UpdateResourceIconsTrigger_Init () {
+    lib1B69CECC_gt_UpdateResourceIconsTrigger = TriggerCreate("lib1B69CECC_gt_UpdateResourceIconsTrigger_Func");
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -2445,7 +2485,7 @@ void lib1B69CECC_gt_MeleeInitialization_Init () {
 }
 
 void lib1B69CECC_InitTriggers () {
-    lib1B69CECC_gt_UntitledTrigger001_Init();
+    lib1B69CECC_gt_UpdateResourceIconsTrigger_Init();
     lib1B69CECC_gt_SetTimeTrigger_Init();
     lib1B69CECC_gt_RevealCountdownTrigger_Init();
     lib1B69CECC_gt_DetectRevealTrigger_Init();
