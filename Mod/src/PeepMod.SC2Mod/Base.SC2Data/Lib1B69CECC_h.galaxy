@@ -53,7 +53,7 @@ timer lib1B69CECC_gv_tmrDetectVictory;
 playergroup lib1B69CECC_gv_pLAYERS;
 playergroup lib1B69CECC_gv_oBSERVERS;
 lib1B69CECC_gs_LobbyTimer lib1B69CECC_gv_lobbyTimer;
-int lib1B69CECC_gv_ui_leader;
+int lib1B69CECC_gv_ui_production_tab;
 timer lib1B69CECC_gv_ui_matchTime;
 int lib1B69CECC_gv_ui_clock;
 int lib1B69CECC_gv_ui_clocklabel;

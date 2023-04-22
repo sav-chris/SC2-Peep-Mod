@@ -31,7 +31,7 @@ void lib1B69CECC_InitVariables () {
     lib1B69CECC_gv_oBSERVERS = PlayerGroupEmpty();
     lib1B69CECC_gv_lobbyTimer.lv_startTime = CurrentDateTimeGet();
     lib1B69CECC_gv_lobbyTimer.lv_timer = TimerCreate();
-    lib1B69CECC_gv_ui_leader = c_invalidDialogControlId;
+    lib1B69CECC_gv_ui_production_tab = c_invalidDialogControlId;
     lib1B69CECC_gv_ui_matchTime = TimerCreate();
     lib1B69CECC_gv_ui_clock = c_invalidDialogId;
     lib1B69CECC_gv_ui_clocklabel = c_invalidDialogControlId;
@@ -1589,7 +1589,7 @@ void lib1B69CECC_gf_InitialiseProductionTab () {
     // Automatic Variable Declarations
     // Implementation
     DialogControlCreateInPanelFromTemplate(lib1B69CECC_gf_DialogItemFromHookup(c_triggerControlTypePanel, "UIContainer/FullscreenUpperContainer/PeepLeaderPanel"), c_triggerControlTypePanel, "GameUI/GameUI/UIContainer/FullscreenUpperContainer/LeaderPanel");
-    lib1B69CECC_gv_ui_leader = DialogControlLastCreated();
+    lib1B69CECC_gv_ui_production_tab = DialogControlLastCreated();
 }
 
 void lib1B69CECC_gf_InitialiseResourceIcons () {
@@ -1744,7 +1744,7 @@ void lib1B69CECC_gf_EnableObserverUI (playergroup lp_observers, playergroup lp_p
     DialogControlSetVisible(lib1B69CECC_gv_playerOne.lv_ui_player_stats, lp_observers, true);
     DialogControlSetVisible(lib1B69CECC_gv_playerTwo.lv_ui_player_stats, lp_observers, true);
     TriggerExecute(lib1B69CECC_gt_UpdateResourceIconsTrigger, true, false);
-    DialogControlSetVisible(lib1B69CECC_gv_ui_leader, lib1B69CECC_gv_oBSERVERS, true);
+    DialogControlSetVisible(lib1B69CECC_gv_ui_production_tab, lib1B69CECC_gv_oBSERVERS, true);
 }
 
 void lib1B69CECC_gf_EnablePlayerUI (playergroup lp_players) {
@@ -1762,7 +1762,7 @@ void lib1B69CECC_gf_EnablePlayerUI (playergroup lp_players) {
     DialogControlSetVisible(lib1B69CECC_gv_ui_playpanel, lp_players, false);
     DialogControlSetVisible(lib1B69CECC_gv_playerOne.lv_ui_player_stats, lp_players, false);
     DialogControlSetVisible(lib1B69CECC_gv_playerTwo.lv_ui_player_stats, lp_players, false);
-    DialogControlSetVisible(lib1B69CECC_gv_ui_leader, lib1B69CECC_gv_pLAYERS, false);
+    DialogControlSetVisible(lib1B69CECC_gv_ui_production_tab, lib1B69CECC_gv_pLAYERS, false);
 }
 
 void lib1B69CECC_gf_HideRevealDialog (int lp_player) {
@@ -1890,6 +1890,7 @@ void lib1B69CECC_gf_EnableLobbyUI () {
     DialogControlSetVisible(lib1B69CECC_gv_ui_playpanel, lib1B69CECC_gf_nonneutral_players(), true);
     DialogControlSetVisible(lib1B69CECC_gv_playerOne.lv_ui_player_stats, lib1B69CECC_gf_nonneutral_players(), false);
     DialogControlSetVisible(lib1B69CECC_gv_playerTwo.lv_ui_player_stats, lib1B69CECC_gf_nonneutral_players(), false);
+    DialogControlSetVisible(lib1B69CECC_gv_ui_production_tab, PlayerGroupAll(), false);
 }
 
 void lib1B69CECC_gf_HideLobby () {
