@@ -12,12 +12,21 @@
     </Dependencies>
     <Screenshot>
         <File>
+            <Value>Gameplay Fuse KvZ Gresvan.tga</Value>
+            <Value>Gameplay KvZ Gresvan.tga</Value>
+            <Value>Gameplay Aegis KvZ Gresvan.tga</Value>
             <Value>race menu.tga</Value>
         </File>
         <CaptionId>
+            <Value>1</Value>
+            <Value>2</Value>
+            <Value>3</Value>
             <Value>5</Value>
         </CaptionId>
         <Flags>
+            <Value> </Value>
+            <Value> </Value>
+            <Value> </Value>
             <Value> </Value>
         </Flags>
     </Screenshot>
