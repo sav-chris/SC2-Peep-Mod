@@ -2,6 +2,7 @@
 <Desc>
 
     <Frame type="Frame" name="GameUI/UIContainer/FullscreenUpperContainer" file="GameUI">
+
         <Frame type="Frame" name="PeepModResourceIconPanel">            
             <Anchor side="Top" relative="$parent" pos="Min" offset="50"/>
             <Anchor side="Left" relative="$parent" pos="Max" offset="-900"/>
@@ -237,6 +238,16 @@
 
 
         </Frame>
+
+        
+        <Frame type="Frame" name="PlayerOneStats" template="PeepModPlayerStats/PlayerStats">
+            <Anchor side="Top" relative="$parent" pos="Min" offset="100"/>
+            <Anchor side="Left" relative="$parent" pos="Max" offset="-650"/>
+            <Visible val="True"/>
+        </Frame>
+
+
+
     </Frame>
 
 </Desc>

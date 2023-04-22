@@ -1760,7 +1760,7 @@ void lib1B69CECC_gf_HideTimerWindow () {
 void lib1B69CECC_gf_ShowTimerWindow () {
     // Automatic Variable Declarations
     // Implementation
-    TimerWindowShow(lib1B69CECC_gv_timerWindow, lib1B69CECC_gf_nonneutral_players(), false);
+    TimerWindowShow(lib1B69CECC_gv_timerWindow, lib1B69CECC_gf_nonneutral_players(), true);
 }
 
 void lib1B69CECC_gf_EnableLobbyUI () {
@@ -2082,6 +2082,8 @@ bool lib1B69CECC_gt_CleanUpWhenPlayerLeaves_Func (bool testConds, bool runAction
         if (lv_unit == null) { break; }
         UnitKill(lv_unit);
     }
+    lib1B69CECC_gf_LeaveLobby(EventPlayer(), lib1B69CECC_gv_theLobby);
+    lib1B69CECC_gf_RefreshLobby(lib1B69CECC_gv_theLobby);
     return true;
 }
 

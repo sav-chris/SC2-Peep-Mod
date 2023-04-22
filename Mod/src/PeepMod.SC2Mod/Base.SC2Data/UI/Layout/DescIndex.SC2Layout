@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <Desc>
+    <!-- Templates -->
+    <Include path="UI/Layout/PeepModPlayerStats.SC2Layout"/>
+    <!-- Layouts -->
     <Include path="UI/Layout/PeepModMenu.SC2Layout"/>
     <Include path="UI/Layout/GGMenu.SC2Layout"/>
     <Include path="UI/Layout/RevealMessageDialog.SC2Layout"/>
     <Include path="UI/Layout/PeepModResourceIcons.SC2Layout"/>
+    
 </Desc>
