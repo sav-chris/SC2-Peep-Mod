@@ -12,31 +12,43 @@
             <State name="Terran">
                 <When type="AnimationState" frame="$this" RaceState="Terran"/>
                 <Action type="SetProperty" frame="$this/RaceIcon" Texture="Assets/Textures/icon-1v1-terran.dds" />
+                <Action type="SetProperty" frame="$this/EnergyLabel" Visible="False"/>
+                <Action type="SetProperty" frame="$this/EnergyIcon" Visible="False"/>
             </State>
 
             <State name="Protoss">
                 <When type="AnimationState" frame="$this" RaceState="Protoss"/>
                 <Action type="SetProperty" frame="$this/RaceIcon" Texture="Assets/Textures/icon-1v1-protoss.dds" />
+                <Action type="SetProperty" frame="$this/EnergyLabel" Visible="False"/>
+                <Action type="SetProperty" frame="$this/EnergyIcon" Visible="False"/>
             </State>
 
             <State name="Zerg">
                 <When type="AnimationState" frame="$this" RaceState="Zerg"/>
                 <Action type="SetProperty" frame="$this/RaceIcon" Texture="Assets/Textures/icon-1v1-zerg.dds" />
+                <Action type="SetProperty" frame="$this/EnergyLabel" Visible="False"/>
+                <Action type="SetProperty" frame="$this/EnergyIcon" Visible="False"/>
             </State>
 
             <State name="Genetron">
                 <When type="AnimationState" frame="$this" RaceState="Genetron"/>
                 <Action type="SetProperty" frame="$this/RaceIcon" Texture="Assets/Textures/icon-1v1-genetron.dds" />
+                <Action type="SetProperty" frame="$this/EnergyLabel" Visible="True"/>
+                <Action type="SetProperty" frame="$this/EnergyIcon" Visible="True"/>
             </State>
 
             <State name="Keiron">
                 <When type="AnimationState" frame="$this" RaceState="Keiron"/>
                 <Action type="SetProperty" frame="$this/RaceIcon" Texture="Assets/Textures/icon-1v1-keiron.dds" />
+                <Action type="SetProperty" frame="$this/EnergyLabel" Visible="False"/>
+                <Action type="SetProperty" frame="$this/EnergyIcon" Visible="False"/>
             </State>
 
             <State name="Xayid">
                 <When type="AnimationState" frame="$this" RaceState="Xayid"/>
                 <Action type="SetProperty" frame="$this/RaceIcon" Texture="Assets/Textures/icon-1v1-xayid.dds" />
+                <Action type="SetProperty" frame="$this/EnergyLabel" Visible="False"/>
+                <Action type="SetProperty" frame="$this/EnergyIcon" Visible="False"/>
             </State>
         </StateGroup>
 
