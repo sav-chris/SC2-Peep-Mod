@@ -22,6 +22,11 @@ struct lib1B69CECC_gs_LobbyTimer {
     timer lv_timer;
 };
 
+struct lib1B69CECC_gs_GenetronEnergy {
+    fixed lv_energy_max;
+    fixed lv_energy_current;
+};
+
 struct lib1B69CECC_gs_PlayerStats {
     int lv_ui_minerals_label;
     int lv_ui_gas_label;
@@ -75,6 +80,8 @@ int lib1B69CECC_gv_pLATES_COUNT;
 lib1B69CECC_gs_Lobby lib1B69CECC_gv_theLobby;
 
 // Function Declarations
+fixed lib1B69CECC_gf_ComputeGenetronEnergyCurrent (int lp_player);
+fixed lib1B69CECC_gf_ComputeGenetronEnergyMax (int lp_player);
 void lib1B69CECC_gf_DisplayRaceIcon (int lp_player, structref<lib1B69CECC_gs_PlayerStats> lp_player_stats);
 void lib1B69CECC_gf_StartClock ();
 void lib1B69CECC_gf_StopClock ();

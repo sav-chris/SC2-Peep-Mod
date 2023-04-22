@@ -71,6 +71,60 @@ void lib1B69CECC_InitVariables () {
 }
 
 // Functions
+fixed lib1B69CECC_gf_ComputeGenetronEnergyCurrent (int lp_player) {
+    // Variable Declarations
+    fixed lv_genetron_energy_current_val;
+    unitgroup lv_genetron_energy_group;
+
+    // Automatic Variable Declarations
+    unitgroup auto3BE2108A_g;
+    int auto3BE2108A_u;
+    unit auto3BE2108A_var;
+
+    // Variable Initialization
+    lv_genetron_energy_group = UnitGroupEmpty();
+
+    // Implementation
+    UnitGroupAddUnitGroup(lv_genetron_energy_group, UnitGroup("ProcessingCore", lp_player, RegionEntireMap(), UnitFilter(0, 0, (1 << c_targetFilterMissile), (1 << (c_targetFilterUnderConstruction - 32)) | (1 << (c_targetFilterDead - 32)) | (1 << (c_targetFilterHidden - 32))), 0));
+    UnitGroupAddUnitGroup(lv_genetron_energy_group, UnitGroup("RelayTower", lp_player, RegionEntireMap(), UnitFilter(0, 0, (1 << c_targetFilterMissile), (1 << (c_targetFilterUnderConstruction - 32)) | (1 << (c_targetFilterDead - 32)) | (1 << (c_targetFilterHidden - 32))), 0));
+    lv_genetron_energy_current_val = 0.0;
+    auto3BE2108A_g = lv_genetron_energy_group;
+    auto3BE2108A_u = UnitGroupCount(auto3BE2108A_g, c_unitCountAll);
+    for (;; auto3BE2108A_u -= 1) {
+        auto3BE2108A_var = UnitGroupUnitFromEnd(auto3BE2108A_g, auto3BE2108A_u);
+        if (auto3BE2108A_var == null) { break; }
+        lv_genetron_energy_current_val += UnitGetPropertyFixed(auto3BE2108A_var, c_unitPropEnergy, c_unitPropCurrent);
+    }
+    return lv_genetron_energy_current_val;
+}
+
+fixed lib1B69CECC_gf_ComputeGenetronEnergyMax (int lp_player) {
+    // Variable Declarations
+    fixed lv_genetron_energy_max_val;
+    unitgroup lv_genetron_energy_group;
+
+    // Automatic Variable Declarations
+    unitgroup auto3C7CC871_g;
+    int auto3C7CC871_u;
+    unit auto3C7CC871_var;
+
+    // Variable Initialization
+    lv_genetron_energy_group = UnitGroupEmpty();
+
+    // Implementation
+    lv_genetron_energy_max_val = 0.0;
+    UnitGroupAddUnitGroup(lv_genetron_energy_group, UnitGroup("ProcessingCore", lp_player, RegionEntireMap(), UnitFilter(0, 0, (1 << c_targetFilterMissile), (1 << (c_targetFilterUnderConstruction - 32)) | (1 << (c_targetFilterDead - 32)) | (1 << (c_targetFilterHidden - 32))), 0));
+    UnitGroupAddUnitGroup(lv_genetron_energy_group, UnitGroup("RelayTower", lp_player, RegionEntireMap(), UnitFilter(0, 0, (1 << c_targetFilterMissile), (1 << (c_targetFilterUnderConstruction - 32)) | (1 << (c_targetFilterDead - 32)) | (1 << (c_targetFilterHidden - 32))), 0));
+    auto3C7CC871_g = lv_genetron_energy_group;
+    auto3C7CC871_u = UnitGroupCount(auto3C7CC871_g, c_unitCountAll);
+    for (;; auto3C7CC871_u -= 1) {
+        auto3C7CC871_var = UnitGroupUnitFromEnd(auto3C7CC871_g, auto3C7CC871_u);
+        if (auto3C7CC871_var == null) { break; }
+        lv_genetron_energy_max_val += UnitGetPropertyFixed(auto3C7CC871_var, c_unitPropEnergyMax, c_unitPropCurrent);
+    }
+    return lv_genetron_energy_max_val;
+}
+
 void lib1B69CECC_gf_DisplayRaceIcon (int lp_player, structref<lib1B69CECC_gs_PlayerStats> lp_player_stats) {
     // Variable Declarations
     string lv_theRace;
@@ -1951,8 +2005,8 @@ bool lib1B69CECC_gt_UpdateResourceIconsTrigger_Func (bool testConds, bool runAct
             libNtve_gf_SetDialogItemCurrentValue(lib1B69CECC_gv_playerOne.lv_ui_gas_label, PlayerScoreValueGetAsInt(autoB69F3BB4_var, "VespeneCurrent"), PlayerGroupAll());
             libNtve_gf_SetDialogItemCurrentValue(lib1B69CECC_gv_playerOne.lv_ui_supplycurrent_label, PlayerScoreValueGetAsInt(autoB69F3BB4_var, "FoodUsed"), PlayerGroupAll());
             libNtve_gf_SetDialogItemCurrentValue(lib1B69CECC_gv_playerOne.lv_ui_supplymax_label, PlayerScoreValueGetAsInt(autoB69F3BB4_var, "FoodMade"), PlayerGroupAll());
-            libNtve_gf_SetDialogItemCurrentValue(lib1B69CECC_gv_playerOne.lv_ui_energycurrent_label, 500.0, PlayerGroupAll());
-            libNtve_gf_SetDialogItemCurrentValue(lib1B69CECC_gv_playerOne.lv_ui_energymax_label, 100000.0, PlayerGroupAll());
+            libNtve_gf_SetDialogItemCurrentValue(lib1B69CECC_gv_playerOne.lv_ui_energycurrent_label, lib1B69CECC_gf_ComputeGenetronEnergyCurrent(autoB69F3BB4_var), PlayerGroupAll());
+            libNtve_gf_SetDialogItemCurrentValue(lib1B69CECC_gv_playerOne.lv_ui_energymax_label, lib1B69CECC_gf_ComputeGenetronEnergyMax(autoB69F3BB4_var), PlayerGroupAll());
             lib1B69CECC_gf_DisplayRaceIcon(autoB69F3BB4_var, lib1B69CECC_gv_playerOne);
         }
         auto620D320A_g = lv_player_two;
@@ -1964,8 +2018,8 @@ bool lib1B69CECC_gt_UpdateResourceIconsTrigger_Func (bool testConds, bool runAct
             libNtve_gf_SetDialogItemCurrentValue(lib1B69CECC_gv_playerTwo.lv_ui_gas_label, PlayerScoreValueGetAsInt(auto620D320A_var, "VespeneCurrent"), PlayerGroupAll());
             libNtve_gf_SetDialogItemCurrentValue(lib1B69CECC_gv_playerTwo.lv_ui_supplycurrent_label, PlayerScoreValueGetAsInt(auto620D320A_var, "FoodUsed"), PlayerGroupAll());
             libNtve_gf_SetDialogItemCurrentValue(lib1B69CECC_gv_playerTwo.lv_ui_supplymax_label, PlayerScoreValueGetAsInt(auto620D320A_var, "FoodMade"), PlayerGroupAll());
-            libNtve_gf_SetDialogItemCurrentValue(lib1B69CECC_gv_playerTwo.lv_ui_energycurrent_label, 500.0, PlayerGroupAll());
-            libNtve_gf_SetDialogItemCurrentValue(lib1B69CECC_gv_playerTwo.lv_ui_energymax_label, 100000.0, PlayerGroupAll());
+            libNtve_gf_SetDialogItemCurrentValue(lib1B69CECC_gv_playerTwo.lv_ui_energycurrent_label, lib1B69CECC_gf_ComputeGenetronEnergyCurrent(auto620D320A_var), PlayerGroupAll());
+            libNtve_gf_SetDialogItemCurrentValue(lib1B69CECC_gv_playerTwo.lv_ui_energymax_label, lib1B69CECC_gf_ComputeGenetronEnergyMax(auto620D320A_var), PlayerGroupAll());
             lib1B69CECC_gf_DisplayRaceIcon(auto620D320A_var, lib1B69CECC_gv_playerTwo);
         }
     }
