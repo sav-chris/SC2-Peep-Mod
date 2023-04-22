@@ -85,7 +85,7 @@
             <StartValue val="{$this/@CurrentValue}"/>
             <CurrentValue val="0"/>
             <Text val="0"/>
-            <Visible val="True"/>
+            <Visible val="False"/>
             <Style val="ResourcePanel"/>
         </Frame>
 

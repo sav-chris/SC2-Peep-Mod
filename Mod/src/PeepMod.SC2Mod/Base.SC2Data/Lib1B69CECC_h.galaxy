@@ -22,6 +22,15 @@ struct lib1B69CECC_gs_LobbyTimer {
     timer lv_timer;
 };
 
+struct lib1B69CECC_gs_PlayerStats {
+    int lv_ui_minerals_label;
+    int lv_ui_gas_label;
+    int lv_ui_supplymax_label;
+    int lv_ui_supplycurrent_label;
+    int lv_ui_energymax_label;
+    int lv_ui_energycurrent_label;
+};
+
 struct lib1B69CECC_gs_Lobby {
     playergroup lv_players;
 };
@@ -36,8 +45,6 @@ timer lib1B69CECC_gv_tmrDetectVictory;
 playergroup lib1B69CECC_gv_pLAYERS;
 playergroup lib1B69CECC_gv_oBSERVERS;
 lib1B69CECC_gs_LobbyTimer lib1B69CECC_gv_lobbyTimer;
-int lib1B69CECC_gv_ui_energymax;
-int lib1B69CECC_gv_ui_resource_icons;
 timer lib1B69CECC_gv_ui_matchTime;
 int lib1B69CECC_gv_ui_clock;
 int lib1B69CECC_gv_ui_clocklabel;
@@ -58,6 +65,8 @@ int lib1B69CECC_gv_ui_chat;
 int lib1B69CECC_gv_timerWindow;
 int lib1B69CECC_gv_ui_lobbyModal;
 int lib1B69CECC_gv_ui_LobbyListBox;
+lib1B69CECC_gs_PlayerStats lib1B69CECC_gv_playerOne;
+lib1B69CECC_gs_PlayerStats lib1B69CECC_gv_playerTwo;
 int lib1B69CECC_gv_rICH_MINERAL_FIELD_COUNT;
 int lib1B69CECC_gv_mINERAL_FIELD_COUNT;
 int lib1B69CECC_gv_pLATES_COUNT;
@@ -161,6 +170,7 @@ trigger lib1B69CECC_gt_DetectGG;
 trigger lib1B69CECC_gt_CleanUpWhenPlayerLeaves;
 trigger lib1B69CECC_gt_DetectVictory;
 trigger lib1B69CECC_gt_HandleTimeOut;
+trigger lib1B69CECC_gt_UntitledTrigger001;
 trigger lib1B69CECC_gt_ClickYes;
 trigger lib1B69CECC_gt_ClickNo;
 trigger lib1B69CECC_gt_ClickHelp;

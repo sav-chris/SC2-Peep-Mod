@@ -31,8 +31,6 @@ void lib1B69CECC_InitVariables () {
     lib1B69CECC_gv_oBSERVERS = PlayerGroupEmpty();
     lib1B69CECC_gv_lobbyTimer.lv_startTime = CurrentDateTimeGet();
     lib1B69CECC_gv_lobbyTimer.lv_timer = TimerCreate();
-    lib1B69CECC_gv_ui_energymax = c_invalidDialogControlId;
-    lib1B69CECC_gv_ui_resource_icons = c_invalidDialogControlId;
     lib1B69CECC_gv_ui_matchTime = TimerCreate();
     lib1B69CECC_gv_ui_clock = c_invalidDialogId;
     lib1B69CECC_gv_ui_clocklabel = c_invalidDialogControlId;
@@ -53,6 +51,18 @@ void lib1B69CECC_InitVariables () {
     lib1B69CECC_gv_timerWindow = c_timerWindowNone;
     lib1B69CECC_gv_ui_lobbyModal = c_invalidDialogId;
     lib1B69CECC_gv_ui_LobbyListBox = c_invalidDialogControlId;
+    lib1B69CECC_gv_playerOne.lv_ui_minerals_label = c_invalidDialogControlId;
+    lib1B69CECC_gv_playerOne.lv_ui_gas_label = c_invalidDialogControlId;
+    lib1B69CECC_gv_playerOne.lv_ui_supplymax_label = c_invalidDialogControlId;
+    lib1B69CECC_gv_playerOne.lv_ui_supplycurrent_label = c_invalidDialogControlId;
+    lib1B69CECC_gv_playerOne.lv_ui_energymax_label = c_invalidDialogControlId;
+    lib1B69CECC_gv_playerOne.lv_ui_energycurrent_label = c_invalidDialogControlId;
+    lib1B69CECC_gv_playerTwo.lv_ui_minerals_label = c_invalidDialogControlId;
+    lib1B69CECC_gv_playerTwo.lv_ui_gas_label = c_invalidDialogControlId;
+    lib1B69CECC_gv_playerTwo.lv_ui_supplymax_label = c_invalidDialogControlId;
+    lib1B69CECC_gv_playerTwo.lv_ui_supplycurrent_label = c_invalidDialogControlId;
+    lib1B69CECC_gv_playerTwo.lv_ui_energymax_label = c_invalidDialogControlId;
+    lib1B69CECC_gv_playerTwo.lv_ui_energycurrent_label = c_invalidDialogControlId;
     lib1B69CECC_gv_theLobby.lv_players = PlayerGroupEmpty();
 }
 
@@ -1470,60 +1480,26 @@ playergroup lib1B69CECC_gf_compute_winners (playergroup lp_players, playergroup 
 }
 
 void lib1B69CECC_gf_InitialiseResourceIcons () {
-    // Variable Declarations
-    int lv_genetron_energy_panel_ui;
-    int lv_genetron_energy_current_ui;
-    int lv_genetron_energy_max_ui;
-    int lv_genetron_energy_label_ui;
-    int lv_ui_minerals_label;
-    int lv_ui_gas_label;
-    int lv_ui_supplymax_label;
-    int lv_ui_supplycurrent_label;
-    int lv_ui_energymax_label;
-    int lv_ui_energycurrent_label;
-
     // Automatic Variable Declarations
-    // Variable Initialization
-    lv_genetron_energy_panel_ui = c_invalidDialogControlId;
-    lv_genetron_energy_current_ui = c_invalidDialogControlId;
-    lv_genetron_energy_max_ui = c_invalidDialogControlId;
-    lv_genetron_energy_label_ui = c_invalidDialogControlId;
-    lv_ui_minerals_label = c_invalidDialogControlId;
-    lv_ui_gas_label = c_invalidDialogControlId;
-    lv_ui_supplymax_label = c_invalidDialogControlId;
-    lv_ui_supplycurrent_label = c_invalidDialogControlId;
-    lv_ui_energymax_label = c_invalidDialogControlId;
-    lv_ui_energycurrent_label = c_invalidDialogControlId;
-
     // Implementation
-    DialogControlHookupStandard(c_triggerControlTypePanel, "UIContainer/FullscreenUpperContainer/PeepModResourceIconPanel");
-    lv_genetron_energy_panel_ui = DialogControlLastCreated();
-    DialogControlHookupStandard(c_triggerControlTypeCountdownLabel, "UIContainer/FullscreenUpperContainer/PeepModResourceIconPanel/EnergyCurrent");
-    lv_genetron_energy_current_ui = DialogControlLastCreated();
-    DialogControlHookupStandard(c_triggerControlTypeCountdownLabel, "UIContainer/FullscreenUpperContainer/PeepModResourceIconPanel/EnergyMax");
-    lv_genetron_energy_max_ui = DialogControlLastCreated();
-    DialogControlHookupStandard(c_triggerControlTypeCountdownLabel, "UIContainer/FullscreenUpperContainer/PeepModResourceIconPanel/EnergyLabel");
-    lv_genetron_energy_label_ui = DialogControlLastCreated();
-    libNtve_gf_SetDialogItemCurrentValue(lv_genetron_energy_max_ui, 123.0, PlayerGroupAll());
-    DialogControlSetVisible(lv_genetron_energy_panel_ui, PlayerGroupAll(), true);
-    DialogControlHookupStandard(c_triggerControlTypeCountdownLabel, "UIContainer/FullscreenUpperContainer/PeepModResourceIconPanel/MineralsLabel");
-    lv_ui_minerals_label = DialogControlLastCreated();
-    libNtve_gf_SetDialogItemCurrentValue(lv_ui_minerals_label, 54321.0, PlayerGroupAll());
-    DialogControlHookupStandard(c_triggerControlTypeCountdownLabel, "UIContainer/FullscreenUpperContainer/PeepModResourceIconPanel/GasLabel");
-    lv_ui_gas_label = DialogControlLastCreated();
-    libNtve_gf_SetDialogItemCurrentValue(lv_ui_gas_label, 55555.0, PlayerGroupAll());
-    DialogControlHookupStandard(c_triggerControlTypeCountdownLabel, "UIContainer/FullscreenUpperContainer/PeepModResourceIconPanel/SupplyMax");
-    lv_ui_supplymax_label = DialogControlLastCreated();
-    libNtve_gf_SetDialogItemCurrentValue(lv_ui_supplymax_label, 200.0, PlayerGroupAll());
-    DialogControlHookupStandard(c_triggerControlTypeCountdownLabel, "UIContainer/FullscreenUpperContainer/PeepModResourceIconPanel/SupplyCurrent");
-    lv_ui_supplycurrent_label = DialogControlLastCreated();
-    libNtve_gf_SetDialogItemCurrentValue(lv_ui_supplycurrent_label, 199.0, PlayerGroupAll());
-    DialogControlHookupStandard(c_triggerControlTypeCountdownLabel, "UIContainer/FullscreenUpperContainer/PeepModResourceIconPanel/EnergyCurrent");
-    lv_ui_energycurrent_label = DialogControlLastCreated();
-    libNtve_gf_SetDialogItemCurrentValue(lv_ui_energycurrent_label, 500.0, PlayerGroupAll());
-    DialogControlHookupStandard(c_triggerControlTypeCountdownLabel, "UIContainer/FullscreenUpperContainer/PeepModResourceIconPanel/EnergyMax");
-    lv_ui_energymax_label = DialogControlLastCreated();
-    libNtve_gf_SetDialogItemCurrentValue(lv_ui_energymax_label, 100000.0, PlayerGroupAll());
+    DialogControlHookupStandard(c_triggerControlTypeCountdownLabel, "UIContainer/FullscreenUpperContainer/PlayerOneStats/MineralsLabel");
+    lib1B69CECC_gv_playerOne.lv_ui_minerals_label = DialogControlLastCreated();
+    libNtve_gf_SetDialogItemCurrentValue(lib1B69CECC_gv_playerOne.lv_ui_minerals_label, 12345.0, PlayerGroupAll());
+    DialogControlHookupStandard(c_triggerControlTypeCountdownLabel, "UIContainer/FullscreenUpperContainer/PlayerOneStats/GasLabel");
+    lib1B69CECC_gv_playerOne.lv_ui_gas_label = DialogControlLastCreated();
+    libNtve_gf_SetDialogItemCurrentValue(lib1B69CECC_gv_playerOne.lv_ui_gas_label, 12345.0, PlayerGroupAll());
+    DialogControlHookupStandard(c_triggerControlTypeCountdownLabel, "UIContainer/FullscreenUpperContainer/PlayerOneStats/SupplyCurrent");
+    lib1B69CECC_gv_playerOne.lv_ui_supplycurrent_label = DialogControlLastCreated();
+    libNtve_gf_SetDialogItemCurrentValue(lib1B69CECC_gv_playerOne.lv_ui_supplycurrent_label, 150.0, PlayerGroupAll());
+    DialogControlHookupStandard(c_triggerControlTypeCountdownLabel, "UIContainer/FullscreenUpperContainer/PlayerOneStats/SupplyMax");
+    lib1B69CECC_gv_playerOne.lv_ui_supplymax_label = DialogControlLastCreated();
+    libNtve_gf_SetDialogItemCurrentValue(lib1B69CECC_gv_playerOne.lv_ui_supplymax_label, 200.0, PlayerGroupAll());
+    DialogControlHookupStandard(c_triggerControlTypeCountdownLabel, "UIContainer/FullscreenUpperContainer/PlayerOneStats/EnergyCurrent");
+    lib1B69CECC_gv_playerOne.lv_ui_energycurrent_label = DialogControlLastCreated();
+    libNtve_gf_SetDialogItemCurrentValue(lib1B69CECC_gv_playerOne.lv_ui_energycurrent_label, 500.0, PlayerGroupAll());
+    DialogControlHookupStandard(c_triggerControlTypeCountdownLabel, "UIContainer/FullscreenUpperContainer/PlayerOneStats/EnergyMax");
+    lib1B69CECC_gv_playerOne.lv_ui_energymax_label = DialogControlLastCreated();
+    libNtve_gf_SetDialogItemCurrentValue(lib1B69CECC_gv_playerOne.lv_ui_energymax_label, 100000.0, PlayerGroupAll());
 }
 
 void lib1B69CECC_gf_SetClockSkin () {
@@ -2172,6 +2148,25 @@ void lib1B69CECC_gt_HandleTimeOut_Init () {
 }
 
 //--------------------------------------------------------------------------------------------------
+// Trigger: Untitled Trigger 001
+//--------------------------------------------------------------------------------------------------
+bool lib1B69CECC_gt_UntitledTrigger001_Func (bool testConds, bool runActions) {
+    // Automatic Variable Declarations
+    // Actions
+    if (!runActions) {
+        return true;
+    }
+
+    Wait(0.0625, c_timeGame);
+    return true;
+}
+
+//--------------------------------------------------------------------------------------------------
+void lib1B69CECC_gt_UntitledTrigger001_Init () {
+    lib1B69CECC_gt_UntitledTrigger001 = TriggerCreate("lib1B69CECC_gt_UntitledTrigger001_Func");
+}
+
+//--------------------------------------------------------------------------------------------------
 // Trigger: Click Yes
 //--------------------------------------------------------------------------------------------------
 bool lib1B69CECC_gt_ClickYes_Func (bool testConds, bool runActions) {
@@ -2426,6 +2421,7 @@ void lib1B69CECC_InitTriggers () {
     lib1B69CECC_gt_CleanUpWhenPlayerLeaves_Init();
     lib1B69CECC_gt_DetectVictory_Init();
     lib1B69CECC_gt_HandleTimeOut_Init();
+    lib1B69CECC_gt_UntitledTrigger001_Init();
     lib1B69CECC_gt_ClickYes_Init();
     lib1B69CECC_gt_ClickNo_Init();
     lib1B69CECC_gt_ClickHelp_Init();
