@@ -112,6 +112,7 @@ void lib1B69CECC_gf_InitialiseStalemateDetection () {
         if (auto3D44715D_var < 0) { break; }
         lib1B69CECC_gv_st_player_two = auto3D44715D_var;
     }
+    TimerStart(lib1B69CECC_gv_tmr_stalemate_message, lib1B69CECC_gv_sTALEMATE_DELTA_TIME, false, c_timeGame);
 }
 
 void lib1B69CECC_gf_EndMatchInStalemate () {
@@ -2099,7 +2100,7 @@ bool lib1B69CECC_gt_StalemateMessageTrigger_Func (bool testConds, bool runAction
 
     lib1B69CECC_gf_DisplayStalemateWarning();
     libNtve_gf_StopTimer(lib1B69CECC_gv_tmr_stalemate_message);
-    TimerRestart(lib1B69CECC_gv_tmr_stalemate);
+    TimerStart(lib1B69CECC_gv_tmr_stalemate, lib1B69CECC_gv_sTALEMATE_DELTA_TIME, false, c_timeGame);
     return true;
 }
 
@@ -2263,7 +2264,7 @@ bool lib1B69CECC_gt_UpdateResourceIconsTrigger_Func (bool testConds, bool runAct
             libNtve_gf_SetDialogItemCurrentValue(lib1B69CECC_gv_playerOne.lv_ui_minerals_label, PlayerScoreValueGetAsInt(autoB69F3BB4_var, "MineralsCurrent"), PlayerGroupAll());
             libNtve_gf_SetDialogItemCurrentValue(lib1B69CECC_gv_playerOne.lv_ui_gas_label, PlayerScoreValueGetAsInt(autoB69F3BB4_var, "VespeneCurrent"), PlayerGroupAll());
             libNtve_gf_SetDialogItemCurrentValue(lib1B69CECC_gv_playerOne.lv_ui_supplycurrent_label, PlayerScoreValueGetAsInt(autoB69F3BB4_var, "FoodUsed"), PlayerGroupAll());
-            libNtve_gf_SetDialogItemCurrentValue(lib1B69CECC_gv_playerOne.lv_ui_supplymax_label, PlayerScoreValueGetAsInt(autoB69F3BB4_var, "FoodMade"), PlayerGroupAll());
+            libNtve_gf_SetDialogItemCurrentValue(lib1B69CECC_gv_playerOne.lv_ui_supplymax_label, MinI(PlayerScoreValueGetAsInt(autoB69F3BB4_var, "FoodMade"), 200), PlayerGroupAll());
             libNtve_gf_SetDialogItemCurrentValue(lib1B69CECC_gv_playerOne.lv_ui_energycurrent_label, lib1B69CECC_gf_ComputeGenetronEnergyCurrent(autoB69F3BB4_var), PlayerGroupAll());
             libNtve_gf_SetDialogItemCurrentValue(lib1B69CECC_gv_playerOne.lv_ui_energymax_label, lib1B69CECC_gf_ComputeGenetronEnergyMax(autoB69F3BB4_var), PlayerGroupAll());
             lib1B69CECC_gf_DisplayRaceIcon(autoB69F3BB4_var, lib1B69CECC_gv_playerOne);
@@ -2276,7 +2277,7 @@ bool lib1B69CECC_gt_UpdateResourceIconsTrigger_Func (bool testConds, bool runAct
             libNtve_gf_SetDialogItemCurrentValue(lib1B69CECC_gv_playerTwo.lv_ui_minerals_label, PlayerScoreValueGetAsInt(auto620D320A_var, "MineralsCurrent"), PlayerGroupAll());
             libNtve_gf_SetDialogItemCurrentValue(lib1B69CECC_gv_playerTwo.lv_ui_gas_label, PlayerScoreValueGetAsInt(auto620D320A_var, "VespeneCurrent"), PlayerGroupAll());
             libNtve_gf_SetDialogItemCurrentValue(lib1B69CECC_gv_playerTwo.lv_ui_supplycurrent_label, PlayerScoreValueGetAsInt(auto620D320A_var, "FoodUsed"), PlayerGroupAll());
-            libNtve_gf_SetDialogItemCurrentValue(lib1B69CECC_gv_playerTwo.lv_ui_supplymax_label, PlayerScoreValueGetAsInt(auto620D320A_var, "FoodMade"), PlayerGroupAll());
+            libNtve_gf_SetDialogItemCurrentValue(lib1B69CECC_gv_playerTwo.lv_ui_supplymax_label, MinI(PlayerScoreValueGetAsInt(auto620D320A_var, "FoodMade"), 200), PlayerGroupAll());
             libNtve_gf_SetDialogItemCurrentValue(lib1B69CECC_gv_playerTwo.lv_ui_energycurrent_label, lib1B69CECC_gf_ComputeGenetronEnergyCurrent(auto620D320A_var), PlayerGroupAll());
             libNtve_gf_SetDialogItemCurrentValue(lib1B69CECC_gv_playerTwo.lv_ui_energymax_label, lib1B69CECC_gf_ComputeGenetronEnergyMax(auto620D320A_var), PlayerGroupAll());
             lib1B69CECC_gf_DisplayRaceIcon(auto620D320A_var, lib1B69CECC_gv_playerTwo);

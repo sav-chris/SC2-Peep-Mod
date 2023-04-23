@@ -286,6 +286,7 @@ Variable/Name/lib_1B69CECC_64EE47DA=mineral_quantity
 Variable/Name/lib_1B69CECC_66BD33F2=mineral_quantity
 Variable/Name/lib_1B69CECC_67D64D57=PlayerTwo
 Variable/Name/lib_1B69CECC_6AB4B5C6=player
+Variable/Name/lib_1B69CECC_6B257402=STALEMATE_DELTA_TIME
 Variable/Name/lib_1B69CECC_6B4FF751=LOBBY_HEIGHT
 Variable/Name/lib_1B69CECC_6BE447BC=genetron_energy_group
 Variable/Name/lib_1B69CECC_6D8B545F=colour

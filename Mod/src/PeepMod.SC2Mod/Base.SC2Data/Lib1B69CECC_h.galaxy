@@ -4,6 +4,7 @@ include "TriggerLibs/natives"
 // Library: PeepMod Library
 //--------------------------------------------------------------------------------------------------
 // Constants
+const fixed lib1B69CECC_gv_sTALEMATE_DELTA_TIME = 128.57;
 const int lib1B69CECC_gv_jOIN_LOBBY_TIMEOUT_THRESHOLD = 0;
 const int lib1B69CECC_gv_lOBBY_COUNTDOWN_TIME = 10;
 const string lib1B69CECC_gv_sTARTLOCATION_1 = "Start Location 001";
