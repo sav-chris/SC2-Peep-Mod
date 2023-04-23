@@ -2089,6 +2089,57 @@ void lib1B69CECC_gf_DependencyMessage () {
 
 // Triggers
 //--------------------------------------------------------------------------------------------------
+// Trigger: Enemy Structure Destroyed
+//--------------------------------------------------------------------------------------------------
+bool lib1B69CECC_gt_EnemyStructureDestroyed_Func (bool testConds, bool runActions) {
+    // Automatic Variable Declarations
+    // Conditions
+    if (testConds) {
+        if (!((EventPlayer() != libNtve_gf_KillingPlayer()))) {
+            return false;
+        }
+
+        if (!((UnitGroupHasUnit(UnitGroup(null, EventPlayer(), RegionEntireMap(), UnitFilter((1 << c_targetFilterStructure), 0, (1 << c_targetFilterMissile), (1 << (c_targetFilterDead - 32)) | (1 << (c_targetFilterHidden - 32))), 0), EventUnit()) == true))) {
+            return false;
+        }
+
+        if (!((UnitGetType(EventUnit()) != "AutoTurret"))) {
+            return false;
+        }
+
+        if (!((UnitGetType(EventUnit()) != "CreepTumor"))) {
+            return false;
+        }
+
+        if (!((UnitGetType(EventUnit()) != "CreepTumorBurrowed"))) {
+            return false;
+        }
+
+        if (!((UnitGetType(EventUnit()) != "CreepTumorQueen"))) {
+            return false;
+        }
+
+        if (!((UnitGetType(EventUnit()) != "OracleStasisTrap"))) {
+            return false;
+        }
+    }
+
+    // Actions
+    if (!runActions) {
+        return true;
+    }
+
+    TriggerSendEvent(lib1B69CECC_gv_eNEMY_STRUCTURE_DESTROYED);
+    return true;
+}
+
+//--------------------------------------------------------------------------------------------------
+void lib1B69CECC_gt_EnemyStructureDestroyed_Init () {
+    lib1B69CECC_gt_EnemyStructureDestroyed = TriggerCreate("lib1B69CECC_gt_EnemyStructureDestroyed_Func");
+    TriggerAddEventUnitDied(lib1B69CECC_gt_EnemyStructureDestroyed, null);
+}
+
+//--------------------------------------------------------------------------------------------------
 // Trigger: Stalemate Message Trigger
 //--------------------------------------------------------------------------------------------------
 bool lib1B69CECC_gt_StalemateMessageTrigger_Func (bool testConds, bool runActions) {
@@ -2202,7 +2253,7 @@ void lib1B69CECC_gt_ResetStalemateDetectionTrigger_Init () {
     TriggerAddEventUnitAbility(lib1B69CECC_gt_ResetStalemateDetectionTrigger, null, AbilityCommand("MorphToBroodLord", 255), c_unitAbilStageComplete, false);
     TriggerAddEventUnitAbility(lib1B69CECC_gt_ResetStalemateDetectionTrigger, null, AbilityCommand("ArchonWarp", 255), c_unitAbilStageComplete, false);
     TriggerAddEventUnitResearchProgress(lib1B69CECC_gt_ResetStalemateDetectionTrigger, null, c_unitProgressStageComplete);
-    TriggerAddEventUnitDied(lib1B69CECC_gt_ResetStalemateDetectionTrigger, null);
+    TriggerAddEventGeneric(lib1B69CECC_gt_ResetStalemateDetectionTrigger, lib1B69CECC_gv_eNEMY_STRUCTURE_DESTROYED);
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -2845,6 +2896,7 @@ void lib1B69CECC_gt_MeleeInitialization_Init () {
 }
 
 void lib1B69CECC_InitTriggers () {
+    lib1B69CECC_gt_EnemyStructureDestroyed_Init();
     lib1B69CECC_gt_StalemateMessageTrigger_Init();
     lib1B69CECC_gt_StalemateTrigger_Init();
     lib1B69CECC_gt_ResetStalemateDetectionTrigger_Init();
