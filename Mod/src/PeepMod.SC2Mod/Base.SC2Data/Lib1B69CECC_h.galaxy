@@ -5,6 +5,8 @@ include "TriggerLibs/natives"
 //--------------------------------------------------------------------------------------------------
 // Constants
 const string lib1B69CECC_gv_eNEMY_STRUCTURE_DESTROYED = "Enemy Structure Destroyed";
+const string lib1B69CECC_gv_gENERATE_INCOME = "Generate Income";
+const string lib1B69CECC_gv_rESEARCH_UPGRADE = "Research Upgrade";
 const fixed lib1B69CECC_gv_sTALEMATE_DELTA_TIME = 128.57;
 const int lib1B69CECC_gv_jOIN_LOBBY_TIMEOUT_THRESHOLD = 0;
 const int lib1B69CECC_gv_lOBBY_COUNTDOWN_TIME = 10;
@@ -91,6 +93,7 @@ lib1B69CECC_gs_Lobby lib1B69CECC_gv_theLobby;
 
 // Function Declarations
 void lib1B69CECC_gf_InitialiseStalemateDetection ();
+void lib1B69CECC_gf_StopStalemateDetection ();
 void lib1B69CECC_gf_EndMatchInStalemate ();
 fixed lib1B69CECC_gf_ComputeGenetronEnergyCurrent (int lp_player);
 fixed lib1B69CECC_gf_ComputeGenetronEnergyMax (int lp_player);
@@ -191,7 +194,7 @@ void lib1B69CECC_gf_JoinLobby (int lp_thePlayer, structref<lib1B69CECC_gs_Lobby>
 void lib1B69CECC_gf_DependencyMessage ();
 
 // Trigger Declarations
-trigger lib1B69CECC_gt_EnemyStructureDestroyed;
+trigger lib1B69CECC_gt_GenerateIncomeTrigger;
 trigger lib1B69CECC_gt_StalemateMessageTrigger;
 trigger lib1B69CECC_gt_StalemateTrigger;
 trigger lib1B69CECC_gt_ResetStalemateDetectionTrigger;

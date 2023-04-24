@@ -94,6 +94,7 @@ void lib1B69CECC_gf_InitialiseStalemateDetection () {
     lv_stalemate_player_two = PlayerGroupEmpty();
 
     // Implementation
+    TriggerDebugOutput(1, StringExternal("Param/Value/lib_1B69CECC_D13CA188"), true);
     lv_stalemate_player_one = lib1B69CECC_gf_choose_a_player(lib1B69CECC_gv_pLAYERS);
     lv_stalemate_player_two = PlayerGroupCopy(lib1B69CECC_gv_pLAYERS);
     libNtve_gf_RemovePlayerGroupFromPlayerGroup(lv_stalemate_player_one, lv_stalemate_player_two);
@@ -113,6 +114,13 @@ void lib1B69CECC_gf_InitialiseStalemateDetection () {
         lib1B69CECC_gv_st_player_two = auto3D44715D_var;
     }
     TimerStart(lib1B69CECC_gv_tmr_stalemate_message, lib1B69CECC_gv_sTALEMATE_DELTA_TIME, false, c_timeGame);
+}
+
+void lib1B69CECC_gf_StopStalemateDetection () {
+    // Automatic Variable Declarations
+    // Implementation
+    libNtve_gf_StopTimer(lib1B69CECC_gv_tmr_stalemate);
+    libNtve_gf_StopTimer(lib1B69CECC_gv_tmr_stalemate_message);
 }
 
 void lib1B69CECC_gf_EndMatchInStalemate () {
@@ -1065,6 +1073,7 @@ void lib1B69CECC_gf_ResetGame () {
     lib1B69CECC_gf_ResetTechFunction();
     lib1B69CECC_gf_ResetRevealStatus();
     lib1B69CECC_gf_StopClock();
+    lib1B69CECC_gf_StopStalemateDetection();
     CinematicFade(false, 2.0, c_fadeStyleNormal, Color(0.00, 0.00, 0.00), 0.0, true);
     CinematicFade(true, 2.0, c_fadeStyleNormal, Color(0.00, 0.00, 0.00), 0.0, true);
     lib1B69CECC_gf_KillAllPlayerUnits();
@@ -1281,6 +1290,7 @@ void lib1B69CECC_gf_InitialiseGame (playergroup lp_lobby_Players) {
     lib1B69CECC_gf_EnableObserverUI(lib1B69CECC_gv_oBSERVERS, lib1B69CECC_gv_pLAYERS);
     lib1B69CECC_gf_EnablePlayerUI(lib1B69CECC_gv_pLAYERS);
     lib1B69CECC_gf_StartClock();
+    lib1B69CECC_gf_InitialiseStalemateDetection();
 }
 
 playergroup lib1B69CECC_gf_ChoosePlayersFromLobby (playergroup lp_lobby) {
@@ -2089,54 +2099,52 @@ void lib1B69CECC_gf_DependencyMessage () {
 
 // Triggers
 //--------------------------------------------------------------------------------------------------
-// Trigger: Enemy Structure Destroyed
+// Trigger: Generate Income Trigger 
 //--------------------------------------------------------------------------------------------------
-bool lib1B69CECC_gt_EnemyStructureDestroyed_Func (bool testConds, bool runActions) {
+bool lib1B69CECC_gt_GenerateIncomeTrigger_Func (bool testConds, bool runActions) {
     // Automatic Variable Declarations
-    // Conditions
-    if (testConds) {
-        if (!((EventPlayer() != libNtve_gf_KillingPlayer()))) {
-            return false;
-        }
-
-        if (!((UnitGroupHasUnit(UnitGroup(null, EventPlayer(), RegionEntireMap(), UnitFilter((1 << c_targetFilterStructure), 0, (1 << c_targetFilterMissile), (1 << (c_targetFilterDead - 32)) | (1 << (c_targetFilterHidden - 32))), 0), EventUnit()) == true))) {
-            return false;
-        }
-
-        if (!((UnitGetType(EventUnit()) != "AutoTurret"))) {
-            return false;
-        }
-
-        if (!((UnitGetType(EventUnit()) != "CreepTumor"))) {
-            return false;
-        }
-
-        if (!((UnitGetType(EventUnit()) != "CreepTumorBurrowed"))) {
-            return false;
-        }
-
-        if (!((UnitGetType(EventUnit()) != "CreepTumorQueen"))) {
-            return false;
-        }
-
-        if (!((UnitGetType(EventUnit()) != "OracleStasisTrap"))) {
-            return false;
-        }
-    }
-
     // Actions
     if (!runActions) {
         return true;
     }
 
-    TriggerSendEvent(lib1B69CECC_gv_eNEMY_STRUCTURE_DESTROYED);
+    TriggerSendEvent(lib1B69CECC_gv_gENERATE_INCOME);
     return true;
 }
 
 //--------------------------------------------------------------------------------------------------
-void lib1B69CECC_gt_EnemyStructureDestroyed_Init () {
-    lib1B69CECC_gt_EnemyStructureDestroyed = TriggerCreate("lib1B69CECC_gt_EnemyStructureDestroyed_Func");
-    TriggerAddEventUnitDied(lib1B69CECC_gt_EnemyStructureDestroyed, null);
+void lib1B69CECC_gt_GenerateIncomeTrigger_Init () {
+    lib1B69CECC_gt_GenerateIncomeTrigger = TriggerCreate("lib1B69CECC_gt_GenerateIncomeTrigger_Func");
+    TriggerAddEventPlayerPropChange(lib1B69CECC_gt_GenerateIncomeTrigger, 1, c_playerPropMineralsCollected);
+    TriggerAddEventPlayerPropChange(lib1B69CECC_gt_GenerateIncomeTrigger, 1, c_playerPropVespeneCollected);
+    TriggerAddEventPlayerPropChange(lib1B69CECC_gt_GenerateIncomeTrigger, 2, c_playerPropMineralsCollected);
+    TriggerAddEventPlayerPropChange(lib1B69CECC_gt_GenerateIncomeTrigger, 2, c_playerPropVespeneCollected);
+    TriggerAddEventPlayerPropChange(lib1B69CECC_gt_GenerateIncomeTrigger, 3, c_playerPropMineralsCollected);
+    TriggerAddEventPlayerPropChange(lib1B69CECC_gt_GenerateIncomeTrigger, 3, c_playerPropVespeneCollected);
+    TriggerAddEventPlayerPropChange(lib1B69CECC_gt_GenerateIncomeTrigger, 4, c_playerPropMineralsCollected);
+    TriggerAddEventPlayerPropChange(lib1B69CECC_gt_GenerateIncomeTrigger, 4, c_playerPropVespeneCollected);
+    TriggerAddEventPlayerPropChange(lib1B69CECC_gt_GenerateIncomeTrigger, 5, c_playerPropMineralsCollected);
+    TriggerAddEventPlayerPropChange(lib1B69CECC_gt_GenerateIncomeTrigger, 5, c_playerPropVespeneCollected);
+    TriggerAddEventPlayerPropChange(lib1B69CECC_gt_GenerateIncomeTrigger, 6, c_playerPropMineralsCollected);
+    TriggerAddEventPlayerPropChange(lib1B69CECC_gt_GenerateIncomeTrigger, 6, c_playerPropVespeneCollected);
+    TriggerAddEventPlayerPropChange(lib1B69CECC_gt_GenerateIncomeTrigger, 7, c_playerPropMineralsCollected);
+    TriggerAddEventPlayerPropChange(lib1B69CECC_gt_GenerateIncomeTrigger, 7, c_playerPropVespeneCollected);
+    TriggerAddEventPlayerPropChange(lib1B69CECC_gt_GenerateIncomeTrigger, 8, c_playerPropMineralsCollected);
+    TriggerAddEventPlayerPropChange(lib1B69CECC_gt_GenerateIncomeTrigger, 8, c_playerPropVespeneCollected);
+    TriggerAddEventPlayerPropChange(lib1B69CECC_gt_GenerateIncomeTrigger, 9, c_playerPropMineralsCollected);
+    TriggerAddEventPlayerPropChange(lib1B69CECC_gt_GenerateIncomeTrigger, 9, c_playerPropVespeneCollected);
+    TriggerAddEventPlayerPropChange(lib1B69CECC_gt_GenerateIncomeTrigger, 10, c_playerPropMineralsCollected);
+    TriggerAddEventPlayerPropChange(lib1B69CECC_gt_GenerateIncomeTrigger, 10, c_playerPropVespeneCollected);
+    TriggerAddEventPlayerPropChange(lib1B69CECC_gt_GenerateIncomeTrigger, 11, c_playerPropMineralsCollected);
+    TriggerAddEventPlayerPropChange(lib1B69CECC_gt_GenerateIncomeTrigger, 11, c_playerPropVespeneCollected);
+    TriggerAddEventPlayerPropChange(lib1B69CECC_gt_GenerateIncomeTrigger, 12, c_playerPropMineralsCollected);
+    TriggerAddEventPlayerPropChange(lib1B69CECC_gt_GenerateIncomeTrigger, 12, c_playerPropVespeneCollected);
+    TriggerAddEventPlayerPropChange(lib1B69CECC_gt_GenerateIncomeTrigger, 13, c_playerPropMineralsCollected);
+    TriggerAddEventPlayerPropChange(lib1B69CECC_gt_GenerateIncomeTrigger, 13, c_playerPropVespeneCollected);
+    TriggerAddEventPlayerPropChange(lib1B69CECC_gt_GenerateIncomeTrigger, 14, c_playerPropMineralsCollected);
+    TriggerAddEventPlayerPropChange(lib1B69CECC_gt_GenerateIncomeTrigger, 14, c_playerPropVespeneCollected);
+    TriggerAddEventPlayerPropChange(lib1B69CECC_gt_GenerateIncomeTrigger, 15, c_playerPropMineralsCollected);
+    TriggerAddEventPlayerPropChange(lib1B69CECC_gt_GenerateIncomeTrigger, 15, c_playerPropVespeneCollected);
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -2210,50 +2218,7 @@ bool lib1B69CECC_gt_ResetStalemateDetectionTrigger_Func (bool testConds, bool ru
 //--------------------------------------------------------------------------------------------------
 void lib1B69CECC_gt_ResetStalemateDetectionTrigger_Init () {
     lib1B69CECC_gt_ResetStalemateDetectionTrigger = TriggerCreate("lib1B69CECC_gt_ResetStalemateDetectionTrigger_Func");
-    TriggerAddEventPlayerPropChange(lib1B69CECC_gt_ResetStalemateDetectionTrigger, 1, c_playerPropMineralsCollected);
-    TriggerAddEventPlayerPropChange(lib1B69CECC_gt_ResetStalemateDetectionTrigger, 1, c_playerPropVespeneCollected);
-    TriggerAddEventPlayerPropChange(lib1B69CECC_gt_ResetStalemateDetectionTrigger, 2, c_playerPropMineralsCollected);
-    TriggerAddEventPlayerPropChange(lib1B69CECC_gt_ResetStalemateDetectionTrigger, 2, c_playerPropVespeneCollected);
-    TriggerAddEventPlayerPropChange(lib1B69CECC_gt_ResetStalemateDetectionTrigger, 3, c_playerPropMineralsCollected);
-    TriggerAddEventPlayerPropChange(lib1B69CECC_gt_ResetStalemateDetectionTrigger, 3, c_playerPropVespeneCollected);
-    TriggerAddEventPlayerPropChange(lib1B69CECC_gt_ResetStalemateDetectionTrigger, 4, c_playerPropMineralsCollected);
-    TriggerAddEventPlayerPropChange(lib1B69CECC_gt_ResetStalemateDetectionTrigger, 4, c_playerPropVespeneCollected);
-    TriggerAddEventPlayerPropChange(lib1B69CECC_gt_ResetStalemateDetectionTrigger, 5, c_playerPropMineralsCollected);
-    TriggerAddEventPlayerPropChange(lib1B69CECC_gt_ResetStalemateDetectionTrigger, 5, c_playerPropVespeneCollected);
-    TriggerAddEventPlayerPropChange(lib1B69CECC_gt_ResetStalemateDetectionTrigger, 6, c_playerPropMineralsCollected);
-    TriggerAddEventPlayerPropChange(lib1B69CECC_gt_ResetStalemateDetectionTrigger, 6, c_playerPropVespeneCollected);
-    TriggerAddEventPlayerPropChange(lib1B69CECC_gt_ResetStalemateDetectionTrigger, 7, c_playerPropMineralsCollected);
-    TriggerAddEventPlayerPropChange(lib1B69CECC_gt_ResetStalemateDetectionTrigger, 7, c_playerPropVespeneCollected);
-    TriggerAddEventPlayerPropChange(lib1B69CECC_gt_ResetStalemateDetectionTrigger, 8, c_playerPropMineralsCollected);
-    TriggerAddEventPlayerPropChange(lib1B69CECC_gt_ResetStalemateDetectionTrigger, 8, c_playerPropVespeneCollected);
-    TriggerAddEventPlayerPropChange(lib1B69CECC_gt_ResetStalemateDetectionTrigger, 9, c_playerPropMineralsCollected);
-    TriggerAddEventPlayerPropChange(lib1B69CECC_gt_ResetStalemateDetectionTrigger, 9, c_playerPropVespeneCollected);
-    TriggerAddEventPlayerPropChange(lib1B69CECC_gt_ResetStalemateDetectionTrigger, 10, c_playerPropMineralsCollected);
-    TriggerAddEventPlayerPropChange(lib1B69CECC_gt_ResetStalemateDetectionTrigger, 10, c_playerPropVespeneCollected);
-    TriggerAddEventPlayerPropChange(lib1B69CECC_gt_ResetStalemateDetectionTrigger, 11, c_playerPropMineralsCollected);
-    TriggerAddEventPlayerPropChange(lib1B69CECC_gt_ResetStalemateDetectionTrigger, 11, c_playerPropVespeneCollected);
-    TriggerAddEventPlayerPropChange(lib1B69CECC_gt_ResetStalemateDetectionTrigger, 12, c_playerPropMineralsCollected);
-    TriggerAddEventPlayerPropChange(lib1B69CECC_gt_ResetStalemateDetectionTrigger, 12, c_playerPropVespeneCollected);
-    TriggerAddEventPlayerPropChange(lib1B69CECC_gt_ResetStalemateDetectionTrigger, 13, c_playerPropMineralsCollected);
-    TriggerAddEventPlayerPropChange(lib1B69CECC_gt_ResetStalemateDetectionTrigger, 13, c_playerPropVespeneCollected);
-    TriggerAddEventPlayerPropChange(lib1B69CECC_gt_ResetStalemateDetectionTrigger, 14, c_playerPropMineralsCollected);
-    TriggerAddEventPlayerPropChange(lib1B69CECC_gt_ResetStalemateDetectionTrigger, 14, c_playerPropVespeneCollected);
-    TriggerAddEventPlayerPropChange(lib1B69CECC_gt_ResetStalemateDetectionTrigger, 15, c_playerPropMineralsCollected);
-    TriggerAddEventPlayerPropChange(lib1B69CECC_gt_ResetStalemateDetectionTrigger, 15, c_playerPropVespeneCollected);
-    TriggerAddEventUnitCreated(lib1B69CECC_gt_ResetStalemateDetectionTrigger, null, null, null);
-    TriggerAddEventUnitConstructProgress(lib1B69CECC_gt_ResetStalemateDetectionTrigger, null, c_unitProgressStageComplete);
-    TriggerAddEventUnitAbility(lib1B69CECC_gt_ResetStalemateDetectionTrigger, null, AbilityCommand("UpgradeToOrbital", 0), c_unitAbilStageComplete, false);
-    TriggerAddEventUnitAbility(lib1B69CECC_gt_ResetStalemateDetectionTrigger, null, AbilityCommand("UpgradeToPlanetaryFortress", 0), c_unitAbilStageComplete, false);
-    TriggerAddEventUnitAbility(lib1B69CECC_gt_ResetStalemateDetectionTrigger, null, AbilityCommand("UpgradeToLair", 0), c_unitAbilStageComplete, false);
-    TriggerAddEventUnitAbility(lib1B69CECC_gt_ResetStalemateDetectionTrigger, null, AbilityCommand("UpgradeToHive", 0), c_unitAbilStageComplete, false);
-    TriggerAddEventUnitAbility(lib1B69CECC_gt_ResetStalemateDetectionTrigger, null, AbilityCommand("UpgradeToGreaterSpire", 0), c_unitAbilStageComplete, false);
-    TriggerAddEventUnitAbility(lib1B69CECC_gt_ResetStalemateDetectionTrigger, null, AbilityCommand("MorphZerglingToBaneling", 255), c_unitAbilStageComplete, false);
-    TriggerAddEventUnitAbility(lib1B69CECC_gt_ResetStalemateDetectionTrigger, null, AbilityCommand("MorphToLurker", 255), c_unitAbilStageComplete, false);
-    TriggerAddEventUnitAbility(lib1B69CECC_gt_ResetStalemateDetectionTrigger, null, AbilityCommand("MorphToOverseer", 255), c_unitAbilStageComplete, false);
-    TriggerAddEventUnitAbility(lib1B69CECC_gt_ResetStalemateDetectionTrigger, null, AbilityCommand("MorphToBroodLord", 255), c_unitAbilStageComplete, false);
-    TriggerAddEventUnitAbility(lib1B69CECC_gt_ResetStalemateDetectionTrigger, null, AbilityCommand("ArchonWarp", 255), c_unitAbilStageComplete, false);
-    TriggerAddEventUnitResearchProgress(lib1B69CECC_gt_ResetStalemateDetectionTrigger, null, c_unitProgressStageComplete);
-    TriggerAddEventGeneric(lib1B69CECC_gt_ResetStalemateDetectionTrigger, lib1B69CECC_gv_eNEMY_STRUCTURE_DESTROYED);
+    TriggerAddEventGeneric(lib1B69CECC_gt_ResetStalemateDetectionTrigger, lib1B69CECC_gv_gENERATE_INCOME);
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -2896,7 +2861,7 @@ void lib1B69CECC_gt_MeleeInitialization_Init () {
 }
 
 void lib1B69CECC_InitTriggers () {
-    lib1B69CECC_gt_EnemyStructureDestroyed_Init();
+    lib1B69CECC_gt_GenerateIncomeTrigger_Init();
     lib1B69CECC_gt_StalemateMessageTrigger_Init();
     lib1B69CECC_gt_StalemateTrigger_Init();
     lib1B69CECC_gt_ResetStalemateDetectionTrigger_Init();

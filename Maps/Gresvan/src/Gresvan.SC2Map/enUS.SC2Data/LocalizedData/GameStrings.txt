@@ -10,6 +10,7 @@ DocInfo/Screenshot01=Use the scion race technology
 DocInfo/Screenshot02=
 DocInfo/Screenshot03=Use Terran Protoss and Zerg against the Scion races
 DocInfo/Screenshot05=Choose from 3 new custom races and the original 3.
+DocInfo/Website=https://discord.com/invite/4GSXkYU
 MapInfo/Player00/Name=Neutral
 MapInfo/Player01/Name=Player 1
 MapInfo/Player02/Name=Player 2

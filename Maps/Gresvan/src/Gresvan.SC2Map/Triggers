@@ -11,6 +11,5 @@
         <FunctionDef Type="FunctionDef" Library="Ntve" Id="00000120"/>
     </Element>
     <Element Type="FunctionCall" Id="833A13FA">
-        <FunctionDef Type="FunctionDef" Library="1B69CECC" Id="97EAEA23"/>
     </Element>
 </TriggerData>
