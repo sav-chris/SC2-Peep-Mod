@@ -8,11 +8,9 @@ Param/Value/lib_1B69CECC_0BF87976=<img path="Assets\Textures\ui_battlenet_glue_i
 Param/Value/lib_1B69CECC_1B3257B4=<img path="Assets\Textures\sc2_ui_loadingscreen_playercard_raceindicator_random.dds" alignment="AbsoluteMiddle" width="21" height="22"/> Random
 Param/Value/lib_1B69CECC_1E84688D=<img path="Assets\Textures\ui_battlenet_glue_icons_league_gold.dds" alignment="AbsoluteMiddle" width="22" height="22"/> Gold
 Param/Value/lib_1B69CECC_242CCF1F= is playing as 
-Param/Value/lib_1B69CECC_24D8F8D3=Upgrade Researched
 Param/Value/lib_1B69CECC_299A8AD4=<img path="Assets\Textures\ui_battlenet_glue_icons_league_unranked.dds" alignment="AbsoluteMiddle" width="22" height="22"/> Unranked
 Param/Value/lib_1B69CECC_344D4A21=<img path="Assets\Textures\sc2_ui_loadingscreen_playercard_raceindicator_protoss.dds" alignment="AbsoluteMiddle" width="21" height="22"/> Protoss
 Param/Value/lib_1B69CECC_3578C5FD=<img path="Assets\Textures\sc2_ui_loadingscreen_playercard_raceindicator_keir.dds" alignment="AbsoluteMiddle" width="21" height="22"/> Keiron
-Param/Value/lib_1B69CECC_3869C111=Enemy structure destroyed
 Param/Value/lib_1B69CECC_39D4FFFC=<img path="Assets\Textures\sc2_ui_loadingscreen_playercard_raceindicator_xayid.dds" alignment="AbsoluteMiddle" width="21" height="22"/> Xayid
 Param/Value/lib_1B69CECC_3C13E2A6=<img path="Assets\Textures\sc2_ui_loadingscreen_playercard_raceindicator_keir.dds" alignment="AbsoluteMiddle" width="21" height="22"/>Keiron
 Param/Value/lib_1B69CECC_47AED35E=<img path="Assets\Textures\sc2_ui_loadingscreen_playercard_raceindicator_protoss.dds" alignment="AbsoluteMiddle" width="21" height="22"/> Protoss

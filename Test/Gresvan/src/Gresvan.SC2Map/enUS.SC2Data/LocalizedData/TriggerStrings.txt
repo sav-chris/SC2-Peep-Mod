@@ -11,6 +11,7 @@ ParamDef/Name/7F82CE85=statement
 ParamDef/Name/AE121019=assertion name
 ParamDef/Name/DA776AEE=error message
 Trigger/Name/1002EE95=Add AI Trigger 2
+Trigger/Name/1A281627=Make StructureTrigger
 Trigger/Name/63F12741=run all test cases trigger
 Trigger/Name/99CDE514=Reset TechTrigger
 Trigger/Name/A89E6F78=Start Game Trigger

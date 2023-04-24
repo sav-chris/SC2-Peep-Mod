@@ -44,6 +44,7 @@
 <Race id="Xayi"/>
 <Race id="Keir"/>
 <Terrain id="Gresvan"/>
+<Unit id="SupplyDepot"/>
 <Unit id="Lyote"/>
 <Unit id="KarakMale"/>
 <Unit id="KarakFemale"/>

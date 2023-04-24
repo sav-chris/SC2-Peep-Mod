@@ -8,6 +8,7 @@ const string lib1B69CECC_gv_eNEMY_STRUCTURE_DESTROYED = "Enemy Structure Destroy
 const string lib1B69CECC_gv_gENERATE_INCOME = "Generate Income";
 const string lib1B69CECC_gv_rESEARCH_UPGRADE = "Research Upgrade";
 const string lib1B69CECC_gv_uNIT_PRODUCED = "Unit Produced";
+const string lib1B69CECC_gv_sTRUCTURE_COMPLETED = "Structure Completed";
 const fixed lib1B69CECC_gv_sTALEMATE_DELTA_TIME = 128.57;
 const int lib1B69CECC_gv_jOIN_LOBBY_TIMEOUT_THRESHOLD = 0;
 const int lib1B69CECC_gv_lOBBY_COUNTDOWN_TIME = 10;
@@ -195,8 +196,11 @@ void lib1B69CECC_gf_JoinLobby (int lp_thePlayer, structref<lib1B69CECC_gs_Lobby>
 void lib1B69CECC_gf_DependencyMessage ();
 
 // Trigger Declarations
+trigger lib1B69CECC_gt_EnemyStructureDestroyedTrigger;
 trigger lib1B69CECC_gt_GenerateIncomeTrigger;
+trigger lib1B69CECC_gt_ResearchUpgradeTrigger;
 trigger lib1B69CECC_gt_ProduceaUnitTrigger;
+trigger lib1B69CECC_gt_ConstructaBuildingTrigger;
 trigger lib1B69CECC_gt_StalemateMessageTrigger;
 trigger lib1B69CECC_gt_StalemateTrigger;
 trigger lib1B69CECC_gt_ResetStalemateDetectionTrigger;

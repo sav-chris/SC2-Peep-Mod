@@ -2100,6 +2100,61 @@ void lib1B69CECC_gf_DependencyMessage () {
 
 // Triggers
 //--------------------------------------------------------------------------------------------------
+// Trigger: Enemy Structure Destroyed Trigger
+//--------------------------------------------------------------------------------------------------
+bool lib1B69CECC_gt_EnemyStructureDestroyedTrigger_Func (bool testConds, bool runActions) {
+    // Automatic Variable Declarations
+    // Conditions
+    if (testConds) {
+        if (!((EventPlayer() != libNtve_gf_KillingPlayer()))) {
+            return false;
+        }
+
+        if (!((UnitGroupHasUnit(UnitGroup(null, c_playerAny, RegionEntireMap(), UnitFilter((1 << c_targetFilterStructure), 0, (1 << c_targetFilterMissile), (1 << (c_targetFilterHidden - 32))), 0), EventUnit()) == true))) {
+            return false;
+        }
+
+        if (!((UnitGetType(EventUnit()) != "AutoTurret"))) {
+            return false;
+        }
+
+        if (!((UnitGetType(EventUnit()) != "CreepTumor"))) {
+            return false;
+        }
+
+        if (!((UnitGetType(EventUnit()) != "CreepTumorBurrowed"))) {
+            return false;
+        }
+
+        if (!((UnitGetType(EventUnit()) != "CreepTumorQueen"))) {
+            return false;
+        }
+
+        if (!((UnitGetType(EventUnit()) != "OracleStasisTrap"))) {
+            return false;
+        }
+
+        if (!((UnitGetType(EventUnit()) != "Emanator"))) {
+            return false;
+        }
+    }
+
+    // Actions
+    if (!runActions) {
+        return true;
+    }
+
+    TriggerSendEvent(lib1B69CECC_gv_eNEMY_STRUCTURE_DESTROYED);
+    return true;
+}
+
+//--------------------------------------------------------------------------------------------------
+void lib1B69CECC_gt_EnemyStructureDestroyedTrigger_Init () {
+    lib1B69CECC_gt_EnemyStructureDestroyedTrigger = TriggerCreate("lib1B69CECC_gt_EnemyStructureDestroyedTrigger_Func");
+    TriggerAddEventUnitDied(lib1B69CECC_gt_EnemyStructureDestroyedTrigger, null);
+}
+
+//--------------------------------------------------------------------------------------------------
 // Trigger: Generate Income Trigger 
 //--------------------------------------------------------------------------------------------------
 bool lib1B69CECC_gt_GenerateIncomeTrigger_Func (bool testConds, bool runActions) {
@@ -2146,6 +2201,35 @@ void lib1B69CECC_gt_GenerateIncomeTrigger_Init () {
     TriggerAddEventPlayerPropChange(lib1B69CECC_gt_GenerateIncomeTrigger, 14, c_playerPropVespeneCollected);
     TriggerAddEventPlayerPropChange(lib1B69CECC_gt_GenerateIncomeTrigger, 15, c_playerPropMineralsCollected);
     TriggerAddEventPlayerPropChange(lib1B69CECC_gt_GenerateIncomeTrigger, 15, c_playerPropVespeneCollected);
+}
+
+//--------------------------------------------------------------------------------------------------
+// Trigger: Research Upgrade Trigger
+//--------------------------------------------------------------------------------------------------
+bool lib1B69CECC_gt_ResearchUpgradeTrigger_Func (bool testConds, bool runActions) {
+    // Automatic Variable Declarations
+    // Actions
+    if (!runActions) {
+        return true;
+    }
+
+    TriggerSendEvent(lib1B69CECC_gv_rESEARCH_UPGRADE);
+    return true;
+}
+
+//--------------------------------------------------------------------------------------------------
+void lib1B69CECC_gt_ResearchUpgradeTrigger_Init () {
+    lib1B69CECC_gt_ResearchUpgradeTrigger = TriggerCreate("lib1B69CECC_gt_ResearchUpgradeTrigger_Func");
+    TriggerAddEventUnitAbility(lib1B69CECC_gt_ResearchUpgradeTrigger, null, AbilityCommand("UpgradeToOrbital", 0), c_unitAbilStageComplete, false);
+    TriggerAddEventUnitAbility(lib1B69CECC_gt_ResearchUpgradeTrigger, null, AbilityCommand("UpgradeToPlanetaryFortress", 0), c_unitAbilStageComplete, false);
+    TriggerAddEventUnitAbility(lib1B69CECC_gt_ResearchUpgradeTrigger, null, AbilityCommand("UpgradeToLair", 0), c_unitAbilStageComplete, false);
+    TriggerAddEventUnitAbility(lib1B69CECC_gt_ResearchUpgradeTrigger, null, AbilityCommand("UpgradeToHive", 0), c_unitAbilStageComplete, false);
+    TriggerAddEventUnitAbility(lib1B69CECC_gt_ResearchUpgradeTrigger, null, AbilityCommand("UpgradeToGreaterSpire", 0), c_unitAbilStageComplete, false);
+    TriggerAddEventUnitAbility(lib1B69CECC_gt_ResearchUpgradeTrigger, null, AbilityCommand("MorphZerglingToBaneling", 255), c_unitAbilStageComplete, false);
+    TriggerAddEventUnitAbility(lib1B69CECC_gt_ResearchUpgradeTrigger, null, AbilityCommand("MorphToLurker", 255), c_unitAbilStageComplete, false);
+    TriggerAddEventUnitAbility(lib1B69CECC_gt_ResearchUpgradeTrigger, null, AbilityCommand("MorphToOverseer", 255), c_unitAbilStageComplete, false);
+    TriggerAddEventUnitAbility(lib1B69CECC_gt_ResearchUpgradeTrigger, null, AbilityCommand("MorphToBroodLord", 255), c_unitAbilStageComplete, false);
+    TriggerAddEventUnitResearchProgress(lib1B69CECC_gt_ResearchUpgradeTrigger, null, c_unitProgressStageComplete);
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -2232,6 +2316,57 @@ void lib1B69CECC_gt_ProduceaUnitTrigger_Init () {
 }
 
 //--------------------------------------------------------------------------------------------------
+// Trigger: Construct a Building Trigger
+//--------------------------------------------------------------------------------------------------
+bool lib1B69CECC_gt_ConstructaBuildingTrigger_Func (bool testConds, bool runActions) {
+    // Automatic Variable Declarations
+    // Conditions
+    if (testConds) {
+        if (!((UnitGroupHasUnit(UnitGroup(null, EventPlayer(), RegionEntireMap(), UnitFilter((1 << c_targetFilterStructure), 0, (1 << c_targetFilterMissile), (1 << (c_targetFilterStasis - 32)) | (1 << (c_targetFilterDead - 32)) | (1 << (c_targetFilterHidden - 32)) | (1 << (c_targetFilterHallucination - 32)) | (1 << (c_targetFilterSummoned - 32))), 0), EventUnitProgressUnit()) == true))) {
+            return false;
+        }
+
+        if (!((UnitGetType(EventUnitProgressUnit()) != "AutoTurret"))) {
+            return false;
+        }
+
+        if (!((UnitGetType(EventUnitProgressUnit()) != "CreepTumor"))) {
+            return false;
+        }
+
+        if (!((UnitGetType(EventUnitProgressUnit()) != "CreepTumorBurrowed"))) {
+            return false;
+        }
+
+        if (!((UnitGetType(EventUnitProgressUnit()) != "CreepTumorQueen"))) {
+            return false;
+        }
+
+        if (!((UnitGetType(EventUnitProgressUnit()) != "OracleStasisTrap"))) {
+            return false;
+        }
+
+        if (!((UnitGetType(EventUnitProgressUnit()) != "Emanator"))) {
+            return false;
+        }
+    }
+
+    // Actions
+    if (!runActions) {
+        return true;
+    }
+
+    TriggerSendEvent(lib1B69CECC_gv_sTRUCTURE_COMPLETED);
+    return true;
+}
+
+//--------------------------------------------------------------------------------------------------
+void lib1B69CECC_gt_ConstructaBuildingTrigger_Init () {
+    lib1B69CECC_gt_ConstructaBuildingTrigger = TriggerCreate("lib1B69CECC_gt_ConstructaBuildingTrigger_Func");
+    TriggerAddEventUnitConstructProgress(lib1B69CECC_gt_ConstructaBuildingTrigger, null, c_unitProgressStageComplete);
+}
+
+//--------------------------------------------------------------------------------------------------
 // Trigger: Stalemate Message Trigger
 //--------------------------------------------------------------------------------------------------
 bool lib1B69CECC_gt_StalemateMessageTrigger_Func (bool testConds, bool runActions) {
@@ -2304,6 +2439,9 @@ void lib1B69CECC_gt_ResetStalemateDetectionTrigger_Init () {
     lib1B69CECC_gt_ResetStalemateDetectionTrigger = TriggerCreate("lib1B69CECC_gt_ResetStalemateDetectionTrigger_Func");
     TriggerAddEventGeneric(lib1B69CECC_gt_ResetStalemateDetectionTrigger, lib1B69CECC_gv_gENERATE_INCOME);
     TriggerAddEventGeneric(lib1B69CECC_gt_ResetStalemateDetectionTrigger, lib1B69CECC_gv_uNIT_PRODUCED);
+    TriggerAddEventGeneric(lib1B69CECC_gt_ResetStalemateDetectionTrigger, lib1B69CECC_gv_sTRUCTURE_COMPLETED);
+    TriggerAddEventGeneric(lib1B69CECC_gt_ResetStalemateDetectionTrigger, lib1B69CECC_gv_rESEARCH_UPGRADE);
+    TriggerAddEventGeneric(lib1B69CECC_gt_ResetStalemateDetectionTrigger, lib1B69CECC_gv_eNEMY_STRUCTURE_DESTROYED);
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -2946,8 +3084,11 @@ void lib1B69CECC_gt_MeleeInitialization_Init () {
 }
 
 void lib1B69CECC_InitTriggers () {
+    lib1B69CECC_gt_EnemyStructureDestroyedTrigger_Init();
     lib1B69CECC_gt_GenerateIncomeTrigger_Init();
+    lib1B69CECC_gt_ResearchUpgradeTrigger_Init();
     lib1B69CECC_gt_ProduceaUnitTrigger_Init();
+    lib1B69CECC_gt_ConstructaBuildingTrigger_Init();
     lib1B69CECC_gt_StalemateMessageTrigger_Init();
     lib1B69CECC_gt_StalemateTrigger_Init();
     lib1B69CECC_gt_ResetStalemateDetectionTrigger_Init();
