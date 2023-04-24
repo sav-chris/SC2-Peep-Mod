@@ -63,6 +63,7 @@ timer lib1B69CECC_gv_tmrDetectVictory;
 playergroup lib1B69CECC_gv_pLAYERS;
 playergroup lib1B69CECC_gv_oBSERVERS;
 lib1B69CECC_gs_LobbyTimer lib1B69CECC_gv_lobbyTimer;
+bool lib1B69CECC_gv_iS_STALEMATE_MESSAGE_SHOWING;
 int lib1B69CECC_gv_ui_stalemate_dialog;
 int lib1B69CECC_gv_ui_reveal_label2;
 int lib1B69CECC_gv_ui_production_tab;
@@ -94,6 +95,7 @@ int lib1B69CECC_gv_pLATES_COUNT;
 lib1B69CECC_gs_Lobby lib1B69CECC_gv_theLobby;
 
 // Function Declarations
+void lib1B69CECC_gf_UpdateStalemateMessage ();
 void lib1B69CECC_gf_InitialiseStalemateDetection ();
 void lib1B69CECC_gf_StopStalemateDetection ();
 void lib1B69CECC_gf_EndMatchInStalemate ();

@@ -23,7 +23,7 @@
                 <Anchor side="Bottom" relative="$parent" pos="Mid" offset="0"/>
  
                 <Style val="SystemAlert_Prot"/>
-                <Text val="The match will end in"/>
+                <Text val="Stalemate in: "/>
             </Frame>
         </Frame>
 

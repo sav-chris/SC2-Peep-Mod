@@ -78,6 +78,10 @@ void lib1B69CECC_InitVariables () {
 }
 
 // Functions
+void lib1B69CECC_gf_UpdateStalemateMessage () {
+    // Automatic Variable Declarations
+}
+
 void lib1B69CECC_gf_InitialiseStalemateDetection () {
     // Variable Declarations
     playergroup lv_stalemate_player_one;
@@ -113,8 +117,10 @@ void lib1B69CECC_gf_InitialiseStalemateDetection () {
         lib1B69CECC_gv_st_player_two = auto3D44715D_var;
     }
     TimerStart(lib1B69CECC_gv_tmr_stalemate_message, lib1B69CECC_gv_sTALEMATE_DELTA_TIME, false, c_timeGame);
-    TimerWindowCreate(lib1B69CECC_gv_tmr_stalemate_message, StringExternal("Param/Value/lib_1B69CECC_F9F70B7C"), true, false);
-    TimerWindowShow(TimerWindowLastCreated(), PlayerGroupAll(), true);
+    TimerWindowCreate(lib1B69CECC_gv_tmr_stalemate_message, StringExternal("Param/Value/lib_1B69CECC_B84656A9"), true, false);
+    DialogSetVisible(DialogLastCreated(), PlayerGroupAll(), true);
+    TimerWindowCreate(lib1B69CECC_gv_tmr_stalemate, StringExternal("Param/Value/lib_1B69CECC_EA8E48D1"), true, false);
+    DialogSetVisible(DialogLastCreated(), PlayerGroupAll(), true);
 }
 
 void lib1B69CECC_gf_StopStalemateDetection () {
@@ -127,6 +133,7 @@ void lib1B69CECC_gf_StopStalemateDetection () {
 void lib1B69CECC_gf_EndMatchInStalemate () {
     // Automatic Variable Declarations
     // Implementation
+    TriggerDebugOutput(1, StringExternal("Param/Value/lib_1B69CECC_DF5AD223"), true);
     lib1B69CECC_gf_StopVictoryDetection();
     UIDisplayMessage(lib1B69CECC_gf_nonneutral_players(), c_messageAreaSubtitle, TextExpressionAssemble("Param/Expression/lib_1B69CECC_0DF8463C"));
     lib1B69CECC_gf_ResetGame();
@@ -1678,12 +1685,24 @@ void lib1B69CECC_gf_HideStalemateWarning () {
     // Automatic Variable Declarations
     // Implementation
     DialogControlSetVisible(lib1B69CECC_gv_ui_stalemate_dialog, lib1B69CECC_gf_nonneutral_players(), false);
+    lib1B69CECC_gv_iS_STALEMATE_MESSAGE_SHOWING = false;
 }
 
 void lib1B69CECC_gf_DisplayStalemateWarning () {
+    // Variable Declarations
+    fixed lv_tm;
+
     // Automatic Variable Declarations
+    // Variable Initialization
+
     // Implementation
     DialogControlSetVisible(lib1B69CECC_gv_ui_stalemate_dialog, lib1B69CECC_gf_nonneutral_players(), true);
+    lib1B69CECC_gv_iS_STALEMATE_MESSAGE_SHOWING = true;
+    while ((lib1B69CECC_gv_iS_STALEMATE_MESSAGE_SHOWING == true)) {
+        Wait(1.0, c_timeGame);
+        lv_tm = TimerGetRemaining(lib1B69CECC_gv_tmr_stalemate);
+        libNtve_gf_SetDialogItemText(lib1B69CECC_gv_ui_reveal_label2, (StringExternal("Param/Value/lib_1B69CECC_EC43129C") + FixedToText(TimerGetRemaining(lib1B69CECC_gv_tmr_stalemate), 1)), PlayerGroupAll());
+    }
 }
 
 void lib1B69CECC_gf_InitialiseStalemateDialog () {
@@ -2376,6 +2395,7 @@ bool lib1B69CECC_gt_StalemateMessageTrigger_Func (bool testConds, bool runAction
         return true;
     }
 
+    TriggerDebugOutput(1, StringExternal("Param/Value/lib_1B69CECC_8FFB903C"), true);
     lib1B69CECC_gf_DisplayStalemateWarning();
     libNtve_gf_StopTimer(lib1B69CECC_gv_tmr_stalemate_message);
     TimerStart(lib1B69CECC_gv_tmr_stalemate, lib1B69CECC_gv_sTALEMATE_DELTA_TIME, false, c_timeGame);
@@ -2398,6 +2418,7 @@ bool lib1B69CECC_gt_StalemateTrigger_Func (bool testConds, bool runActions) {
         return true;
     }
 
+    TriggerDebugOutput(1, StringExternal("Param/Value/lib_1B69CECC_EFC8F3AF"), true);
     libNtve_gf_StopTimer(lib1B69CECC_gv_tmr_stalemate);
     libNtve_gf_StopTimer(lib1B69CECC_gv_tmr_stalemate_message);
     lib1B69CECC_gf_HideStalemateWarning();
@@ -2428,6 +2449,7 @@ bool lib1B69CECC_gt_ResetStalemateDetectionTrigger_Func (bool testConds, bool ru
         return true;
     }
 
+    TriggerDebugOutput(1, StringExternal("Param/Value/lib_1B69CECC_3AE9C549"), true);
     TimerRestart(lib1B69CECC_gv_tmr_stalemate_message);
     libNtve_gf_StopTimer(lib1B69CECC_gv_tmr_stalemate);
     lib1B69CECC_gf_HideStalemateWarning();
