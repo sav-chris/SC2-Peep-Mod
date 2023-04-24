@@ -94,7 +94,6 @@ void lib1B69CECC_gf_InitialiseStalemateDetection () {
     lv_stalemate_player_two = PlayerGroupEmpty();
 
     // Implementation
-    TriggerDebugOutput(1, StringExternal("Param/Value/lib_1B69CECC_D13CA188"), true);
     lv_stalemate_player_one = lib1B69CECC_gf_choose_a_player(lib1B69CECC_gv_pLAYERS);
     lv_stalemate_player_two = PlayerGroupCopy(lib1B69CECC_gv_pLAYERS);
     libNtve_gf_RemovePlayerGroupFromPlayerGroup(lv_stalemate_player_one, lv_stalemate_player_two);
@@ -114,6 +113,8 @@ void lib1B69CECC_gf_InitialiseStalemateDetection () {
         lib1B69CECC_gv_st_player_two = auto3D44715D_var;
     }
     TimerStart(lib1B69CECC_gv_tmr_stalemate_message, lib1B69CECC_gv_sTALEMATE_DELTA_TIME, false, c_timeGame);
+    TimerWindowCreate(lib1B69CECC_gv_tmr_stalemate_message, StringExternal("Param/Value/lib_1B69CECC_F9F70B7C"), true, false);
+    TimerWindowShow(TimerWindowLastCreated(), PlayerGroupAll(), true);
 }
 
 void lib1B69CECC_gf_StopStalemateDetection () {
@@ -2148,6 +2149,89 @@ void lib1B69CECC_gt_GenerateIncomeTrigger_Init () {
 }
 
 //--------------------------------------------------------------------------------------------------
+// Trigger: Produce a Unit Trigger
+//--------------------------------------------------------------------------------------------------
+bool lib1B69CECC_gt_ProduceaUnitTrigger_Func (bool testConds, bool runActions) {
+    // Automatic Variable Declarations
+    // Conditions
+    if (testConds) {
+        if (!((UnitGroupHasUnit(UnitGroup(null, EventPlayer(), RegionEntireMap(), UnitFilter(0, 0, (1 << c_targetFilterMissile), (1 << (c_targetFilterStasis - 32)) | (1 << (c_targetFilterDead - 32)) | (1 << (c_targetFilterHidden - 32)) | (1 << (c_targetFilterHallucination - 32)) | (1 << (c_targetFilterSummoned - 32))), 0), EventUnitProgressUnit()) == true))) {
+            return false;
+        }
+
+        if (!((UnitGetType(EventUnitProgressUnit()) != "AutoTurret"))) {
+            return false;
+        }
+
+        if (!((UnitGetType(EventUnitProgressUnit()) != "CreepTumor"))) {
+            return false;
+        }
+
+        if (!((UnitGetType(EventUnitProgressUnit()) != "CreepTumorBurrowed"))) {
+            return false;
+        }
+
+        if (!((UnitGetType(EventUnitProgressUnit()) != "CreepTumorQueen"))) {
+            return false;
+        }
+
+        if (!((UnitGetType(EventUnitProgressUnit()) != "OracleStasisTrap"))) {
+            return false;
+        }
+
+        if (!((UnitGetType(EventUnitProgressUnit()) != "Larva"))) {
+            return false;
+        }
+
+        if (!((UnitGetType(EventUnitProgressUnit()) != "MULE"))) {
+            return false;
+        }
+
+        if (!((UnitGetType(EventUnitProgressUnit()) != "BroodlingEscort"))) {
+            return false;
+        }
+
+        if (!((UnitGetType(EventUnitProgressUnit()) != "Broodling"))) {
+            return false;
+        }
+
+        if (!((UnitGetType(EventUnitProgressUnit()) != "LocustMP"))) {
+            return false;
+        }
+
+        if (!((UnitGetType(EventUnitProgressUnit()) != "LocustMPFlying"))) {
+            return false;
+        }
+
+        if (!((UnitGetType(EventUnitProgressUnit()) != "Emanator"))) {
+            return false;
+        }
+
+        if (!((UnitGetType(EventUnitProgressUnit()) != "AcidNest"))) {
+            return false;
+        }
+
+        if (!((UnitGetType(EventUnitProgressUnit()) != "AcidNestBuild"))) {
+            return false;
+        }
+    }
+
+    // Actions
+    if (!runActions) {
+        return true;
+    }
+
+    TriggerSendEvent(lib1B69CECC_gv_uNIT_PRODUCED);
+    return true;
+}
+
+//--------------------------------------------------------------------------------------------------
+void lib1B69CECC_gt_ProduceaUnitTrigger_Init () {
+    lib1B69CECC_gt_ProduceaUnitTrigger = TriggerCreate("lib1B69CECC_gt_ProduceaUnitTrigger_Func");
+    TriggerAddEventUnitTrainProgress(lib1B69CECC_gt_ProduceaUnitTrigger, null, c_unitProgressStageComplete);
+}
+
+//--------------------------------------------------------------------------------------------------
 // Trigger: Stalemate Message Trigger
 //--------------------------------------------------------------------------------------------------
 bool lib1B69CECC_gt_StalemateMessageTrigger_Func (bool testConds, bool runActions) {
@@ -2219,6 +2303,7 @@ bool lib1B69CECC_gt_ResetStalemateDetectionTrigger_Func (bool testConds, bool ru
 void lib1B69CECC_gt_ResetStalemateDetectionTrigger_Init () {
     lib1B69CECC_gt_ResetStalemateDetectionTrigger = TriggerCreate("lib1B69CECC_gt_ResetStalemateDetectionTrigger_Func");
     TriggerAddEventGeneric(lib1B69CECC_gt_ResetStalemateDetectionTrigger, lib1B69CECC_gv_gENERATE_INCOME);
+    TriggerAddEventGeneric(lib1B69CECC_gt_ResetStalemateDetectionTrigger, lib1B69CECC_gv_uNIT_PRODUCED);
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -2862,6 +2947,7 @@ void lib1B69CECC_gt_MeleeInitialization_Init () {
 
 void lib1B69CECC_InitTriggers () {
     lib1B69CECC_gt_GenerateIncomeTrigger_Init();
+    lib1B69CECC_gt_ProduceaUnitTrigger_Init();
     lib1B69CECC_gt_StalemateMessageTrigger_Init();
     lib1B69CECC_gt_StalemateTrigger_Init();
     lib1B69CECC_gt_ResetStalemateDetectionTrigger_Init();
