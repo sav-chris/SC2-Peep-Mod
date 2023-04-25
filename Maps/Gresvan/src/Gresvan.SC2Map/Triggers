@@ -5,11 +5,12 @@
     </Root>
     <Element Type="Trigger" Id="AD59FABB">
         <Event Type="FunctionCall" Id="EF18230C"/>
-        <Action Type="FunctionCall" Id="833A13FA"/>
+        <Action Type="FunctionCall" Id="4CB54D48"/>
     </Element>
     <Element Type="FunctionCall" Id="EF18230C">
         <FunctionDef Type="FunctionDef" Library="Ntve" Id="00000120"/>
     </Element>
-    <Element Type="FunctionCall" Id="833A13FA">
+    <Element Type="FunctionCall" Id="4CB54D48">
+        <FunctionDef Type="FunctionDef" Library="1B69CECC" Id="97EAEA23"/>
     </Element>
 </TriggerData>

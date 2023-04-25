@@ -10,6 +10,7 @@
             <Item Type="Comment" Library="1B69CECC" Id="AAAD930A"/>
             <Item Type="Category" Library="1B69CECC" Id="6649012C"/>
             <Item Type="Trigger" Library="1B69CECC" Id="1666B268"/>
+            <Item Type="FunctionDef" Library="1B69CECC" Id="97EAEA23"/>
         </Root>
         <Element Type="Comment" Id="B266339F">
             <Comment>
@@ -26538,7 +26539,6 @@
             <Item Type="Category" Library="1B69CECC" Id="C760A146"/>
             <Item Type="Category" Library="1B69CECC" Id="D9653A99"/>
             <Item Type="Category" Library="1B69CECC" Id="67E4BED7"/>
-            <Item Type="FunctionDef" Library="1B69CECC" Id="97EAEA23"/>
         </Element>
         <Element Type="Category" Id="C760A146">
             <Item Type="Structure" Library="1B69CECC" Id="E01E0635"/>
@@ -27026,37 +27026,6 @@
             <Value>true</Value>
             <ValueType Type="bool"/>
         </Element>
-        <Element Type="FunctionDef" Id="97EAEA23">
-            <FlagAction/>
-            <FunctionCall Type="Comment" Library="1B69CECC" Id="353A3CBC"/>
-            <FunctionCall Type="FunctionCall" Library="1B69CECC" Id="930AD361"/>
-        </Element>
-        <Element Type="Comment" Id="353A3CBC">
-            <Comment>
-                This isn&apos;t just a nice message. Maps that display this message import the mod dependencies.
-            </Comment>
-        </Element>
-        <Element Type="FunctionCall" Id="930AD361">
-            <FunctionDef Type="FunctionDef" Library="Ntve" Id="0366EE04"/>
-            <Parameter Type="Param" Library="1B69CECC" Id="F0CCD496"/>
-            <Parameter Type="Param" Library="1B69CECC" Id="14544990"/>
-            <Parameter Type="Param" Library="1B69CECC" Id="96486FC5"/>
-        </Element>
-        <Element Type="Param" Id="F0CCD496">
-            <ParameterDef Type="ParamDef" Library="Ntve" Id="0D120C33"/>
-            <FunctionCall Type="FunctionCall" Library="1B69CECC" Id="1025EBC8"/>
-        </Element>
-        <Element Type="FunctionCall" Id="1025EBC8">
-            <FunctionDef Type="FunctionDef" Library="1B69CECC" Id="A3E07673"/>
-        </Element>
-        <Element Type="Param" Id="14544990">
-            <ParameterDef Type="ParamDef" Library="Ntve" Id="A4C19F41"/>
-            <Preset Type="PresetValue" Library="Ntve" Id="875889C8"/>
-        </Element>
-        <Element Type="Param" Id="96486FC5">
-            <ParameterDef Type="ParamDef" Library="Ntve" Id="78A54B52"/>
-            <ValueType Type="text"/>
-        </Element>
         <Element Type="Trigger" Id="1666B268">
             <Event Type="FunctionCall" Library="1B69CECC" Id="FB3AB5EA"/>
             <Action Type="FunctionCall" Library="1B69CECC" Id="CEBB25DE"/>
@@ -27123,6 +27092,37 @@
         </Element>
         <Element Type="FunctionCall" Id="2BD704B0">
             <FunctionDef Type="FunctionDef" Library="1B69CECC" Id="F0EB4796"/>
+        </Element>
+        <Element Type="FunctionDef" Id="97EAEA23">
+            <FlagAction/>
+            <FunctionCall Type="Comment" Library="1B69CECC" Id="353A3CBC"/>
+            <FunctionCall Type="FunctionCall" Library="1B69CECC" Id="930AD361"/>
+        </Element>
+        <Element Type="Comment" Id="353A3CBC">
+            <Comment>
+                This isn&apos;t just a nice message. Maps that display this message import the mod dependencies.
+            </Comment>
+        </Element>
+        <Element Type="FunctionCall" Id="930AD361">
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="0366EE04"/>
+            <Parameter Type="Param" Library="1B69CECC" Id="F0CCD496"/>
+            <Parameter Type="Param" Library="1B69CECC" Id="14544990"/>
+            <Parameter Type="Param" Library="1B69CECC" Id="96486FC5"/>
+        </Element>
+        <Element Type="Param" Id="F0CCD496">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="0D120C33"/>
+            <FunctionCall Type="FunctionCall" Library="1B69CECC" Id="1025EBC8"/>
+        </Element>
+        <Element Type="FunctionCall" Id="1025EBC8">
+            <FunctionDef Type="FunctionDef" Library="1B69CECC" Id="A3E07673"/>
+        </Element>
+        <Element Type="Param" Id="14544990">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="A4C19F41"/>
+            <Preset Type="PresetValue" Library="Ntve" Id="875889C8"/>
+        </Element>
+        <Element Type="Param" Id="96486FC5">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="78A54B52"/>
+            <ValueType Type="text"/>
         </Element>
     </Library>
 </TriggerData>
