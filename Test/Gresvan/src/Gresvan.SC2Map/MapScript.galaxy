@@ -43,6 +43,7 @@ trigger gt_AddAITrigger2;
 trigger gt_StartGameTrigger;
 trigger gt_ResetTechTrigger;
 trigger gt_RevealDialogTrigger;
+trigger gt_MakeStructureTrigger;
 
 //--------------------------------------------------------------------------------------------------
 // Global Functions
@@ -337,6 +338,26 @@ void gt_RevealDialogTrigger_Init () {
 }
 
 //--------------------------------------------------------------------------------------------------
+// Trigger: Make StructureTrigger
+//--------------------------------------------------------------------------------------------------
+bool gt_MakeStructureTrigger_Func (bool testConds, bool runActions) {
+    // Automatic Variable Declarations
+    // Actions
+    if (!runActions) {
+        return true;
+    }
+
+    libNtve_gf_UnitCreateFacingPoint(1, "SupplyDepot", 0, 2, PointFromId(1432767422), PlayerStartLocation(1));
+    return true;
+}
+
+//--------------------------------------------------------------------------------------------------
+void gt_MakeStructureTrigger_Init () {
+    gt_MakeStructureTrigger = TriggerCreate("gt_MakeStructureTrigger_Func");
+    TriggerAddEventChatMessage(gt_MakeStructureTrigger, c_playerAny, "-Make Structure", true);
+}
+
+//--------------------------------------------------------------------------------------------------
 // Trigger Initialization
 //--------------------------------------------------------------------------------------------------
 void InitTriggers () {
@@ -347,6 +368,7 @@ void InitTriggers () {
     gt_StartGameTrigger_Init();
     gt_ResetTechTrigger_Init();
     gt_RevealDialogTrigger_Init();
+    gt_MakeStructureTrigger_Init();
 }
 
 //--------------------------------------------------------------------------------------------------

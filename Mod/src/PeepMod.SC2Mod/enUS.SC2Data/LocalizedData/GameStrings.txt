@@ -1,6 +1,7 @@
 ﻿DocInfo/DescLong=This is a mod for playing and observing peep mode style rounds of 1v1s with a lobby of players.<n/>The Scion custom races are also supported for this mod.
 DocInfo/DescShort=2 or more
 DocInfo/Name=The Scion Peep Mod
+Param/Expression/lib_1B69CECC_0DF8463C=<s val="SystemAlert_Prot">Match ended in a Tie</s>
 Param/Expression/lib_1B69CECC_2F42B94E=<s val="SystemAlert_Prot">Victorious Players:</s>
 Param/Value/lib_1B69CECC_008B34F0=
 Param/Value/lib_1B69CECC_0BF87976=<img path="Assets\Textures\ui_battlenet_glue_icons_league_diamond.dds" alignment="AbsoluteMiddle" width="22" height="22"/> Diamond
@@ -40,6 +41,7 @@ Param/Value/lib_1B69CECC_BF39C51C=</s>
 Param/Value/lib_1B69CECC_C5A6675E=<s val="SystemAlert_Prot">Welcome to the Scion Peep Mod. Select a race in the Play menu to join the game.</s>
 Param/Value/lib_1B69CECC_C874B829=<img path="Assets\Textures\sc2_ui_loadingscreen_playercard_raceindicator_genetron.dds" alignment="AbsoluteMiddle" width="21" height="22"/> Genetron
 Param/Value/lib_1B69CECC_C8F6245F=<img path="Assets\Textures\sc2_ui_loadingscreen_playercard_raceindicator_zerg.dds" alignment="AbsoluteMiddle" width="21" height="22"/> 
+Param/Value/lib_1B69CECC_CAD8258E=Stalemate in: 
 Param/Value/lib_1B69CECC_CF9CF4BB=0
 Param/Value/lib_1B69CECC_D7E3EE6D=Match starting in:
 Param/Value/lib_1B69CECC_D865D5BC=<img path="Assets\Textures\sc2_ui_loadingscreen_playercard_raceindicator_random.dds" alignment="AbsoluteMiddle" width="21" height="22"/>  Random

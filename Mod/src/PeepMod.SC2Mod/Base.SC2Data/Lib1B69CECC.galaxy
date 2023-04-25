@@ -22,6 +22,8 @@ void lib1B69CECC_InitVariables () {
 
     lib1B69CECC_InitVariables_completed = true;
 
+    lib1B69CECC_gv_tmr_stalemate_message = TimerCreate();
+    lib1B69CECC_gv_tmr_stalemate = TimerCreate();
     for (init_i = 0; init_i <= 2; init_i += 1) {
         lib1B69CECC_gv_reveal_timer_record[init_i].lv_time_left = 30;
     }
@@ -31,6 +33,9 @@ void lib1B69CECC_InitVariables () {
     lib1B69CECC_gv_oBSERVERS = PlayerGroupEmpty();
     lib1B69CECC_gv_lobbyTimer.lv_startTime = CurrentDateTimeGet();
     lib1B69CECC_gv_lobbyTimer.lv_timer = TimerCreate();
+    lib1B69CECC_gv_tmr_stalemate_message_refesh = TimerCreate();
+    lib1B69CECC_gv_ui_stalemate_dialog = c_invalidDialogControlId;
+    lib1B69CECC_gv_ui_reveal_label2 = c_invalidDialogControlId;
     lib1B69CECC_gv_ui_production_tab = c_invalidDialogControlId;
     lib1B69CECC_gv_ui_matchTime = TimerCreate();
     lib1B69CECC_gv_ui_clock = c_invalidDialogId;
@@ -74,6 +79,62 @@ void lib1B69CECC_InitVariables () {
 }
 
 // Functions
+void lib1B69CECC_gf_UpdateStalemateMessage () {
+    // Automatic Variable Declarations
+}
+
+void lib1B69CECC_gf_InitialiseStalemateDetection () {
+    // Variable Declarations
+    playergroup lv_stalemate_player_one;
+    playergroup lv_stalemate_player_two;
+
+    // Automatic Variable Declarations
+    playergroup auto6F351DE6_g;
+    int auto6F351DE6_var;
+    playergroup auto3D44715D_g;
+    int auto3D44715D_var;
+
+    // Variable Initialization
+    lv_stalemate_player_one = PlayerGroupEmpty();
+    lv_stalemate_player_two = PlayerGroupEmpty();
+
+    // Implementation
+    lv_stalemate_player_one = lib1B69CECC_gf_choose_a_player(lib1B69CECC_gv_pLAYERS);
+    lv_stalemate_player_two = PlayerGroupCopy(lib1B69CECC_gv_pLAYERS);
+    libNtve_gf_RemovePlayerGroupFromPlayerGroup(lv_stalemate_player_one, lv_stalemate_player_two);
+    lv_stalemate_player_two = lib1B69CECC_gf_choose_a_player(lv_stalemate_player_two);
+    auto6F351DE6_g = lv_stalemate_player_one;
+    auto6F351DE6_var = -1;
+    while (true) {
+        auto6F351DE6_var = PlayerGroupNextPlayer(auto6F351DE6_g, auto6F351DE6_var);
+        if (auto6F351DE6_var < 0) { break; }
+        lib1B69CECC_gv_st_player_one = auto6F351DE6_var;
+    }
+    auto3D44715D_g = lv_stalemate_player_two;
+    auto3D44715D_var = -1;
+    while (true) {
+        auto3D44715D_var = PlayerGroupNextPlayer(auto3D44715D_g, auto3D44715D_var);
+        if (auto3D44715D_var < 0) { break; }
+        lib1B69CECC_gv_st_player_two = auto3D44715D_var;
+    }
+    TimerStart(lib1B69CECC_gv_tmr_stalemate_message, lib1B69CECC_gv_sTALEMATE_DELTA_TIME, false, c_timeGame);
+}
+
+void lib1B69CECC_gf_StopStalemateDetection () {
+    // Automatic Variable Declarations
+    // Implementation
+    libNtve_gf_StopTimer(lib1B69CECC_gv_tmr_stalemate);
+    libNtve_gf_StopTimer(lib1B69CECC_gv_tmr_stalemate_message);
+}
+
+void lib1B69CECC_gf_EndMatchInStalemate () {
+    // Automatic Variable Declarations
+    // Implementation
+    lib1B69CECC_gf_StopVictoryDetection();
+    UIDisplayMessage(lib1B69CECC_gf_nonneutral_players(), c_messageAreaSubtitle, TextExpressionAssemble("Param/Expression/lib_1B69CECC_0DF8463C"));
+    lib1B69CECC_gf_ResetGame();
+}
+
 fixed lib1B69CECC_gf_ComputeGenetronEnergyCurrent (int lp_player) {
     // Variable Declarations
     fixed lv_genetron_energy_current_val;
@@ -1016,6 +1077,7 @@ void lib1B69CECC_gf_ResetGame () {
     lib1B69CECC_gf_ResetTechFunction();
     lib1B69CECC_gf_ResetRevealStatus();
     lib1B69CECC_gf_StopClock();
+    lib1B69CECC_gf_StopStalemateDetection();
     CinematicFade(false, 2.0, c_fadeStyleNormal, Color(0.00, 0.00, 0.00), 0.0, true);
     CinematicFade(true, 2.0, c_fadeStyleNormal, Color(0.00, 0.00, 0.00), 0.0, true);
     lib1B69CECC_gf_KillAllPlayerUnits();
@@ -1232,6 +1294,7 @@ void lib1B69CECC_gf_InitialiseGame (playergroup lp_lobby_Players) {
     lib1B69CECC_gf_EnableObserverUI(lib1B69CECC_gv_oBSERVERS, lib1B69CECC_gv_pLAYERS);
     lib1B69CECC_gf_EnablePlayerUI(lib1B69CECC_gv_pLAYERS);
     lib1B69CECC_gf_StartClock();
+    lib1B69CECC_gf_InitialiseStalemateDetection();
 }
 
 playergroup lib1B69CECC_gf_ChoosePlayersFromLobby (playergroup lp_lobby) {
@@ -1612,6 +1675,35 @@ playergroup lib1B69CECC_gf_compute_winners (playergroup lp_players, playergroup 
     lv_winners = PlayerGroupCopy(lp_players);
     libNtve_gf_RemovePlayerGroupFromPlayerGroup(lp_losers, lv_winners);
     return lv_winners;
+}
+
+void lib1B69CECC_gf_HideStalemateWarning () {
+    // Automatic Variable Declarations
+    // Implementation
+    DialogControlSetVisible(lib1B69CECC_gv_ui_stalemate_dialog, lib1B69CECC_gf_nonneutral_players(), false);
+    libNtve_gf_StopTimer(lib1B69CECC_gv_tmr_stalemate_message_refesh);
+}
+
+void lib1B69CECC_gf_DisplayStalemateWarning () {
+    // Variable Declarations
+    fixed lv_tm;
+
+    // Automatic Variable Declarations
+    // Variable Initialization
+
+    // Implementation
+    DialogControlSetVisible(lib1B69CECC_gv_ui_stalemate_dialog, lib1B69CECC_gf_nonneutral_players(), true);
+    TimerStart(lib1B69CECC_gv_tmr_stalemate_message_refesh, 1.0, true, c_timeGame);
+}
+
+void lib1B69CECC_gf_InitialiseStalemateDialog () {
+    // Automatic Variable Declarations
+    // Implementation
+    DialogControlHookupStandard(c_triggerControlTypePanel, "UIContainer/StalemateMessageDialog");
+    lib1B69CECC_gv_ui_stalemate_dialog = DialogControlLastCreated();
+    DialogControlHookupStandard(c_triggerControlTypeLabel, "UIContainer/StalemateMessageDialog/StalemateMessage");
+    lib1B69CECC_gv_ui_reveal_label2 = DialogControlLastCreated();
+    DialogControlSetVisible(lib1B69CECC_gv_ui_stalemate_dialog, PlayerGroupAll(), false);
 }
 
 int lib1B69CECC_gf_DialogItemFromHookup (int lp_dialogItemType, string lp_name) {
@@ -2018,6 +2110,367 @@ void lib1B69CECC_gf_DependencyMessage () {
 
 // Triggers
 //--------------------------------------------------------------------------------------------------
+// Trigger: Enemy Structure Destroyed Trigger
+//--------------------------------------------------------------------------------------------------
+bool lib1B69CECC_gt_EnemyStructureDestroyedTrigger_Func (bool testConds, bool runActions) {
+    // Automatic Variable Declarations
+    // Conditions
+    if (testConds) {
+        if (!((EventPlayer() != libNtve_gf_KillingPlayer()))) {
+            return false;
+        }
+
+        if (!((UnitGroupHasUnit(UnitGroup(null, c_playerAny, RegionEntireMap(), UnitFilter((1 << c_targetFilterStructure), 0, (1 << c_targetFilterMissile), (1 << (c_targetFilterHidden - 32))), 0), EventUnit()) == true))) {
+            return false;
+        }
+
+        if (!((UnitGetType(EventUnit()) != "AutoTurret"))) {
+            return false;
+        }
+
+        if (!((UnitGetType(EventUnit()) != "CreepTumor"))) {
+            return false;
+        }
+
+        if (!((UnitGetType(EventUnit()) != "CreepTumorBurrowed"))) {
+            return false;
+        }
+
+        if (!((UnitGetType(EventUnit()) != "CreepTumorQueen"))) {
+            return false;
+        }
+
+        if (!((UnitGetType(EventUnit()) != "OracleStasisTrap"))) {
+            return false;
+        }
+
+        if (!((UnitGetType(EventUnit()) != "Emanator"))) {
+            return false;
+        }
+    }
+
+    // Actions
+    if (!runActions) {
+        return true;
+    }
+
+    TriggerSendEvent(lib1B69CECC_gv_eNEMY_STRUCTURE_DESTROYED);
+    return true;
+}
+
+//--------------------------------------------------------------------------------------------------
+void lib1B69CECC_gt_EnemyStructureDestroyedTrigger_Init () {
+    lib1B69CECC_gt_EnemyStructureDestroyedTrigger = TriggerCreate("lib1B69CECC_gt_EnemyStructureDestroyedTrigger_Func");
+    TriggerAddEventUnitDied(lib1B69CECC_gt_EnemyStructureDestroyedTrigger, null);
+}
+
+//--------------------------------------------------------------------------------------------------
+// Trigger: Generate Income Trigger 
+//--------------------------------------------------------------------------------------------------
+bool lib1B69CECC_gt_GenerateIncomeTrigger_Func (bool testConds, bool runActions) {
+    // Automatic Variable Declarations
+    // Actions
+    if (!runActions) {
+        return true;
+    }
+
+    TriggerSendEvent(lib1B69CECC_gv_gENERATE_INCOME);
+    return true;
+}
+
+//--------------------------------------------------------------------------------------------------
+void lib1B69CECC_gt_GenerateIncomeTrigger_Init () {
+    lib1B69CECC_gt_GenerateIncomeTrigger = TriggerCreate("lib1B69CECC_gt_GenerateIncomeTrigger_Func");
+    TriggerAddEventPlayerPropChange(lib1B69CECC_gt_GenerateIncomeTrigger, 1, c_playerPropMineralsCollected);
+    TriggerAddEventPlayerPropChange(lib1B69CECC_gt_GenerateIncomeTrigger, 1, c_playerPropVespeneCollected);
+    TriggerAddEventPlayerPropChange(lib1B69CECC_gt_GenerateIncomeTrigger, 2, c_playerPropMineralsCollected);
+    TriggerAddEventPlayerPropChange(lib1B69CECC_gt_GenerateIncomeTrigger, 2, c_playerPropVespeneCollected);
+    TriggerAddEventPlayerPropChange(lib1B69CECC_gt_GenerateIncomeTrigger, 3, c_playerPropMineralsCollected);
+    TriggerAddEventPlayerPropChange(lib1B69CECC_gt_GenerateIncomeTrigger, 3, c_playerPropVespeneCollected);
+    TriggerAddEventPlayerPropChange(lib1B69CECC_gt_GenerateIncomeTrigger, 4, c_playerPropMineralsCollected);
+    TriggerAddEventPlayerPropChange(lib1B69CECC_gt_GenerateIncomeTrigger, 4, c_playerPropVespeneCollected);
+    TriggerAddEventPlayerPropChange(lib1B69CECC_gt_GenerateIncomeTrigger, 5, c_playerPropMineralsCollected);
+    TriggerAddEventPlayerPropChange(lib1B69CECC_gt_GenerateIncomeTrigger, 5, c_playerPropVespeneCollected);
+    TriggerAddEventPlayerPropChange(lib1B69CECC_gt_GenerateIncomeTrigger, 6, c_playerPropMineralsCollected);
+    TriggerAddEventPlayerPropChange(lib1B69CECC_gt_GenerateIncomeTrigger, 6, c_playerPropVespeneCollected);
+    TriggerAddEventPlayerPropChange(lib1B69CECC_gt_GenerateIncomeTrigger, 7, c_playerPropMineralsCollected);
+    TriggerAddEventPlayerPropChange(lib1B69CECC_gt_GenerateIncomeTrigger, 7, c_playerPropVespeneCollected);
+    TriggerAddEventPlayerPropChange(lib1B69CECC_gt_GenerateIncomeTrigger, 8, c_playerPropMineralsCollected);
+    TriggerAddEventPlayerPropChange(lib1B69CECC_gt_GenerateIncomeTrigger, 8, c_playerPropVespeneCollected);
+    TriggerAddEventPlayerPropChange(lib1B69CECC_gt_GenerateIncomeTrigger, 9, c_playerPropMineralsCollected);
+    TriggerAddEventPlayerPropChange(lib1B69CECC_gt_GenerateIncomeTrigger, 9, c_playerPropVespeneCollected);
+    TriggerAddEventPlayerPropChange(lib1B69CECC_gt_GenerateIncomeTrigger, 10, c_playerPropMineralsCollected);
+    TriggerAddEventPlayerPropChange(lib1B69CECC_gt_GenerateIncomeTrigger, 10, c_playerPropVespeneCollected);
+    TriggerAddEventPlayerPropChange(lib1B69CECC_gt_GenerateIncomeTrigger, 11, c_playerPropMineralsCollected);
+    TriggerAddEventPlayerPropChange(lib1B69CECC_gt_GenerateIncomeTrigger, 11, c_playerPropVespeneCollected);
+    TriggerAddEventPlayerPropChange(lib1B69CECC_gt_GenerateIncomeTrigger, 12, c_playerPropMineralsCollected);
+    TriggerAddEventPlayerPropChange(lib1B69CECC_gt_GenerateIncomeTrigger, 12, c_playerPropVespeneCollected);
+    TriggerAddEventPlayerPropChange(lib1B69CECC_gt_GenerateIncomeTrigger, 13, c_playerPropMineralsCollected);
+    TriggerAddEventPlayerPropChange(lib1B69CECC_gt_GenerateIncomeTrigger, 13, c_playerPropVespeneCollected);
+    TriggerAddEventPlayerPropChange(lib1B69CECC_gt_GenerateIncomeTrigger, 14, c_playerPropMineralsCollected);
+    TriggerAddEventPlayerPropChange(lib1B69CECC_gt_GenerateIncomeTrigger, 14, c_playerPropVespeneCollected);
+    TriggerAddEventPlayerPropChange(lib1B69CECC_gt_GenerateIncomeTrigger, 15, c_playerPropMineralsCollected);
+    TriggerAddEventPlayerPropChange(lib1B69CECC_gt_GenerateIncomeTrigger, 15, c_playerPropVespeneCollected);
+}
+
+//--------------------------------------------------------------------------------------------------
+// Trigger: Research Upgrade Trigger
+//--------------------------------------------------------------------------------------------------
+bool lib1B69CECC_gt_ResearchUpgradeTrigger_Func (bool testConds, bool runActions) {
+    // Automatic Variable Declarations
+    // Actions
+    if (!runActions) {
+        return true;
+    }
+
+    TriggerSendEvent(lib1B69CECC_gv_rESEARCH_UPGRADE);
+    return true;
+}
+
+//--------------------------------------------------------------------------------------------------
+void lib1B69CECC_gt_ResearchUpgradeTrigger_Init () {
+    lib1B69CECC_gt_ResearchUpgradeTrigger = TriggerCreate("lib1B69CECC_gt_ResearchUpgradeTrigger_Func");
+    TriggerAddEventUnitAbility(lib1B69CECC_gt_ResearchUpgradeTrigger, null, AbilityCommand("UpgradeToOrbital", 0), c_unitAbilStageComplete, false);
+    TriggerAddEventUnitAbility(lib1B69CECC_gt_ResearchUpgradeTrigger, null, AbilityCommand("UpgradeToPlanetaryFortress", 0), c_unitAbilStageComplete, false);
+    TriggerAddEventUnitAbility(lib1B69CECC_gt_ResearchUpgradeTrigger, null, AbilityCommand("UpgradeToLair", 0), c_unitAbilStageComplete, false);
+    TriggerAddEventUnitAbility(lib1B69CECC_gt_ResearchUpgradeTrigger, null, AbilityCommand("UpgradeToHive", 0), c_unitAbilStageComplete, false);
+    TriggerAddEventUnitAbility(lib1B69CECC_gt_ResearchUpgradeTrigger, null, AbilityCommand("UpgradeToGreaterSpire", 0), c_unitAbilStageComplete, false);
+    TriggerAddEventUnitAbility(lib1B69CECC_gt_ResearchUpgradeTrigger, null, AbilityCommand("MorphZerglingToBaneling", 255), c_unitAbilStageComplete, false);
+    TriggerAddEventUnitAbility(lib1B69CECC_gt_ResearchUpgradeTrigger, null, AbilityCommand("MorphToLurker", 255), c_unitAbilStageComplete, false);
+    TriggerAddEventUnitAbility(lib1B69CECC_gt_ResearchUpgradeTrigger, null, AbilityCommand("MorphToOverseer", 255), c_unitAbilStageComplete, false);
+    TriggerAddEventUnitAbility(lib1B69CECC_gt_ResearchUpgradeTrigger, null, AbilityCommand("MorphToBroodLord", 255), c_unitAbilStageComplete, false);
+    TriggerAddEventUnitResearchProgress(lib1B69CECC_gt_ResearchUpgradeTrigger, null, c_unitProgressStageComplete);
+}
+
+//--------------------------------------------------------------------------------------------------
+// Trigger: Produce a Unit Trigger
+//--------------------------------------------------------------------------------------------------
+bool lib1B69CECC_gt_ProduceaUnitTrigger_Func (bool testConds, bool runActions) {
+    // Automatic Variable Declarations
+    // Conditions
+    if (testConds) {
+        if (!((UnitGroupHasUnit(UnitGroup(null, EventPlayer(), RegionEntireMap(), UnitFilter(0, 0, (1 << c_targetFilterMissile), (1 << (c_targetFilterStasis - 32)) | (1 << (c_targetFilterDead - 32)) | (1 << (c_targetFilterHidden - 32)) | (1 << (c_targetFilterHallucination - 32)) | (1 << (c_targetFilterSummoned - 32))), 0), EventUnitProgressUnit()) == true))) {
+            return false;
+        }
+
+        if (!((UnitGetType(EventUnitProgressUnit()) != "AutoTurret"))) {
+            return false;
+        }
+
+        if (!((UnitGetType(EventUnitProgressUnit()) != "CreepTumor"))) {
+            return false;
+        }
+
+        if (!((UnitGetType(EventUnitProgressUnit()) != "CreepTumorBurrowed"))) {
+            return false;
+        }
+
+        if (!((UnitGetType(EventUnitProgressUnit()) != "CreepTumorQueen"))) {
+            return false;
+        }
+
+        if (!((UnitGetType(EventUnitProgressUnit()) != "OracleStasisTrap"))) {
+            return false;
+        }
+
+        if (!((UnitGetType(EventUnitProgressUnit()) != "Larva"))) {
+            return false;
+        }
+
+        if (!((UnitGetType(EventUnitProgressUnit()) != "MULE"))) {
+            return false;
+        }
+
+        if (!((UnitGetType(EventUnitProgressUnit()) != "BroodlingEscort"))) {
+            return false;
+        }
+
+        if (!((UnitGetType(EventUnitProgressUnit()) != "Broodling"))) {
+            return false;
+        }
+
+        if (!((UnitGetType(EventUnitProgressUnit()) != "LocustMP"))) {
+            return false;
+        }
+
+        if (!((UnitGetType(EventUnitProgressUnit()) != "LocustMPFlying"))) {
+            return false;
+        }
+
+        if (!((UnitGetType(EventUnitProgressUnit()) != "Emanator"))) {
+            return false;
+        }
+
+        if (!((UnitGetType(EventUnitProgressUnit()) != "AcidNest"))) {
+            return false;
+        }
+
+        if (!((UnitGetType(EventUnitProgressUnit()) != "AcidNestBuild"))) {
+            return false;
+        }
+
+        if (!((UnitGetType(EventUnitProgressUnit()) != "CloakCharge"))) {
+            return false;
+        }
+
+        if (!((UnitGetType(EventUnitProgressUnit()) != "ShockCharge"))) {
+            return false;
+        }
+    }
+
+    // Actions
+    if (!runActions) {
+        return true;
+    }
+
+    TriggerSendEvent(lib1B69CECC_gv_uNIT_PRODUCED);
+    return true;
+}
+
+//--------------------------------------------------------------------------------------------------
+void lib1B69CECC_gt_ProduceaUnitTrigger_Init () {
+    lib1B69CECC_gt_ProduceaUnitTrigger = TriggerCreate("lib1B69CECC_gt_ProduceaUnitTrigger_Func");
+    TriggerAddEventUnitTrainProgress(lib1B69CECC_gt_ProduceaUnitTrigger, null, c_unitProgressStageComplete);
+}
+
+//--------------------------------------------------------------------------------------------------
+// Trigger: Construct a Building Trigger
+//--------------------------------------------------------------------------------------------------
+bool lib1B69CECC_gt_ConstructaBuildingTrigger_Func (bool testConds, bool runActions) {
+    // Automatic Variable Declarations
+    // Conditions
+    if (testConds) {
+        if (!((UnitGroupHasUnit(UnitGroup(null, EventPlayer(), RegionEntireMap(), UnitFilter((1 << c_targetFilterStructure), 0, (1 << c_targetFilterMissile), (1 << (c_targetFilterStasis - 32)) | (1 << (c_targetFilterDead - 32)) | (1 << (c_targetFilterHidden - 32)) | (1 << (c_targetFilterHallucination - 32)) | (1 << (c_targetFilterSummoned - 32))), 0), EventUnitProgressUnit()) == true))) {
+            return false;
+        }
+
+        if (!((UnitGetType(EventUnitProgressUnit()) != "AutoTurret"))) {
+            return false;
+        }
+
+        if (!((UnitGetType(EventUnitProgressUnit()) != "CreepTumor"))) {
+            return false;
+        }
+
+        if (!((UnitGetType(EventUnitProgressUnit()) != "CreepTumorBurrowed"))) {
+            return false;
+        }
+
+        if (!((UnitGetType(EventUnitProgressUnit()) != "CreepTumorQueen"))) {
+            return false;
+        }
+
+        if (!((UnitGetType(EventUnitProgressUnit()) != "OracleStasisTrap"))) {
+            return false;
+        }
+
+        if (!((UnitGetType(EventUnitProgressUnit()) != "Emanator"))) {
+            return false;
+        }
+
+        if (!((UnitGetType(EventUnitProgressUnit()) != "VolatileDischarge"))) {
+            return false;
+        }
+
+        if (!((UnitGetType(EventUnitProgressUnit()) != "SacrificialMutation"))) {
+            return false;
+        }
+    }
+
+    // Actions
+    if (!runActions) {
+        return true;
+    }
+
+    TriggerSendEvent(lib1B69CECC_gv_sTRUCTURE_COMPLETED);
+    return true;
+}
+
+//--------------------------------------------------------------------------------------------------
+void lib1B69CECC_gt_ConstructaBuildingTrigger_Init () {
+    lib1B69CECC_gt_ConstructaBuildingTrigger = TriggerCreate("lib1B69CECC_gt_ConstructaBuildingTrigger_Func");
+    TriggerAddEventUnitConstructProgress(lib1B69CECC_gt_ConstructaBuildingTrigger, null, c_unitProgressStageComplete);
+}
+
+//--------------------------------------------------------------------------------------------------
+// Trigger: Stalemate Message Trigger
+//--------------------------------------------------------------------------------------------------
+bool lib1B69CECC_gt_StalemateMessageTrigger_Func (bool testConds, bool runActions) {
+    // Automatic Variable Declarations
+    // Actions
+    if (!runActions) {
+        return true;
+    }
+
+    lib1B69CECC_gf_DisplayStalemateWarning();
+    libNtve_gf_StopTimer(lib1B69CECC_gv_tmr_stalemate_message);
+    TimerStart(lib1B69CECC_gv_tmr_stalemate, lib1B69CECC_gv_sTALEMATE_DELTA_TIME, false, c_timeGame);
+    return true;
+}
+
+//--------------------------------------------------------------------------------------------------
+void lib1B69CECC_gt_StalemateMessageTrigger_Init () {
+    lib1B69CECC_gt_StalemateMessageTrigger = TriggerCreate("lib1B69CECC_gt_StalemateMessageTrigger_Func");
+    TriggerAddEventTimer(lib1B69CECC_gt_StalemateMessageTrigger, lib1B69CECC_gv_tmr_stalemate_message);
+}
+
+//--------------------------------------------------------------------------------------------------
+// Trigger: Stalemate Trigger
+//--------------------------------------------------------------------------------------------------
+bool lib1B69CECC_gt_StalemateTrigger_Func (bool testConds, bool runActions) {
+    // Automatic Variable Declarations
+    // Actions
+    if (!runActions) {
+        return true;
+    }
+
+    libNtve_gf_StopTimer(lib1B69CECC_gv_tmr_stalemate);
+    libNtve_gf_StopTimer(lib1B69CECC_gv_tmr_stalemate_message);
+    lib1B69CECC_gf_HideStalemateWarning();
+    lib1B69CECC_gf_EndMatchInStalemate();
+    return true;
+}
+
+//--------------------------------------------------------------------------------------------------
+void lib1B69CECC_gt_StalemateTrigger_Init () {
+    lib1B69CECC_gt_StalemateTrigger = TriggerCreate("lib1B69CECC_gt_StalemateTrigger_Func");
+    TriggerAddEventTimer(lib1B69CECC_gt_StalemateTrigger, lib1B69CECC_gv_tmr_stalemate);
+}
+
+//--------------------------------------------------------------------------------------------------
+// Trigger: Reset Stalemate Detection Trigger
+//--------------------------------------------------------------------------------------------------
+bool lib1B69CECC_gt_ResetStalemateDetectionTrigger_Func (bool testConds, bool runActions) {
+    // Automatic Variable Declarations
+    // Conditions
+    if (testConds) {
+        if (!((lib1B69CECC_gv_DETECT_VICTORY == true))) {
+            return false;
+        }
+    }
+
+    // Actions
+    if (!runActions) {
+        return true;
+    }
+
+    TimerStart(lib1B69CECC_gv_tmr_stalemate_message, lib1B69CECC_gv_sTALEMATE_DELTA_TIME, false, c_timeGame);
+    libNtve_gf_StopTimer(lib1B69CECC_gv_tmr_stalemate);
+    lib1B69CECC_gf_HideStalemateWarning();
+    return true;
+}
+
+//--------------------------------------------------------------------------------------------------
+void lib1B69CECC_gt_ResetStalemateDetectionTrigger_Init () {
+    lib1B69CECC_gt_ResetStalemateDetectionTrigger = TriggerCreate("lib1B69CECC_gt_ResetStalemateDetectionTrigger_Func");
+    TriggerAddEventGeneric(lib1B69CECC_gt_ResetStalemateDetectionTrigger, lib1B69CECC_gv_gENERATE_INCOME);
+    TriggerAddEventGeneric(lib1B69CECC_gt_ResetStalemateDetectionTrigger, lib1B69CECC_gv_uNIT_PRODUCED);
+    TriggerAddEventGeneric(lib1B69CECC_gt_ResetStalemateDetectionTrigger, lib1B69CECC_gv_sTRUCTURE_COMPLETED);
+    TriggerAddEventGeneric(lib1B69CECC_gt_ResetStalemateDetectionTrigger, lib1B69CECC_gv_rESEARCH_UPGRADE);
+    TriggerAddEventGeneric(lib1B69CECC_gt_ResetStalemateDetectionTrigger, lib1B69CECC_gv_eNEMY_STRUCTURE_DESTROYED);
+}
+
+//--------------------------------------------------------------------------------------------------
 // Trigger: Update Resource Icons Trigger
 //--------------------------------------------------------------------------------------------------
 bool lib1B69CECC_gt_UpdateResourceIconsTrigger_Func (bool testConds, bool runActions) {
@@ -2076,7 +2529,7 @@ bool lib1B69CECC_gt_UpdateResourceIconsTrigger_Func (bool testConds, bool runAct
             libNtve_gf_SetDialogItemCurrentValue(lib1B69CECC_gv_playerOne.lv_ui_minerals_label, PlayerScoreValueGetAsInt(autoB69F3BB4_var, "MineralsCurrent"), PlayerGroupAll());
             libNtve_gf_SetDialogItemCurrentValue(lib1B69CECC_gv_playerOne.lv_ui_gas_label, PlayerScoreValueGetAsInt(autoB69F3BB4_var, "VespeneCurrent"), PlayerGroupAll());
             libNtve_gf_SetDialogItemCurrentValue(lib1B69CECC_gv_playerOne.lv_ui_supplycurrent_label, PlayerScoreValueGetAsInt(autoB69F3BB4_var, "FoodUsed"), PlayerGroupAll());
-            libNtve_gf_SetDialogItemCurrentValue(lib1B69CECC_gv_playerOne.lv_ui_supplymax_label, PlayerScoreValueGetAsInt(autoB69F3BB4_var, "FoodMade"), PlayerGroupAll());
+            libNtve_gf_SetDialogItemCurrentValue(lib1B69CECC_gv_playerOne.lv_ui_supplymax_label, MinI(PlayerScoreValueGetAsInt(autoB69F3BB4_var, "FoodMade"), 200), PlayerGroupAll());
             libNtve_gf_SetDialogItemCurrentValue(lib1B69CECC_gv_playerOne.lv_ui_energycurrent_label, lib1B69CECC_gf_ComputeGenetronEnergyCurrent(autoB69F3BB4_var), PlayerGroupAll());
             libNtve_gf_SetDialogItemCurrentValue(lib1B69CECC_gv_playerOne.lv_ui_energymax_label, lib1B69CECC_gf_ComputeGenetronEnergyMax(autoB69F3BB4_var), PlayerGroupAll());
             lib1B69CECC_gf_DisplayRaceIcon(autoB69F3BB4_var, lib1B69CECC_gv_playerOne);
@@ -2089,7 +2542,7 @@ bool lib1B69CECC_gt_UpdateResourceIconsTrigger_Func (bool testConds, bool runAct
             libNtve_gf_SetDialogItemCurrentValue(lib1B69CECC_gv_playerTwo.lv_ui_minerals_label, PlayerScoreValueGetAsInt(auto620D320A_var, "MineralsCurrent"), PlayerGroupAll());
             libNtve_gf_SetDialogItemCurrentValue(lib1B69CECC_gv_playerTwo.lv_ui_gas_label, PlayerScoreValueGetAsInt(auto620D320A_var, "VespeneCurrent"), PlayerGroupAll());
             libNtve_gf_SetDialogItemCurrentValue(lib1B69CECC_gv_playerTwo.lv_ui_supplycurrent_label, PlayerScoreValueGetAsInt(auto620D320A_var, "FoodUsed"), PlayerGroupAll());
-            libNtve_gf_SetDialogItemCurrentValue(lib1B69CECC_gv_playerTwo.lv_ui_supplymax_label, PlayerScoreValueGetAsInt(auto620D320A_var, "FoodMade"), PlayerGroupAll());
+            libNtve_gf_SetDialogItemCurrentValue(lib1B69CECC_gv_playerTwo.lv_ui_supplymax_label, MinI(PlayerScoreValueGetAsInt(auto620D320A_var, "FoodMade"), 200), PlayerGroupAll());
             libNtve_gf_SetDialogItemCurrentValue(lib1B69CECC_gv_playerTwo.lv_ui_energycurrent_label, lib1B69CECC_gf_ComputeGenetronEnergyCurrent(auto620D320A_var), PlayerGroupAll());
             libNtve_gf_SetDialogItemCurrentValue(lib1B69CECC_gv_playerTwo.lv_ui_energymax_label, lib1B69CECC_gf_ComputeGenetronEnergyMax(auto620D320A_var), PlayerGroupAll());
             lib1B69CECC_gf_DisplayRaceIcon(auto620D320A_var, lib1B69CECC_gv_playerTwo);
@@ -2409,6 +2862,26 @@ void lib1B69CECC_gt_HandleTimeOut_Init () {
 }
 
 //--------------------------------------------------------------------------------------------------
+// Trigger: Stalemate UI Refresh
+//--------------------------------------------------------------------------------------------------
+bool lib1B69CECC_gt_StalemateUIRefresh_Func (bool testConds, bool runActions) {
+    // Automatic Variable Declarations
+    // Actions
+    if (!runActions) {
+        return true;
+    }
+
+    libNtve_gf_SetDialogItemText(lib1B69CECC_gv_ui_reveal_label2, (StringExternal("Param/Value/lib_1B69CECC_CAD8258E") + FixedToText(TimerGetRemaining(lib1B69CECC_gv_tmr_stalemate), 0)), PlayerGroupAll());
+    return true;
+}
+
+//--------------------------------------------------------------------------------------------------
+void lib1B69CECC_gt_StalemateUIRefresh_Init () {
+    lib1B69CECC_gt_StalemateUIRefresh = TriggerCreate("lib1B69CECC_gt_StalemateUIRefresh_Func");
+    TriggerAddEventTimer(lib1B69CECC_gt_StalemateUIRefresh, lib1B69CECC_gv_tmr_stalemate_message_refesh);
+}
+
+//--------------------------------------------------------------------------------------------------
 // Trigger: Click Yes
 //--------------------------------------------------------------------------------------------------
 bool lib1B69CECC_gt_ClickYes_Func (bool testConds, bool runActions) {
@@ -2643,6 +3116,7 @@ bool lib1B69CECC_gt_MeleeInitialization_Func (bool testConds, bool runActions) {
     lib1B69CECC_gf_InitialisePlayDialog();
     lib1B69CECC_gf_InitialiseGGMenu();
     lib1B69CECC_gf_InitialiseRevealDialog();
+    lib1B69CECC_gf_InitialiseStalemateDialog();
     lib1B69CECC_gf_InitialiseClock();
     lib1B69CECC_gf_InitialiseProductionTab();
     lib1B69CECC_gf_InitialiseLobby();
@@ -2656,6 +3130,14 @@ void lib1B69CECC_gt_MeleeInitialization_Init () {
 }
 
 void lib1B69CECC_InitTriggers () {
+    lib1B69CECC_gt_EnemyStructureDestroyedTrigger_Init();
+    lib1B69CECC_gt_GenerateIncomeTrigger_Init();
+    lib1B69CECC_gt_ResearchUpgradeTrigger_Init();
+    lib1B69CECC_gt_ProduceaUnitTrigger_Init();
+    lib1B69CECC_gt_ConstructaBuildingTrigger_Init();
+    lib1B69CECC_gt_StalemateMessageTrigger_Init();
+    lib1B69CECC_gt_StalemateTrigger_Init();
+    lib1B69CECC_gt_ResetStalemateDetectionTrigger_Init();
     lib1B69CECC_gt_UpdateResourceIconsTrigger_Init();
     lib1B69CECC_gt_SetTimeTrigger_Init();
     lib1B69CECC_gt_RevealCountdownTrigger_Init();
@@ -2665,6 +3147,7 @@ void lib1B69CECC_InitTriggers () {
     lib1B69CECC_gt_CleanUpWhenPlayerLeaves_Init();
     lib1B69CECC_gt_DetectVictory_Init();
     lib1B69CECC_gt_HandleTimeOut_Init();
+    lib1B69CECC_gt_StalemateUIRefresh_Init();
     lib1B69CECC_gt_ClickYes_Init();
     lib1B69CECC_gt_ClickNo_Init();
     lib1B69CECC_gt_ClickHelp_Init();

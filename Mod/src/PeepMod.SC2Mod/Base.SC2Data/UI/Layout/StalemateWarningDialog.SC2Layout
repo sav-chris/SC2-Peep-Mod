@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<Desc>
+    <Frame type="Frame" name="GameUI/UIContainer" file="GameUI">
+        <Frame type="Frame" name="StalemateMessageDialog">
+            <Anchor side="Right" relative="$parent" pos="Max" offset="0"/>
+            <Anchor side="Top" relative="$parent" pos="Min" offset="220"/>
+            
+            <Height val="100"/>
+            <Width val="300"/>
+
+            <Frame type="Image" name="Background">
+                <Anchor relative="$parent"/>
+                
+                <Texture val="Assets/Textures/ui_ingame_tutorial_textborder_terr.dds"/>
+                <TextureType val="NineSlice"/>
+            </Frame>
+
+            <Frame type="Label" name="StalemateMessage">
+            
+                <Anchor side="Top" relative="$parent" pos="Mid" offset="0"/>
+                <Anchor side="Left" relative="$parent" pos="Mid" offset="0"/>
+                <Anchor side="Right" relative="$parent" pos="Mid" offset="0"/>
+                <Anchor side="Bottom" relative="$parent" pos="Mid" offset="0"/>
+ 
+                <Style val="SystemAlert_Prot"/>
+                <Text val="Stalemate in: "/>
+            </Frame>
+        </Frame>
+
+    </Frame>
+</Desc>

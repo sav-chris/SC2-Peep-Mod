@@ -4,6 +4,12 @@ include "TriggerLibs/natives"
 // Library: PeepMod Library
 //--------------------------------------------------------------------------------------------------
 // Constants
+const string lib1B69CECC_gv_eNEMY_STRUCTURE_DESTROYED = "Enemy Structure Destroyed";
+const string lib1B69CECC_gv_gENERATE_INCOME = "Generate Income";
+const string lib1B69CECC_gv_rESEARCH_UPGRADE = "Research Upgrade";
+const string lib1B69CECC_gv_uNIT_PRODUCED = "Unit Produced";
+const string lib1B69CECC_gv_sTRUCTURE_COMPLETED = "Structure Completed";
+const fixed lib1B69CECC_gv_sTALEMATE_DELTA_TIME = 128.57;
 const int lib1B69CECC_gv_jOIN_LOBBY_TIMEOUT_THRESHOLD = 0;
 const int lib1B69CECC_gv_lOBBY_COUNTDOWN_TIME = 10;
 const string lib1B69CECC_gv_sTARTLOCATION_1 = "Start Location 001";
@@ -44,6 +50,10 @@ struct lib1B69CECC_gs_Lobby {
 };
 
 // Variable Declarations
+int lib1B69CECC_gv_st_player_one;
+int lib1B69CECC_gv_st_player_two;
+timer lib1B69CECC_gv_tmr_stalemate_message;
+timer lib1B69CECC_gv_tmr_stalemate;
 bool lib1B69CECC_gv_game_started;
 datetime lib1B69CECC_gv_match_start_time;
 lib1B69CECC_gs_RevealTimerRecord[3] lib1B69CECC_gv_reveal_timer_record;
@@ -53,6 +63,9 @@ timer lib1B69CECC_gv_tmrDetectVictory;
 playergroup lib1B69CECC_gv_pLAYERS;
 playergroup lib1B69CECC_gv_oBSERVERS;
 lib1B69CECC_gs_LobbyTimer lib1B69CECC_gv_lobbyTimer;
+timer lib1B69CECC_gv_tmr_stalemate_message_refesh;
+int lib1B69CECC_gv_ui_stalemate_dialog;
+int lib1B69CECC_gv_ui_reveal_label2;
 int lib1B69CECC_gv_ui_production_tab;
 timer lib1B69CECC_gv_ui_matchTime;
 int lib1B69CECC_gv_ui_clock;
@@ -82,6 +95,10 @@ int lib1B69CECC_gv_pLATES_COUNT;
 lib1B69CECC_gs_Lobby lib1B69CECC_gv_theLobby;
 
 // Function Declarations
+void lib1B69CECC_gf_UpdateStalemateMessage ();
+void lib1B69CECC_gf_InitialiseStalemateDetection ();
+void lib1B69CECC_gf_StopStalemateDetection ();
+void lib1B69CECC_gf_EndMatchInStalemate ();
 fixed lib1B69CECC_gf_ComputeGenetronEnergyCurrent (int lp_player);
 fixed lib1B69CECC_gf_ComputeGenetronEnergyMax (int lp_player);
 void lib1B69CECC_gf_DisplayRaceIcon (int lp_player, structref<lib1B69CECC_gs_PlayerStats> lp_player_stats);
@@ -149,6 +166,9 @@ string lib1B69CECC_gf_compute_race_from_index (int lp_race_index);
 bool lib1B69CECC_gf_is_gas_structure (unit lp_unit);
 bool lib1B69CECC_gf_is_town_centre (unit lp_unit);
 playergroup lib1B69CECC_gf_compute_winners (playergroup lp_players, playergroup lp_losers);
+void lib1B69CECC_gf_HideStalemateWarning ();
+void lib1B69CECC_gf_DisplayStalemateWarning ();
+void lib1B69CECC_gf_InitialiseStalemateDialog ();
 int lib1B69CECC_gf_DialogItemFromHookup (int lp_dialogItemType, string lp_name);
 void lib1B69CECC_gf_InitialiseProductionTab ();
 void lib1B69CECC_gf_InitialiseResourceIcons ();
@@ -178,6 +198,14 @@ void lib1B69CECC_gf_JoinLobby (int lp_thePlayer, structref<lib1B69CECC_gs_Lobby>
 void lib1B69CECC_gf_DependencyMessage ();
 
 // Trigger Declarations
+trigger lib1B69CECC_gt_EnemyStructureDestroyedTrigger;
+trigger lib1B69CECC_gt_GenerateIncomeTrigger;
+trigger lib1B69CECC_gt_ResearchUpgradeTrigger;
+trigger lib1B69CECC_gt_ProduceaUnitTrigger;
+trigger lib1B69CECC_gt_ConstructaBuildingTrigger;
+trigger lib1B69CECC_gt_StalemateMessageTrigger;
+trigger lib1B69CECC_gt_StalemateTrigger;
+trigger lib1B69CECC_gt_ResetStalemateDetectionTrigger;
 trigger lib1B69CECC_gt_UpdateResourceIconsTrigger;
 trigger lib1B69CECC_gt_SetTimeTrigger;
 trigger lib1B69CECC_gt_RevealCountdownTrigger;
@@ -187,6 +215,7 @@ trigger lib1B69CECC_gt_DetectGG;
 trigger lib1B69CECC_gt_CleanUpWhenPlayerLeaves;
 trigger lib1B69CECC_gt_DetectVictory;
 trigger lib1B69CECC_gt_HandleTimeOut;
+trigger lib1B69CECC_gt_StalemateUIRefresh;
 trigger lib1B69CECC_gt_ClickYes;
 trigger lib1B69CECC_gt_ClickNo;
 trigger lib1B69CECC_gt_ClickHelp;
