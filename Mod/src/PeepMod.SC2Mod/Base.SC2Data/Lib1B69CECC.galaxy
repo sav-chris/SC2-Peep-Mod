@@ -230,7 +230,7 @@ void lib1B69CECC_gf_DisplayRaceIcon (int lp_player, structref<lib1B69CECC_gs_Pla
 void lib1B69CECC_gf_StartClock () {
     // Automatic Variable Declarations
     // Implementation
-    lib1B69CECC_gv_match_start_time = CurrentDateTimeGet();
+    lib1B69CECC_gv_time_diff = 0;
     lib1B69CECC_gv_game_started = true;
     lib1B69CECC_gf_SetClockSkin();
 }
@@ -240,6 +240,7 @@ void lib1B69CECC_gf_StopClock () {
     // Implementation
     lib1B69CECC_gv_game_started = false;
     lib1B69CECC_gf_ResetClockDisplay();
+    lib1B69CECC_gv_time_diff = 0;
 }
 
 void lib1B69CECC_gf_ResetRevealStatus () {
@@ -2562,7 +2563,6 @@ void lib1B69CECC_gt_UpdateResourceIconsTrigger_Init () {
 bool lib1B69CECC_gt_SetTimeTrigger_Func (bool testConds, bool runActions) {
     // Variable Declarations
     color lv_colour;
-    int lv_time_diff;
 
     // Automatic Variable Declarations
     // Variable Initialization
@@ -2580,8 +2580,8 @@ bool lib1B69CECC_gt_SetTimeTrigger_Func (bool testConds, bool runActions) {
         return true;
     }
 
-    lv_time_diff = (DateTimeToInt(CurrentDateTimeGet()) - DateTimeToInt(lib1B69CECC_gv_match_start_time));
-    libNtve_gf_SetDialogItemText(lib1B69CECC_gv_ui_clocklabel, TextWithColor(lib1B69CECC_gf_convertSecondsToTime(lv_time_diff), lv_colour), PlayerGroupAll());
+    lib1B69CECC_gv_time_diff += 1;
+    libNtve_gf_SetDialogItemText(lib1B69CECC_gv_ui_clocklabel, TextWithColor(lib1B69CECC_gf_convertSecondsToTime(lib1B69CECC_gv_time_diff), lv_colour), PlayerGroupAll());
     return true;
 }
 
