@@ -24,6 +24,7 @@ Param/Value/lib_1B69CECC_73FE80F3=
 Param/Value/lib_1B69CECC_79FAD5F2=Test Foo Bar : Race
 Param/Value/lib_1B69CECC_7F3AAD05=00:00
 Param/Value/lib_1B69CECC_828333EB=<img path="Assets\Textures\sc2_ui_loadingscreen_playercard_raceindicator_genetron.dds" alignment="AbsoluteMiddle" width="21" height="22"/> 
+Param/Value/lib_1B69CECC_830DD949=Match Starting in: 
 Param/Value/lib_1B69CECC_85598A1E=
 Param/Value/lib_1B69CECC_890AFE24=<s val="SystemAlert_Prot">Say 'gg' in chat to surrender</s>
 Param/Value/lib_1B69CECC_8A3BD15D=<img path="Assets\Textures\sc2_ui_loadingscreen_playercard_raceindicator_terran.dds" alignment="AbsoluteMiddle" width="21" height="22"/> 

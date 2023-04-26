@@ -40,6 +40,7 @@ trigger gt_MeleeInitialization;
 trigger gt_runalltestcasestrigger;
 trigger gt_AddAITrigger;
 trigger gt_AddAITrigger2;
+trigger gt_AddAIsTrigger;
 trigger gt_StartGameTrigger;
 trigger gt_ResetTechTrigger;
 trigger gt_RevealDialogTrigger;
@@ -265,8 +266,8 @@ bool gt_AddAITrigger2_Func (bool testConds, bool runActions) {
         return true;
     }
 
-    DataTableSetInt(true, lib1B69CECC_gf_compute_player_race_key(gv_aIPlayer_2), lib1B69CECC_gf_compute_race_index("Zerg"));
-    lib1B69CECC_gf_JoinLobby(gv_aIPlayer_2, lib1B69CECC_gv_theLobby);
+    DataTableSetInt(true, lib1B69CECC_gf_compute_player_race_key(gv_aIPlayer_1), lib1B69CECC_gf_compute_race_index("Gen"));
+    lib1B69CECC_gf_JoinLobby(gv_aIPlayer_1, lib1B69CECC_gv_theLobby);
     lib1B69CECC_gf_RefreshLobby(lib1B69CECC_gv_theLobby);
     return true;
 }
@@ -274,7 +275,41 @@ bool gt_AddAITrigger2_Func (bool testConds, bool runActions) {
 //--------------------------------------------------------------------------------------------------
 void gt_AddAITrigger2_Init () {
     gt_AddAITrigger2 = TriggerCreate("gt_AddAITrigger2_Func");
-    TriggerAddEventChatMessage(gt_AddAITrigger2, c_playerAny, "-AI Player 2", true);
+    TriggerAddEventChatMessage(gt_AddAITrigger2, c_playerAny, "-AI Player", true);
+}
+
+//--------------------------------------------------------------------------------------------------
+// Trigger: Add AIs Trigger
+//--------------------------------------------------------------------------------------------------
+bool gt_AddAIsTrigger_Func (bool testConds, bool runActions) {
+    // Variable Declarations
+    int lv_thePlayer;
+
+    // Automatic Variable Declarations
+    const int autoDF7B8023_ae = 10;
+    const int autoDF7B8023_ai = 1;
+
+    // Variable Initialization
+
+    // Actions
+    if (!runActions) {
+        return true;
+    }
+
+    lv_thePlayer = 5;
+    for ( ; ( (autoDF7B8023_ai >= 0 && lv_thePlayer <= autoDF7B8023_ae) || (autoDF7B8023_ai < 0 && lv_thePlayer >= autoDF7B8023_ae) ) ; lv_thePlayer += autoDF7B8023_ai ) {
+        TriggerDebugOutput(1, IntToText(lv_thePlayer), true);
+        DataTableSetInt(true, lib1B69CECC_gf_compute_player_race_key(lv_thePlayer), lib1B69CECC_gf_compute_race_index("Keir"));
+        lib1B69CECC_gf_JoinLobby(lv_thePlayer, lib1B69CECC_gv_theLobby);
+    }
+    lib1B69CECC_gf_RefreshLobby(lib1B69CECC_gv_theLobby);
+    return true;
+}
+
+//--------------------------------------------------------------------------------------------------
+void gt_AddAIsTrigger_Init () {
+    gt_AddAIsTrigger = TriggerCreate("gt_AddAIsTrigger_Func");
+    TriggerAddEventChatMessage(gt_AddAIsTrigger, c_playerAny, "-Add AIs", true);
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -365,6 +400,7 @@ void InitTriggers () {
     gt_runalltestcasestrigger_Init();
     gt_AddAITrigger_Init();
     gt_AddAITrigger2_Init();
+    gt_AddAIsTrigger_Init();
     gt_StartGameTrigger_Init();
     gt_ResetTechTrigger_Init();
     gt_RevealDialogTrigger_Init();
