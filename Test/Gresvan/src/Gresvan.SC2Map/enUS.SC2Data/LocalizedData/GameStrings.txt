@@ -30,6 +30,7 @@ Param/Value/0FD2A78B=Test computing winners
 Param/Value/1F0A1A9C=Race index mismatch
 Param/Value/3BF25680=Test race index conversion
 Param/Value/4637591A=Error Computing winners
+Param/Value/553256F0=Foo
 Param/Value/5E26F2F6=Check 1 player is chosen
 Param/Value/6686C8DE=Error: Failed to choose  observers
 Param/Value/678F0631=Test race index conversion
