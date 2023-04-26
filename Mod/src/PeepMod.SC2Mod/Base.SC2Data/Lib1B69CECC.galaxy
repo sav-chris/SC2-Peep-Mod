@@ -2860,8 +2860,8 @@ bool lib1B69CECC_gt_HandleTimeOut_Func (bool testConds, bool runActions) {
         DialogControlSetVisible(lib1B69CECC_gv_ui_play_cancel, lib1B69CECC_gf_nonneutral_players(), false);
     }
 
-    DialogControlSetVisible(lib1B69CECC_gv_ui_stalemate_dialog, PlayerGroupAll(), true);
-    libNtve_gf_SetDialogItemText(lib1B69CECC_gv_ui_reveal_label2, (StringExternal("Param/Value/lib_1B69CECC_830DD949") + FixedToText(lib1B69CECC_gv_count, 0)), PlayerGroupAll());
+    DialogControlSetVisible(lib1B69CECC_gv_ui_stalemate_dialog, lib1B69CECC_gf_nonneutral_players(), true);
+    libNtve_gf_SetDialogItemText(lib1B69CECC_gv_ui_reveal_label2, (StringExternal("Param/Value/lib_1B69CECC_830DD949") + FixedToText(lib1B69CECC_gv_count, 0)), lib1B69CECC_gf_nonneutral_players());
     return true;
 }
 
