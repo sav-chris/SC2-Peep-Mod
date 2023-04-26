@@ -167,6 +167,7 @@ string lib1B69CECC_gf_compute_race_from_index (int lp_race_index);
 bool lib1B69CECC_gf_is_gas_structure (unit lp_unit);
 bool lib1B69CECC_gf_is_town_centre (unit lp_unit);
 playergroup lib1B69CECC_gf_compute_winners (playergroup lp_players, playergroup lp_losers);
+void lib1B69CECC_gf_ResetLeaderPanel ();
 void lib1B69CECC_gf_HideStalemateWarning ();
 void lib1B69CECC_gf_DisplayStalemateWarning ();
 void lib1B69CECC_gf_InitialiseStalemateDialog ();

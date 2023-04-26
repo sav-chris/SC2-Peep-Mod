@@ -1,4 +1,5 @@
 ﻿Category/Name/lib_1B69CECC_00391848=Game
+Category/Name/lib_1B69CECC_19844200=LeaderPanel
 Category/Name/lib_1B69CECC_31206F9D=GG Menu
 Category/Name/lib_1B69CECC_3C23A6FF=Reveal Dialog
 Category/Name/lib_1B69CECC_3C39E577=Stalemate
@@ -41,6 +42,7 @@ FunctionDef/Name/lib_1B69CECC_23834414=Initialise Clock
 FunctionDef/Name/lib_1B69CECC_26592579=Reset Gas
 FunctionDef/Name/lib_1B69CECC_2A109719=Stop Clock
 FunctionDef/Name/lib_1B69CECC_2B00C038=Reset Clock Display
+FunctionDef/Name/lib_1B69CECC_2BF43992=Reset Leader Panel
 FunctionDef/Name/lib_1B69CECC_2FAB29A4=Record Plates on Map
 FunctionDef/Name/lib_1B69CECC_317BEFAA=Reset Fog of War
 FunctionDef/Name/lib_1B69CECC_354ADDA6=is_town_centre

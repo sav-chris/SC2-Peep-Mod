@@ -1285,6 +1285,7 @@ void lib1B69CECC_gf_InitialiseGame (playergroup lp_lobby_Players) {
     lib1B69CECC_gf_EnablePlayerUI(lib1B69CECC_gv_pLAYERS);
     lib1B69CECC_gf_StartClock();
     lib1B69CECC_gf_InitialiseStalemateDetection();
+    lib1B69CECC_gf_ResetLeaderPanel();
 }
 
 playergroup lib1B69CECC_gf_ChoosePlayersFromLobby (playergroup lp_lobby) {
@@ -1665,6 +1666,30 @@ playergroup lib1B69CECC_gf_compute_winners (playergroup lp_players, playergroup 
     lv_winners = PlayerGroupCopy(lp_players);
     libNtve_gf_RemovePlayerGroupFromPlayerGroup(lp_losers, lv_winners);
     return lv_winners;
+}
+
+void lib1B69CECC_gf_ResetLeaderPanel () {
+    // Automatic Variable Declarations
+    playergroup auto91CAD639_g;
+    int auto91CAD639_var;
+    playergroup auto27C7B9A0_g;
+    int auto27C7B9A0_var;
+
+    // Implementation
+    auto91CAD639_g = lib1B69CECC_gv_pLAYERS;
+    auto91CAD639_var = -1;
+    while (true) {
+        auto91CAD639_var = PlayerGroupNextPlayer(auto91CAD639_g, auto91CAD639_var);
+        if (auto91CAD639_var < 0) { break; }
+        PlayerSetState(auto91CAD639_var, c_playerStateDisplayInLeaderPanel, true);
+    }
+    auto27C7B9A0_g = lib1B69CECC_gv_oBSERVERS;
+    auto27C7B9A0_var = -1;
+    while (true) {
+        auto27C7B9A0_var = PlayerGroupNextPlayer(auto27C7B9A0_g, auto27C7B9A0_var);
+        if (auto27C7B9A0_var < 0) { break; }
+        PlayerSetState(auto27C7B9A0_var, c_playerStateDisplayInLeaderPanel, false);
+    }
 }
 
 void lib1B69CECC_gf_HideStalemateWarning () {
