@@ -470,6 +470,25 @@ void lib1B69CECC_gf_RecordPlatesonMap () {
     lib1B69CECC_gv_pLATES_COUNT = lv_index;
 }
 
+void lib1B69CECC_gf_RecordRocksonMap () {
+    // Automatic Variable Declarations
+    unitgroup auto7C0A6884_g;
+    int auto7C0A6884_u;
+    unit auto7C0A6884_var;
+
+    // Implementation
+    auto7C0A6884_g = UnitGroup(null, c_playerAny, RegionEntireMap(), UnitFilter(0, 0, (1 << c_targetFilterRawResource) | (1 << c_targetFilterHarvestableResource), 0), 0);
+    auto7C0A6884_u = UnitGroupCount(auto7C0A6884_g, c_unitCountAll);
+    for (;; auto7C0A6884_u -= 1) {
+        auto7C0A6884_var = UnitGroupUnitFromEnd(auto7C0A6884_g, auto7C0A6884_u);
+        if (auto7C0A6884_var == null) { break; }
+        if (((lib1B69CECC_gf_is_rocks(auto7C0A6884_var) == true))) {
+            lib1B69CECC_gf_AddMapFeature(UnitGetPosition(auto7C0A6884_var), UnitGetFacing(auto7C0A6884_var), UnitGetType(auto7C0A6884_var));
+        }
+
+    }
+}
+
 void lib1B69CECC_gf_RecordBlueMineralsonMap () {
     // Variable Declarations
     point lv_pos;
@@ -576,6 +595,25 @@ void lib1B69CECC_gf_DeletePlates () {
     }
 }
 
+void lib1B69CECC_gf_DeleteRocks () {
+    // Automatic Variable Declarations
+    unitgroup auto13885749_g;
+    int auto13885749_u;
+    unit auto13885749_var;
+
+    // Implementation
+    auto13885749_g = UnitGroup(null, c_playerAny, RegionEntireMap(), UnitFilter(0, 0, (1 << c_targetFilterRawResource) | (1 << c_targetFilterHarvestableResource), 0), 0);
+    auto13885749_u = UnitGroupCount(auto13885749_g, c_unitCountAll);
+    for (;; auto13885749_u -= 1) {
+        auto13885749_var = UnitGroupUnitFromEnd(auto13885749_g, auto13885749_u);
+        if (auto13885749_var == null) { break; }
+        if ((lib1B69CECC_gf_is_rocks(auto13885749_var) == true)) {
+            UnitRemove(auto13885749_var);
+        }
+
+    }
+}
+
 void lib1B69CECC_gf_RecordStartingMapFeatures () {
     // Variable Declarations
     point lv_pos;
@@ -592,6 +630,7 @@ void lib1B69CECC_gf_RecordStartingMapFeatures () {
     lib1B69CECC_gf_RecordBlueMineralsonMap();
     lib1B69CECC_gf_RecordRichMineralsonMap();
     lib1B69CECC_gf_RecordPlatesonMap();
+    lib1B69CECC_gf_RecordRocksonMap();
 }
 
 void lib1B69CECC_gf_ResetGas () {
@@ -697,6 +736,27 @@ void lib1B69CECC_gf_ResetPlates () {
     for ( ; ( (auto6CBC40A6_ai >= 0 && lv_index <= auto6CBC40A6_ae) || (auto6CBC40A6_ai < 0 && lv_index >= auto6CBC40A6_ae) ) ; lv_index += auto6CBC40A6_ai ) {
         lv_pos = DataTableGetPoint(true, lib1B69CECC_gf_compute_plates_key(lv_index));
         UnitCreate(1, "UnbuildablePlatesDestructible", c_unitCreateIgnorePlacement, 0, lv_pos, 0.0);
+    }
+}
+
+void lib1B69CECC_gf_ResetRocks () {
+    // Variable Declarations
+    point lv_pos;
+    int lv_index;
+    int lv_mineral_quantity;
+
+    // Automatic Variable Declarations
+    int auto71CB371B_ae;
+    const int auto71CB371B_ai = 1;
+
+    // Variable Initialization
+
+    // Implementation
+    lib1B69CECC_gf_DeleteRocks();
+    auto71CB371B_ae = lib1B69CECC_gv_featureCount;
+    lv_index = 1;
+    for ( ; ( (auto71CB371B_ai >= 0 && lv_index <= auto71CB371B_ae) || (auto71CB371B_ai < 0 && lv_index >= auto71CB371B_ae) ) ; lv_index += auto71CB371B_ai ) {
+        UnitCreate(1, lib1B69CECC_gv_mapFeatures[lv_index].lv_unitType, c_unitCreateIgnorePlacement, 0, lib1B69CECC_gv_mapFeatures[lv_index].lv_position, lib1B69CECC_gv_mapFeatures[lv_index].lv_facing);
     }
 }
 
@@ -1071,6 +1131,7 @@ void lib1B69CECC_gf_ResetGame () {
     lib1B69CECC_gf_ResetGas();
     lib1B69CECC_gf_ResetMinerals();
     lib1B69CECC_gf_ResetPlates();
+    lib1B69CECC_gf_ResetRocks();
     lib1B69CECC_gf_CleanUpCreep();
     lib1B69CECC_gf_CleanUpPlayersAndObservers();
     lib1B69CECC_gf_ResetFogofWar();
@@ -1515,6 +1576,17 @@ bool lib1B69CECC_gf_is_plates (unit lp_unit) {
     // Automatic Variable Declarations
     // Implementation
     if (((UnitGetType(lp_unit) == "UnbuildablePlatesDestructible") || (UnitGetType(lp_unit) == "UnbuildableBricksDestructible") || (UnitGetType(lp_unit) == "UnbuildableRocksDestructible") || (UnitGetType(lp_unit) == "UnbuildableRocksUnit") || (UnitGetType(lp_unit) == "UnbuildableRocksSmallUnit") || (UnitGetType(lp_unit) == "UnbuildableBricksUnit") || (UnitGetType(lp_unit) == "UnbuildableBricksSmallUnit") || (UnitGetType(lp_unit) == "UnbuildablePlatesUnit") || (UnitGetType(lp_unit) == "UnbuildablePlatesSmallUnit"))) {
+        return true;
+    }
+    else {
+        return false;
+    }
+}
+
+bool lib1B69CECC_gf_is_rocks (unit lp_unit) {
+    // Automatic Variable Declarations
+    // Implementation
+    if (((UnitGetType(lp_unit) == "DestructibleRock2x4Horizontal") || (UnitGetType(lp_unit) == "DestructibleRock2x4Vertical") || (UnitGetType(lp_unit) == "DestructibleRock2x6Horizontal") || (UnitGetType(lp_unit) == "DestructibleRock2x6Vertical") || (UnitGetType(lp_unit) == "DestructibleRock4x4") || (UnitGetType(lp_unit) == "CollapsibleRockTowerDebris") || (UnitGetType(lp_unit) == "DestructibleRock6x6") || (UnitGetType(lp_unit) == "DestructibleRock6x6Weak") || (UnitGetType(lp_unit) == "DestructibleRockEx12x4Horizontal") || (UnitGetType(lp_unit) == "DestructibleRockEx12x4Vertical") || (UnitGetType(lp_unit) == "DestructibleRockEx12x6Horizontal") || (UnitGetType(lp_unit) == "DestructibleRockEx12x6Vertical") || (UnitGetType(lp_unit) == "DestructibleRockEx14x4") || (UnitGetType(lp_unit) == "DestructibleRockEx16x6") || (UnitGetType(lp_unit) == "DestructibleRockEx1DiagonalHugeBLUR") || (UnitGetType(lp_unit) == "DestructibleRockEx1DiagonalHugeULBR") || (UnitGetType(lp_unit) == "DestructibleRockEx1HorizontalHuge") || (UnitGetType(lp_unit) == "DestructibleRockEx1VerticalHuge") || (UnitGetType(lp_unit) == "DestructibleRampDiagonalHugeBLUR") || (UnitGetType(lp_unit) == "DestructibleRampDiagonalHugeULBR") || (UnitGetType(lp_unit) == "DestructibleRampHorizontalHuge") || (UnitGetType(lp_unit) == "DestructibleRampVerticalHuge") || (UnitGetType(lp_unit) == "Rocks2x2NonConjoined") || (UnitGetType(lp_unit) == "CollapsibleRockTowerPushUnit") || (UnitGetType(lp_unit) == "CollapsibleRockTowerDebrisRampLeft") || (UnitGetType(lp_unit) == "CollapsibleRockTowerDebrisRampLeftGreen") || (UnitGetType(lp_unit) == "CollapsibleRockTowerDebrisRampRight") || (UnitGetType(lp_unit) == "CollapsibleRockTowerDebrisRampRightGreen"))) {
         return true;
     }
     else {
@@ -2106,6 +2178,15 @@ void lib1B69CECC_gf_ShowLobbyUI () {
     DialogControlSetPosition(DialogControlLastCreated(), PlayerGroupAll(), c_anchorTopLeft, lv_sPACEMARGIN, lv_sPACEMARGIN);
     DialogSetVisible(DialogLastCreated(), PlayerGroupAll(), true);
     lib1B69CECC_gf_ShowTimerWindow();
+}
+
+void lib1B69CECC_gf_AddMapFeature (point lp_position, fixed lp_facing, string lp_unitType) {
+    // Automatic Variable Declarations
+    // Implementation
+    lib1B69CECC_gv_featureCount += 1;
+    lib1B69CECC_gv_mapFeatures[lib1B69CECC_gv_featureCount].lv_unitType = lp_unitType;
+    lib1B69CECC_gv_mapFeatures[lib1B69CECC_gv_featureCount].lv_position = lp_position;
+    lib1B69CECC_gv_mapFeatures[lib1B69CECC_gv_featureCount].lv_facing = lp_facing;
 }
 
 void lib1B69CECC_gf_LeaveLobby (int lp_thePlayer, structref<lib1B69CECC_gs_Lobby> lp_thisLobby) {
