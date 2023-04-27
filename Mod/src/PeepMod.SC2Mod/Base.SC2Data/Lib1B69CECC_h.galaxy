@@ -28,6 +28,12 @@ struct lib1B69CECC_gs_LobbyTimer {
     timer lv_timer;
 };
 
+struct lib1B69CECC_gs_MapFeature {
+    point lv_position;
+    fixed lv_facing;
+    string lv_unitType;
+};
+
 struct lib1B69CECC_gs_GenetronEnergy {
     fixed lv_energy_max;
     fixed lv_energy_current;
@@ -90,6 +96,8 @@ int lib1B69CECC_gv_ui_lobby_timer_message;
 int lib1B69CECC_gv_ui_lobby_timer_dialog;
 int lib1B69CECC_gv_ui_lobbyModal;
 int lib1B69CECC_gv_ui_LobbyListBox;
+int lib1B69CECC_gv_featureCount;
+lib1B69CECC_gs_MapFeature[257] lib1B69CECC_gv_mapFeatures;
 lib1B69CECC_gs_PlayerStats lib1B69CECC_gv_playerOne;
 lib1B69CECC_gs_PlayerStats lib1B69CECC_gv_playerTwo;
 int lib1B69CECC_gv_rICH_MINERAL_FIELD_COUNT;
@@ -117,15 +125,18 @@ bool lib1B69CECC_gf_ShouldPlayerBeRevealed (int lp_player);
 void lib1B69CECC_gf_ResetAllScores ();
 void lib1B69CECC_gf_ResetScore (int lp_player);
 void lib1B69CECC_gf_RecordPlatesonMap ();
+void lib1B69CECC_gf_RecordRocksonMap ();
 void lib1B69CECC_gf_RecordBlueMineralsonMap ();
 void lib1B69CECC_gf_RecordRichMineralsonMap ();
 void lib1B69CECC_gf_DeleteAllMineralFields ();
 void lib1B69CECC_gf_DeletePlates ();
+void lib1B69CECC_gf_DeleteRocks ();
 void lib1B69CECC_gf_RecordStartingMapFeatures ();
 void lib1B69CECC_gf_ResetGas ();
 void lib1B69CECC_gf_ResetVision ();
 void lib1B69CECC_gf_ResetMinerals ();
 void lib1B69CECC_gf_ResetPlates ();
+void lib1B69CECC_gf_ResetRocks ();
 void lib1B69CECC_gf_InitialiseRaceSelections ();
 void lib1B69CECC_gf_ResetFogofWar ();
 void lib1B69CECC_gf_DisableResourceTrading ();
@@ -155,6 +166,7 @@ text lib1B69CECC_gf_convertSecondsToTime (int lp_intTotalSeconds);
 playergroup lib1B69CECC_gf_nonneutral_players ();
 bool lib1B69CECC_gf_is_mineral_field (unit lp_unit);
 bool lib1B69CECC_gf_is_plates (unit lp_unit);
+bool lib1B69CECC_gf_is_rocks (unit lp_unit);
 bool lib1B69CECC_gf_is_rich_mineral_field (unit lp_unit);
 string lib1B69CECC_gf_compute_player_race_key (int lp_player);
 string lib1B69CECC_gf_compute_mineral_field_key (int lp_mineralIndex);
@@ -197,6 +209,7 @@ void lib1B69CECC_gf_EnableLobbyUI ();
 void lib1B69CECC_gf_HideLobby ();
 void lib1B69CECC_gf_RefreshLobby (structref<lib1B69CECC_gs_Lobby> lp_lobbyModel);
 void lib1B69CECC_gf_ShowLobbyUI ();
+void lib1B69CECC_gf_AddMapFeature (point lp_position, fixed lp_facing, string lp_unitType);
 void lib1B69CECC_gf_LeaveLobby (int lp_thePlayer, structref<lib1B69CECC_gs_Lobby> lp_thisLobby);
 void lib1B69CECC_gf_ClearLobby ();
 void lib1B69CECC_gf_JoinLobby (int lp_thePlayer, structref<lib1B69CECC_gs_Lobby> lp_thisLobby);
