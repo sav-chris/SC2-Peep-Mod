@@ -18,13 +18,13 @@ Param/Value/lib_1B69CECC_4D9A8A36=<s val="SystemAlert_Prot">
 Param/Value/lib_1B69CECC_550F33D7=You will be revealed in 
 Param/Value/lib_1B69CECC_5DE344B1=<img path="Assets\Textures\sc2_ui_loadingscreen_playercard_raceindicator_random.dds" alignment="AbsoluteMiddle" width="21" height="22"/> Random
 Param/Value/lib_1B69CECC_5F50D4B5=<img path="Assets\Textures\sc2_ui_loadingscreen_playercard_raceindicator_xayid.dds" alignment="AbsoluteMiddle" width="21" height="22"/> Xayid
+Param/Value/lib_1B69CECC_6098EF3B=Match Starting in: 
 Param/Value/lib_1B69CECC_6DF26637=<img path="Assets\Textures\ui_battlenet_glue_icons_league_silver.dds" alignment="AbsoluteMiddle" width="22" height="22"/> Silver
 Param/Value/lib_1B69CECC_6E1545DC=<img path="Assets\Textures\sc2_ui_loadingscreen_playercard_raceindicator_protoss.dds" alignment="AbsoluteMiddle" width="21" height="22"/> 
 Param/Value/lib_1B69CECC_73FE80F3=
 Param/Value/lib_1B69CECC_79FAD5F2=Test Foo Bar : Race
 Param/Value/lib_1B69CECC_7F3AAD05=00:00
 Param/Value/lib_1B69CECC_828333EB=<img path="Assets\Textures\sc2_ui_loadingscreen_playercard_raceindicator_genetron.dds" alignment="AbsoluteMiddle" width="21" height="22"/> 
-Param/Value/lib_1B69CECC_830DD949=Match Starting in: 
 Param/Value/lib_1B69CECC_85598A1E=
 Param/Value/lib_1B69CECC_890AFE24=<s val="SystemAlert_Prot">Say 'gg' in chat to surrender</s>
 Param/Value/lib_1B69CECC_8A3BD15D=<img path="Assets\Textures\sc2_ui_loadingscreen_playercard_raceindicator_terran.dds" alignment="AbsoluteMiddle" width="21" height="22"/> 
@@ -44,7 +44,6 @@ Param/Value/lib_1B69CECC_C874B829=<img path="Assets\Textures\sc2_ui_loadingscree
 Param/Value/lib_1B69CECC_C8F6245F=<img path="Assets\Textures\sc2_ui_loadingscreen_playercard_raceindicator_zerg.dds" alignment="AbsoluteMiddle" width="21" height="22"/> 
 Param/Value/lib_1B69CECC_CAD8258E=Stalemate in: 
 Param/Value/lib_1B69CECC_CF9CF4BB=0
-Param/Value/lib_1B69CECC_D7E3EE6D=Match starting in:
 Param/Value/lib_1B69CECC_D865D5BC=<img path="Assets\Textures\sc2_ui_loadingscreen_playercard_raceindicator_random.dds" alignment="AbsoluteMiddle" width="21" height="22"/>  Random
 Param/Value/lib_1B69CECC_DA9C0C8E=:
 Param/Value/lib_1B69CECC_DABD0022=<img path="Assets\Textures\sc2_ui_loadingscreen_playercard_raceindicator_genetron.dds" alignment="AbsoluteMiddle" width="21" height="22"/> Genetron

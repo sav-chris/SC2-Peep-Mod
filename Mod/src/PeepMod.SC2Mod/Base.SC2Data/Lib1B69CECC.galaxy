@@ -1111,7 +1111,7 @@ void lib1B69CECC_gf_StopTimer () {
     }
 
     lib1B69CECC_gv_lobbyTimer.lv_isStarted = false;
-    DialogControlSetVisible(lib1B69CECC_gv_ui_stalemate_dialog, PlayerGroupAll(), false);
+    lib1B69CECC_gf_HideLobbyTimerMessage();
 }
 
 void lib1B69CECC_gf_StartTimer () {
@@ -1285,6 +1285,8 @@ void lib1B69CECC_gf_InitialiseGame (playergroup lp_lobby_Players) {
     lib1B69CECC_gf_EnablePlayerUI(lib1B69CECC_gv_pLAYERS);
     lib1B69CECC_gf_StartClock();
     lib1B69CECC_gf_InitialiseStalemateDetection();
+    lib1B69CECC_gf_ResetLeaderPanel();
+    lib1B69CECC_gf_HideLobbyTimerMessage();
 }
 
 playergroup lib1B69CECC_gf_ChoosePlayersFromLobby (playergroup lp_lobby) {
@@ -1667,6 +1669,30 @@ playergroup lib1B69CECC_gf_compute_winners (playergroup lp_players, playergroup 
     return lv_winners;
 }
 
+void lib1B69CECC_gf_ResetLeaderPanel () {
+    // Automatic Variable Declarations
+    playergroup auto91CAD639_g;
+    int auto91CAD639_var;
+    playergroup auto27C7B9A0_g;
+    int auto27C7B9A0_var;
+
+    // Implementation
+    auto91CAD639_g = lib1B69CECC_gv_pLAYERS;
+    auto91CAD639_var = -1;
+    while (true) {
+        auto91CAD639_var = PlayerGroupNextPlayer(auto91CAD639_g, auto91CAD639_var);
+        if (auto91CAD639_var < 0) { break; }
+        PlayerSetState(auto91CAD639_var, c_playerStateDisplayInLeaderPanel, true);
+    }
+    auto27C7B9A0_g = lib1B69CECC_gv_oBSERVERS;
+    auto27C7B9A0_var = -1;
+    while (true) {
+        auto27C7B9A0_var = PlayerGroupNextPlayer(auto27C7B9A0_g, auto27C7B9A0_var);
+        if (auto27C7B9A0_var < 0) { break; }
+        PlayerSetState(auto27C7B9A0_var, c_playerStateDisplayInLeaderPanel, false);
+    }
+}
+
 void lib1B69CECC_gf_HideStalemateWarning () {
     // Automatic Variable Declarations
     // Implementation
@@ -1991,6 +2017,19 @@ void lib1B69CECC_gf_ShowTimerWindow () {
     // Automatic Variable Declarations
     // Implementation
     TimerWindowShow(lib1B69CECC_gv_timerWindow, lib1B69CECC_gf_nonneutral_players(), true);
+}
+
+void lib1B69CECC_gf_HideLobbyTimerMessage () {
+    // Automatic Variable Declarations
+    // Implementation
+    DialogControlSetVisible(lib1B69CECC_gv_ui_lobby_timer_dialog, PlayerGroupAll(), false);
+}
+
+void lib1B69CECC_gf_ShowLobbyTimerMessage (int lp_count) {
+    // Automatic Variable Declarations
+    // Implementation
+    DialogControlSetVisible(lib1B69CECC_gv_ui_lobby_timer_dialog, lib1B69CECC_gf_nonneutral_players(), true);
+    libNtve_gf_SetDialogItemText(lib1B69CECC_gv_ui_lobby_timer_message, (StringExternal("Param/Value/lib_1B69CECC_6098EF3B") + FixedToText(lp_count, 0)), lib1B69CECC_gf_nonneutral_players());
 }
 
 void lib1B69CECC_gf_InitialiseLobbyTimer () {
@@ -2858,10 +2897,9 @@ bool lib1B69CECC_gt_HandleTimeOut_Func (bool testConds, bool runActions) {
         lib1B69CECC_gf_InitialiseGame(lib1B69CECC_gv_theLobby.lv_players);
         DialogControlSetVisible(lib1B69CECC_gv_ui_play_confirm, lib1B69CECC_gf_nonneutral_players(), true);
         DialogControlSetVisible(lib1B69CECC_gv_ui_play_cancel, lib1B69CECC_gf_nonneutral_players(), false);
+        lib1B69CECC_gf_HideLobbyTimerMessage();
     }
 
-    DialogControlSetVisible(lib1B69CECC_gv_ui_stalemate_dialog, lib1B69CECC_gf_nonneutral_players(), true);
-    libNtve_gf_SetDialogItemText(lib1B69CECC_gv_ui_reveal_label2, (StringExternal("Param/Value/lib_1B69CECC_830DD949") + FixedToText(lib1B69CECC_gv_count, 0)), lib1B69CECC_gf_nonneutral_players());
     return true;
 }
 
