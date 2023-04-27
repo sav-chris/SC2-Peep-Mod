@@ -2897,9 +2897,9 @@ bool lib1B69CECC_gt_HandleTimeOut_Func (bool testConds, bool runActions) {
         lib1B69CECC_gf_InitialiseGame(lib1B69CECC_gv_theLobby.lv_players);
         DialogControlSetVisible(lib1B69CECC_gv_ui_play_confirm, lib1B69CECC_gf_nonneutral_players(), true);
         DialogControlSetVisible(lib1B69CECC_gv_ui_play_cancel, lib1B69CECC_gf_nonneutral_players(), false);
+        lib1B69CECC_gf_HideLobbyTimerMessage();
     }
 
-    lib1B69CECC_gf_ShowLobbyTimerMessage(lib1B69CECC_gv_count);
     return true;
 }
 

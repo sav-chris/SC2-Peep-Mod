@@ -15568,7 +15568,6 @@
             <Action Type="FunctionCall" Library="1B69CECC" Id="6BF317FA"/>
             <Action Type="FunctionCall" Library="1B69CECC" Id="5794B57B"/>
             <Action Type="FunctionCall" Library="1B69CECC" Id="84944953"/>
-            <Action Type="FunctionCall" Library="1B69CECC" Id="5E265059"/>
         </Element>
         <Element Type="FunctionCall" Id="576ED980">
             <FunctionDef Type="FunctionDef" Library="Ntve" Id="00000049"/>
@@ -15701,6 +15700,7 @@
             <FunctionCall Type="FunctionCall" Library="1B69CECC" Id="B5DA9AB0"/>
             <FunctionCall Type="FunctionCall" Library="1B69CECC" Id="B945DD9A"/>
             <FunctionCall Type="FunctionCall" Library="1B69CECC" Id="78B367CD"/>
+            <FunctionCall Type="FunctionCall" Library="1B69CECC" Id="6AB35B88"/>
             <FunctionCall Type="FunctionCall" Library="1B69CECC" Id="B0BB914B"/>
         </Element>
         <Element Type="FunctionCall" Id="390701D6">
@@ -15764,6 +15764,10 @@
             <ParameterDef Type="ParamDef" Library="Ntve" Id="3A302059"/>
             <Preset Type="PresetValue" Library="Ntve" Id="00000121"/>
         </Element>
+        <Element Type="FunctionCall" Id="6AB35B88">
+            <FunctionDef Type="FunctionDef" Library="1B69CECC" Id="9CF965AA"/>
+            <SubFunctionType Type="SubFuncType" Library="Ntve" Id="00000004"/>
+        </Element>
         <Element Type="FunctionCall" Id="B0BB914B">
             <FunctionDef Type="FunctionDef" Library="Ntve" Id="C439C375"/>
             <SubFunctionType Type="SubFuncType" Library="Ntve" Id="00000003"/>
@@ -15783,14 +15787,6 @@
             <ParameterDef Type="ParamDef" Library="Ntve" Id="4A15EC5F"/>
             <Value>0</Value>
             <ValueType Type="int"/>
-        </Element>
-        <Element Type="FunctionCall" Id="5E265059">
-            <FunctionDef Type="FunctionDef" Library="1B69CECC" Id="7BBD58FA"/>
-            <Parameter Type="Param" Library="1B69CECC" Id="34302631"/>
-        </Element>
-        <Element Type="Param" Id="34302631">
-            <ParameterDef Type="ParamDef" Library="1B69CECC" Id="0E603EED"/>
-            <Variable Type="Variable" Library="1B69CECC" Id="DC43B62B"/>
         </Element>
         <Element Type="FunctionDef" Id="C09C6FC6">
             <FlagCall/>
