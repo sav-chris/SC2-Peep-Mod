@@ -190,6 +190,8 @@ void lib1B69CECC_gf_InitialiseMenu ();
 void lib1B69CECC_gf_InitialisePlayDialog ();
 void lib1B69CECC_gf_HideTimerWindow ();
 void lib1B69CECC_gf_ShowTimerWindow ();
+void lib1B69CECC_gf_HideLobbyTimerMessage ();
+void lib1B69CECC_gf_ShowLobbyTimerMessage (int lp_count);
 void lib1B69CECC_gf_InitialiseLobbyTimer ();
 void lib1B69CECC_gf_EnableLobbyUI ();
 void lib1B69CECC_gf_HideLobby ();
