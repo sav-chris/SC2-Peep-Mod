@@ -55,11 +55,11 @@ void lib1B69CECC_InitVariables () {
     lib1B69CECC_gv_ui_play_cancel = c_invalidDialogControlId;
     lib1B69CECC_gv_ui_help = c_invalidDialogControlId;
     lib1B69CECC_gv_ui_chat = c_invalidDialogControlId;
-    lib1B69CECC_gv_timerWindow = c_timerWindowNone;
     lib1B69CECC_gv_ui_lobby_timer_message = c_invalidDialogControlId;
     lib1B69CECC_gv_ui_lobby_timer_dialog = c_invalidDialogControlId;
-    lib1B69CECC_gv_ui_lobbyModal = c_invalidDialogId;
-    lib1B69CECC_gv_ui_LobbyListBox = c_invalidDialogControlId;
+    lib1B69CECC_gv_ui_lobby_pane = c_invalidDialogControlId;
+    lib1B69CECC_gv_ui_lobby_list_frame = c_invalidDialogControlId;
+    lib1B69CECC_gv_ui_lobby_list = c_invalidDialogControlId;
     lib1B69CECC_gv_playerOne.lv_ui_minerals_label = c_invalidDialogControlId;
     lib1B69CECC_gv_playerOne.lv_ui_gas_label = c_invalidDialogControlId;
     lib1B69CECC_gv_playerOne.lv_ui_supplymax_label = c_invalidDialogControlId;
@@ -1142,7 +1142,7 @@ void lib1B69CECC_gf_ResetGame () {
     CinematicFade(false, 2.0, c_fadeStyleNormal, Color(0.00, 0.00, 0.00), 0.0, true);
     CinematicFade(true, 2.0, c_fadeStyleNormal, Color(0.00, 0.00, 0.00), 0.0, true);
     lib1B69CECC_gf_KillAllPlayerUnits();
-    lib1B69CECC_gf_InitialiseLobby();
+    lib1B69CECC_gf_ResetLobbyUI();
 }
 
 void lib1B69CECC_gf_StartVictoryDetection () {
@@ -1340,7 +1340,6 @@ void lib1B69CECC_gf_InitialiseGame (playergroup lp_lobby_Players) {
     libNtve_gf_SetAllianceBetweenTwoPlayerGroups(lib1B69CECC_gv_oBSERVERS, lib1B69CECC_gv_pLAYERS, libNtve_ge_AllianceSetting_Enemy);
     libNtve_gf_SetPlayerGroupAlliance(lib1B69CECC_gv_pLAYERS, libNtve_ge_AllianceSetting_Enemy);
     libNtve_gf_SetPlayerGroupAlliance(lib1B69CECC_gv_oBSERVERS, libNtve_ge_AllianceSetting_Ally);
-    lib1B69CECC_gf_HideTimerWindow();
     lib1B69CECC_gf_StartVictoryDetection();
     lib1B69CECC_gf_EnableObserverUI(lib1B69CECC_gv_oBSERVERS, lib1B69CECC_gv_pLAYERS);
     lib1B69CECC_gf_EnablePlayerUI(lib1B69CECC_gv_pLAYERS);
@@ -1420,7 +1419,7 @@ playergroup lib1B69CECC_gf_ChooseObserversFromLobby (playergroup lp_lobby, playe
     return lv_observers;
 }
 
-void lib1B69CECC_gf_InitialiseLobby () {
+void lib1B69CECC_gf_ResetLobbyUI () {
     // Variable Declarations
     int lv_intPlayer;
 
@@ -1586,7 +1585,7 @@ bool lib1B69CECC_gf_is_plates (unit lp_unit) {
 bool lib1B69CECC_gf_is_rocks (unit lp_unit) {
     // Automatic Variable Declarations
     // Implementation
-    if (((UnitGetType(lp_unit) == "DestructibleRock2x4Horizontal") || (UnitGetType(lp_unit) == "DestructibleRock2x4Vertical") || (UnitGetType(lp_unit) == "DestructibleRock2x6Horizontal") || (UnitGetType(lp_unit) == "DestructibleRock2x6Vertical") || (UnitGetType(lp_unit) == "DestructibleRock4x4") || (UnitGetType(lp_unit) == "CollapsibleRockTowerDebris") || (UnitGetType(lp_unit) == "DestructibleRock6x6") || (UnitGetType(lp_unit) == "DestructibleRock6x6Weak") || (UnitGetType(lp_unit) == "DestructibleRockEx12x4Horizontal") || (UnitGetType(lp_unit) == "DestructibleRockEx12x4Vertical") || (UnitGetType(lp_unit) == "DestructibleRockEx12x6Horizontal") || (UnitGetType(lp_unit) == "DestructibleRockEx12x6Vertical") || (UnitGetType(lp_unit) == "DestructibleRockEx14x4") || (UnitGetType(lp_unit) == "DestructibleRockEx16x6") || (UnitGetType(lp_unit) == "DestructibleRockEx1DiagonalHugeBLUR") || (UnitGetType(lp_unit) == "DestructibleRockEx1DiagonalHugeULBR") || (UnitGetType(lp_unit) == "DestructibleRockEx1HorizontalHuge") || (UnitGetType(lp_unit) == "DestructibleRockEx1VerticalHuge") || (UnitGetType(lp_unit) == "DestructibleRampDiagonalHugeBLUR") || (UnitGetType(lp_unit) == "DestructibleRampDiagonalHugeULBR") || (UnitGetType(lp_unit) == "DestructibleRampHorizontalHuge") || (UnitGetType(lp_unit) == "DestructibleRampVerticalHuge") || (UnitGetType(lp_unit) == "Rocks2x2NonConjoined") || (UnitGetType(lp_unit) == "CollapsibleRockTowerPushUnit") || (UnitGetType(lp_unit) == "CollapsibleRockTowerDebrisRampLeft") || (UnitGetType(lp_unit) == "CollapsibleRockTowerDebrisRampLeftGreen") || (UnitGetType(lp_unit) == "CollapsibleRockTowerDebrisRampRight") || (UnitGetType(lp_unit) == "CollapsibleRockTowerDebrisRampRightGreen"))) {
+    if (((UnitGetType(lp_unit) == "DestructibleRock2x4Horizontal") || (UnitGetType(lp_unit) == "DestructibleRock2x4Vertical") || (UnitGetType(lp_unit) == "DestructibleRock2x6Horizontal") || (UnitGetType(lp_unit) == "DestructibleRock2x6Vertical") || (UnitGetType(lp_unit) == "DestructibleRock4x4") || (UnitGetType(lp_unit) == "CollapsibleRockTowerDebris") || (UnitGetType(lp_unit) == "DestructibleRock6x6") || (UnitGetType(lp_unit) == "DestructibleRock6x6Weak") || (UnitGetType(lp_unit) == "DestructibleRockEx12x4Horizontal") || (UnitGetType(lp_unit) == "DestructibleRockEx12x4Vertical") || (UnitGetType(lp_unit) == "DestructibleRockEx12x6Horizontal") || (UnitGetType(lp_unit) == "DestructibleRockEx12x6Vertical") || (UnitGetType(lp_unit) == "DestructibleRockEx14x4") || (UnitGetType(lp_unit) == "DestructibleRockEx16x6") || (UnitGetType(lp_unit) == "DestructibleRockEx1DiagonalHugeBLUR") || (UnitGetType(lp_unit) == "DestructibleRockEx1DiagonalHugeULBR") || (UnitGetType(lp_unit) == "DestructibleRockEx1HorizontalHuge") || (UnitGetType(lp_unit) == "DestructibleRockEx1VerticalHuge") || (UnitGetType(lp_unit) == "DestructibleRampDiagonalHugeBLUR") || (UnitGetType(lp_unit) == "DestructibleRampDiagonalHugeULBR") || (UnitGetType(lp_unit) == "DestructibleRampHorizontalHuge") || (UnitGetType(lp_unit) == "DestructibleRampVerticalHuge") || (UnitGetType(lp_unit) == "Rocks2x2NonConjoined") || (UnitGetType(lp_unit) == "CollapsibleRockTowerPushUnit") || (UnitGetType(lp_unit) == "CollapsibleRockTowerDebrisRampLeft") || (UnitGetType(lp_unit) == "CollapsibleRockTowerDebrisRampLeftGreen") || (UnitGetType(lp_unit) == "CollapsibleRockTowerDebrisRampRight") || (UnitGetType(lp_unit) == "CollapsibleRockTowerDebrisRampRightGreen") || (UnitGetType(lp_unit) == "BraxisAlphaDestructible1x1") || (UnitGetType(lp_unit) == "BraxisAlphaDestructible2x2") || (UnitGetType(lp_unit) == "CollapsiblePurifierTowerDebris") || (UnitGetType(lp_unit) == "CollapsibleRockTowerPushUnitRampLeftGreen") || (UnitGetType(lp_unit) == "CollapsibleRockTowerPushUnitRampLeft") || (UnitGetType(lp_unit) == "CollapsibleRockTowerPushUnitRampRightGreen") || (UnitGetType(lp_unit) == "CollapsibleRockTowerPushUnitRampRight") || (UnitGetType(lp_unit) == "DestructibleDebris4x4") || (UnitGetType(lp_unit) == "CollapsibleTerranTowerDebris") || (UnitGetType(lp_unit) == "DestructibleDebris6x6") || (UnitGetType(lp_unit) == "DestructibleCityDebris2x4Horizontal") || (UnitGetType(lp_unit) == "DestructibleCityDebris2x4Vertical") || (UnitGetType(lp_unit) == "DestructibleCityDebris2x6Horizontal") || (UnitGetType(lp_unit) == "DestructibleCityDebris2x6Vertical") || (UnitGetType(lp_unit) == "DestructibleCityDebris4x4") || (UnitGetType(lp_unit) == "DestructibleCityDebris6x6") || (UnitGetType(lp_unit) == "DestructibleCityDebrisHugeDiagonalBLUR") || (UnitGetType(lp_unit) == "DestructibleCityDebrisHugeDiagonalULBR") || (UnitGetType(lp_unit) == "DestructibleDebrisRampDiagonalHugeBLUR") || (UnitGetType(lp_unit) == "DestructibleDebrisRampDiagonalHugeULBR") || (UnitGetType(lp_unit) == "Debris2x2NonConjoined") || (UnitGetType(lp_unit) == "DebrisRampLeft") || (UnitGetType(lp_unit) == "DebrisRampRight") || (UnitGetType(lp_unit) == "DestructibleZergInfestation3x3") || (UnitGetType(lp_unit) == "DestructibleExpeditionGate6x6") || (UnitGetType(lp_unit) == "DestructibleIce2x4Horizontal") || (UnitGetType(lp_unit) == "DestructibleIce2x4Vertical") || (UnitGetType(lp_unit) == "DestructibleIce2x6Horizontal") || (UnitGetType(lp_unit) == "DestructibleIce2x6Vertical") || (UnitGetType(lp_unit) == "DestructibleIce4x4") || (UnitGetType(lp_unit) == "DestructibleIce6x6") || (UnitGetType(lp_unit) == "DestructibleIceDiagonalHugeBLUR") || (UnitGetType(lp_unit) == "DestructibleIceDiagonalHugeULBR") || (UnitGetType(lp_unit) == "DestructibleIceHorizontalHuge") || (UnitGetType(lp_unit) == "DestructibleIceVerticalHuge") || (UnitGetType(lp_unit) == "Ice2x2NonConjoined"))) {
         return true;
     }
     else {
@@ -1743,25 +1742,25 @@ playergroup lib1B69CECC_gf_compute_winners (playergroup lp_players, playergroup 
 
 void lib1B69CECC_gf_ResetLeaderPanel () {
     // Automatic Variable Declarations
-    playergroup auto91CAD639_g;
-    int auto91CAD639_var;
     playergroup auto27C7B9A0_g;
     int auto27C7B9A0_var;
+    playergroup auto91CAD639_g;
+    int auto91CAD639_var;
 
     // Implementation
-    auto91CAD639_g = lib1B69CECC_gv_pLAYERS;
-    auto91CAD639_var = -1;
-    while (true) {
-        auto91CAD639_var = PlayerGroupNextPlayer(auto91CAD639_g, auto91CAD639_var);
-        if (auto91CAD639_var < 0) { break; }
-        PlayerSetState(auto91CAD639_var, c_playerStateDisplayInLeaderPanel, true);
-    }
     auto27C7B9A0_g = lib1B69CECC_gv_oBSERVERS;
     auto27C7B9A0_var = -1;
     while (true) {
         auto27C7B9A0_var = PlayerGroupNextPlayer(auto27C7B9A0_g, auto27C7B9A0_var);
         if (auto27C7B9A0_var < 0) { break; }
         PlayerSetState(auto27C7B9A0_var, c_playerStateDisplayInLeaderPanel, false);
+    }
+    auto91CAD639_g = lib1B69CECC_gv_pLAYERS;
+    auto91CAD639_var = -1;
+    while (true) {
+        auto91CAD639_var = PlayerGroupNextPlayer(auto91CAD639_g, auto91CAD639_var);
+        if (auto91CAD639_var < 0) { break; }
+        PlayerSetState(auto91CAD639_var, c_playerStateDisplayInLeaderPanel, true);
     }
 }
 
@@ -2079,16 +2078,14 @@ void lib1B69CECC_gf_InitialisePlayDialog () {
     DialogControlSelectItem(lib1B69CECC_gv_ui_play_league, PlayerGroupAll(), 1);
 }
 
-void lib1B69CECC_gf_HideTimerWindow () {
+void lib1B69CECC_gf_InitialiseLobbyTimer () {
     // Automatic Variable Declarations
     // Implementation
-    TimerWindowShow(lib1B69CECC_gv_timerWindow, lib1B69CECC_gf_nonneutral_players(), false);
-}
-
-void lib1B69CECC_gf_ShowTimerWindow () {
-    // Automatic Variable Declarations
-    // Implementation
-    TimerWindowShow(lib1B69CECC_gv_timerWindow, lib1B69CECC_gf_nonneutral_players(), true);
+    DialogControlHookupStandard(c_triggerControlTypePanel, "UIContainer/PeepModLobbyMessageDialog");
+    lib1B69CECC_gv_ui_lobby_timer_dialog = DialogControlLastCreated();
+    DialogControlHookupStandard(c_triggerControlTypeLabel, "UIContainer/PeepModLobbyMessageDialog/LobbyMessage");
+    lib1B69CECC_gv_ui_lobby_timer_message = DialogControlLastCreated();
+    DialogControlSetVisible(lib1B69CECC_gv_ui_lobby_timer_dialog, PlayerGroupAll(), false);
 }
 
 void lib1B69CECC_gf_HideLobbyTimerMessage () {
@@ -2104,14 +2101,16 @@ void lib1B69CECC_gf_ShowLobbyTimerMessage (int lp_count) {
     libNtve_gf_SetDialogItemText(lib1B69CECC_gv_ui_lobby_timer_message, (StringExternal("Param/Value/lib_1B69CECC_6098EF3B") + FixedToText(lp_count, 0)), lib1B69CECC_gf_nonneutral_players());
 }
 
-void lib1B69CECC_gf_InitialiseLobbyTimer () {
+void lib1B69CECC_gf_InitialiseTheLobby () {
     // Automatic Variable Declarations
     // Implementation
-    DialogControlHookupStandard(c_triggerControlTypePanel, "UIContainer/PeepModLobbyMessageDialog");
-    lib1B69CECC_gv_ui_lobby_timer_dialog = DialogControlLastCreated();
-    DialogControlHookupStandard(c_triggerControlTypeLabel, "UIContainer/PeepModLobbyMessageDialog/LobbyMessage");
-    lib1B69CECC_gv_ui_lobby_timer_message = DialogControlLastCreated();
-    DialogControlSetVisible(lib1B69CECC_gv_ui_lobby_timer_dialog, PlayerGroupAll(), false);
+    DialogControlHookupStandard(c_triggerControlTypePanel, "UIContainer/PeepModLobby");
+    lib1B69CECC_gv_ui_lobby_pane = DialogControlLastCreated();
+    DialogControlHookupStandard(c_triggerControlTypePanel, "UIContainer/PeepModLobby/LobbyList");
+    lib1B69CECC_gv_ui_lobby_list_frame = DialogControlLastCreated();
+    DialogControlCreateInPanel(lib1B69CECC_gv_ui_lobby_list_frame, c_triggerControlTypeListBox);
+    lib1B69CECC_gv_ui_lobby_list = DialogControlLastCreated();
+    DialogControlSetFullDialog(lib1B69CECC_gv_ui_lobby_list, PlayerGroupAll(), true);
 }
 
 void lib1B69CECC_gf_EnableLobbyUI () {
@@ -2135,7 +2134,7 @@ void lib1B69CECC_gf_EnableLobbyUI () {
 void lib1B69CECC_gf_HideLobby () {
     // Automatic Variable Declarations
     // Implementation
-    DialogSetVisible(lib1B69CECC_gv_ui_lobbyModal, PlayerGroupAll(), false);
+    DialogControlSetVisible(lib1B69CECC_gv_ui_lobby_pane, PlayerGroupAll(), false);
 }
 
 void lib1B69CECC_gf_RefreshLobby (structref<lib1B69CECC_gs_Lobby> lp_lobbyModel) {
@@ -2143,18 +2142,18 @@ void lib1B69CECC_gf_RefreshLobby (structref<lib1B69CECC_gs_Lobby> lp_lobbyModel)
     int lv_player;
 
     // Automatic Variable Declarations
-    playergroup auto2DE13D9F_g;
+    playergroup auto00114768_g;
 
     // Variable Initialization
 
     // Implementation
-    DialogControlRemoveAllItems(lib1B69CECC_gv_ui_LobbyListBox, PlayerGroupAll());
-    auto2DE13D9F_g = lp_lobbyModel.lv_players;
+    DialogControlRemoveAllItems(lib1B69CECC_gv_ui_lobby_list, PlayerGroupAll());
+    auto00114768_g = lp_lobbyModel.lv_players;
     lv_player = -1;
     while (true) {
-        lv_player = PlayerGroupNextPlayer(auto2DE13D9F_g, lv_player);
+        lv_player = PlayerGroupNextPlayer(auto00114768_g, lv_player);
         if (lv_player < 0) { break; }
-        DialogControlAddItem(lib1B69CECC_gv_ui_LobbyListBox, PlayerGroupAll(), lib1B69CECC_gf_format_player_name(lv_player));
+        DialogControlAddItem(lib1B69CECC_gv_ui_lobby_list, PlayerGroupAll(), lib1B69CECC_gf_format_player_name(lv_player));
     }
 }
 
@@ -2170,14 +2169,8 @@ void lib1B69CECC_gf_ShowLobbyUI () {
     // Variable Initialization
 
     // Implementation
-    DialogCreate(lv_lOBBY_WIDTH, lv_lOBBY_HEIGHT, c_anchorTopLeft, lv_lOBBY_X, lv_lOBBY_Y, true);
-    lib1B69CECC_gv_ui_lobbyModal = DialogLastCreated();
-    DialogControlCreate(DialogLastCreated(), c_triggerControlTypeListBox);
-    lib1B69CECC_gv_ui_LobbyListBox = DialogControlLastCreated();
-    DialogControlSetSize(DialogControlLastCreated(), PlayerGroupAll(), (lv_lOBBY_WIDTH - (2 * lv_sPACEMARGIN)), (lv_lOBBY_HEIGHT - (2 * lv_sPACEMARGIN)));
-    DialogControlSetPosition(DialogControlLastCreated(), PlayerGroupAll(), c_anchorTopLeft, lv_sPACEMARGIN, lv_sPACEMARGIN);
-    DialogSetVisible(DialogLastCreated(), PlayerGroupAll(), true);
-    lib1B69CECC_gf_ShowTimerWindow();
+    DialogControlSetVisible(lib1B69CECC_gv_ui_lobby_pane, PlayerGroupAll(), true);
+    lib1B69CECC_gf_RefreshLobby(lib1B69CECC_gv_theLobby);
 }
 
 void lib1B69CECC_gf_AddMapFeature (point lp_position, fixed lp_facing, string lp_unitType) {
@@ -2968,6 +2961,7 @@ bool lib1B69CECC_gt_HandleTimeOut_Func (bool testConds, bool runActions) {
     }
 
     lib1B69CECC_gv_count -= 1;
+    lib1B69CECC_gf_ShowLobbyTimerMessage(lib1B69CECC_gv_count);
     if ((lib1B69CECC_gv_count <= 3) && (lib1B69CECC_gf_IsEnoughPlayersToStart() == true)) {
         DialogControlSetVisible(lib1B69CECC_gv_ui_menu, lib1B69CECC_gf_nonneutral_players(), false);
         DialogControlSetVisible(lib1B69CECC_gv_ui_playpanel, lib1B69CECC_gf_nonneutral_players(), false);
@@ -3240,6 +3234,7 @@ bool lib1B69CECC_gt_MeleeInitialization_Func (bool testConds, bool runActions) {
     lib1B69CECC_gf_InitialiseRaceSelections();
     lib1B69CECC_gf_RecordStartingMapFeatures();
     lib1B69CECC_gf_InitialiseLobbyTimer();
+    lib1B69CECC_gf_InitialiseTheLobby();
     lib1B69CECC_gf_InitialiseResourceIcons();
     lib1B69CECC_gf_InitialiseMenu();
     lib1B69CECC_gf_InitialisePlayDialog();
@@ -3248,7 +3243,7 @@ bool lib1B69CECC_gt_MeleeInitialization_Func (bool testConds, bool runActions) {
     lib1B69CECC_gf_InitialiseStalemateDialog();
     lib1B69CECC_gf_InitialiseClock();
     lib1B69CECC_gf_InitialiseProductionTab();
-    lib1B69CECC_gf_InitialiseLobby();
+    lib1B69CECC_gf_ResetLobbyUI();
     return true;
 }
 
