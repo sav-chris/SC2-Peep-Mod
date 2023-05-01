@@ -7,4 +7,5 @@
     <Include path="UI/Layout/PeepModResourceIcons.SC2Layout"/>
     <Include path="UI/Layout/StalemateWarningDialog.SC2Layout"/>
     <Include path="UI/Layout/PeepModLobbyMessage.SC2Layout"/>
+    <Include path="UI/Layout/PeepModLobby.SC2Layout"/>
 </Desc>

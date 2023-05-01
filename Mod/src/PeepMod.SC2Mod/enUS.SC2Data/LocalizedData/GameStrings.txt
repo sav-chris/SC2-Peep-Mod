@@ -22,7 +22,6 @@ Param/Value/lib_1B69CECC_6098EF3B=Match Starting in:
 Param/Value/lib_1B69CECC_6DF26637=<img path="Assets\Textures\ui_battlenet_glue_icons_league_silver.dds" alignment="AbsoluteMiddle" width="22" height="22"/> Silver
 Param/Value/lib_1B69CECC_6E1545DC=<img path="Assets\Textures\sc2_ui_loadingscreen_playercard_raceindicator_protoss.dds" alignment="AbsoluteMiddle" width="21" height="22"/> 
 Param/Value/lib_1B69CECC_73FE80F3=
-Param/Value/lib_1B69CECC_79FAD5F2=Test Foo Bar : Race
 Param/Value/lib_1B69CECC_7F3AAD05=00:00
 Param/Value/lib_1B69CECC_828333EB=<img path="Assets\Textures\sc2_ui_loadingscreen_playercard_raceindicator_genetron.dds" alignment="AbsoluteMiddle" width="21" height="22"/> 
 Param/Value/lib_1B69CECC_85598A1E=

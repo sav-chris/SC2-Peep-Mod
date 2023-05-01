@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<Desc>
+    <Frame type="Frame" name="GameUI/UIContainer" file="GameUI">
+        <Frame type="Frame" name="PeepModLobby">
+            <Anchor side="Right" relative="$parent" pos="Mid" offset="0"/>
+            <Anchor side="Left" relative="$parent" pos="Mid" offset="0"/>
+            <Anchor side="Top" relative="$parent" pos="Min" offset="80"/>
+            
+            <Height val="650"/>
+            <Width val="800"/>
+
+            <Frame type="Image" name="Background">
+                <Anchor relative="$parent"/>
+                
+                <Texture val="Assets/Textures/ui_ingame_tutorial_textborder_terr.dds"/>
+                <TextureType val="NineSlice"/>
+            </Frame>
+
+            <Frame type="Label" name="LobbyTitle">
+            
+                <Anchor side="Top" relative="$parent" pos="Min" offset="5"/>
+                <Anchor side="Left" relative="$parent" pos="Mid" offset="0"/>
+                <Anchor side="Right" relative="$parent" pos="Mid" offset="0"/>
+ 
+                <Style val="SystemAlert_Prot"/>
+                <Text val="Players: "/>
+            </Frame>
+            
+            <Frame type="Frame" name="LobbyList">
+                <Anchor side="Top" relative="$parent" pos="Min" offset="50"/>
+                <Anchor side="Left" relative="$parent" pos="Min" offset="5"/>
+                <Height val="590"/>
+                <Width val="790"/>
+                <Visible val="True"/>
+            </Frame>
+
+        </Frame>
+
+    </Frame>
+</Desc>
+
