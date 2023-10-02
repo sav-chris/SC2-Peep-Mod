@@ -28,7 +28,13 @@
             <Item Type="Category" Library="1B69CECC" Id="D1FBC5FB"/>
         </Element>
         <Element Type="Category" Id="18418EEA">
+            <Item Type="Comment" Library="1B69CECC" Id="E6C6AE6B"/>
             <Item Type="Trigger" Library="1B69CECC" Id="D19C9631"/>
+        </Element>
+        <Element Type="Comment" Id="E6C6AE6B">
+            <Comment>
+                This Trigger Depricated
+            </Comment>
         </Element>
         <Element Type="Trigger" Id="D19C9631">
             <Variable Type="Variable" Library="1B69CECC" Id="155D77CD"/>
