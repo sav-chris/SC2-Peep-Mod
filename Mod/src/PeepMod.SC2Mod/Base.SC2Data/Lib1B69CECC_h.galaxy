@@ -28,6 +28,12 @@ struct lib1B69CECC_gs_LobbyTimer {
     timer lv_timer;
 };
 
+struct lib1B69CECC_gs_PlayerEnergy {
+    int lv_ui_genetron_energy_display;
+    int lv_ui_genetron_energy_current;
+    int lv_ui_genetron_energy_max;
+};
+
 struct lib1B69CECC_gs_MapFeature {
     point lv_position;
     fixed lv_facing;
@@ -70,6 +76,12 @@ playergroup lib1B69CECC_gv_pLAYERS;
 playergroup lib1B69CECC_gv_oBSERVERS;
 int lib1B69CECC_gv_count;
 lib1B69CECC_gs_LobbyTimer lib1B69CECC_gv_lobbyTimer;
+int lib1B69CECC_gv_ui_genetron_energy_panel;
+int lib1B69CECC_gv_ui_genetron_energy_display;
+int lib1B69CECC_gv_ui_genetron_energy_current;
+int lib1B69CECC_gv_ui_genetron_energy_max;
+lib1B69CECC_gs_PlayerEnergy lib1B69CECC_gv_playerOneEnergy;
+lib1B69CECC_gs_PlayerEnergy lib1B69CECC_gv_playerTwoEnergy;
 timer lib1B69CECC_gv_tmr_stalemate_message_refesh;
 int lib1B69CECC_gv_ui_stalemate_dialog;
 int lib1B69CECC_gv_ui_reveal_label2;
@@ -179,10 +191,13 @@ string lib1B69CECC_gf_compute_race_from_index (int lp_race_index);
 bool lib1B69CECC_gf_is_gas_structure (unit lp_unit);
 bool lib1B69CECC_gf_is_town_centre (unit lp_unit);
 playergroup lib1B69CECC_gf_compute_winners (playergroup lp_players, playergroup lp_losers);
-void lib1B69CECC_gf_ResetLeaderPanel ();
+void lib1B69CECC_gf_HideGenetronEnergyDisplay ();
+void lib1B69CECC_gf_DisplayGenetronEnergy (int lp_player);
+void lib1B69CECC_gf_InitialiseEnergyDisplay ();
 void lib1B69CECC_gf_HideStalemateWarning ();
 void lib1B69CECC_gf_DisplayStalemateWarning ();
 void lib1B69CECC_gf_InitialiseStalemateDialog ();
+void lib1B69CECC_gf_ResetLeaderPanel ();
 int lib1B69CECC_gf_DialogItemFromHookup (int lp_dialogItemType, string lp_name);
 void lib1B69CECC_gf_InitialiseProductionTab ();
 void lib1B69CECC_gf_InitialiseResourceIcons ();

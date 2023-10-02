@@ -1981,7 +1981,7 @@
     </Element>
     <Element Type="Param" Id="AEA4716A">
         <ParameterDef Type="ParamDef" Library="Ntve" Id="00000192"/>
-        <Value>-AI Player</Value>
+        <Value>-AI Player 2</Value>
         <ValueType Type="string"/>
     </Element>
     <Element Type="FunctionCall" Id="437E5D10">
@@ -2004,7 +2004,7 @@
     </Element>
     <Element Type="Param" Id="1D35EE47">
         <ParameterDef Type="ParamDef" Library="1B69CECC" Id="4D00F6FC"/>
-        <Variable Type="Variable" Id="87D090CC"/>
+        <Variable Type="Variable" Id="5075693D"/>
     </Element>
     <Element Type="Param" Id="A04F8619">
         <ParameterDef Type="ParamDef" Library="Ntve" Id="9E6F0FCC"/>
@@ -2016,7 +2016,7 @@
     </Element>
     <Element Type="Param" Id="17CB248F">
         <ParameterDef Type="ParamDef" Library="1B69CECC" Id="F8CD94BC"/>
-        <Value>Gen</Value>
+        <Value>Keir</Value>
         <ValueType Type="gamelink"/>
         <ValueGameType Type="Race"/>
     </Element>
@@ -2027,7 +2027,7 @@
     </Element>
     <Element Type="Param" Id="86D4453D">
         <ParameterDef Type="ParamDef" Library="1B69CECC" Id="EA4EB1FC"/>
-        <Variable Type="Variable" Id="87D090CC"/>
+        <Variable Type="Variable" Id="5075693D"/>
     </Element>
     <Element Type="Param" Id="A53D99EB">
         <ParameterDef Type="ParamDef" Library="1B69CECC" Id="5B42F4E5"/>

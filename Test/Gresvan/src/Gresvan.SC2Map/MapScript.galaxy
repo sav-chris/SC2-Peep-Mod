@@ -266,8 +266,8 @@ bool gt_AddAITrigger2_Func (bool testConds, bool runActions) {
         return true;
     }
 
-    DataTableSetInt(true, lib1B69CECC_gf_compute_player_race_key(gv_aIPlayer_1), lib1B69CECC_gf_compute_race_index("Gen"));
-    lib1B69CECC_gf_JoinLobby(gv_aIPlayer_1, lib1B69CECC_gv_theLobby);
+    DataTableSetInt(true, lib1B69CECC_gf_compute_player_race_key(gv_aIPlayer_2), lib1B69CECC_gf_compute_race_index("Keir"));
+    lib1B69CECC_gf_JoinLobby(gv_aIPlayer_2, lib1B69CECC_gv_theLobby);
     lib1B69CECC_gf_RefreshLobby(lib1B69CECC_gv_theLobby);
     return true;
 }
@@ -275,7 +275,7 @@ bool gt_AddAITrigger2_Func (bool testConds, bool runActions) {
 //--------------------------------------------------------------------------------------------------
 void gt_AddAITrigger2_Init () {
     gt_AddAITrigger2 = TriggerCreate("gt_AddAITrigger2_Func");
-    TriggerAddEventChatMessage(gt_AddAITrigger2, c_playerAny, "-AI Player", true);
+    TriggerAddEventChatMessage(gt_AddAITrigger2, c_playerAny, "-AI Player 2", true);
 }
 
 //--------------------------------------------------------------------------------------------------
