@@ -32,6 +32,7 @@
         </Element>
         <Element Type="Trigger" Id="D19C9631">
             <Variable Type="Variable" Library="1B69CECC" Id="155D77CD"/>
+            <Event Type="Comment" Library="1B69CECC" Id="E99064F4"/>
             <Action Type="FunctionCall" Library="1B69CECC" Id="72CD8ED7"/>
         </Element>
         <Element Type="Variable" Id="155D77CD">
@@ -44,6 +45,11 @@
         <Element Type="Param" Id="4E03549D">
             <Value>0.0625</Value>
             <ValueType Type="fixed"/>
+        </Element>
+        <Element Type="Comment" Id="E99064F4">
+            <Comment>
+                MIGHT REMOVE THIS CODE SINCE IT IS DEPRICATED SINCE THE ENERGY ICON FIX
+            </Comment>
         </Element>
         <Element Type="FunctionCall" Id="72CD8ED7">
             <FunctionDef Type="FunctionDef" Library="Ntve" Id="71596144"/>
@@ -24050,8 +24056,6 @@
         <Element Type="FunctionDef" Id="2EFBB6CA">
             <FlagAction/>
             <Parameter Type="ParamDef" Library="1B69CECC" Id="1BC6D1F5"/>
-            <FunctionCall Type="FunctionCall" Library="1B69CECC" Id="5E912FB1"/>
-            <FunctionCall Type="FunctionCall" Library="1B69CECC" Id="0584FC81"/>
             <FunctionCall Type="FunctionCall" Library="1B69CECC" Id="A90FF304"/>
         </Element>
         <Element Type="ParamDef" Id="1BC6D1F5">
@@ -24064,60 +24068,10 @@
             <Value>0</Value>
             <ValueType Type="int"/>
         </Element>
-        <Element Type="FunctionCall" Id="5E912FB1">
-            <FunctionDef Type="FunctionDef" Library="Ntve" Id="0366EE04"/>
-            <Parameter Type="Param" Library="1B69CECC" Id="691DBFEB"/>
-            <Parameter Type="Param" Library="1B69CECC" Id="1673A823"/>
-            <Parameter Type="Param" Library="1B69CECC" Id="EC0C322F"/>
-        </Element>
-        <Element Type="Param" Id="691DBFEB">
-            <ParameterDef Type="ParamDef" Library="Ntve" Id="0D120C33"/>
-            <FunctionCall Type="FunctionCall" Library="1B69CECC" Id="FF11F68E"/>
-        </Element>
-        <Element Type="FunctionCall" Id="FF11F68E">
-            <FunctionDef Type="FunctionDef" Library="1B69CECC" Id="A3E07673"/>
-        </Element>
-        <Element Type="Param" Id="1673A823">
-            <ParameterDef Type="ParamDef" Library="Ntve" Id="A4C19F41"/>
-            <Preset Type="PresetValue" Library="Ntve" Id="875889C8"/>
-        </Element>
-        <Element Type="Param" Id="EC0C322F">
-            <ParameterDef Type="ParamDef" Library="Ntve" Id="78A54B52"/>
-            <ValueType Type="text"/>
-        </Element>
-        <Element Type="FunctionCall" Id="0584FC81">
-            <FunctionDef Type="FunctionDef" Library="Ntve" Id="0366EE04"/>
-            <Parameter Type="Param" Library="1B69CECC" Id="20C11860"/>
-            <Parameter Type="Param" Library="1B69CECC" Id="C7455267"/>
-            <Parameter Type="Param" Library="1B69CECC" Id="CD53D832"/>
-        </Element>
-        <Element Type="Param" Id="20C11860">
-            <ParameterDef Type="ParamDef" Library="Ntve" Id="0D120C33"/>
-            <FunctionCall Type="FunctionCall" Library="1B69CECC" Id="2C512990"/>
-        </Element>
-        <Element Type="FunctionCall" Id="2C512990">
-            <FunctionDef Type="FunctionDef" Library="1B69CECC" Id="A3E07673"/>
-        </Element>
-        <Element Type="Param" Id="C7455267">
-            <ParameterDef Type="ParamDef" Library="Ntve" Id="A4C19F41"/>
-            <Preset Type="PresetValue" Library="Ntve" Id="875889C8"/>
-        </Element>
-        <Element Type="Param" Id="CD53D832">
-            <ParameterDef Type="ParamDef" Library="Ntve" Id="78A54B52"/>
-            <FunctionCall Type="FunctionCall" Library="1B69CECC" Id="EF41B47D"/>
-        </Element>
-        <Element Type="FunctionCall" Id="EF41B47D">
-            <FunctionDef Type="FunctionDef" Library="Ntve" Id="EAC465A1"/>
-            <Parameter Type="Param" Library="1B69CECC" Id="8EC39DF8"/>
-        </Element>
-        <Element Type="Param" Id="8EC39DF8">
-            <ParameterDef Type="ParamDef" Library="Ntve" Id="D125FE97"/>
-            <Parameter Type="ParamDef" Library="1B69CECC" Id="1BC6D1F5"/>
-        </Element>
         <Element Type="FunctionCall" Id="A90FF304">
             <FunctionDef Type="FunctionDef" Library="Ntve" Id="00000137"/>
             <FunctionCall Type="FunctionCall" Library="1B69CECC" Id="42F7E8FE"/>
-            <FunctionCall Type="FunctionCall" Library="1B69CECC" Id="D973FDB9"/>
+            <FunctionCall Type="Comment" Library="1B69CECC" Id="FD8917EE"/>
             <FunctionCall Type="FunctionCall" Library="1B69CECC" Id="EA9FD9BD"/>
         </Element>
         <Element Type="FunctionCall" Id="42F7E8FE">
@@ -24147,32 +24101,12 @@
             <ParameterDef Type="ParamDef" Library="Ntve" Id="3A302059"/>
             <Preset Type="PresetValue" Library="Ntve" Id="00000120"/>
         </Element>
-        <Element Type="FunctionCall" Id="D973FDB9">
-            <FunctionDef Type="FunctionDef" Library="Ntve" Id="E37ACA0E"/>
+        <Element Type="Comment" Id="FD8917EE">
+            <Comment>
+                Old Energy Control
+                                Dialog -Show ui_genetron_energy_display for (Player group(player))
+            </Comment>
             <SubFunctionType Type="SubFuncType" Library="Ntve" Id="00000004"/>
-            <Parameter Type="Param" Library="1B69CECC" Id="E166A4D4"/>
-            <Parameter Type="Param" Library="1B69CECC" Id="0992BFE2"/>
-            <Parameter Type="Param" Library="1B69CECC" Id="E14F3DD5"/>
-        </Element>
-        <Element Type="Param" Id="E166A4D4">
-            <ParameterDef Type="ParamDef" Library="Ntve" Id="21F36F40"/>
-            <Variable Type="Variable" Library="1B69CECC" Id="415B02F6"/>
-        </Element>
-        <Element Type="Param" Id="0992BFE2">
-            <ParameterDef Type="ParamDef" Library="Ntve" Id="0EAACCBD"/>
-            <FunctionCall Type="FunctionCall" Library="1B69CECC" Id="C782FB05"/>
-        </Element>
-        <Element Type="FunctionCall" Id="C782FB05">
-            <FunctionDef Type="FunctionDef" Library="Ntve" Id="00000057"/>
-            <Parameter Type="Param" Library="1B69CECC" Id="148102AF"/>
-        </Element>
-        <Element Type="Param" Id="148102AF">
-            <ParameterDef Type="ParamDef" Library="Ntve" Id="00000094"/>
-            <Parameter Type="ParamDef" Library="1B69CECC" Id="1BC6D1F5"/>
-        </Element>
-        <Element Type="Param" Id="E14F3DD5">
-            <ParameterDef Type="ParamDef" Library="Ntve" Id="3A302059"/>
-            <Preset Type="PresetValue" Library="Ntve" Id="00000120"/>
         </Element>
         <Element Type="FunctionCall" Id="EA9FD9BD">
             <FunctionDef Type="FunctionDef" Library="Ntve" Id="C439C375"/>
@@ -26687,8 +26621,7 @@
             <FunctionCall Type="FunctionCall" Library="1B69CECC" Id="3834462E"/>
             <FunctionCall Type="Comment" Library="1B69CECC" Id="C78541A5"/>
             <FunctionCall Type="FunctionCall" Library="1B69CECC" Id="E12E6E8E"/>
-            <FunctionCall Type="FunctionCall" Library="1B69CECC" Id="55618DBD"/>
-            <FunctionCall Type="FunctionCall" Library="1B69CECC" Id="F2D97517"/>
+            <FunctionCall Type="Comment" Library="1B69CECC" Id="B258FF0A"/>
         </Element>
         <Element Type="ParamDef" Id="F0D23AE7">
             <ParameterType>
@@ -26882,45 +26815,12 @@
         <Element Type="FunctionCall" Id="ECC0A0EE">
             <FunctionDef Type="FunctionDef" Library="Ntve" Id="8570CA61"/>
         </Element>
-        <Element Type="FunctionCall" Id="55618DBD">
-            <FunctionDef Type="FunctionDef" Library="Ntve" Id="0366EE04"/>
-            <Parameter Type="Param" Library="1B69CECC" Id="87912547"/>
-            <Parameter Type="Param" Library="1B69CECC" Id="F694A1D8"/>
-            <Parameter Type="Param" Library="1B69CECC" Id="D221131B"/>
-        </Element>
-        <Element Type="Param" Id="87912547">
-            <ParameterDef Type="ParamDef" Library="Ntve" Id="0D120C33"/>
-            <FunctionCall Type="FunctionCall" Library="1B69CECC" Id="83449713"/>
-        </Element>
-        <Element Type="FunctionCall" Id="83449713">
-            <FunctionDef Type="FunctionDef" Library="1B69CECC" Id="A3E07673"/>
-        </Element>
-        <Element Type="Param" Id="F694A1D8">
-            <ParameterDef Type="ParamDef" Library="Ntve" Id="A4C19F41"/>
-            <Preset Type="PresetValue" Library="Ntve" Id="875889C8"/>
-        </Element>
-        <Element Type="Param" Id="D221131B">
-            <ParameterDef Type="ParamDef" Library="Ntve" Id="78A54B52"/>
-            <ValueType Type="text"/>
-        </Element>
-        <Element Type="FunctionCall" Id="F2D97517">
-            <FunctionDef Type="FunctionDef" Library="Ntve" Id="00000116"/>
-            <Parameter Type="Param" Library="1B69CECC" Id="4F6D21B9"/>
-            <Parameter Type="Param" Library="1B69CECC" Id="1028BF20"/>
-            <Parameter Type="Param" Library="1B69CECC" Id="67F0BD61"/>
-        </Element>
-        <Element Type="Param" Id="4F6D21B9">
-            <ParameterDef Type="ParamDef" Library="Ntve" Id="00000183"/>
-            <Preset Type="PresetValue" Library="Ntve" Id="00000065"/>
-        </Element>
-        <Element Type="Param" Id="1028BF20">
-            <ParameterDef Type="ParamDef" Library="Ntve" Id="00000184"/>
-            <Preset Type="PresetValue" Library="Ntve" Id="00000068"/>
-        </Element>
-        <Element Type="Param" Id="67F0BD61">
-            <ParameterDef Type="ParamDef" Library="Ntve" Id="00000182"/>
-            <ValueType Type="trigger"/>
-            <ValueElement Type="Trigger" Library="1B69CECC" Id="D19C9631"/>
+        <Element Type="Comment" Id="B258FF0A">
+            <Comment>
+                Used to Trigger the energy UI update here but this has been depricated
+                
+                         Trigger -Run Update Genetron Energy Display Trigger  (Check Conditions, Don&apos;t Wait until it finishes)
+            </Comment>
         </Element>
         <Element Type="Category" Id="3C23A6FF">
             <Item Type="FunctionDef" Library="1B69CECC" Id="D9CAB814"/>
@@ -30370,7 +30270,6 @@
             <FunctionCall Type="Comment" Library="1B69CECC" Id="353A3CBC"/>
             <FunctionCall Type="FunctionCall" Library="1B69CECC" Id="930AD361"/>
             <FunctionCall Type="FunctionCall" Library="1B69CECC" Id="77147A87"/>
-            <FunctionCall Type="FunctionCall" Library="1B69CECC" Id="0126D230"/>
         </Element>
         <Element Type="Comment" Id="353A3CBC">
             <Comment>
@@ -30416,27 +30315,6 @@
             <ParameterDef Type="ParamDef" Library="Ntve" Id="00000182"/>
             <ValueType Type="trigger"/>
             <ValueElement Type="Trigger" Library="Scio" Id="49CEE4E9"/>
-        </Element>
-        <Element Type="FunctionCall" Id="0126D230">
-            <FunctionDef Type="FunctionDef" Library="Ntve" Id="0366EE04"/>
-            <Parameter Type="Param" Library="1B69CECC" Id="C9096CCB"/>
-            <Parameter Type="Param" Library="1B69CECC" Id="D07F5A5A"/>
-            <Parameter Type="Param" Library="1B69CECC" Id="D9573C93"/>
-        </Element>
-        <Element Type="Param" Id="C9096CCB">
-            <ParameterDef Type="ParamDef" Library="Ntve" Id="0D120C33"/>
-            <FunctionCall Type="FunctionCall" Library="1B69CECC" Id="FA47D955"/>
-        </Element>
-        <Element Type="FunctionCall" Id="FA47D955">
-            <FunctionDef Type="FunctionDef" Library="1B69CECC" Id="A3E07673"/>
-        </Element>
-        <Element Type="Param" Id="D07F5A5A">
-            <ParameterDef Type="ParamDef" Library="Ntve" Id="A4C19F41"/>
-            <Preset Type="PresetValue" Library="Ntve" Id="875889C8"/>
-        </Element>
-        <Element Type="Param" Id="D9573C93">
-            <ParameterDef Type="ParamDef" Library="Ntve" Id="78A54B52"/>
-            <ValueType Type="text"/>
         </Element>
     </Library>
 </TriggerData>

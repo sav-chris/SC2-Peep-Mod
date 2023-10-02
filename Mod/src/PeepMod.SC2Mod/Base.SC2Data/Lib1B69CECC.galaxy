@@ -1771,11 +1771,8 @@ void lib1B69CECC_gf_HideGenetronEnergyDisplay () {
 void lib1B69CECC_gf_DisplayGenetronEnergy (int lp_player) {
     // Automatic Variable Declarations
     // Implementation
-    UIDisplayMessage(lib1B69CECC_gf_nonneutral_players(), c_messageAreaSubtitle, StringExternal("Param/Value/lib_1B69CECC_EC0C322F"));
-    UIDisplayMessage(lib1B69CECC_gf_nonneutral_players(), c_messageAreaSubtitle, IntToText(lp_player));
     if ((PlayerRace(lp_player) == "Gen")) {
         DialogControlSetVisible(lib1B69CECC_gv_ui_genetron_energy_panel, PlayerGroupSingle(lp_player), true);
-        DialogControlSetVisible(lib1B69CECC_gv_ui_genetron_energy_display, PlayerGroupSingle(lp_player), true);
     }
 
 }
@@ -2042,8 +2039,6 @@ void lib1B69CECC_gf_EnablePlayerUI (playergroup lp_players) {
         if (autoE12E6E8E_var < 0) { break; }
         lib1B69CECC_gf_DisplayGenetronEnergy(autoE12E6E8E_var);
     }
-    UIDisplayMessage(lib1B69CECC_gf_nonneutral_players(), c_messageAreaSubtitle, StringExternal("Param/Value/lib_1B69CECC_D221131B"));
-    TriggerExecute(lib1B69CECC_gt_UpdateGenetronEnergyDisplayTrigger, true, false);
 }
 
 void lib1B69CECC_gf_HideRevealDialog (int lp_player) {
@@ -2286,7 +2281,6 @@ void lib1B69CECC_gf_DependencyMessage () {
     // Implementation
     UIDisplayMessage(lib1B69CECC_gf_nonneutral_players(), c_messageAreaSubtitle, StringExternal("Param/Value/lib_1B69CECC_96486FC5"));
     TriggerExecute(libScio_gt_GenetronInterface, true, false);
-    UIDisplayMessage(lib1B69CECC_gf_nonneutral_players(), c_messageAreaSubtitle, StringExternal("Param/Value/lib_1B69CECC_D9573C93"));
 }
 
 // Triggers
