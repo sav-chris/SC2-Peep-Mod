@@ -121,6 +121,7 @@ lib1B69CECC_gs_Lobby lib1B69CECC_gv_theLobby;
 void lib1B69CECC_gf_InitialiseStalemateDetection ();
 void lib1B69CECC_gf_StopStalemateDetection ();
 void lib1B69CECC_gf_EndMatchInStalemate ();
+unitgroup lib1B69CECC_gf_GetGenetronEnergyDummyGroup ();
 fixed lib1B69CECC_gf_ComputeGenetronEnergyCurrent (int lp_player);
 fixed lib1B69CECC_gf_ComputeGenetronEnergyMax (int lp_player);
 void lib1B69CECC_gf_DisplayRaceIcon (int lp_player, structref<lib1B69CECC_gs_PlayerStats> lp_player_stats);
@@ -134,6 +135,7 @@ bool lib1B69CECC_gf_IsPlayeralreadyinrecord (int lp_player);
 void lib1B69CECC_gf_StartRevealTimerCountdown (int lp_player, int lp_index);
 void lib1B69CECC_gf_StartRevealTimer (int lp_player);
 bool lib1B69CECC_gf_ShouldPlayerBeRevealed (int lp_player);
+void lib1B69CECC_gf_KillPlayerRealUnits (int lp_player);
 void lib1B69CECC_gf_ResetAllScores ();
 void lib1B69CECC_gf_ResetScore (int lp_player);
 void lib1B69CECC_gf_RecordPlatesonMap ();
@@ -230,6 +232,7 @@ void lib1B69CECC_gf_JoinLobby (int lp_thePlayer, structref<lib1B69CECC_gs_Lobby>
 void lib1B69CECC_gf_DependencyMessage ();
 
 // Trigger Declarations
+trigger lib1B69CECC_gt_UpdateGenetronEnergyDisplayTrigger;
 trigger lib1B69CECC_gt_EnemyStructureDestroyedTrigger;
 trigger lib1B69CECC_gt_GenerateIncomeTrigger;
 trigger lib1B69CECC_gt_ResearchUpgradeTrigger;

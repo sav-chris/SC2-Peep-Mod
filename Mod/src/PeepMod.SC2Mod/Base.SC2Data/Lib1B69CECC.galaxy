@@ -146,31 +146,39 @@ void lib1B69CECC_gf_EndMatchInStalemate () {
     lib1B69CECC_gf_ResetGame();
 }
 
+unitgroup lib1B69CECC_gf_GetGenetronEnergyDummyGroup () {
+    // Variable Declarations
+    unitgroup lv_dummiesGroup;
+
+    // Automatic Variable Declarations
+    playergroup autoB638E7F4_g;
+    int autoB638E7F4_var;
+
+    // Variable Initialization
+    lv_dummiesGroup = UnitGroupEmpty();
+
+    // Implementation
+    autoB638E7F4_g = PlayerGroupAll();
+    autoB638E7F4_var = -1;
+    while (true) {
+        autoB638E7F4_var = PlayerGroupNextPlayer(autoB638E7F4_g, autoB638E7F4_var);
+        if (autoB638E7F4_var < 0) { break; }
+        UnitGroupAdd(lv_dummiesGroup, libScio_gv_sCION_POWERDUMMIES[autoB638E7F4_var]);
+    }
+    return lv_dummiesGroup;
+}
+
 fixed lib1B69CECC_gf_ComputeGenetronEnergyCurrent (int lp_player) {
     // Variable Declarations
     fixed lv_genetron_energy_current_val;
     unitgroup lv_genetron_energy_group;
 
     // Automatic Variable Declarations
-    unitgroup auto3BE2108A_g;
-    int auto3BE2108A_u;
-    unit auto3BE2108A_var;
-
     // Variable Initialization
     lv_genetron_energy_group = UnitGroupEmpty();
 
     // Implementation
-    UnitGroupAddUnitGroup(lv_genetron_energy_group, UnitGroup("ProcessingCore", lp_player, RegionEntireMap(), UnitFilter(0, 0, (1 << c_targetFilterMissile), (1 << (c_targetFilterUnderConstruction - 32)) | (1 << (c_targetFilterDead - 32)) | (1 << (c_targetFilterHidden - 32))), 0));
-    UnitGroupAddUnitGroup(lv_genetron_energy_group, UnitGroup("RelayTower", lp_player, RegionEntireMap(), UnitFilter(0, 0, (1 << c_targetFilterMissile), (1 << (c_targetFilterUnderConstruction - 32)) | (1 << (c_targetFilterDead - 32)) | (1 << (c_targetFilterHidden - 32))), 0));
-    lv_genetron_energy_current_val = 0.0;
-    auto3BE2108A_g = lv_genetron_energy_group;
-    auto3BE2108A_u = UnitGroupCount(auto3BE2108A_g, c_unitCountAll);
-    for (;; auto3BE2108A_u -= 1) {
-        auto3BE2108A_var = UnitGroupUnitFromEnd(auto3BE2108A_g, auto3BE2108A_u);
-        if (auto3BE2108A_var == null) { break; }
-        lv_genetron_energy_current_val += UnitGetPropertyFixed(auto3BE2108A_var, c_unitPropEnergy, c_unitPropCurrent);
-    }
-    return lv_genetron_energy_current_val;
+    return UnitGetPropertyFixed(libScio_gv_sCION_POWERDUMMIES[lp_player], c_unitPropEnergy, c_unitPropCurrent);
 }
 
 fixed lib1B69CECC_gf_ComputeGenetronEnergyMax (int lp_player) {
@@ -179,26 +187,11 @@ fixed lib1B69CECC_gf_ComputeGenetronEnergyMax (int lp_player) {
     unitgroup lv_genetron_energy_group;
 
     // Automatic Variable Declarations
-    unitgroup auto3C7CC871_g;
-    int auto3C7CC871_u;
-    unit auto3C7CC871_var;
-
     // Variable Initialization
     lv_genetron_energy_group = UnitGroupEmpty();
 
     // Implementation
-    lv_genetron_energy_max_val = 0.0;
-    UnitGroupAddUnitGroup(lv_genetron_energy_group, UnitGroup("ProcessingCore", lp_player, RegionEntireMap(), UnitFilter(0, 0, (1 << c_targetFilterMissile), (1 << (c_targetFilterUnderConstruction - 32)) | (1 << (c_targetFilterDead - 32)) | (1 << (c_targetFilterHidden - 32))), 0));
-    UnitGroupAddUnitGroup(lv_genetron_energy_group, UnitGroup("RelayTower", lp_player, RegionEntireMap(), UnitFilter(0, 0, (1 << c_targetFilterMissile), (1 << (c_targetFilterUnderConstruction - 32)) | (1 << (c_targetFilterDead - 32)) | (1 << (c_targetFilterHidden - 32))), 0));
-    UnitGroupAddUnitGroup(lv_genetron_energy_group, UnitGroup("Generator", lp_player, RegionEntireMap(), UnitFilter(0, 0, (1 << c_targetFilterMissile), (1 << (c_targetFilterUnderConstruction - 32)) | (1 << (c_targetFilterDead - 32)) | (1 << (c_targetFilterHidden - 32))), 0));
-    auto3C7CC871_g = lv_genetron_energy_group;
-    auto3C7CC871_u = UnitGroupCount(auto3C7CC871_g, c_unitCountAll);
-    for (;; auto3C7CC871_u -= 1) {
-        auto3C7CC871_var = UnitGroupUnitFromEnd(auto3C7CC871_g, auto3C7CC871_u);
-        if (auto3C7CC871_var == null) { break; }
-        lv_genetron_energy_max_val += UnitGetPropertyFixed(auto3C7CC871_var, c_unitPropEnergyMax, c_unitPropCurrent);
-    }
-    return lv_genetron_energy_max_val;
+    return UnitGetPropertyFixed(libScio_gv_sCION_POWERDUMMIES[lp_player], c_unitPropEnergyMax, c_unitPropCurrent);
 }
 
 void lib1B69CECC_gf_DisplayRaceIcon (int lp_player, structref<lib1B69CECC_gs_PlayerStats> lp_player_stats) {
@@ -413,6 +406,32 @@ bool lib1B69CECC_gf_ShouldPlayerBeRevealed (int lp_player) {
 
     }
     return (UnitGroupCount(lv_units, c_unitCountAlive) == 0);
+}
+
+void lib1B69CECC_gf_KillPlayerRealUnits (int lp_player) {
+    // Variable Declarations
+    unit lv_aUnit;
+    playergroup lv_nonneutral;
+
+    // Automatic Variable Declarations
+    unitgroup auto04210A51_g;
+    int auto04210A51_u;
+
+    // Variable Initialization
+    lv_nonneutral = PlayerGroupEmpty();
+
+    // Implementation
+    lv_nonneutral = lib1B69CECC_gf_nonneutral_players();
+    auto04210A51_g = UnitGroupFilterPlayer(UnitGroup(null, lp_player, RegionEntireMap(), UnitFilter(0, 0, (1 << c_targetFilterAlly) | (1 << c_targetFilterNeutral) | (1 << c_targetFilterEnemy) | (1 << c_targetFilterRawResource) | (1 << c_targetFilterUncommandable), (1 << (c_targetFilterDead - 32))), 0), lp_player, 0);
+    auto04210A51_u = UnitGroupCount(auto04210A51_g, c_unitCountAll);
+    for (;; auto04210A51_u -= 1) {
+        lv_aUnit = UnitGroupUnitFromEnd(auto04210A51_g, auto04210A51_u);
+        if (lv_aUnit == null) { break; }
+        if ((UnitGroupHasUnit(lib1B69CECC_gf_GetGenetronEnergyDummyGroup(), lv_aUnit) == false)) {
+            UnitKill(lv_aUnit);
+        }
+
+    }
 }
 
 void lib1B69CECC_gf_ResetAllScores () {
@@ -1108,10 +1127,6 @@ void lib1B69CECC_gf_KillAllPlayerUnits () {
 
     // Automatic Variable Declarations
     playergroup autoF7FB8F78_g;
-    unitgroup auto950C134E_g;
-    int auto950C134E_u;
-    unitgroup autoD52C8CEB_g;
-    int autoD52C8CEB_u;
 
     // Variable Initialization
     lv_nonneutral = PlayerGroupEmpty();
@@ -1123,20 +1138,8 @@ void lib1B69CECC_gf_KillAllPlayerUnits () {
     while (true) {
         lv_aPlayer = PlayerGroupNextPlayer(autoF7FB8F78_g, lv_aPlayer);
         if (lv_aPlayer < 0) { break; }
-        auto950C134E_g = UnitGroupFilterPlayer(UnitGroup(null, lv_aPlayer, RegionEntireMap(), UnitFilter(0, 0, (1 << c_targetFilterAlly) | (1 << c_targetFilterNeutral) | (1 << c_targetFilterEnemy) | (1 << c_targetFilterRawResource) | (1 << c_targetFilterUncommandable), (1 << (c_targetFilterDead - 32))), 0), lv_aPlayer, 0);
-        auto950C134E_u = UnitGroupCount(auto950C134E_g, c_unitCountAll);
-        for (;; auto950C134E_u -= 1) {
-            lv_aUnit = UnitGroupUnitFromEnd(auto950C134E_g, auto950C134E_u);
-            if (lv_aUnit == null) { break; }
-            UnitKill(lv_aUnit);
-        }
-        autoD52C8CEB_g = UnitGroupFilterPlayer(UnitGroup(null, lv_aPlayer, RegionEntireMap(), UnitFilter(0, 0, (1 << c_targetFilterAlly) | (1 << c_targetFilterNeutral) | (1 << c_targetFilterEnemy) | (1 << c_targetFilterRawResource) | (1 << c_targetFilterUncommandable), (1 << (c_targetFilterDead - 32))), 0), lv_aPlayer, 0);
-        autoD52C8CEB_u = UnitGroupCount(autoD52C8CEB_g, c_unitCountAll);
-        for (;; autoD52C8CEB_u -= 1) {
-            lv_aUnit = UnitGroupUnitFromEnd(autoD52C8CEB_g, autoD52C8CEB_u);
-            if (lv_aUnit == null) { break; }
-            UnitKill(lv_aUnit);
-        }
+        lib1B69CECC_gf_KillPlayerRealUnits(lv_aPlayer);
+        lib1B69CECC_gf_KillPlayerRealUnits(lv_aPlayer);
     }
 }
 
@@ -2039,6 +2042,8 @@ void lib1B69CECC_gf_EnablePlayerUI (playergroup lp_players) {
         if (autoE12E6E8E_var < 0) { break; }
         lib1B69CECC_gf_DisplayGenetronEnergy(autoE12E6E8E_var);
     }
+    UIDisplayMessage(lib1B69CECC_gf_nonneutral_players(), c_messageAreaSubtitle, StringExternal("Param/Value/lib_1B69CECC_D221131B"));
+    TriggerExecute(lib1B69CECC_gt_UpdateGenetronEnergyDisplayTrigger, true, false);
 }
 
 void lib1B69CECC_gf_HideRevealDialog (int lp_player) {
@@ -2285,6 +2290,43 @@ void lib1B69CECC_gf_DependencyMessage () {
 }
 
 // Triggers
+//--------------------------------------------------------------------------------------------------
+// Trigger: Update Genetron Energy Display Trigger
+//--------------------------------------------------------------------------------------------------
+bool lib1B69CECC_gt_UpdateGenetronEnergyDisplayTrigger_Func (bool testConds, bool runActions) {
+    // Variable Declarations
+    const fixed lv_dETA_T = 0.0625;
+
+    // Automatic Variable Declarations
+    playergroup autoB6265D41_g;
+    int autoB6265D41_var;
+
+    // Variable Initialization
+
+    // Actions
+    if (!runActions) {
+        return true;
+    }
+
+    while ((lib1B69CECC_gv_DETECT_VICTORY == true)) {
+        Wait(lv_dETA_T, c_timeGame);
+        autoB6265D41_g = lib1B69CECC_gv_pLAYERS;
+        autoB6265D41_var = -1;
+        while (true) {
+            autoB6265D41_var = PlayerGroupNextPlayer(autoB6265D41_g, autoB6265D41_var);
+            if (autoB6265D41_var < 0) { break; }
+            libNtve_gf_SetDialogItemCurrentValue(lib1B69CECC_gv_ui_genetron_energy_current, lib1B69CECC_gf_ComputeGenetronEnergyCurrent(autoB6265D41_var), PlayerGroupSingle(autoB6265D41_var));
+            libNtve_gf_SetDialogItemCurrentValue(lib1B69CECC_gv_ui_genetron_energy_max, lib1B69CECC_gf_ComputeGenetronEnergyMax(autoB6265D41_var), PlayerGroupSingle(autoB6265D41_var));
+        }
+    }
+    return true;
+}
+
+//--------------------------------------------------------------------------------------------------
+void lib1B69CECC_gt_UpdateGenetronEnergyDisplayTrigger_Init () {
+    lib1B69CECC_gt_UpdateGenetronEnergyDisplayTrigger = TriggerCreate("lib1B69CECC_gt_UpdateGenetronEnergyDisplayTrigger_Func");
+}
+
 //--------------------------------------------------------------------------------------------------
 // Trigger: Enemy Structure Destroyed Trigger
 //--------------------------------------------------------------------------------------------------
@@ -3318,6 +3360,7 @@ void lib1B69CECC_gt_MeleeInitialization_Init () {
 }
 
 void lib1B69CECC_InitTriggers () {
+    lib1B69CECC_gt_UpdateGenetronEnergyDisplayTrigger_Init();
     lib1B69CECC_gt_EnemyStructureDestroyedTrigger_Init();
     lib1B69CECC_gt_GenerateIncomeTrigger_Init();
     lib1B69CECC_gt_ResearchUpgradeTrigger_Init();
