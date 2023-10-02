@@ -1762,14 +1762,17 @@ void lib1B69CECC_gf_HideGenetronEnergyDisplay () {
     // Automatic Variable Declarations
     // Implementation
     DialogControlSetVisible(lib1B69CECC_gv_ui_genetron_energy_panel, PlayerGroupAll(), false);
+    DialogControlSetVisible(lib1B69CECC_gv_ui_genetron_energy_display, PlayerGroupAll(), false);
 }
 
 void lib1B69CECC_gf_DisplayGenetronEnergy (int lp_player) {
     // Automatic Variable Declarations
     // Implementation
+    UIDisplayMessage(lib1B69CECC_gf_nonneutral_players(), c_messageAreaSubtitle, StringExternal("Param/Value/lib_1B69CECC_EC0C322F"));
+    UIDisplayMessage(lib1B69CECC_gf_nonneutral_players(), c_messageAreaSubtitle, IntToText(lp_player));
     if ((PlayerRace(lp_player) == "Gen")) {
-        TriggerDebugOutput(1, StringExternal("Param/Value/lib_1B69CECC_8F329DDF"), true);
         DialogControlSetVisible(lib1B69CECC_gv_ui_genetron_energy_panel, PlayerGroupSingle(lp_player), true);
+        DialogControlSetVisible(lib1B69CECC_gv_ui_genetron_energy_display, PlayerGroupSingle(lp_player), true);
     }
 
 }
@@ -1785,6 +1788,7 @@ void lib1B69CECC_gf_InitialiseEnergyDisplay () {
     lib1B69CECC_gv_ui_genetron_energy_max = DialogControlLastCreated();
     DialogControlHookupStandard(c_triggerControlTypeCountdownLabel, "UIContainer/FullscreenUpperContainer/GenetronEnergyPanel");
     lib1B69CECC_gv_ui_genetron_energy_panel = DialogControlLastCreated();
+    lib1B69CECC_gf_HideGenetronEnergyDisplay();
 }
 
 void lib1B69CECC_gf_HideStalemateWarning () {
@@ -2014,6 +2018,9 @@ void lib1B69CECC_gf_EnablePlayerUI (playergroup lp_players) {
     int lv_aPlayer;
 
     // Automatic Variable Declarations
+    playergroup autoE12E6E8E_g;
+    int autoE12E6E8E_var;
+
     // Variable Initialization
 
     // Implementation
@@ -2025,6 +2032,13 @@ void lib1B69CECC_gf_EnablePlayerUI (playergroup lp_players) {
     DialogControlSetVisible(lib1B69CECC_gv_playerOne.lv_ui_player_stats, lp_players, false);
     DialogControlSetVisible(lib1B69CECC_gv_playerTwo.lv_ui_player_stats, lp_players, false);
     DialogControlSetVisible(lib1B69CECC_gv_ui_production_tab, lib1B69CECC_gv_pLAYERS, false);
+    autoE12E6E8E_g = lp_players;
+    autoE12E6E8E_var = -1;
+    while (true) {
+        autoE12E6E8E_var = PlayerGroupNextPlayer(autoE12E6E8E_g, autoE12E6E8E_var);
+        if (autoE12E6E8E_var < 0) { break; }
+        lib1B69CECC_gf_DisplayGenetronEnergy(autoE12E6E8E_var);
+    }
 }
 
 void lib1B69CECC_gf_HideRevealDialog (int lp_player) {
@@ -2267,6 +2281,7 @@ void lib1B69CECC_gf_DependencyMessage () {
     // Implementation
     UIDisplayMessage(lib1B69CECC_gf_nonneutral_players(), c_messageAreaSubtitle, StringExternal("Param/Value/lib_1B69CECC_96486FC5"));
     TriggerExecute(libScio_gt_GenetronInterface, true, false);
+    UIDisplayMessage(lib1B69CECC_gf_nonneutral_players(), c_messageAreaSubtitle, StringExternal("Param/Value/lib_1B69CECC_D9573C93"));
 }
 
 // Triggers
