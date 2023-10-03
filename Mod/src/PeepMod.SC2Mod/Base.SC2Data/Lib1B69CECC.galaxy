@@ -1001,7 +1001,8 @@ void lib1B69CECC_gf_ResetTechFunction () {
         libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "TransformationServos", 0);
         libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "MedivacCaduceusReactor", 0);
         libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "AdeptPiercingAttack", 0);
-        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "PhoenixRangeUpgrade", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "AdeptShieldUpgrade", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "AdeptKillBounce", 0);
         libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "AnionPulseCrystals", 0);
         libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "DarkTemplarBlinkUpgrade", 0);
         libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "CycloneLockOnDamageUpgrade", 0);
@@ -1014,6 +1015,14 @@ void lib1B69CECC_gf_ResetTechFunction () {
         libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "hydraliskspeed", 0);
         libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "DiggingClaws", 0);
         libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "LurkerRange", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "MedivacCaduceusReactor", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "MedivacRapidDeployment", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "ArmorPiercingRockets", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "MagFieldLaunchers", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "CycloneRapidFireLaunchers", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "CycloneAirUpgrade", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "HurricaneThrusters", 0);
+        libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "InterferenceMatrix", 0);
         libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "GenetronAircraftPlatingLevel1", 0);
         libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "GenetronAircraftPlatingLevel2", 0);
         libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "GenetronAircraftPlatingLevel3", 0);
@@ -1100,9 +1109,9 @@ void lib1B69CECC_gf_ResetTechFunction () {
         libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "ApertureKeyhole", 0);
         libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "InterlacingBond", 0);
         libNtve_gf_SetUpgradeLevelForPlayer(lv_intPlayer, "CruxConvergence", 0);
-        CatalogFieldValueSet(c_gameCatalogUnit, "Hydralisk", "Speed", lv_intPlayer, "2.25");
-        CatalogFieldValueSet(c_gameCatalogUnit, "Hydralisk", "SpeedMultiplierCreep", lv_intPlayer, "1.5");
-        CatalogFieldValueSet(c_gameCatalogUnit, "Overlord", "Speed", lv_intPlayer, "0.6445");
+        CatalogFieldValueSet(c_gameCatalogUnit, "Hydralisk", "Speed", lv_intPlayer, "3.15");
+        CatalogFieldValueSet(c_gameCatalogUnit, "Hydralisk", "SpeedMultiplierCreep", lv_intPlayer, "1.3");
+        CatalogFieldValueSet(c_gameCatalogUnit, "Overlord", "Speed", lv_intPlayer, "1.099");
     }
 }
 
