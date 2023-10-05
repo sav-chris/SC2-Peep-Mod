@@ -10,6 +10,9 @@
         <MaxTeamSize Value="12"/>
         <AttributeHidden Namespace="999" Id="3006"/>
         <AttributeHidden Namespace="999" Id="3010"/>
+        <AttributeHidden Namespace="999" Id="3000"/>
+        <AttributeHidden Namespace="999" Id="4000"/>
+        <AttributeHidden Namespace="999" Id="3015"/>
         <Attribute Namespace="999" Id="1001">
             <Default>
                 <Slot Id="Global"/>

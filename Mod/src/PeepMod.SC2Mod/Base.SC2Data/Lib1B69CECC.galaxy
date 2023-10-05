@@ -2289,7 +2289,6 @@ void lib1B69CECC_gf_DependencyMessage () {
     // Automatic Variable Declarations
     // Implementation
     UIDisplayMessage(lib1B69CECC_gf_nonneutral_players(), c_messageAreaSubtitle, StringExternal("Param/Value/lib_1B69CECC_96486FC5"));
-    TriggerExecute(libScio_gt_GenetronInterface, true, false);
 }
 
 // Triggers
