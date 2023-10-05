@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TriggerData>
+    <Root>
+        <Item Type="Trigger" Id="CB284D63"/>
+    </Root>
+    <Element Type="Trigger" Id="CB284D63">
+        <Event Type="FunctionCall" Id="E9A87D6E"/>
+        <Action Type="FunctionCall" Id="9DD127B3"/>
+    </Element>
+    <Element Type="FunctionCall" Id="E9A87D6E">
+        <FunctionDef Type="FunctionDef" Library="Ntve" Id="00000120"/>
+    </Element>
+    <Element Type="FunctionCall" Id="9DD127B3">
+        <FunctionDef Type="FunctionDef" Library="1B69CECC" Id="97EAEA23"/>
+    </Element>
+</TriggerData>
