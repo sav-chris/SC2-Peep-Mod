@@ -1,0 +1,8 @@
+﻿DocInfo/DescLong=Play and observe rounds of 1v1s with a full lobby of players.<n/>Scion Custom races also supported
+DocInfo/DescShort=2-15
+DocInfo/Name=The Scion Peep Mod: Oceanborn LE
+DocInfo/PatchNote001=- Removed Doodad that placed a hovering critter randomly flying over the natural
+MapInfo/Player00/Name=Neutral
+MapInfo/Player01/Name=Player 1
+MapInfo/Player02/Name=Player 2
+MapInfo/Player03/Name=Hostile
