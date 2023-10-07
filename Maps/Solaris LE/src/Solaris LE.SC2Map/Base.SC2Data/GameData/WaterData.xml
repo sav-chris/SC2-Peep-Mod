@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Catalog>
+    <CWater id="Shakuras">
+        <State index="0" Height="7.750000" MeshRoughness="0.438000" TextureRoughness="0.334000"/>
+        <BeachShoreline value=""/>
+        <CliffShoreline value=""/>
+    </CWater>
+</Catalog>

@@ -1,0 +1,7 @@
+﻿DocInfo/DescLong=Acceleration zones help small armies get to the opponent quicker and surround siege units hiding behind the big pillars. To open the map up in the later game two long rocks in the middle can be destroyed.<n/><n/>Submitted to TLMC Powered by Monster Energy<n/>Created by KillerSmile
+DocInfo/DescShort=2
+DocInfo/Name=Solaris LE
+MapInfo/Player00/Name=Neutral
+MapInfo/Player01/Name=Player 1
+MapInfo/Player02/Name=Player 2
+MapInfo/Player03/Name=Hostile

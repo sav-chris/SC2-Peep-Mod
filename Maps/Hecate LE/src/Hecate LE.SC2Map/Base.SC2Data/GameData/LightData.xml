@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Catalog>
+    <CLight id="Helios">
+        <ToDInfoArray index="0" Id="Helios" AmbientColor="0.466667,0.419608,0.360784">
+            <Param index="ColorizationBrightness" value="0.950000"/>
+            <Param index="ColorizationBlend" value="0.016000"/>
+        </ToDInfoArray>
+    </CLight>
+</Catalog>

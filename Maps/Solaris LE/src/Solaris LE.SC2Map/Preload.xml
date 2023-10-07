@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Preload>
+<Actor id="SYSTEM_ActorConfig"/>
+<Actor id="AiurTree_Grouped" Variations="0,1,2,5"/>
+<Actor id="Aiur_Guardian_City_Statue_Destroyed" Variations="0,1,2"/>
+<Actor id="Aiur_Mothership_Crashed"/>
+<Actor id="Aiur_Ramp_Stairs" Variations="1"/>
+<Actor id="Aiur_Statue_Arched_Abandoned" Variations="1"/>
+<Actor id="Aiur_Stone_Temple_Doodads" Variations="0,2,4,5"/>
+<Actor id="Aiur_Stone_Temple_Shrine" Variations="2,3"/>
+<Actor id="Aiur_Temple_Archway" Variations="2"/>
+<Actor id="Aiur_Temple_BrickGroup" Variations="0,7"/>
+<Actor id="Aiur_Temple_Bricks" Variations="1,2,3,4,5"/>
+<Actor id="Aiur_Temple_BridgeArch" Variations="3"/>
+<Actor id="Aiur_Temple_CliffDoodads_Destructible" Variations="1"/>
+<Actor id="Aiur_Temple_Inlay" Variations="0,4"/>
+<Actor id="Aiur_Temple_Pillars_Broken" Variations="0,1,2,4,5"/>
+<Actor id="Aiur_Temple_Ruins_Set" Variations="0,1"/>
+<Actor id="Aiur_Vines_Cliff" Variations="0,1,3,4"/>
+<Actor id="Elsecaro_Bush1x1" Variations="0,1,2,3,4"/>
+<Actor id="Elsecaro_Bush2x2" Variations="4"/>
+<Actor id="Elsecaro_Bush4x4" Variations="0,2,3,4"/>
+<Actor id="Elsecaro_Curtain1x1" Variations="0,1"/>
+<Actor id="Purifier_City_Decals" Variations="8"/>
+<Actor id="Purifier_Foliage_Clumps" Variations="1,2"/>
+<Actor id="TheVoid_RubblePile" Variations="0,1,2,3"/>
+<Actor id="ZerusGroundVines" Variations="0,1"/>
+<Actor id="ZerusLargeVines" Variations="1"/>
+<Actor id="BelShirFoliage" Variations="0"/>
+<Actor id="Vines" Variations="0,2,3,4,6"/>
+<Actor id="Logo_LeaguePrimary"/>
+<Actor id="Logo_LeagueSecondary"/>
+<Actor id="Logo_PlayerPrimary"/>
+<Actor id="Logo_PlayerSecondary"/>
+<Terrain id="HybridLabXelNaga"/>
+<Unit id="AccelerationZoneLarge"/>
+<Unit id="RichVespeneGeyser"/>
+<Unit id="CarrionBird"/>
+<Unit id="MineralField" Variations="0,1,2,3,4,5,6,7,8,9"/>
+<Unit id="MineralField750" Variations="0,1,2,5,6,7,8,9"/>
+<Unit id="VespeneGeyser"/>
+<Unit id="UnbuildableBricksDestructible" Variations="1"/>
+<Unit id="DestructibleRockEx16x6"/>
+<Unit id="DestructibleRockEx1DiagonalHugeULBR"/>
+</Preload>
