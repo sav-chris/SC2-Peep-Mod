@@ -2,16 +2,18 @@
 // 
 // Generated Map Script
 // 
-// Name:   Just Another StarCraft II Map
+// Name:   The Scion Peep Mod: Solaris LE
 // 
 //==================================================================================================
 include "TriggerLibs/NativeLib"
+include "Lib1B69CECC"
 
 //--------------------------------------------------------------------------------------------------
 // Library Initialization
 //--------------------------------------------------------------------------------------------------
 void InitLibs () {
     libNtve_InitLib();
+    lib1B69CECC_InitLib();
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -29,10 +31,7 @@ bool gt_MeleeInitialization_Func (bool testConds, bool runActions) {
         return true;
     }
 
-    MeleeInitResources();
-    MeleeInitUnits();
-    MeleeInitAI();
-    MeleeInitOptions();
+    lib1B69CECC_gf_DependencyMessage();
     return true;
 }
 
