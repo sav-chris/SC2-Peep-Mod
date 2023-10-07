@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Catalog>
+    <CTerrainTex id="DesertWorld7">
+        <Heightmap value="Assets\Textures\MarSaraEx2_5Normal.dds"/>
+        <HeightMapScale value="3.000000"/>
+    </CTerrainTex>
+    <CTerrainTex id="DesertWorld8">
+        <Heightmap value="Assets\Textures\MarSaraEx2_5Normal.dds"/>
+        <HeightMapScale value="3.000000"/>
+    </CTerrainTex>
+    <CTerrainTex id="Purification_Desert_5">
+        <Heightmap value="Assets\Textures\MarSaraEx2_5Normal.dds"/>
+        <HeightMapScale value="1.000000"/>
+        <!--HeightMapScale value="3.000000"/>
+        <PhysicsMaterial value="Sand"/-->
+    </CTerrainTex>
+</Catalog>

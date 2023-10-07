@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Preload>
+<Actor id="SYSTEM_ActorConfig"/>
+<Actor id="LightOmniBlue"/>
+<Actor id="LightOmniBlueLarge"/>
+<Actor id="LightOmniCyan"/>
+<Actor id="Aiur_PowerCrystal"/>
+<Actor id="BattleStation_CliffPlatform" Variations="0,1,8,9,11,12,13,14"/>
+<Actor id="BattleStation_CliffPlatform_Group" Variations="0,1,3"/>
+<Actor id="BattleStation_Line_Decals" Variations="3,4,7,12,14,15,18,23"/>
+<Actor id="BattleStation_Text_Decals" Variations="0,6"/>
+<Actor id="CliffZerusRockShort" Variations="0,1,2"/>
+<Actor id="CompoundSewers_ExhaustPipes" Variations="0,1,2,4,5"/>
+<Actor id="DOM_Decals" Variations="11,18"/>
+<Actor id="DOM_Groundlights" Variations="0"/>
+<Actor id="DecalSpace" Variations="2"/>
+<Actor id="DesertWorldCurtain" Variations="0,1,2,3"/>
+<Actor id="Elsecaro_SandDriftsSplat" Variations="0"/>
+<Actor id="GroundCracks" Variations="4"/>
+<Actor id="HybridCliffGasVent"/>
+<Actor id="HybridLab_StasisTubeWall" Variations="4,5"/>
+<Actor id="IceCliffDoodad" Variations="0,1"/>
+<Actor id="IceWorldAmbientCrystals" Variations="0,2,3"/>
+<Actor id="JarbanMinor_FenceBarbwire" Variations="2,3"/>
+<Actor id="JarbanMinor_Small_Rock" Variations="3"/>
+<Actor id="JarbanMinor_Small_Rock_Group" Variations="1"/>
+<Actor id="Korhal_ConstructionCranes" Variations="4"/>
+<Actor id="Korhal_Platform_CommandCenter" Variations="2,3"/>
+<Actor id="Korhal_Platform_GrimeSplats" Variations="0,1"/>
+<Actor id="Korhal_Platform_Ramp"/>
+<Actor id="MoebiusLabHybridCapsule"/>
+<Actor id="PortCity_Trims" Variations="9,12"/>
+<Actor id="PurificationDesert_Large_Rock" Variations="0,1,2,4,5,6"/>
+<Actor id="PurificationDesert_Medium_Rock_Group" Variations="0,1,2,3,4,5,6,7"/>
+<Actor id="PurificationDesert_SandDrift" Variations="1"/>
+<Actor id="PurificationDesert_Small_Rock_Group" Variations="0,1,2,3"/>
+<Actor id="Purifier_Rock_Blend" Variations="0,1,2,4,5,6"/>
+<Actor id="Shadow_Tarmac_Splat" Variations="5"/>
+<Actor id="Shakuras_City_Debris_Splat"/>
+<Actor id="SnowLight"/>
+<Actor id="SnowRefinery_Terran_WireConduits" Variations="1,3,4,5"/>
+<Actor id="SpaceDockPowerLines" Variations="1"/>
+<Actor id="SpacePlatformScaffold" Variations="2"/>
+<Actor id="StarshipIceWorldMinerals" Variations="0"/>
+<Actor id="Tarsonis_WireConduits" Variations="0,3,6,9"/>
+<Actor id="Void_Crystals" Variations="0"/>
+<Actor id="Void_Hole_Rocks"/>
+<Actor id="XelNaga_Cavern_HugeGate_Doodads" Variations="14"/>
+<Actor id="XelNaga_Cavern_Rubble" Variations="3"/>
+<Actor id="XelNaga_GiantCrystal" Variations="2"/>
+<Actor id="ZergBonePileLarge" Variations="0,1"/>
+<Actor id="ZergBonePileSmall" Variations="0,1"/>
+<Actor id="ZerusRockCliffMedium" Variations="0,1,2,3"/>
+<Actor id="ZerusRockCliffShort" Variations="0"/>
+<Actor id="AsteroidsSky" Variations="0,1,3,5"/>
+<Actor id="TerranCliffGapFiller" Variations="0"/>
+<Actor id="InvisibleCurtain"/>
+<Actor id="BraxisAlphaBarrels" Variations="1"/>
+<Actor id="CharRockFormation" Variations="0"/>
+<Actor id="CharTree" Variations="5,6,7"/>
+<Actor id="CliffSpires" Variations="0,1,2"/>
+<Actor id="Decal" Variations="0,1"/>
+<Actor id="MarSaraBones" Variations="0,1,2,3,4"/>
+<Actor id="MarSaraCrack" Variations="1,2,6"/>
+<Actor id="RedstoneCurtain" Variations="0,1,2,3"/>
+<Actor id="RedstoneRockSpires" Variations="1,3,4"/>
+<Actor id="RockLarge" Variations="9"/>
+<Actor id="RooftopAC" Variations="0,1"/>
+<Actor id="SpacePlatformCautionLights" Variations="1"/>
+<Actor id="SpacePlatformGenerator" Variations="0"/>
+<Actor id="SpacePlatformHose" Variations="0,3,4"/>
+<Actor id="SpacePlatformRockSpire" Variations="0,1"/>
+<Actor id="SpacePlatformTower" Variations="2"/>
+<Actor id="SpacePlatformVents" Variations="0,1"/>
+<Actor id="TerranTarmac" Variations="7"/>
+<Actor id="ZergedCombs" Variations="0,1,2,4,5"/>
+<Actor id="CliffScaffolding" Variations="0"/>
+<Actor id="Logo_LeaguePrimary"/>
+<Actor id="Logo_LeagueSecondary"/>
+<Actor id="Logo_PlayerPrimary"/>
+<Actor id="Logo_PlayerSecondary"/>
+<Terrain id="BraxisAlphaEx2"/>
+<Unit id="RichMineralField" Variations="1,2,5"/>
+<Unit id="RichMineralField750" Variations="1,3,6"/>
+<Unit id="XelNagaTower"/>
+<Unit id="MineralField" Variations="2,3,7,8,9"/>
+<Unit id="MineralField450" Variations="0,2,3,4,5,6,7"/>
+<Unit id="MineralField750" Variations="0,1,2,4,6,7,8"/>
+<Unit id="VespeneGeyser"/>
+<Unit id="SpacePlatformGeyser"/>
+<Unit id="BraxisAlphaDestructible2x2"/>
+<Unit id="UnbuildablePlatesDestructible" Variations="3"/>
+<Unit id="Debris2x2NonConjoined"/>
+<Unit id="DestructibleRockEx1DiagonalHugeULBR"/>
+<Unit id="LabMineralField" Variations="2,4,5,6,7,8,9"/>
+<Unit id="LabMineralField750" Variations="0,1,5,6,8,9"/>
+</Preload>
