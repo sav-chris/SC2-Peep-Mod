@@ -63,5 +63,9 @@ The map files in the `Test\` folder contain test cases. When run from the editor
 These debugging commands are only available in test maps and not the ones in the `Maps` folder as those maps are meant for deployment. 
 
 
+# Adding a new Map
+
+The steps for adding a new map are documented [here](https://github.com/sav-chris/SC2-Peep-Mod/issues/49)
+
 
 
