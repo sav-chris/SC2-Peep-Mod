@@ -15035,7 +15035,7 @@
         </Element>
         <Element Type="Param" Id="3DC068F7">
             <ParameterDef Type="ParamDef" Library="Ntve" Id="B3F30050"/>
-            <Value>1.099</Value>
+            <Value>0.9023</Value>
             <ValueType Type="string"/>
         </Element>
         <Element Type="Param" Id="52EBFF61">
