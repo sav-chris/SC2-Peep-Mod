@@ -65,7 +65,7 @@ These debugging commands are only available in test maps and not the ones in the
 
 # Adding a new Map
 
-The steps for adding a new map are documented [here](https://github.com/sav-chris/SC2-Peep-Mod/issues/49)
+The steps for adding a new map are documented [here](https://github.com/sav-chris/SC2-Peep-Mod/issues/49).
 
 
 

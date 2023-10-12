@@ -579,10 +579,10 @@ void lib1B69CECC_gf_RecordRichMineralsonMap () {
         if ((lib1B69CECC_gf_is_rich_mineral_field(auto2A765CDC_var) == true)) {
             lv_pos = UnitGetPosition(auto2A765CDC_var);
             lv_index = (lv_index + 1);
-            lv_mineral_field_key = lib1B69CECC_gf_compute_mineral_field_key(lv_index);
+            lv_mineral_field_key = lib1B69CECC_gf_compute_rich_mineral_field_key(lv_index);
             DataTableSetPoint(true, lv_mineral_field_key, lv_pos);
             lv_mineral_quantity = UnitGetPropertyInt(auto2A765CDC_var, c_unitPropResources, c_unitPropCurrent);
-            DataTableSetInt(true, lib1B69CECC_gf_compute_mineral_quantity_key(lv_index), lv_mineral_quantity);
+            DataTableSetInt(true, lib1B69CECC_gf_compute_rich_mineral_quantity_key(lv_index), lv_mineral_quantity);
         }
 
     }
