@@ -1,6 +1,7 @@
 ﻿DocInfo/DescLong=This is a mod for playing and observing peep mode style rounds of 1v1s with a lobby of players.<n/>The Scion custom races are also supported for this mod.
 DocInfo/DescShort=2 or more
 DocInfo/Name=The Scion Peep Mod
+DocInfo/Website=http://discord.gg/4GSXkYU
 Param/Expression/lib_1B69CECC_0DF8463C=<s val="SystemAlert_Prot">Match ended in a Tie</s>
 Param/Expression/lib_1B69CECC_2F42B94E=<s val="SystemAlert_Prot">Victorious Players:</s>
 Param/Value/lib_1B69CECC_008B34F0=
