@@ -70,9 +70,17 @@
         </Element>
         <Element Type="FunctionDef" Id="1E36BB45">
             <FlagAction/>
+            <FunctionCall Type="Comment" Library="1B69CECC" Id="60726FEE"/>
             <FunctionCall Type="FunctionCall" Library="1B69CECC" Id="B75E778D"/>
             <FunctionCall Type="FunctionCall" Library="1B69CECC" Id="63574CE5"/>
             <FunctionCall Type="FunctionCall" Library="1B69CECC" Id="0FF7CD00"/>
+        </Element>
+        <Element Type="Comment" Id="60726FEE">
+            <Comment>
+                This is to work around a bug
+                When the tech is reset between games, overlord speed and hydra speed need to be reset manually. 
+                I record these properties here, so even if the values change in future balance patches, the code should still work.
+            </Comment>
         </Element>
         <Element Type="FunctionCall" Id="B75E778D">
             <FunctionDef Type="FunctionDef" Library="Ntve" Id="00000136"/>
