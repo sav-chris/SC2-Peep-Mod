@@ -62,6 +62,11 @@ struct lib1B69CECC_gs_Lobby {
 };
 
 // Variable Declarations
+fixed lib1B69CECC_gv_overlord_speed;
+fixed lib1B69CECC_gv_hydralisk_speed;
+fixed lib1B69CECC_gv_hydralisk_speed_creep_mul;
+int lib1B69CECC_gv_upgradesCounter;
+string[1001] lib1B69CECC_gv_upgradesArray;
 int lib1B69CECC_gv_st_player_one;
 int lib1B69CECC_gv_st_player_two;
 timer lib1B69CECC_gv_tmr_stalemate_message;
@@ -118,6 +123,8 @@ int lib1B69CECC_gv_pLATES_COUNT;
 lib1B69CECC_gs_Lobby lib1B69CECC_gv_theLobby;
 
 // Function Declarations
+void lib1B69CECC_gf_RecordUnitSpeeds ();
+void lib1B69CECC_gf_ResetTechForPlayer (int lp_player);
 void lib1B69CECC_gf_InitialiseStalemateDetection ();
 void lib1B69CECC_gf_StopStalemateDetection ();
 void lib1B69CECC_gf_EndMatchInStalemate ();
@@ -232,6 +239,7 @@ void lib1B69CECC_gf_JoinLobby (int lp_thePlayer, structref<lib1B69CECC_gs_Lobby>
 void lib1B69CECC_gf_DependencyMessage ();
 
 // Trigger Declarations
+trigger lib1B69CECC_gt_Upgradeisresearched;
 trigger lib1B69CECC_gt_UpdateGenetronEnergyDisplayTrigger;
 trigger lib1B69CECC_gt_EnemyStructureDestroyedTrigger;
 trigger lib1B69CECC_gt_GenerateIncomeTrigger;
