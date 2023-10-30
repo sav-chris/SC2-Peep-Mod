@@ -124,7 +124,7 @@ lib1B69CECC_gs_Lobby lib1B69CECC_gv_theLobby;
 
 // Function Declarations
 void lib1B69CECC_gf_RecordUnitSpeeds ();
-void lib1B69CECC_gf_ResetTechForPlayer (int lp_player);
+void lib1B69CECC_gf_ResetTech ();
 void lib1B69CECC_gf_InitialiseStalemateDetection ();
 void lib1B69CECC_gf_StopStalemateDetection ();
 void lib1B69CECC_gf_EndMatchInStalemate ();

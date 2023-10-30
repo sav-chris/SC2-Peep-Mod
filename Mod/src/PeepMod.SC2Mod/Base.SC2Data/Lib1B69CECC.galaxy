@@ -106,13 +106,16 @@ void lib1B69CECC_gf_RecordUnitSpeeds () {
     lib1B69CECC_gv_hydralisk_speed_creep_mul = libNtve_gf_CatalogFieldValueGetAsReal(c_gameCatalogUnit, "Hydralisk", "SpeedMultiplierCreep", c_playerAny);
 }
 
-void lib1B69CECC_gf_ResetTechForPlayer (int lp_player) {
+void lib1B69CECC_gf_ResetTech () {
     // Variable Declarations
     int lv_index;
+    int lv_aPlayer;
 
     // Automatic Variable Declarations
     int autoBA31E24C_ae;
     const int autoBA31E24C_ai = 1;
+    playergroup auto61143F34_g;
+    playergroup auto101D1276_g;
 
     // Variable Initialization
 
@@ -120,12 +123,24 @@ void lib1B69CECC_gf_ResetTechForPlayer (int lp_player) {
     autoBA31E24C_ae = (lib1B69CECC_gv_upgradesCounter - 1);
     lv_index = 1;
     for ( ; ( (autoBA31E24C_ai >= 0 && lv_index <= autoBA31E24C_ae) || (autoBA31E24C_ai < 0 && lv_index >= autoBA31E24C_ae) ) ; lv_index += autoBA31E24C_ai ) {
-        libNtve_gf_SetUpgradeLevelForPlayer(lp_player, lib1B69CECC_gv_upgradesArray[lv_index], 0);
+        auto61143F34_g = lib1B69CECC_gf_nonneutral_players();
+        lv_aPlayer = -1;
+        while (true) {
+            lv_aPlayer = PlayerGroupNextPlayer(auto61143F34_g, lv_aPlayer);
+            if (lv_aPlayer < 0) { break; }
+            libNtve_gf_SetUpgradeLevelForPlayer(lv_aPlayer, lib1B69CECC_gv_upgradesArray[lv_index], 0);
+        }
     }
     lib1B69CECC_gv_upgradesCounter = 1;
-    CatalogFieldValueSet(c_gameCatalogUnit, "Hydralisk", "Speed", lp_player, FixedToString(lib1B69CECC_gv_hydralisk_speed, c_fixedPrecisionAny));
-    CatalogFieldValueSet(c_gameCatalogUnit, "Hydralisk", "SpeedMultiplierCreep", lp_player, FixedToString(lib1B69CECC_gv_hydralisk_speed_creep_mul, c_fixedPrecisionAny));
-    CatalogFieldValueSet(c_gameCatalogUnit, "Overlord", "Speed", lp_player, FixedToString(lib1B69CECC_gv_overlord_speed, c_fixedPrecisionAny));
+    auto101D1276_g = lib1B69CECC_gf_nonneutral_players();
+    lv_aPlayer = -1;
+    while (true) {
+        lv_aPlayer = PlayerGroupNextPlayer(auto101D1276_g, lv_aPlayer);
+        if (lv_aPlayer < 0) { break; }
+        CatalogFieldValueSet(c_gameCatalogUnit, "Hydralisk", "Speed", lv_aPlayer, FixedToString(lib1B69CECC_gv_hydralisk_speed, c_fixedPrecisionAny));
+        CatalogFieldValueSet(c_gameCatalogUnit, "Hydralisk", "SpeedMultiplierCreep", lv_aPlayer, FixedToString(lib1B69CECC_gv_hydralisk_speed_creep_mul, c_fixedPrecisionAny));
+        CatalogFieldValueSet(c_gameCatalogUnit, "Overlord", "Speed", lv_aPlayer, FixedToString(lib1B69CECC_gv_overlord_speed, c_fixedPrecisionAny));
+    }
 }
 
 void lib1B69CECC_gf_InitialiseStalemateDetection () {
@@ -933,7 +948,7 @@ void lib1B69CECC_gf_ResetTechFunction () {
     while (true) {
         lv_intPlayer = PlayerGroupNextPlayer(auto7B21BD26_g, lv_intPlayer);
         if (lv_intPlayer < 0) { break; }
-        lib1B69CECC_gf_ResetTechForPlayer(lv_intPlayer);
+        lib1B69CECC_gf_ResetTech();
     }
 }
 
@@ -985,8 +1000,8 @@ void lib1B69CECC_gf_ResetGame () {
     lib1B69CECC_gf_ResetRocks();
     lib1B69CECC_gf_CleanUpCreep();
     lib1B69CECC_gf_CleanUpPlayersAndObservers();
+    lib1B69CECC_gf_ResetTech();
     lib1B69CECC_gf_ResetFogofWar();
-    lib1B69CECC_gf_ResetTechFunction();
     lib1B69CECC_gf_ResetRevealStatus();
     lib1B69CECC_gf_StopClock();
     lib1B69CECC_gf_StopStalemateDetection();
