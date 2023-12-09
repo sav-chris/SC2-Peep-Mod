@@ -1094,8 +1094,12 @@ string lib1B69CECC_gf_choose_race (int lp_race_index) {
         lv_new_idx = RandomInt(2, 7);
     }
 
-    if ((lp_race_index > 7)) {
-        lv_new_idx = RandomInt(2, 7);
+    if ((lp_race_index == 8)) {
+        lv_new_idx = RandomInt(2, 4);
+    }
+
+    if ((lp_race_index > 8)) {
+        lv_new_idx = RandomInt(5, 7);
     }
 
     autoBDC9761C_val = lv_new_idx;
@@ -1973,6 +1977,8 @@ void lib1B69CECC_gf_InitialisePlayDialog () {
     DialogControlAddItem(lib1B69CECC_gv_ui_play_race, PlayerGroupAll(), StringExternal("Param/Value/lib_1B69CECC_C874B829"));
     DialogControlAddItem(lib1B69CECC_gv_ui_play_race, PlayerGroupAll(), StringExternal("Param/Value/lib_1B69CECC_5F50D4B5"));
     DialogControlAddItem(lib1B69CECC_gv_ui_play_race, PlayerGroupAll(), StringExternal("Param/Value/lib_1B69CECC_3578C5FD"));
+    DialogControlAddItem(lib1B69CECC_gv_ui_play_race, PlayerGroupAll(), StringExternal("Param/Value/lib_1B69CECC_3F87DEEC"));
+    DialogControlAddItem(lib1B69CECC_gv_ui_play_race, PlayerGroupAll(), StringExternal("Param/Value/lib_1B69CECC_E3EA37B0"));
     DialogControlSelectItem(lib1B69CECC_gv_ui_play_race, PlayerGroupAll(), 1);
     DialogControlAddItem(lib1B69CECC_gv_ui_play_league, PlayerGroupAll(), StringExternal("Param/Value/lib_1B69CECC_299A8AD4"));
     DialogControlAddItem(lib1B69CECC_gv_ui_play_league, PlayerGroupAll(), StringExternal("Param/Value/lib_1B69CECC_DD98C82C"));
