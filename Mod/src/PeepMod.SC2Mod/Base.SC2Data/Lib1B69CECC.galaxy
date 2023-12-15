@@ -30,6 +30,7 @@ void lib1B69CECC_InitVariables () {
     lib1B69CECC_gv_upgradesCounter = 1;
     lib1B69CECC_gv_tmr_stalemate_message = TimerCreate();
     lib1B69CECC_gv_tmr_stalemate = TimerCreate();
+    lib1B69CECC_gv_game_start_time = FixedToInt(GameGetMissionTime());
     for (init_i = 0; init_i <= 2; init_i += 1) {
         lib1B69CECC_gv_reveal_timer_record[init_i].lv_time_left = 30;
     }
@@ -284,8 +285,8 @@ void lib1B69CECC_gf_DisplayRaceIcon (int lp_player, structref<lib1B69CECC_gs_Pla
 void lib1B69CECC_gf_StartClock () {
     // Automatic Variable Declarations
     // Implementation
-    lib1B69CECC_gv_time_diff = 0;
     lib1B69CECC_gv_game_started = true;
+    lib1B69CECC_gv_game_start_time = FixedToInt(GameGetMissionTime());
     lib1B69CECC_gf_SetClockSkin();
 }
 
@@ -294,7 +295,6 @@ void lib1B69CECC_gf_StopClock () {
     // Implementation
     lib1B69CECC_gv_game_started = false;
     lib1B69CECC_gf_ResetClockDisplay();
-    lib1B69CECC_gv_time_diff = 0;
 }
 
 void lib1B69CECC_gf_ResetRevealStatus () {
@@ -2645,6 +2645,7 @@ void lib1B69CECC_gt_UpdateResourceIconsTrigger_Init () {
 //--------------------------------------------------------------------------------------------------
 bool lib1B69CECC_gt_SetTimeTrigger_Func (bool testConds, bool runActions) {
     // Variable Declarations
+    int lv_time_diff;
     color lv_colour;
 
     // Automatic Variable Declarations
@@ -2663,15 +2664,15 @@ bool lib1B69CECC_gt_SetTimeTrigger_Func (bool testConds, bool runActions) {
         return true;
     }
 
-    lib1B69CECC_gv_time_diff += 1;
-    libNtve_gf_SetDialogItemText(lib1B69CECC_gv_ui_clocklabel, TextWithColor(lib1B69CECC_gf_convertSecondsToTime(lib1B69CECC_gv_time_diff), lv_colour), PlayerGroupAll());
+    lv_time_diff = FixedToInt(((FixedToInt(GameGetMissionTime()) - lib1B69CECC_gv_game_start_time) / 1.4));
+    libNtve_gf_SetDialogItemText(lib1B69CECC_gv_ui_clocklabel, TextWithColor(lib1B69CECC_gf_convertSecondsToTime(lv_time_diff), lv_colour), PlayerGroupAll());
     return true;
 }
 
 //--------------------------------------------------------------------------------------------------
 void lib1B69CECC_gt_SetTimeTrigger_Init () {
     lib1B69CECC_gt_SetTimeTrigger = TriggerCreate("lib1B69CECC_gt_SetTimeTrigger_Func");
-    TriggerAddEventTimePeriodic(lib1B69CECC_gt_SetTimeTrigger, 1.0, c_timeGame);
+    TriggerAddEventTimePeriodic(lib1B69CECC_gt_SetTimeTrigger, 0.0625, c_timeGame);
 }
 
 //--------------------------------------------------------------------------------------------------
