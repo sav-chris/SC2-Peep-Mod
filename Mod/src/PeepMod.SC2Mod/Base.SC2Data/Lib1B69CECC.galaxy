@@ -98,6 +98,26 @@ void lib1B69CECC_InitVariables () {
 }
 
 // Functions
+void lib1B69CECC_gf_HandleCamEvent (int lp_intPlayer, int lp_intInterestIndex, unit lp_uUnit) {
+    // Automatic Variable Declarations
+    playergroup auto0B9FD759_g;
+    int auto0B9FD759_var;
+
+    // Implementation
+    if ((lib1B69CECC_gf_is_higher_priority_event(lp_intInterestIndex, lib1B69CECC_gv_real_time) == true)) {
+        lib1B69CECC_gv_current_autocam_event.lv_timestamp = lib1B69CECC_gv_real_time;
+        lib1B69CECC_gv_current_autocam_event.lv_interest_level = lp_intInterestIndex;
+        auto0B9FD759_g = lib1B69CECC_gv_oBSERVERS;
+        auto0B9FD759_var = -1;
+        while (true) {
+            auto0B9FD759_var = PlayerGroupNextPlayer(auto0B9FD759_g, auto0B9FD759_var);
+            if (auto0B9FD759_var < 0) { break; }
+            CameraPan(auto0B9FD759_var, UnitGetPosition(lp_uUnit), 0.6, -1, 50, false);
+        }
+    }
+
+}
+
 void lib1B69CECC_gf_RecordUnitSpeeds () {
     // Automatic Variable Declarations
     // Implementation
@@ -454,6 +474,16 @@ bool lib1B69CECC_gf_ShouldPlayerBeRevealed (int lp_player) {
 
     }
     return (UnitGroupCount(lv_units, c_unitCountAlive) == 0);
+}
+
+void lib1B69CECC_gf_InitialiseVariables () {
+    // Automatic Variable Declarations
+    // Implementation
+    lib1B69CECC_gv_current_autocam_event.lv_realCamEventCooldowns[1] = 2.5;
+    lib1B69CECC_gv_current_autocam_event.lv_realCamEventCooldowns[2] = 4.0;
+    lib1B69CECC_gv_current_autocam_event.lv_realCamEventCooldowns[3] = 5.0;
+    lib1B69CECC_gv_current_autocam_event.lv_realCamEventCooldowns[4] = 5.0;
+    lib1B69CECC_gv_current_autocam_event.lv_realCamEventCooldowns[5] = 2.5;
 }
 
 void lib1B69CECC_gf_KillPlayerRealUnits (int lp_player) {
@@ -1345,6 +1375,12 @@ text lib1B69CECC_gf_format_player_name (int lp_player) {
     return (lv_race_icon + PlayerName(lp_player));
 }
 
+bool lib1B69CECC_gf_is_higher_priority_event (int lp_interest_level, int lp_timestamp) {
+    // Automatic Variable Declarations
+    // Implementation
+    return ((lp_interest_level >= lib1B69CECC_gv_current_autocam_event.lv_interest_level) || (((lib1B69CECC_gv_real_time + FixedToInt(lib1B69CECC_gv_current_autocam_event.lv_realCamEventCooldowns[lp_interest_level])) <= lp_timestamp) == true));
+}
+
 text lib1B69CECC_gf_race_to_text (int lp_race) {
     // Automatic Variable Declarations
     int autoE285AC27_val;
@@ -2134,6 +2170,301 @@ void lib1B69CECC_gf_DependencyMessage () {
 }
 
 // Triggers
+//--------------------------------------------------------------------------------------------------
+// Trigger: Scouting
+//--------------------------------------------------------------------------------------------------
+bool lib1B69CECC_gt_Scouting_Func (bool testConds, bool runActions) {
+    // Variable Declarations
+    unit lv_uUnit;
+    int lv_intPlayer;
+    string lv_utUnitType;
+    order lv_oOrder;
+    int lv_interest;
+
+    // Automatic Variable Declarations
+    // Variable Initialization
+    lv_uUnit = EventUnit();
+    lv_intPlayer = EventPlayer();
+    lv_utUnitType = UnitGetType(lv_uUnit);
+    lv_oOrder = EventUnitOrder();
+    lv_interest = 1;
+
+    // Conditions
+    if (testConds) {
+        if (!(((lv_utUnitType == "SCV") || (lv_utUnitType == "Probe") || (lv_utUnitType == "Drone") || (lv_utUnitType == "DroneBurrowed") || (lv_utUnitType == "Overlord") || (lv_utUnitType == "Overseer") || (lv_utUnitType == "Observer") || (lv_utUnitType == "Raven")))) {
+            return false;
+        }
+    }
+
+    // Actions
+    if (!runActions) {
+        return true;
+    }
+
+    lib1B69CECC_gf_HandleCamEvent(lv_intPlayer, lv_interest, lv_uUnit);
+    return true;
+}
+
+//--------------------------------------------------------------------------------------------------
+void lib1B69CECC_gt_Scouting_Init () {
+    lib1B69CECC_gt_Scouting = TriggerCreate("lib1B69CECC_gt_Scouting_Func");
+    TriggerAddEventUnitOrder(lib1B69CECC_gt_Scouting, null, AbilityCommand("move", 0));
+    TriggerAddEventUnitOrder(lib1B69CECC_gt_Scouting, null, AbilityCommand("attack", 0));
+}
+
+//--------------------------------------------------------------------------------------------------
+// Trigger: Builds Structure
+//--------------------------------------------------------------------------------------------------
+bool lib1B69CECC_gt_BuildsStructure_Func (bool testConds, bool runActions) {
+    // Variable Declarations
+    unit lv_uUnit;
+    int lv_intPlayer;
+    string lv_utUnitType;
+    order lv_oOrder;
+    int lv_interest;
+
+    // Automatic Variable Declarations
+    // Variable Initialization
+    lv_uUnit = EventUnit();
+    lv_intPlayer = EventPlayer();
+    lv_utUnitType = UnitGetType(lv_uUnit);
+    lv_oOrder = EventUnitOrder();
+    lv_interest = 2;
+
+    // Actions
+    if (!runActions) {
+        return true;
+    }
+
+    lib1B69CECC_gf_HandleCamEvent(lv_intPlayer, lv_interest, lv_uUnit);
+    return true;
+}
+
+//--------------------------------------------------------------------------------------------------
+void lib1B69CECC_gt_BuildsStructure_Init () {
+    lib1B69CECC_gt_BuildsStructure = TriggerCreate("lib1B69CECC_gt_BuildsStructure_Func");
+    TriggerAddEventUnitConstructProgress(lib1B69CECC_gt_BuildsStructure, null, c_unitProgressStageStart);
+}
+
+//--------------------------------------------------------------------------------------------------
+// Trigger: Enhances Structure
+//--------------------------------------------------------------------------------------------------
+bool lib1B69CECC_gt_EnhancesStructure_Func (bool testConds, bool runActions) {
+    // Variable Declarations
+    unit lv_uUnit;
+    int lv_intPlayer;
+    string lv_utUnitType;
+    order lv_oOrder;
+    int lv_interest;
+
+    // Automatic Variable Declarations
+    // Variable Initialization
+    lv_uUnit = EventUnit();
+    lv_intPlayer = EventPlayer();
+    lv_utUnitType = UnitGetType(lv_uUnit);
+    lv_oOrder = EventUnitOrder();
+    lv_interest = 2;
+
+    // Actions
+    if (!runActions) {
+        return true;
+    }
+
+    lib1B69CECC_gf_HandleCamEvent(lv_intPlayer, lv_interest, lv_uUnit);
+    return true;
+}
+
+//--------------------------------------------------------------------------------------------------
+void lib1B69CECC_gt_EnhancesStructure_Init () {
+    lib1B69CECC_gt_EnhancesStructure = TriggerCreate("lib1B69CECC_gt_EnhancesStructure_Func");
+    TriggerAddEventUnitAbility(lib1B69CECC_gt_EnhancesStructure, null, AbilityCommand("UpgradeToOrbital", 0), c_unitAbilStageExecute, false);
+    TriggerAddEventUnitAbility(lib1B69CECC_gt_EnhancesStructure, null, AbilityCommand("UpgradeToPlanetaryFortress", 0), c_unitAbilStageExecute, false);
+    TriggerAddEventUnitAbility(lib1B69CECC_gt_EnhancesStructure, null, AbilityCommand("UpgradeToWarpGate", 255), c_unitAbilStageExecute, false);
+    TriggerAddEventUnitAbility(lib1B69CECC_gt_EnhancesStructure, null, AbilityCommand("UpgradeToLair", 255), c_unitAbilStageExecute, false);
+    TriggerAddEventUnitAbility(lib1B69CECC_gt_EnhancesStructure, null, AbilityCommand("UpgradeToHive", 255), c_unitAbilStageExecute, false);
+    TriggerAddEventUnitAbility(lib1B69CECC_gt_EnhancesStructure, null, AbilityCommand("UpgradeToGreaterSpire", 255), c_unitAbilStageExecute, false);
+}
+
+//--------------------------------------------------------------------------------------------------
+// Trigger: Cancels Structure
+//--------------------------------------------------------------------------------------------------
+bool lib1B69CECC_gt_CancelsStructure_Func (bool testConds, bool runActions) {
+    // Variable Declarations
+    unit lv_uUnit;
+    int lv_intPlayer;
+    string lv_utUnitType;
+    order lv_oOrder;
+    int lv_interest;
+
+    // Automatic Variable Declarations
+    // Variable Initialization
+    lv_uUnit = EventUnit();
+    lv_intPlayer = EventPlayer();
+    lv_utUnitType = UnitGetType(lv_uUnit);
+    lv_oOrder = EventUnitOrder();
+    lv_interest = 2;
+
+    // Actions
+    if (!runActions) {
+        return true;
+    }
+
+    lib1B69CECC_gf_HandleCamEvent(lv_intPlayer, lv_interest, lv_uUnit);
+    return true;
+}
+
+//--------------------------------------------------------------------------------------------------
+void lib1B69CECC_gt_CancelsStructure_Init () {
+    lib1B69CECC_gt_CancelsStructure = TriggerCreate("lib1B69CECC_gt_CancelsStructure_Func");
+    TriggerAddEventUnitConstructProgress(lib1B69CECC_gt_CancelsStructure, null, c_unitProgressStageCancel);
+}
+
+//--------------------------------------------------------------------------------------------------
+// Trigger: Unit Ordered to Move/Attack
+//--------------------------------------------------------------------------------------------------
+bool lib1B69CECC_gt_UnitOrderedtoMoveAttack_Func (bool testConds, bool runActions) {
+    // Variable Declarations
+    unit lv_uUnit;
+    int lv_intPlayer;
+    string lv_utUnitType;
+    order lv_oOrder;
+    int lv_intStructureCount;
+    int lv_interest;
+
+    // Automatic Variable Declarations
+    // Variable Initialization
+    lv_uUnit = EventUnit();
+    lv_intPlayer = EventPlayer();
+    lv_utUnitType = UnitGetType(lv_uUnit);
+    lv_oOrder = EventUnitOrder();
+    lv_interest = 3;
+
+    // Conditions
+    if (testConds) {
+        if (!((lv_utUnitType != "SCV"))) {
+            return false;
+        }
+
+        if (!((lv_utUnitType != "Probe"))) {
+            return false;
+        }
+
+        if (!((lv_utUnitType != "Drone"))) {
+            return false;
+        }
+
+        if (!((lv_utUnitType != "DroneBurrowed"))) {
+            return false;
+        }
+
+        if (!((lv_utUnitType != "Overlord"))) {
+            return false;
+        }
+
+        if (!((lv_utUnitType != "Overseer"))) {
+            return false;
+        }
+
+        if (!((lv_utUnitType != "Observer"))) {
+            return false;
+        }
+
+        if (!((lv_utUnitType != "Raven"))) {
+            return false;
+        }
+    }
+
+    // Actions
+    if (!runActions) {
+        return true;
+    }
+
+    lib1B69CECC_gf_HandleCamEvent(lv_intPlayer, lv_interest, lv_uUnit);
+    return true;
+}
+
+//--------------------------------------------------------------------------------------------------
+void lib1B69CECC_gt_UnitOrderedtoMoveAttack_Init () {
+    lib1B69CECC_gt_UnitOrderedtoMoveAttack = TriggerCreate("lib1B69CECC_gt_UnitOrderedtoMoveAttack_Func");
+    TriggerAddEventUnitOrder(lib1B69CECC_gt_UnitOrderedtoMoveAttack, null, AbilityCommand("move", 0));
+    TriggerAddEventUnitOrder(lib1B69CECC_gt_UnitOrderedtoMoveAttack, null, AbilityCommand("attack", 0));
+}
+
+//--------------------------------------------------------------------------------------------------
+// Trigger: Unit is Attacked
+//--------------------------------------------------------------------------------------------------
+bool lib1B69CECC_gt_UnitisAttacked_Func (bool testConds, bool runActions) {
+    // Variable Declarations
+    unit lv_uUnit;
+    int lv_intPlayer;
+    string lv_utUnitType;
+    order lv_oOrder;
+    int lv_interest;
+
+    // Automatic Variable Declarations
+    // Variable Initialization
+    lv_uUnit = EventUnit();
+    lv_intPlayer = EventPlayer();
+    lv_utUnitType = UnitGetType(lv_uUnit);
+    lv_oOrder = EventUnitOrder();
+    lv_interest = 4;
+
+    // Actions
+    if (!runActions) {
+        return true;
+    }
+
+    lib1B69CECC_gf_HandleCamEvent(lv_intPlayer, lv_interest, lv_uUnit);
+    return true;
+}
+
+//--------------------------------------------------------------------------------------------------
+void lib1B69CECC_gt_UnitisAttacked_Init () {
+    lib1B69CECC_gt_UnitisAttacked = TriggerCreate("lib1B69CECC_gt_UnitisAttacked_Func");
+    TriggerAddEventUnitAttacked2(lib1B69CECC_gt_UnitisAttacked, null, null);
+}
+
+//--------------------------------------------------------------------------------------------------
+// Trigger: Building Razed
+//--------------------------------------------------------------------------------------------------
+bool lib1B69CECC_gt_BuildingRazed_Func (bool testConds, bool runActions) {
+    // Variable Declarations
+    unit lv_uUnit;
+    int lv_intPlayer;
+    string lv_utUnitType;
+    order lv_oOrder;
+    int lv_interest;
+
+    // Automatic Variable Declarations
+    // Variable Initialization
+    lv_uUnit = EventUnit();
+    lv_intPlayer = EventPlayer();
+    lv_utUnitType = UnitGetType(lv_uUnit);
+    lv_oOrder = EventUnitOrder();
+    lv_interest = 5;
+
+    // Conditions
+    if (testConds) {
+        if (!((UnitTypeTestAttribute(UnitGetType(EventUnit()), c_unitAttributeStructure) == true))) {
+            return false;
+        }
+    }
+
+    // Actions
+    if (!runActions) {
+        return true;
+    }
+
+    lib1B69CECC_gf_HandleCamEvent(lv_intPlayer, lv_interest, lv_uUnit);
+    return true;
+}
+
+//--------------------------------------------------------------------------------------------------
+void lib1B69CECC_gt_BuildingRazed_Init () {
+    lib1B69CECC_gt_BuildingRazed = TriggerCreate("lib1B69CECC_gt_BuildingRazed_Func");
+    TriggerAddEventUnitDied(lib1B69CECC_gt_BuildingRazed, null);
+}
+
 //--------------------------------------------------------------------------------------------------
 // Trigger: Upgrade is researched
 //--------------------------------------------------------------------------------------------------
@@ -3200,6 +3531,7 @@ bool lib1B69CECC_gt_MeleeInitialization_Func (bool testConds, bool runActions) {
     }
 
     GameSetSpeedValue(c_gameSpeedFaster);
+    lib1B69CECC_gf_InitialiseVariables();
     lib1B69CECC_gf_RecordUnitSpeeds();
     lib1B69CECC_gf_DisableResourceTrading();
     lib1B69CECC_gf_InitialiseRaceSelections();
@@ -3226,6 +3558,13 @@ void lib1B69CECC_gt_MeleeInitialization_Init () {
 }
 
 void lib1B69CECC_InitTriggers () {
+    lib1B69CECC_gt_Scouting_Init();
+    lib1B69CECC_gt_BuildsStructure_Init();
+    lib1B69CECC_gt_EnhancesStructure_Init();
+    lib1B69CECC_gt_CancelsStructure_Init();
+    lib1B69CECC_gt_UnitOrderedtoMoveAttack_Init();
+    lib1B69CECC_gt_UnitisAttacked_Init();
+    lib1B69CECC_gt_BuildingRazed_Init();
     lib1B69CECC_gt_Upgradeisresearched_Init();
     lib1B69CECC_gt_UpdateGenetronEnergyDisplayTrigger_Init();
     lib1B69CECC_gt_EnemyStructureDestroyedTrigger_Init();

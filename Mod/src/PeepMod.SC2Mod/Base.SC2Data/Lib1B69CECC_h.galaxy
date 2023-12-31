@@ -34,6 +34,12 @@ struct lib1B69CECC_gs_PlayerEnergy {
     int lv_ui_genetron_energy_max;
 };
 
+struct lib1B69CECC_gs_AutoCamEvent {
+    int lv_interest_level;
+    int lv_timestamp;
+    fixed[6] lv_realCamEventCooldowns;
+};
+
 struct lib1B69CECC_gs_MapFeature {
     point lv_position;
     fixed lv_facing;
@@ -113,6 +119,7 @@ int lib1B69CECC_gv_ui_lobby_timer_dialog;
 int lib1B69CECC_gv_ui_lobby_pane;
 int lib1B69CECC_gv_ui_lobby_list_frame;
 int lib1B69CECC_gv_ui_lobby_list;
+lib1B69CECC_gs_AutoCamEvent lib1B69CECC_gv_current_autocam_event;
 int lib1B69CECC_gv_featureCount;
 lib1B69CECC_gs_MapFeature[257] lib1B69CECC_gv_mapFeatures;
 lib1B69CECC_gs_PlayerStats lib1B69CECC_gv_playerOne;
@@ -123,6 +130,7 @@ int lib1B69CECC_gv_pLATES_COUNT;
 lib1B69CECC_gs_Lobby lib1B69CECC_gv_theLobby;
 
 // Function Declarations
+void lib1B69CECC_gf_HandleCamEvent (int lp_intPlayer, int lp_intInterestIndex, unit lp_uUnit);
 void lib1B69CECC_gf_RecordUnitSpeeds ();
 void lib1B69CECC_gf_ResetTech ();
 void lib1B69CECC_gf_InitialiseStalemateDetection ();
@@ -142,6 +150,7 @@ bool lib1B69CECC_gf_IsPlayeralreadyinrecord (int lp_player);
 void lib1B69CECC_gf_StartRevealTimerCountdown (int lp_player, int lp_index);
 void lib1B69CECC_gf_StartRevealTimer (int lp_player);
 bool lib1B69CECC_gf_ShouldPlayerBeRevealed (int lp_player);
+void lib1B69CECC_gf_InitialiseVariables ();
 void lib1B69CECC_gf_KillPlayerRealUnits (int lp_player);
 void lib1B69CECC_gf_ResetAllScores ();
 void lib1B69CECC_gf_ResetScore (int lp_player);
@@ -182,6 +191,7 @@ playergroup lib1B69CECC_gf_choose_a_player (playergroup lp_players_in);
 playergroup lib1B69CECC_gf_ChooseObserversFromLobby (playergroup lp_lobby, playergroup lp_players);
 void lib1B69CECC_gf_ResetLobbyUI ();
 text lib1B69CECC_gf_format_player_name (int lp_player);
+bool lib1B69CECC_gf_is_higher_priority_event (int lp_interest_level, int lp_timestamp);
 text lib1B69CECC_gf_race_to_text (int lp_race);
 text lib1B69CECC_gf_convertSecondsToTime (int lp_intTotalSeconds);
 playergroup lib1B69CECC_gf_nonneutral_players ();
@@ -239,6 +249,13 @@ void lib1B69CECC_gf_JoinLobby (int lp_thePlayer, structref<lib1B69CECC_gs_Lobby>
 void lib1B69CECC_gf_DependencyMessage ();
 
 // Trigger Declarations
+trigger lib1B69CECC_gt_Scouting;
+trigger lib1B69CECC_gt_BuildsStructure;
+trigger lib1B69CECC_gt_EnhancesStructure;
+trigger lib1B69CECC_gt_CancelsStructure;
+trigger lib1B69CECC_gt_UnitOrderedtoMoveAttack;
+trigger lib1B69CECC_gt_UnitisAttacked;
+trigger lib1B69CECC_gt_BuildingRazed;
 trigger lib1B69CECC_gt_Upgradeisresearched;
 trigger lib1B69CECC_gt_UpdateGenetronEnergyDisplayTrigger;
 trigger lib1B69CECC_gt_EnemyStructureDestroyedTrigger;
