@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Catalog>
+    <CWater id="Agria">
+        <State index="0">
+            <Height value="3.400000"/>
+            <Color value="0.807843,0.525490,0.141176,0.436000"/>
+            <ColorFallOff value="0.171000"/>
+            <CausticsFallOff value="0.080000"/>
+            <Specularity value="86.000000"/>
+            <SpecularScaler value="1.980000"/>
+            <UvRate value="0.092267,-0.136791,0.000000,0.000000"/>
+            <MeshRoughness value="0.024000"/>
+            <TextureRoughness value="0.041000"/>
+            <RefractionDistortion value="0.020000"/>
+        </State>
+        <IsLava value="1"/>
+    </CWater>
+    <CWater id="Redstone">
+        <State index="0" Height="1.050000"/>
+    </CWater>
+</Catalog>
